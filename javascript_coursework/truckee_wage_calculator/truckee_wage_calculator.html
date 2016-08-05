@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Truckee Wage Calculator</title>
+    <style>
+      body {
+        border: solid 1px gray;
+        padding: 2%;
+        width: 500px;
+      }  
+      fieldset {
+          border: none;
+          width: 400px;
+      }
+      
+      input {
+          float: right;
+          padding: 2px;
+      }
+      #salary {
+        color: green;
+      }      
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>TRUCKEE COMPANY WAGE&nbsp;CALCULATOR</h1>
+    </header>
+
+    <article>
+        <form>
+            <fieldset>
+                <label for="totalMiles">
+                    Enter The Number of Miles Traveled:
+                </label>
+                <input type="number" id="totalMiles" placeholder="example: 500" />
+            </fieldset>
+
+            <fieldset>
+                <label for="mileRate">
+                    Enter Per-Mile Rate in Dollars:
+                </label>
+                <input type="number" id="mileRate" placeholder="example: 0.08" />
+            </fieldset>
+
+            <hr />
+            <fieldset>
+              <h3>Calculated Salary:
+                <span id="salary">&#36;0</span>
+              </h3>
+            </fieldset>
+        </form>
+    </article>
+
+    <script>
+
+      // multiplies total miles traveled by mileage rate to get total salary
+      function calcSalary(totalMiles, mileRate) {
+        totalMiles = parseFloat(document.getElementById("totalMiles").value) || 0;
+        mileRate = parseFloat(document.getElementById("mileRate").value) || 0;
+
+        return "&#36;" + (totalMiles * mileRate).toFixed(2);
+      }
+
+      // outputs calculated salary to DOM
+      function putSalary() {
+        return document.getElementById("salary").innerHTML = calcSalary();
+      }
+
+      // initializes DOM event listeners
+      document.getElementById("totalMiles").addEventListener("keyup", putSalary);
+      document.getElementById("mileRate").addEventListener("keyup", putSalary);
+    </script>
+
+</body>
+
+</html>
