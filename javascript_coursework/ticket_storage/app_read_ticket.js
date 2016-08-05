@@ -1,31 +1,21 @@
-// reads a ticket across parallel arrays based on a foreign key
+// uses foreign key to read a ticket across parallel arrays
 function readTicket() {
-  foreignKey = 0;
-
-  // ensures the user inputs 6 characters longer
-  function validateQueryLength(query) {    
-    return query.toString().length === 6;
-  }
-
-  // ensures the user inputs a value that can be parsed to an integer
-  function validateQueryIsInteger(query) {
-    return Number.isInteger(parseInt(query));
-  }
-
   function getQuery(){
     var query_id = 0;
-    query_id = prompt("Input a 6-Digit Ticket ID to Begin Your Search");
+    var parsed_query_id = 0;
 
-    if(validateQueryIsInteger(query_id) && validateQueryLength(query_id)) {
-      return query_id;
+    query_id = prompt("Enter a 6-Digit Ticket ID to Begin Your Search");
+    parsed_query_id = parseInt(query_id);
+
+    if(validateIdLen(parsed_query_id)) {
+      return parsed_query_id;
     } else {
-      alert("Please enter a 6-digit integer value");
       getQuery();
     }
   }
   
+  // finds the foreign key based on the parsed_query_id
   foreignKey = getForeignKey(getQuery());
-  console.log(foreignKey);
 
   // displays ticket if found in the database
   // otherwise prompts user to start a new query

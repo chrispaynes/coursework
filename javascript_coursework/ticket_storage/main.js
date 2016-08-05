@@ -11,7 +11,7 @@ function readIndex() {
     document.getElementById("id").innerHTML += idArr[i] + "<br>";
     document.getElementById("client").innerHTML += clientArr[i] + "<br>";
     document.getElementById("status").innerHTML += statusArr[i] + "<br>";
-    document.getElementById("cost").innerHTML += "$" + costArr[i] + "<br>";
+    document.getElementById("cost").innerHTML += "&#36;" + costArr[i] + "<br>";
   }
 };
 
@@ -19,4 +19,14 @@ function readIndex() {
 function getForeignKey(queryId) {
   foreignKey = idArr.indexOf(parseInt(queryId));
   return foreignKey;
+}
+
+// ensures the id is a six digit integer value
+function validateIdLen(id_length) {
+  if(Number.isInteger(id_length) && id_length.toString().length === 6) {
+    return true;
+  } else {
+    alert("The ticket_id must be a 6 digit integer");
+    return false;
+  }
 }
