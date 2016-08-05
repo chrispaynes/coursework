@@ -5,17 +5,7 @@ function createTicket() {
   var insertion_index = 0;
   var data_hash_map = {}; 
 
-  // ensures the id is a six digit integer value
-  function validateIdLen(id_length) {
-    if(Number.isInteger(id_length) && id_length.toString().length === 6) {
-      return true;
-    } else {
-      alert("The ticket_id must be a 6 digit integer");
-      return false;
-    }
-  }
-
-  // ensures the id does not already exist
+  // ensures an id does not already exist
   function validateUniqueId(unique_id) {
     for(var id in idArr) {
       if(unique_id != idArr[id]) {
@@ -31,7 +21,7 @@ function createTicket() {
   // validates and returns ticket id
   function getTicketId(){
     var ticket_id = 0;
-    ticket_id = prompt("enter a 6 digit ticket id");
+    ticket_id = prompt("Enter a 6 Digit Ticket Id");
     parsed_ticket_id = parseInt(ticket_id);
 
     if(validateIdLen(parsed_ticket_id) && validateUniqueId(parsed_ticket_id)) {
@@ -66,7 +56,7 @@ function createTicket() {
 
     if(validateTicketCost(parsed_ticket_cost)) {
       costArr.push(parseInt(parsed_ticket_cost));
-      return "&#36;" + parsed_ticket_cost;      
+      return "&#36;" + parsed_ticket_cost.toLocaleString();      
     } else {
       getTicketCost()
     }
