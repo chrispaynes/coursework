@@ -1,9 +1,9 @@
 // creates a new production ticket
 function createTicket() {
-  
+
   // data
   var insertion_index = 0;
-  var data_hash_map = {}; 
+  var data_hash_map = {};
 
   // ensures an id does not already exist
   function validateUniqueId(unique_id) {
@@ -51,12 +51,12 @@ function createTicket() {
   // returns the cost prefixed with a dollar sign
   function getTicketCost() {
     var ticket_cost = 0;
-    ticket_cost = prompt("enter a cost");    
+    ticket_cost = prompt("enter a cost");
     parsed_ticket_cost = parseInt(ticket_cost);
 
     if(validateTicketCost(parsed_ticket_cost)) {
       costArr.push(parseInt(parsed_ticket_cost));
-      return "&#36;" + parsed_ticket_cost.toLocaleString();      
+      return "&#36;" + parsed_ticket_cost.toLocaleString();
     } else {
       getTicketCost()
     }
@@ -76,7 +76,7 @@ function createTicket() {
                     "id": getTicketId(),
                     "client": getClient(),
                     "status": getTicketStatus(),
-                    "cost": getTicketCost() };   
+                    "cost": getTicketCost() };
 
   // loops through data_hash_map to write new data
   function writeNew() {
@@ -85,5 +85,5 @@ function createTicket() {
     }
   }
 
-  writeNew();                  
+  writeNew();
 };

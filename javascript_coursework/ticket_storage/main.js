@@ -14,7 +14,6 @@ function initTable() {
 // a foreign key links ticket information across arrays
 function readIndex() {
   initTable()
-
   document.getElementById("scheduleHeader").innerHTML + idArr.length + " TICKETS";
 
   for (var i in idArr) {

@@ -21,6 +21,7 @@ function readTicket() {
   // otherwise prompts user to start a new query
   (function displayTicket() {
     if(foreignKey != -1) {
+      initTable()
       var read_hash_map = { "id": idArr,
                             "client": clientArr,
                             "status": statusArr,
