@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Production Schedule</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
     <style>
       * {
         /*border: solid 1px gray;*/
@@ -17,28 +18,28 @@
         width: 700px;
         margin: auto;
         margin-top: 50px;
-      }  
+      }
       fieldset {
           border: none;
           width: auto;
       }
-      
+
       input {
           float: right;
           padding: 2px;
-      }     
+      }
       th, td {
         padding: 1%;
         /*width: auto;*/
       }
-      td {
+      td, th {
         width: 350px;
       }
       th {
         background-color: lightskyblue;
       }
 
-      #foreign_key {
+      #foreign_key, #btns {
         width: 50px;
       }
 
@@ -48,6 +49,14 @@
 
       #client {
         width: 500px;
+      }
+
+      .delete_btn {
+        border: none;
+        background-color: white;
+      }
+      #schedule_record_0 {
+        display: none;
       }
     </style>
   </head>
@@ -63,33 +72,43 @@
       <button type="button" class="btn btn-success" id="createTicketButton">Create Ticket</button>
       <button type="button" class="btn btn-primary" id="readTicketButton">Read Ticket</button>
       <button type="button" class="btn btn-warning" id="updateTicketButton">Update Ticket</button>
-      <button type="button" class="btn btn-danger" id="deleteTicketButton">Delete Ticket</button>
+      <!-- <button type="button" class="btn btn-danger" id="deleteTicketButton">Delete Ticket</button> -->
     </nav>
-    <!-- end navigation -->    
+    <!-- end navigation -->
 
     <!-- begin production schedule -->
     <table>
       <h1 id="scheduleHeader"></h1>
       <tr>
-        <th>#</th>        
-        <th>Ticket ID</th>        
-        <th>Client</th>        
-        <th>Status</th>        
-        <th>Cost</th>        
+        <th></th>
+        <th>#</th>
+        <th>Ticket ID</th>
+        <th>Client</th>
+        <th>Status</th>
+        <th>Cost</th>
       </tr>
-      <tr>
-        <td id="foreign_key"></td>
-        <td id="id"></td>
-        <td id="client"></td>
-        <td id="status"></td>
-        <td id="cost"></td>
+
+<tr><th></th><th>#</th><th>Ticket ID</th><th>Client</th><th>Status</th><th>Cost</th></tr>
+
+      <tr id="schedule">
+        <td id="btns">
+          <button id='deleteTicketButton' class='delete_btn'>
+            <i class='fa fa-trash-o fa-fw'></i>
+          </button>
+        </td>
+        <td id="foreign_key_"></td>
+        <td id="id_"></td>
+        <td id="client_"></td>
+        <td id="status_"></td>
+        <td id="cost_"></td>
       </tr>
     </table>
-    <!-- end production schedule -->    
+    <!-- end production schedule -->
 
     <!-- app_scripts -->
     <script src="main.js"></script>
     <script src="app_seed_data.js"></script>
+    <script src="app_read_index.js"></script>
     <script src="app_create_ticket.js"></script>
     <script src="app_read_ticket.js"></script>
     <script src="app_update_ticket.js"></script>

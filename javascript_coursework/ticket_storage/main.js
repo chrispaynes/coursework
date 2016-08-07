@@ -1,29 +1,14 @@
 // foreign key to link ticket data across parallel arrays
 var foreignKey = 0;
+var tbl = document.getElementsByTagName("tbody")[0];
+var record = document.getElementById("schedule");
 
-// initializes the table by removing all values
+// initializes the table by removing records
 function initTable() {
-  var init_Table_Map = ["foreign_key", "id", "client", "status", "cost"];
-  for(var col in init_Table_Map) {
-    document.getElementById(init_Table_Map[col]).innerHTML = "";
-  }
+  var hdr = tbl.firstChild.innerHTML;
+  tbl.removeChild(tbl.children[1]);
+  tbl.innerHTML = "<tr><th></th><th>#</th><th>Ticket ID</th><th>Client</th><th>Status</th><th>Cost</th></tr>";
 }
-
-// clears the records currently displayed in the table
-// reads all production tickets across parallel arrays
-// a foreign key links ticket information across arrays
-function readIndex() {
-  initTable()
-  document.getElementById("scheduleHeader").innerHTML + idArr.length + " TICKETS";
-
-  for (var i in idArr) {
-    document.getElementById("foreign_key").innerHTML += i + "<br>";
-    document.getElementById("id").innerHTML += idArr[i] + "<br>";
-    document.getElementById("client").innerHTML += clientArr[i] + "<br>";
-    document.getElementById("status").innerHTML += statusArr[i] + "<br>";
-    document.getElementById("cost").innerHTML += "&#36;" + costArr[i].toLocaleString() + "<br>";
-  }
-};
 
 // private function that creates a foreign key to search for a ticket
 function getForeignKey(queryId) {
@@ -38,5 +23,23 @@ function validateIdLen(id_length) {
   } else {
     alert("The ticket_id must be a positive 6 digit integer");
     return false;
+  }
+}
+
+function populateTable(table_arg, record_arg) {
+  for (var i in idArr) {
+    record_arg.id = "schedule_" + idArr[i];
+    record_arg.children[0].children[0].id = "deleteTicketButton" +idArr[i];
+    record_arg.children[1].textContent = i;
+    record_arg.children[1].id = "foreign_key_" + idArr[i];
+    record_arg.children[2].textContent = idArr[i];
+    record_arg.children[2].id = "id_" + idArr[i];
+    record_arg.children[3].textContent = clientArr[i];
+    record_arg.children[3].id = "client_" + idArr[i];
+    record_arg.children[4].textContent = statusArr[i];
+    record_arg.children[4].id = "status_" + idArr[i];
+    record_arg.children[5].innerHTML = "&#36;" + costArr[i].toLocaleString();
+    record_arg.children[5].id = "cost_" +idArr[i];
+    table_arg.appendChild(record_arg.cloneNode(true));
   }
 }

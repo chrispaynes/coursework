@@ -13,27 +13,31 @@ function readTicket() {
       getQuery();
     }
   }
-  
-  // finds the foreign key based on the parsed_query_id
-  foreignKey = getForeignKey(getQuery());
+
+
 
   // displays ticket if found in the database
   // otherwise prompts user to start a new query
-  (function displayTicket() {
+  (function readTicket() {
+
+    // finds the foreign key based on the parsed_query_id
+    foreignKey = getForeignKey(getQuery());
+
     if(foreignKey != -1) {
       initTable()
-      var read_hash_map = { "id": idArr,
-                            "client": clientArr,
-                            "status": statusArr,
-                            "cost": costArr
-                          };        
+
+      record.id = "schedule_record_" + idArr[foreignKey];
+      record.children[1].textContent = foreignKey;
+      record.children[2].textContent = idArr[foreignKey];
+      record.children[3].textContent = clientArr[foreignKey];
+      record.children[4].textContent = statusArr[foreignKey];
+      record.children[5].innerHTML = "&#36;" + costArr[foreignKey].toLocaleString();
+      tbl.appendChild(record.cloneNode(true));
+
     } else {
       alert("No records found matching that Ticket Id");
       getQuery()
     }
-    for(var key in read_hash_map) {
-      document.getElementById(key).innerHTML += read_hash_map[key][foreignKey] + "<br />";
-    }    
   })();
 
 }
