@@ -16,6 +16,11 @@ function getForeignKey(queryId) {
   return foreignKey;
 }
 
+// determines if user inputs no text or hits cancel button on prompt
+function validateHasInput(input_arg) {
+  return input_arg !== "" && input_arg !== null;
+}
+
 // ensures the id is a six digit integer value
 function validateIdLen(id_length) {
   if(Number.isInteger(id_length) && id_length.toString().length === 6 && id_length >= 100000) {
