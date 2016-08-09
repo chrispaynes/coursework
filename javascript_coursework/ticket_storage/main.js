@@ -16,19 +16,14 @@ function getForeignKey(queryId) {
   return foreignKey;
 }
 
-// determines if user inputs no text or hits cancel button on prompt
-function validateHasInput(input_arg) {
-  return input_arg !== "" && input_arg !== null;
+// validates user enters 6 characters
+function validates6Chars(input_arg) {
+  return input_arg.toString().length === 6;
 }
 
-// ensures the id is a six digit integer value
-function validateIdLen(id_length) {
-  if(Number.isInteger(id_length) && id_length.toString().length === 6 && id_length >= 100000) {
-    return true;
-  } else {
-    alert("The ticket_id must be a positive 6 digit integer");
-    return false;
-  }
+// ensures the input is a 6 integer larger than 100,000
+function validateId(id_length) {
+  return Number.isInteger(id_length) && id_length >= 100000;
 }
 
 function populateTable(table_arg, record_arg) {

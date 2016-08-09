@@ -2,28 +2,29 @@
 function readTicket() {
   function getQuery(){
     var query_id = 0;
-    var parsed_query_id = 0;
 
     // prompts user to enter a search value
     // continues with search if user enters a valid 6 digit entry
     // returns the parsed 6-digit value
     query_id = prompt("Enter a 6-Digit Ticket ID to Begin Your Search");
-    if(validateHasInput(query_id)) {
-      parsed_query_id = parseInt(query_id);
-    } else {
-      return;
+    if(query_id === "" || query_id === null ) {
+    return null;
     }
 
-    if(validateIdLen(parsed_query_id)) {
-      return parsed_query_id;
-    } else {
-      getQuery()
+    else if(validates6Chars(query_id) && validateId(parseInt(query_id))) {
+      return parseInt(query_id);
     }
-  }
+    else {
+      alert("Please Enter a valid 6-Digit Integer");
+      getQuery()
+    } // end else
+
+
+  } // end getQuery()
 
   // displays ticket if found in the database
   // otherwise prompts user to start a new query
-  (function readTicket() {
+  function readTicket() {
 
     // finds the foreign key based on the parsed_query_id
     foreignKey = getForeignKey(getQuery());
@@ -45,6 +46,8 @@ function readTicket() {
       alert("No records found matching that Ticket Id");
       getQuery();
     }
-  })();
+  };
+
+  readTicket();
 
 }
