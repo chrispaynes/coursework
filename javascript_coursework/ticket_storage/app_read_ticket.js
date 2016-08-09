@@ -8,19 +8,15 @@ function readTicket() {
     // returns the parsed 6-digit value
     query_id = prompt("Enter a 6-Digit Ticket ID to Begin Your Search");
     if(query_id === "" || query_id === null ) {
-    return null;
+      return;
     }
-
     else if(validates6Chars(query_id) && validateId(parseInt(query_id))) {
       return parseInt(query_id);
-    }
-    else {
+    } else {
       alert("Please Enter a valid 6-Digit Integer");
       getQuery()
-    } // end else
-
-
-  } // end getQuery()
+    }
+  }
 
   // displays ticket if found in the database
   // otherwise prompts user to start a new query
@@ -30,7 +26,7 @@ function readTicket() {
     foreignKey = getForeignKey(getQuery());
 
     // ensures foreignKey is present in array
-    // ensures 0 does not return a falsy value
+    // ensures 0 does not return a falsy or undefined value
     if(foreignKey >= 0 || foreignKey === 0) {
       initTable()
 
@@ -43,8 +39,8 @@ function readTicket() {
       tbl.appendChild(record.cloneNode(true));
 
     } else if(foreignKey === -1) {
-      alert("No records found matching that Ticket Id");
-      getQuery();
+      // alert("No records found matching that Ticket Id");
+      // getQuery();
     }
   };
 

@@ -24,7 +24,7 @@ function createTicket() {
     ticket_id = prompt("Enter a 6 Digit Ticket Id");
     parsed_ticket_id = parseInt(ticket_id);
 
-    if(validateIdLen(parsed_ticket_id) && validateUniqueId(parsed_ticket_id)) {
+    if(validateId(parsed_ticket_id) && validateUniqueId(parsed_ticket_id)) {
       idArr.push(parseInt(parsed_ticket_id));
       return parsed_ticket_id;
     } else {
