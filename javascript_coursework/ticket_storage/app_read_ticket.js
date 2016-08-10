@@ -25,6 +25,7 @@ function readTicket() {
     // finds the foreign key based on the parsed_query_id
     foreignKey = getForeignKey(getQuery());
 
+    console.log(foreignKey);
     // ensures foreignKey is present in array
     // ensures 0 does not return a falsy or undefined value
     if(foreignKey >= 0 || foreignKey === 0) {
@@ -39,7 +40,7 @@ function readTicket() {
       tbl.appendChild(record.cloneNode(true));
 
     } else if(foreignKey === -1) {
-      // alert("No records found matching that Ticket Id");
+      alert("No records found matching that Ticket Id");
       // getQuery();
     }
   };

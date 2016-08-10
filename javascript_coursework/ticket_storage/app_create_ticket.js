@@ -32,18 +32,13 @@ function createTicket() {
     }
   }
 
-  // prompts user to enter a client name
-  function getClient() {
-    var client = prompt("enter a client name");
-    clientArr.push(client);
-    return client;
-  }
-
-  // prompts user to enter a ticket status
-  function getTicketStatus() {
-    var ticket_status = prompt("enter a ticket status");
-    statusArr.push(ticket_status);
-    return ticket_status;
+  // prompts user to enter a string value
+  // pushes string value to specified array array
+  // returns the entered value
+  function getString(get_var, get_prompt, get_array) {
+    var get_var = prompt(get_prompt);
+    get_array.push(get_var)
+    return get_var;
   }
 
   // prompts user to enter a ticket cost
@@ -52,33 +47,32 @@ function createTicket() {
   function getTicketCost() {
     var ticket_cost = 0;
     ticket_cost = prompt("enter a cost");
-    parsed_ticket_cost = parseInt(ticket_cost);
 
-    if(validateTicketCost(parsed_ticket_cost)) {
-      costArr.push(parseInt(parsed_ticket_cost));
-      return "&#36;" + parsed_ticket_cost.toLocaleString();
+    if(validateTicketInteger(ticket_cost)) {
+      costArr.push(parseInt(ticket_cost));
+      return "&#36;" + parseInt(ticket_cost).toLocaleString();
     } else {
+      alert("The cost must be an integer");
       getTicketCost()
     }
   }
 
-  // validates ticket ticket_cost
-  function validateTicketCost(cost_arg) {
-    if(Number.isInteger(cost_arg)) {
-      return true;
-    } else {
-      alert("The cost must be an integer");
-      return false;
-    }
+  // validates ticket_cost is an integer
+  function validateTicketInteger(int_arg) {
+    return Number.isInteger(parseInt(int_arg));
   }
 
-  data_hash_map = { "foreign_key": idArr.length,
-                    "id": getTicketId(),
-                    "client": getClient(),
-                    "status": getTicketStatus(),
-                    "cost": getTicketCost() };
+  // Stores a key/value pair of HTML elements and
+  // matching functions to retrieve their data
+  data_hash_map = { "foreign_key_": idArr.length,
+                    "id_": getTicketId(),
+                    "client_": getString("client", "enter a client name", clientArr),
+                    "status_": getString("status", "enter a ticket status", statusArr),
+                    "cost_": getTicketCost() };
 
-  // loops through data_hash_map to write new data
+                    console.log(data_hash_map);
+
+  // loops through data_hash_map to write new data to html
   function writeNew() {
     for(var key in data_hash_map) {
       document.getElementById(key).innerHTML += data_hash_map[key] + "<br>";
