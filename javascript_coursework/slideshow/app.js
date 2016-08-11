@@ -1,6 +1,3 @@
-var source_images = ["bern", "brussels", "london", "madrid",
-                     "munich", "paris", "portugal"];
-
 var previous_image = document.getElementById("prev_img");
 var current_image = document.getElementById("current_img");
 var next_image = document.getElementById("next_img");
@@ -21,5 +18,5 @@ function setCurrentImage() {
 }
 
 function writeSlideNumber() {
-  document.getElementsByTagName("h2")[0].innerHTML = (current_image.children[0].getAttribute("id") ) + " / " + (source_images.length - 1);
+  document.getElementsByTagName("h2")[0].innerHTML = (parseInt(current_image.children[0].getAttribute("id")) ) + " / " + (source_images.length - 1);
 };
