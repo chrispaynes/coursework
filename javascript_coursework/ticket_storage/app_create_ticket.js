@@ -25,7 +25,7 @@ function createTicket() {
     parsed_ticket_id = parseInt(ticket_id);
 
     if(validateId(parsed_ticket_id) && validateUniqueId(parsed_ticket_id)) {
-      idArr.push(parseInt(parsed_ticket_id));
+      persistDBData(parseInt(parsed_ticket_id), idArr)
       return parsed_ticket_id;
     } else {
       getTicketId();
@@ -37,7 +37,7 @@ function createTicket() {
   // returns the entered value
   function getString(get_var, get_prompt, get_array) {
     var get_var = prompt(get_prompt);
-    get_array.push(get_var)
+    persistDBData(get_var, get_array)
     return get_var;
   }
 
@@ -49,7 +49,8 @@ function createTicket() {
     ticket_cost = prompt("enter a cost");
 
     if(validateTicketInteger(ticket_cost)) {
-      costArr.push(parseInt(ticket_cost));
+      persistDBData(parseInt(ticket_cost), costArr)
+      // costArr.push(parseInt(ticket_cost));
       return "&#36;" + parseInt(ticket_cost).toLocaleString();
     } else {
       alert("The cost must be an integer");
@@ -60,6 +61,11 @@ function createTicket() {
   // validates ticket_cost is an integer
   function validateTicketInteger(int_arg) {
     return Number.isInteger(parseInt(int_arg));
+  }
+
+  function persistDBData(data_arg, array_arg, opt_arg) {
+    console.log(data_arg, array_arg)
+    array_arg.push(data_arg);
   }
 
   // Stores a key/value pair of HTML elements and
