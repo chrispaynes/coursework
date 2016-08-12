@@ -1,0 +1,15 @@
+{
+  "name": "slideshow",
+  "version": "1.0.0",
+  "description": "Simple JavaScript Slideshow",
+  "main": "app.js",
+  "scripts": {
+    "test": "./node_modules/.bin/jasmine"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jasmine": "^2.4.1"
+  }
+}
