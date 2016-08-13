@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="utf-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Form Input Validation</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+   <link rel="stylesheet" href="styles.css" />
+   <script src="modernizr.custom.65897.js"></script>
+</head>
+
+<body>
+
+   <article>
+      <h2>Form Input Validation</h2>
+      <form action="results.htm">
+        <div id="errorText"></div>
+        <div id="numErrorText"></div>
+        <fieldset id="contactinfo" class="form-group">
+          <label for="f_name_input" class="input_text">First Name</label>
+          <input type="text" id="f_name_input" class="input_text form-control" name="First_Name" required="required" placeholder="John" maxlength="25" />
+
+          <label for="f_name_input" class="input_text">Last Name</label>
+          <input type="text" id="l_name_input" class="input_text form-control" name="Last_Name" required="required" placeholder="Smith" maxlength="25" />          
+
+          <label for="addrinput" class="input_text">Street Address</label>
+          <input type="text" id="addrinput" class="input_text form-control" name="Address" required="required" placeholder="1234 Delta Street" maxlength="75" />
+
+          <label for="cityinput" class="input_text">City</label>
+          <input type="text" id="cityinput" class="input_text form-control" name="City" required="required" placeholder="City" maxlength="30" />
+
+          <label for="stateinput" class="input_text">State/Province</label>
+            <select class="input_text form-control" id="stateinput" name="State" required="required"></select>
+
+          <label for="zipinput" class="input_text">Zip/Postal Code</label>
+          <input type="number" min="00501" max="99950" id="zipinput" class="input_text form-control" name="Zip" required="required" placeholder="12345" />
+
+          <label for="email_input" class="input_text">Email</label>
+          <input type="email" id="f_name_input" class="input_text form-control" name="email_input" placeholder="example@google.com" maxlength="40" />
+
+          <label for="ssn1" class="input_text">Social Security Number</label>
+          <input type="number" id="ssn1" name="SSN1" class="ssn input_text form-control" minlength="3" maxlength="3" required="required" placeholder="000" />
+
+          <label for="ssn2" id="ssn2label" class="input_text"></label>
+          <input type="number" id="ssn2" name="SSN2" class="ssn input_text form-control" minlength="2" maxlength="2" required="required" placeholder="00" />
+
+          <label for="ssn3" id="ssn3label" class="input_text"></label>
+          <input type="number" id="ssn3" name="SSN3" class="ssn input_text form-control" minlength="4" maxlength="4" required="required" placeholder="0000" />
+        </fieldset>
+
+        <fieldset id="submitsection">
+          <!-- <input type="reset" id="cancelBtn" value="Cancel" class="btn btn-danger" /> -->
+          <input type="submit" id="submitBtn" value="Submit" class="btn btn-primary" />
+        </fieldset>
+     </form>
+
+   </article>
+   <script src="main.js"></script>
+   <script src="models/states_hash.js"></script>
+   <script>
+   </script>
+</body>
+</html>
