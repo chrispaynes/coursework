@@ -1,0 +1,29 @@
+* {
+  /*border: solid 1px gray;*/
+  border-spacing: 0;
+}
+
+body {
+  padding: 3% !important;
+}
+
+ul,li {
+  text-decoration: none;
+  list-style-type: none;
+}
+
+/* IMAGE PANELS */
+#current_img {
+  position: relative;
+  z-index: 2;
+}
+
+.img-responsive {
+  display: inline;
+}
+
+img {
+  padding: 0.5%;
+  display: inline;
+  /*min-height: 18vw;*/
+}
