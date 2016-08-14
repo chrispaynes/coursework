@@ -1,3 +1,4 @@
+// 53 && 1947
 // rotates the center image based on which navigational button gets clicked
 
 // checks if an element meets a condition
@@ -10,22 +11,25 @@ function checkRange(element, condition, reset, mutation) {
   }
 };
 
-// increments the ID value based on element's current ID
-// resets the ID if the index value falls outside of source_image array
+// increments all picture Id values
+// resets the ID when a picture's index value is less than the data array's length
 function incrementId() {
   slideshow_images.map(function(img) {
     checkRange(img, (source_images.length - 1), 0, img.children[0].id++);
   });
 }
 
-// decrements the ID value based on element's current ID
-// resets the ID if the index value is less than 0
+// decrements all picture Id values
+// resets the ID when a picture's index value is less than 0
 function decrementId() {
   slideshow_images.map(function(img) {
     checkRange(img, -1 , (source_images.length - 1), img.children[0].id--);
   });
 };
 
+// function incrementSrcId() {
+
+// }
 
 // rotates the slideshow to the right
 // increments the image element's ID attribute
@@ -33,9 +37,9 @@ function decrementId() {
 function rotateRight() {
   incrementId()
 
-  previous_image.children[0].src = "img/" + source_images[previous_image.children[0].getAttribute("id")] + ".jpg";
-  current_image.children[0].src = "img/" + source_images[current_image.children[0].getAttribute("id")] + ".jpg";
-  next_image.children[0].src = "img/" + source_images[next_image.children[0].getAttribute("id")] + ".jpg";
+  previous_img.children[0].src = "img/" + source_images[previous_img.children[0].getAttribute("id")] + ".jpg";
+  current_img.children[0].src = "img/" + source_images[current_img.children[0].getAttribute("id")] + ".jpg";
+  next_img.children[0].src = "img/" + source_images[next_img.children[0].getAttribute("id")] + ".jpg";
   writeSlideNumber();
 }
 
@@ -45,9 +49,9 @@ function rotateRight() {
 function rotateLeft() {
   decrementId()
 
-  previous_image.children[0].src = "img/" + source_images[previous_image.children[0].getAttribute("id")] + ".jpg";
-  current_image.children[0].src = "img/" + source_images[current_image.children[0].getAttribute("id")] + ".jpg";
-  next_image.children[0].src = "img/" + source_images[next_image.children[0].getAttribute("id")] + ".jpg";
+  previous_img.children[0].src = "img/" + source_images[previous_img.children[0].getAttribute("id")] + ".jpg";
+  current_img.children[0].src = "img/" + source_images[current_img.children[0].getAttribute("id")] + ".jpg";
+  next_img.children[0].src = "img/" + source_images[next_img.children[0].getAttribute("id")] + ".jpg";
 
   writeSlideNumber();
 }

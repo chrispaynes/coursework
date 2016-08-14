@@ -33,11 +33,11 @@ ul,li {
 }
 
 
-#prev_img, #next_img, #current_img {
+#previous_img, #next_img, #current_img {
   overflow: hidden;
 }
 
-#prev_img img, #next_img img {
+#previous_img img, #next_img img {
   opacity: 0.5;
   width: auto;
   height: 500px;
@@ -45,7 +45,7 @@ ul,li {
 
 
 /* SLIDESHOW NAV BUTTONS */
-#prev_img button, #next_img button {
+#previous_img button, #next_img button {
   position: absolute;
   z-index: 1;
   top: 48%;
@@ -57,7 +57,7 @@ ul,li {
   left: 85%;
 }
 
-#prev_img button {
+#previous_img button {
   left: 7%;
 }
 
