@@ -1,6 +1,3 @@
-// 53 && 1947
-// rotates the center image based on which navigational button gets clicked
-
 // checks if an element meets a condition
 // resets element or continues to mutate it
 function checkRange(element, condition, reset, mutation) {
@@ -27,31 +24,17 @@ function decrementId() {
   });
 };
 
-// function incrementSrcId() {
-
-// }
-
-// rotates the slideshow to the right
-// increments the image element's ID attribute
-// writes the slide number to the <h2> tag
-function rotateRight() {
-  incrementId()
-
-  previous_img.children[0].src = "img/" + source_images[previous_img.children[0].getAttribute("id")] + ".jpg";
-  current_img.children[0].src = "img/" + source_images[current_img.children[0].getAttribute("id")] + ".jpg";
-  next_img.children[0].src = "img/" + source_images[next_img.children[0].getAttribute("id")] + ".jpg";
-  writeSlideNumber();
+function mapOverImages() {
+    slideshow_images.map(function(image) {
+    image.children[0].src = "img/" + source_images[image.children[0].id] + ".jpg";
+  })
 }
 
-// rotates the slideshow to the right
-// decrements the image element's ID attribute
-// writes the slide number to the <h2> tag
-function rotateLeft() {
-  decrementId()
-
-  previous_img.children[0].src = "img/" + source_images[previous_img.children[0].getAttribute("id")] + ".jpg";
-  current_img.children[0].src = "img/" + source_images[current_img.children[0].getAttribute("id")] + ".jpg";
-  next_img.children[0].src = "img/" + source_images[next_img.children[0].getAttribute("id")] + ".jpg";
-
+// rotates the slideshow to the right or left
+// increments or decrements the image element's ID attribute
+// writes the slide number to the DOM
+function rotate(mutation) {
+  mutation()
+  mapOverImages();
   writeSlideNumber();
 }

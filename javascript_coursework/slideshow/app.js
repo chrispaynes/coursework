@@ -3,7 +3,7 @@ var current_img = document.getElementById("current_img");
 var next_img = document.getElementById("next_img");
 var slideshow_images = [previous_img, current_img, next_img];
 
-// initializes the slideshow with the first 3 values of the slideshow images array
+// resets slideshow to use the slideshow image array' first 3 values
 function initSlideShow() {
   slideshow_images.map(function(i) {
     i.children[0].id = slideshow_images.indexOf(i);
@@ -13,6 +13,10 @@ function initSlideShow() {
   writeSlideNumber()
 }
 
+// writes the Current Slide # / Max Slide # to the DOM
+// uses the previous image + 1 (because of the 0 index) as the Current Slide #
+// uses data array length as the Max Slide #
 function writeSlideNumber() {
-  document.getElementsByTagName("h2")[0].innerHTML = (parseInt(previous_img.children[0].getAttribute("id")) + 1 ) + " / " + (source_images.length);
+  document.getElementsByTagName("h2")[0].innerHTML =
+    (parseInt(previous_img.children[0].id) + 1 ) + " / " + (source_images.length);
 };
