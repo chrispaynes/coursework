@@ -25,16 +25,16 @@ function decrementId() {
 };
 
 function mapOverImages() {
-    slideshow_images.map(function(image) {
+  slideshow_images.map(function(image) {
     image.children[0].src = "img/" + source_images[image.children[0].id] + ".jpg";
-  })
+  });
 }
 
 // rotates the slideshow to the right or left
 // increments or decrements the image element's ID attribute
 // writes the slide number to the DOM
 function rotate(mutation) {
-  mutation()
+  mutation();
   mapOverImages();
   writeSlideNumber();
 }

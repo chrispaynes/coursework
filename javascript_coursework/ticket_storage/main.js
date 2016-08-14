@@ -5,8 +5,6 @@ var record = document.getElementById("schedule");
 
 // initializes the table by removing records
 function initTable() {
-  var hdr = tbl.firstChild.innerHTML;
-  tbl.removeChild(tbl.children[1]);
   tbl.innerHTML = "<tr><th></th><th>#</th><th>Ticket ID</th><th>Client</th><th>Status</th><th>Cost</th></tr>";
 }
 
@@ -17,13 +15,13 @@ function getForeignKey(queryId) {
 }
 
 // validates user enters 6 characters
-function validates6Chars(input_arg) {
-  return input_arg.toString().length === 6;
+function validateChars(input_arg, chars) {
+  return input_arg.toString().length === chars;
 }
 
-// ensures the input is a 6 integer larger than 100,000
-function validateId(id_length) {
-  return Number.isInteger(id_length) && id_length >= 100000;
+// ensures a number is an integer between a specific integer range
+function isValidNumber(num, min, max) {
+  return Number.isInteger(parseInt(num)) && num >= min && num <= max;
 }
 
 function populateTable(table_arg, record_arg) {

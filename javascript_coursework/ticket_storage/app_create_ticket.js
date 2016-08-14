@@ -1,3 +1,4 @@
+// 90/2607
 // creates a new production ticket
 function createTicket() {
 
@@ -5,15 +6,33 @@ function createTicket() {
   var insertion_index = 0;
   var data_hash_map = {};
 
+  function writeTicketCost(cost) {
+    persistDBData(parseInt(cost), costArr)
+    return "$" + cost.toLocaleString();
+  }
+
+  function verify(target, condition, func1, message, func2) {
+    if(target) {
+      condition === true;
+      return func1;
+    } else {
+      alert(message);
+      func2;
+    }
+  }
+
+  function persistDBData(data_arg, array_arg, opt_arg) {
+    array_arg.push(data_arg);
+  }
+
   // ensures an id does not already exist
   function validateUniqueId(unique_id) {
-    for(var id in idArr) {
-      if(unique_id != idArr[id]) {
-        return true;
-      } else {
-        alert("A ticket already exists with number " + unique_id);
-        return false;
-      }
+    console.log("the current id from the idARR is", unique_id);
+    if(idArr.indexOf(unique_id) === -1) {
+      return true;
+    } else {
+      alert("A ticket already exists with number " + unique_id);
+      return false;
     }
   }
 
@@ -23,8 +42,7 @@ function createTicket() {
     var ticket_id = 0;
     ticket_id = prompt("Enter a 6 Digit Ticket Id");
     parsed_ticket_id = parseInt(ticket_id);
-
-    if(validateId(parsed_ticket_id) && validateUniqueId(parsed_ticket_id)) {
+    if(isValidNumber(ticket_id, 100000, 999999) && validateUniqueId(parsed_ticket_id)) {
       persistDBData(parseInt(parsed_ticket_id), idArr)
       return parsed_ticket_id;
     } else {
@@ -48,25 +66,12 @@ function createTicket() {
     var ticket_cost = 0;
     ticket_cost = prompt("enter a cost");
 
-    if(validateTicketInteger(ticket_cost)) {
-      persistDBData(parseInt(ticket_cost), costArr)
-      // costArr.push(parseInt(ticket_cost));
-      return "&#36;" + parseInt(ticket_cost).toLocaleString();
-    } else {
-      alert("The cost must be an integer");
-      getTicketCost()
-    }
-  }
-
-  // validates ticket_cost is an integer
-  function validateTicketInteger(int_arg) {
-    return Number.isInteger(parseInt(int_arg));
-  }
-
-  function persistDBData(data_arg, array_arg, opt_arg) {
-    console.log(data_arg, array_arg)
-    array_arg.push(data_arg);
-  }
+    return verify(ticket_cost,
+                  isValidNumber(ticket_cost, 100000, 999999),
+                  writeTicketCost(ticket_cost),
+                  "The cost must be an integer",
+                  getTicketCost);
+  };
 
   // Stores a key/value pair of HTML elements and
   // matching functions to retrieve their data
@@ -76,14 +81,12 @@ function createTicket() {
                     "status_": getString("status", "enter a ticket status", statusArr),
                     "cost_": getTicketCost() };
 
-                    console.log(data_hash_map);
-
   // loops through data_hash_map to write new data to html
   function writeNew() {
     for(var key in data_hash_map) {
       document.getElementById(key).innerHTML += data_hash_map[key] + "<br>";
-    }
-  }
+    };
+  };
 
   writeNew();
 };

@@ -10,7 +10,7 @@ function readTicket() {
     if(query_id === "" || query_id === null ) {
       return;
     }
-    else if(validates6Chars(query_id) && validateId(parseInt(query_id))) {
+    else if(validateChars(query_id, 6) && validateId(parseInt(query_id))) {
       return parseInt(query_id);
     } else {
       alert("Please Enter a valid 6-Digit Integer");
@@ -25,13 +25,14 @@ function readTicket() {
     // finds the foreign key based on the parsed_query_id
     foreignKey = getForeignKey(getQuery());
 
-    console.log(foreignKey);
     // ensures foreignKey is present in array
     // ensures 0 does not return a falsy or undefined value
     if(foreignKey >= 0 || foreignKey === 0) {
       initTable()
 
       record.id = "schedule_record_" + idArr[foreignKey];
+      // document.querySelectorAll("tbody tr td")[1].textContent = foreignKey
+      console.log(record);
       record.children[1].textContent = foreignKey;
       record.children[2].textContent = idArr[foreignKey];
       record.children[3].textContent = clientArr[foreignKey];
