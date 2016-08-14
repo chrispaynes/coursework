@@ -6,12 +6,12 @@ function readTicket() {
     // prompts user to enter a search value
     // continues with search if user enters a valid 6 digit entry
     // returns the parsed 6-digit value
-    query_id = prompt("Enter a 6-Digit Ticket ID to Begin Your Search");
+    query_id = parseInt(prompt("Enter a 6-Digit Ticket ID to Begin Your Search"));
     if(query_id === "" || query_id === null ) {
       return;
     }
-    else if(validateChars(query_id, 6) && validateId(parseInt(query_id))) {
-      return parseInt(query_id);
+    else if(isValidNumber(query_id, 100000, 999999)) {
+      return query_id;
     } else {
       alert("Please Enter a valid 6-Digit Integer");
       getQuery()
@@ -31,8 +31,6 @@ function readTicket() {
       initTable()
 
       record.id = "schedule_record_" + idArr[foreignKey];
-      // document.querySelectorAll("tbody tr td")[1].textContent = foreignKey
-      console.log(record);
       record.children[1].textContent = foreignKey;
       record.children[2].textContent = idArr[foreignKey];
       record.children[3].textContent = clientArr[foreignKey];

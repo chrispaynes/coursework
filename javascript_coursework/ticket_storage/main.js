@@ -14,11 +14,6 @@ function getForeignKey(queryId) {
   return foreignKey;
 }
 
-// validates user enters 6 characters
-function validateChars(input_arg, chars) {
-  return input_arg.toString().length === chars;
-}
-
 // ensures a number is an integer between a specific integer range
 function isValidNumber(num, min, max) {
   return Number.isInteger(parseInt(num)) && num >= min && num <= max;
