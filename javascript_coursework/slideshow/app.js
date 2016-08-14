@@ -18,5 +18,5 @@ function setCurrentImage() {
 }
 
 function writeSlideNumber() {
-  document.getElementsByTagName("h2")[0].innerHTML = (parseInt(current_image.children[0].getAttribute("id")) ) + " / " + (source_images.length - 1);
+  document.getElementsByTagName("h2")[0].innerHTML = (parseInt(previous_image.children[0].getAttribute("id")) + 1 ) + " / " + (source_images.length);
 };

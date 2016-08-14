@@ -1,28 +1,31 @@
 // rotates the center image based on which navigational button gets clicked
 
+// checks if an element meets a condition
+// resets element or continues to mutate it
+function checkRange(element, condition, reset, mutation) {
+  if(element.children[0].id == condition ) {
+    element.children[0].id = reset;
+  } else {
+    element += mutation;
+  }
+};
+
 // increments the ID value based on element's current ID
 // resets the ID if the index value falls outside of source_image array
 function incrementId() {
-  for(var i in slideshow_images) {
-    if(slideshow_images[i].children[0].id == (source_images.length - 1) ) {
-      slideshow_images[i].children[0].id = 0;
-    } else {
-      slideshow_images[i].children[0].id++;
-    }
-  }
+  slideshow_images.map(function(img) {
+    checkRange(img, (source_images.length - 1), 0, img.children[0].id++);
+  });
 }
 
 // decrements the ID value based on element's current ID
-// resets the ID if the index value falls outside of source_image array
+// resets the ID if the index value is less than 0
 function decrementId() {
-  for(var i in slideshow_images) {
-    if((slideshow_images[i].children[0].id - 1) < 0) {
-      slideshow_images[i].children[0].id = source_images.length - 1;
-    } else {
-      slideshow_images[i].children[0].id--;
-    }
-  }
-}
+  slideshow_images.map(function(img) {
+    checkRange(img, -1 , (source_images.length - 1), img.children[0].id--);
+  });
+};
+
 
 // rotates the slideshow to the right
 // increments the image element's ID attribute
