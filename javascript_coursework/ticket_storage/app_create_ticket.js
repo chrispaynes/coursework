@@ -1,4 +1,3 @@
-// 90/2607
 // creates a new production ticket
 function createTicket() {
 
@@ -6,19 +5,10 @@ function createTicket() {
   var insertion_index = 0;
   var data_hash_map = {};
 
-  function writeTicketCost(cost) {
-    persistDBData(parseInt(cost), costArr)
-    return "$" + cost.toLocaleString();
-  }
-
-  function verify(target, condition, func1, message, func2) {
-    if(target) {
-      condition === true;
-      return func1;
-    } else {
-      alert(message);
-      func2;
-    }
+  // writes data to DOM and Database and returns formatted data
+  function writeData(data, data_array, data_return) {
+    persistDBData(data, data_array)
+    return data_return;
   }
 
   function persistDBData(data_arg, array_arg, opt_arg) {
@@ -27,7 +17,6 @@ function createTicket() {
 
   // ensures an id does not already exist
   function validateUniqueId(unique_id) {
-    console.log("the current id from the idARR is", unique_id);
     if(idArr.indexOf(unique_id) === -1) {
       return true;
     } else {
@@ -40,14 +29,13 @@ function createTicket() {
   // validates and returns ticket id
   function getTicketId(){
     var ticket_id = 0;
-    ticket_id = prompt("Enter a 6 Digit Ticket Id");
-    parsed_ticket_id = parseInt(ticket_id);
-    if(isValidNumber(ticket_id, 100000, 999999) && validateUniqueId(parsed_ticket_id)) {
-      persistDBData(parseInt(parsed_ticket_id), idArr)
-      return parsed_ticket_id;
-    } else {
-      getTicketId();
-    }
+    ticket_id = parseInt(prompt("Enter a 6 Digit Ticket Id"));
+
+    return verify(ticket_id,
+                  isValidNumber(ticket_id, 100000, 999999) && validateUniqueId(ticket_id),
+                  writeData(ticket_id, idArr, ticket_id),
+                  "Please enter a non-negative 6 Digit Ticket Id",
+                  getTicketId);
   }
 
   // prompts user to enter a string value
@@ -64,11 +52,11 @@ function createTicket() {
   // returns the cost prefixed with a dollar sign
   function getTicketCost() {
     var ticket_cost = 0;
-    ticket_cost = prompt("enter a cost");
+    ticket_cost = parseInt(prompt("enter a cost"));
 
     return verify(ticket_cost,
                   isValidNumber(ticket_cost, 100000, 999999),
-                  writeTicketCost(ticket_cost),
+                  writeData(ticket_cost, costArr, "$" + ticket_cost.toLocaleString()),
                   "The cost must be an integer",
                   getTicketCost);
   };

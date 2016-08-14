@@ -24,6 +24,16 @@ function isValidNumber(num, min, max) {
   return Number.isInteger(parseInt(num)) && num >= min && num <= max;
 }
 
+function verify(target, condition, func1, message, func2) {
+  if(target) {
+    condition === true;
+    return func1;
+  } else {
+    alert(message);
+    return func2;
+  }
+}
+
 function populateTable(table_arg, record_arg) {
   for (var i in idArr) {
     record_arg.id = "schedule_" + idArr[i];

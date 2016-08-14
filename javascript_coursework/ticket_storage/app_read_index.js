@@ -6,3 +6,4 @@ function readIndex() {
   populateTable(tbl, record)
   deleteTicket()
 };
+
