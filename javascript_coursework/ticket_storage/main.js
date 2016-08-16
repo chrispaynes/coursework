@@ -29,6 +29,10 @@ function verify(target, condition, func1, message, func2) {
   }
 }
 
+function nodesToArray(node_list_query) {
+  return Array.prototype.slice.call(node_list_query);
+}
+
 function populateTable(table_arg, record_arg) {
   for (var i in idArr) {
     record_arg.id = "schedule_" + idArr[i];

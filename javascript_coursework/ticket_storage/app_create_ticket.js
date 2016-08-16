@@ -27,7 +27,7 @@ function createTicket() {
 
   // prompts user to input a new ticket id
   // validates and returns ticket id
-  function getTicketId(){
+  function promptTicketId(){
     var ticket_id = 0;
     ticket_id = parseInt(prompt("Enter a 6 Digit Ticket Id"));
 
@@ -35,7 +35,7 @@ function createTicket() {
                   isValidNumber(ticket_id, 100000, 999999) && validateUniqueId(ticket_id),
                   writeData(ticket_id, idArr, ticket_id),
                   "Please enter a non-negative 6 Digit Ticket Id",
-                  getTicketId);
+                  promptTicketId);
   }
 
   // prompts user to enter a string value
@@ -64,7 +64,7 @@ function createTicket() {
   // Stores a key/value pair of HTML elements and
   // matching functions to retrieve their data
   data_hash_map = { "foreign_key_": idArr.length,
-                    "id_": getTicketId(),
+                    "id_": promptTicketId(),
                     "client_": getString("client", "enter a client name", clientArr),
                     "status_": getString("status", "enter a ticket status", statusArr),
                     "cost_": getTicketCost() };

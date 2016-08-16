@@ -1,28 +1,28 @@
 function deleteTicket() {
-  // Immediately Invoked Function
-  // add event listeners for delete buttons
-  (function addDeleteListeners() {
-    var delete_btn_array = document.getElementsByClassName("delete_btn");
 
-    for(var i = 0; i < delete_btn_array.length; i++) {
-        delete_btn_array[i].addEventListener('click', removeParentNodes, false);
-    }
+  // Immediately Invoked Function for adding event listeners to delete buttons
+  (function addDeleteListeners() {
+    // translates the nodeList into a true array to use the map method
+    nodesToArray(document.getElementsByClassName("delete_btn")).map(function(d_btn) {
+      d_btn.addEventListener('click', removeParentNodes, false);
+    });
+
   })();
 
   // returns the current event-target's ticket id
-  function getTicketId() {
-    return event.currentTarget.getAttribute("id").substring(18);
+  function getDOMticket_id(record) {
+    return record.id.substring(18);
   }
 
   // prompts user to confirm a deletion
   // returns true or false
   function confirmDeletion() {
-    var confirmation = prompt("Are you sure you want to delete ticket " + getTicketId() + "?");
-    if (confirmation === null || confirmation === "") {
-      return false;
-    }
-    else if(confirmation.toLowerCase() === "yes" || confirmation.toLowerCase() === "y") {
+    var confirmation = prompt("Are you sure you want to delete ticket " + getDOMticket_id(event.currentTarget) + "?");
+    if(confirmation.toLowerCase() === "yes" || confirmation.toLowerCase() === "y") {
       return true;
+    }
+    else {
+      return false;
     }
   }
 
@@ -34,7 +34,7 @@ function deleteTicket() {
       3: statusArr,
       4: costArr
     };
-    var delete_key = getForeignKey(getTicketId());
+    var delete_key = getForeignKey(getDOMticket_id());
 
     for(var a in arrDict) {
       arrDict[a].splice(delete_key, 1);
