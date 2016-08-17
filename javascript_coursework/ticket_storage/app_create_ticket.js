@@ -6,7 +6,7 @@ function createTicket() {
   var data_hash_map = {};
 
   // writes data to DOM and Database and returns formatted data
-  function writeData(data, data_array, data_return) {
+  function writeDOMData(data, data_array, data_return) {
     persistDBData(data, data_array)
     return data_return;
   }
@@ -17,12 +17,7 @@ function createTicket() {
 
   // ensures an id does not already exist
   function validateUniqueId(unique_id) {
-    if(idArr.indexOf(unique_id) === -1) {
-      return true;
-    } else {
-      alert("A ticket already exists with number " + unique_id);
-      return false;
-    }
+    return idArr.indexOf(unique_id) === -1
   }
 
   // prompts user to input a new ticket id
@@ -31,11 +26,13 @@ function createTicket() {
     var ticket_id = 0;
     ticket_id = parseInt(prompt("Enter a 6 Digit Ticket Id"));
 
-    return verify(ticket_id,
-                  isValidNumber(ticket_id, 100000, 999999) && validateUniqueId(ticket_id),
-                  writeData(ticket_id, idArr, ticket_id),
-                  "Please enter a non-negative 6 Digit Ticket Id",
-                  promptTicketId);
+    if(verify(validateUniqueId(ticket_id) && isValidNumber(ticket_id, 100000, 999999),
+      "Please enter a unique non-negative 6 Digit Ticket Id")) {
+      return writeDOMData(ticket_id, idArr, ticket_id);
+    } else {
+      promptTicketId();
+    }
+
   }
 
   // prompts user to enter a string value
@@ -54,27 +51,19 @@ function createTicket() {
     var ticket_cost = 0;
     ticket_cost = parseInt(prompt("enter a cost"));
 
-    return verify(ticket_cost,
-                  isValidNumber(ticket_cost, 100000, 999999),
-                  writeData(ticket_cost, costArr, "$" + ticket_cost.toLocaleString()),
-                  "The cost must be an integer",
-                  getTicketCost);
+    return writeDOMData(ticket_cost, costArr, "$" + ticket_cost.toLocaleString());
+
   };
 
-  // Stores a key/value pair of HTML elements and
-  // matching functions to retrieve their data
-  data_hash_map = { "foreign_key_": idArr.length,
-                    "id_": promptTicketId(),
-                    "client_": getString("client", "enter a client name", clientArr),
-                    "status_": getString("status", "enter a ticket status", statusArr),
-                    "cost_": getTicketCost() };
-
-  // loops through data_hash_map to write new data to html
-  function writeNew() {
-    for(var key in data_hash_map) {
-      document.getElementById(key).innerHTML += data_hash_map[key] + "<br>";
-    };
+  // writes a new ticket's data field to a DOM column
+  function writeNew(write_column, write_fn) {
+    document.getElementById(write_column).innerHTML += write_fn + "<br>";
   };
 
-  writeNew();
+  writeNew("foreign_key_", idArr.length);
+  writeNew("id_", promptTicketId());
+  writeNew("client_", getString("client", "enter a client name", clientArr));
+  writeNew("status_", getString("status", "enter a ticket status", statusArr));
+  writeNew("cost_", getTicketCost());
+
 };

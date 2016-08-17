@@ -16,16 +16,15 @@ function getForeignKey(queryId) {
 
 // ensures a number is an integer between a specific integer range
 function isValidNumber(num, min, max) {
-  return Number.isInteger(parseInt(num)) && num >= min && num <= max;
+  return Number.isInteger(num) && num >= min && num <= max;
 }
 
-function verify(target, condition, func1, message, func2) {
-  if(target) {
-    condition === true;
-    return func1;
+function verify(condition, message) {
+  if(condition) {
+    return true;
   } else {
     alert(message);
-    return func2;
+    return false;
   }
 }
 
