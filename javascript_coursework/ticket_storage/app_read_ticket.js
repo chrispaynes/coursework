@@ -31,6 +31,8 @@ function readTicket() {
       initTable()
 
       record.id = "schedule_record_" + idArr[foreignKey];
+      record.children[0].children[0].id = "deleteTicketButton" +idArr[foreignKey];
+      record.children[0].children[0].innerHTML = "<i class='fa fa-trash-o fa-fw'></i>";      
       record.children[1].textContent = foreignKey;
       record.children[2].textContent = idArr[foreignKey];
       record.children[3].textContent = clientArr[foreignKey];

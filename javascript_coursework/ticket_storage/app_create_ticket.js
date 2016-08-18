@@ -1,23 +1,20 @@
 // creates a new production ticket
 function createTicket() {
 
-  // data
-  var insertion_index = 0;
-  var data_hash_map = {};
-
   // writes data to DOM and Database and returns formatted data
   function writeDOMData(data, data_array, data_return) {
     persistDBData(data, data_array)
     return data_return;
   }
 
-  function persistDBData(data_arg, array_arg, opt_arg) {
+  // subroutine to push data to a data array
+  function persistDBData(data_arg, array_arg) {
     array_arg.push(data_arg);
   }
 
-  // ensures an id does not already exist
-  function validateUniqueId(unique_id) {
-    return idArr.indexOf(unique_id) === -1
+  // ensures a record does not already exist within a data store
+  function validateUnique(record, data_store) {
+    return data_store.indexOf(record) === -1
   }
 
   // prompts user to input a new ticket id
@@ -25,14 +22,15 @@ function createTicket() {
   function promptTicketId(){
     var ticket_id = 0;
     ticket_id = parseInt(prompt("Enter a 6 Digit Ticket Id"));
+    console.log(ticket_id);
 
-    if(verify(validateUniqueId(ticket_id) && isValidNumber(ticket_id, 100000, 999999),
+    if(verify(validateUnique(ticket_id, idArr) && isValidNumber(ticket_id, 100000, 999999),
       "Please enter a unique non-negative 6 Digit Ticket Id")) {
       return writeDOMData(ticket_id, idArr, ticket_id);
     } else {
+      ticket_id = 0;
       promptTicketId();
     }
-
   }
 
   // prompts user to enter a string value
@@ -58,7 +56,7 @@ function createTicket() {
   // writes a new ticket's data field to a DOM column
   function writeNew(write_column, write_fn) {
     document.getElementById(write_column).innerHTML += write_fn + "<br>";
-  };
+  };s
 
   writeNew("foreign_key_", idArr.length);
   writeNew("id_", promptTicketId());

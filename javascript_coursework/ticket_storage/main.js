@@ -5,7 +5,14 @@ var record = document.getElementById("schedule");
 
 // initializes the table by removing records
 function initTable() {
-  tbl.innerHTML = "<tr><th></th><th>#</th><th>Ticket ID</th><th>Client</th><th>Status</th><th>Cost</th></tr>";
+  tbl.innerHTML = "<tr>"
+                +   "<th></th>"
+                +   "<th>#</th>"
+                +   "<th>Ticket ID</th>"
+                +   "<th>Client</th>"
+                +   "<th>Status</th>"
+                +   "<th>Cost</th>"
+                + "</tr>";
 }
 
 // private function that creates a foreign key to search for a ticket
@@ -22,7 +29,8 @@ function isValidNumber(num, min, max) {
 function verify(condition, message) {
   if(condition) {
     return true;
-  } else {
+  }
+  else {
     alert(message);
     return false;
   }
@@ -36,6 +44,7 @@ function populateTable(table_arg, record_arg) {
   for (var i in idArr) {
     record_arg.id = "schedule_" + idArr[i];
     record_arg.children[0].children[0].id = "deleteTicketButton" +idArr[i];
+    record_arg.children[0].children[0].innerHTML = "<i class='fa fa-trash-o fa-fw'></i>";
     record_arg.children[1].textContent = i;
     record_arg.children[1].id = "foreign_key_" + idArr[i];
     record_arg.children[2].textContent = idArr[i];
