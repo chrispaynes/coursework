@@ -1,13 +1,19 @@
-var previous_img = document.getElementById("previous_img");
-var current_img = document.getElementById("current_img");
-var next_img = document.getElementById("next_img");
-var slideshow_images = [previous_img, current_img, next_img];
+var SLIDESHOW_IMAGES = getFocalSlides([previous_img, current_img, next_img]);
+
+// collects DOM image elements for 3 main slideshow panels
+// saves images globally as previous, current, and next
+function getFocalSlides(images) {
+  images.forEach(function(img) {
+    img = document.getElementById(img);
+  });
+  return images;
+}
 
 // resets slideshow to use the slideshow image array' first 3 values
 function initSlideShow() {
-  slideshow_images.map(function(i) {
-    i.children[0].id = slideshow_images.indexOf(i);
-    i.children[0].src = "img/" + source_images[slideshow_images.indexOf(i)] + ".jpg";
+  SLIDESHOW_IMAGES.map(function(i) {
+    i.children[0].id = SLIDESHOW_IMAGES.indexOf(i);
+    i.children[0].src = "img/" + source_images[SLIDESHOW_IMAGES.indexOf(i)] + ".jpg";
   });
 
   writeSlideNumber()
@@ -18,5 +24,5 @@ function initSlideShow() {
 // uses data array length as the Max Slide #
 function writeSlideNumber() {
   document.getElementsByTagName("h2")[0].innerHTML =
-    (parseInt(previous_img.children[0].id) + 1 ) + " / " + (source_images.length);
+    (parseInt(previous_img.children[0].id) + 1) + " / " + (source_images.length);
 };

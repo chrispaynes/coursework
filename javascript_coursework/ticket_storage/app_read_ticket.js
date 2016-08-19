@@ -1,5 +1,6 @@
 // uses foreign key to read a ticket across parallel arrays
 function readTicket() {
+
   function getQuery(){
     var query_id = 0;
 
@@ -20,7 +21,7 @@ function readTicket() {
 
   // displays ticket if found in the database
   // otherwise prompts user to start a new query
-  function readTicket() {
+  function writeTicketToDOM() {
 
     // finds the foreign key based on the parsed_query_id
     foreignKey = getForeignKey(getQuery());
@@ -32,7 +33,7 @@ function readTicket() {
 
       record.id = "schedule_record_" + idArr[foreignKey];
       record.children[0].children[0].id = "deleteTicketButton" +idArr[foreignKey];
-      record.children[0].children[0].innerHTML = "<i class='fa fa-trash-o fa-fw'></i>";      
+      record.children[0].children[0].innerHTML = "<i class='fa fa-trash-o fa-fw'></i>";
       record.children[1].textContent = foreignKey;
       record.children[2].textContent = idArr[foreignKey];
       record.children[3].textContent = clientArr[foreignKey];
@@ -46,6 +47,6 @@ function readTicket() {
     }
   };
 
-  readTicket();
+  writeTicketToDOM();
 
 }

@@ -48,7 +48,6 @@ function deleteTicket() {
   });
 }
 
-
   // removes a ticket record by deleting the parent <tr> node
   // uses callback to destroyArrayData() to remove array data
   function removeParentNodes() {

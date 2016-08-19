@@ -10,22 +10,22 @@ function checkRange(element, condition, reset, mutation) {
 
 // increments all picture Id values
 // resets the ID when a picture's index value is less than the data array's length
-function incrementId() {
-  slideshow_images.map(function(img) {
-    checkRange(img, (source_images.length - 1), 0, img.children[0].id++);
+function incrementId(target) {
+  target.map(function(img) {
+    checkRange(img, (source_images.length ), 0, img.children[0].id++);
   });
 }
 
 // decrements all picture Id values
 // resets the ID when a picture's index value is less than 0
-function decrementId() {
-  slideshow_images.map(function(img) {
+function decrementId(target) {
+  target.map(function(img) {
     checkRange(img, -1 , (source_images.length - 1), img.children[0].id--);
   });
 };
 
-function mapOverImages() {
-  slideshow_images.map(function(image) {
+function mapOverImages(target) {
+  target.map(function(image) {
     image.children[0].src = "img/" + source_images[image.children[0].id] + ".jpg";
   });
 }
@@ -33,8 +33,8 @@ function mapOverImages() {
 // rotates the slideshow to the right or left
 // increments or decrements the image element's ID attribute
 // writes the slide number to the DOM
-function rotate(mutation) {
-  mutation();
-  mapOverImages();
+function rotate(mutation, target) {
+  mutation(target);
+  mapOverImages(target);
   writeSlideNumber();
 }
