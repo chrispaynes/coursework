@@ -1,28 +1,25 @@
 // checks if an element meets a condition
 // resets element or continues to mutate it
-function checkRange(element, condition, reset, mutation) {
+function checkRange(element, condition, reset, unary_op) {
   if(element.children[0].id == condition ) {
     element.children[0].id = reset;
   } else {
-    element += mutation;
+    element += unary_op;
   }
 };
 
-// increments all picture Id values
+// increments or decrements all picture Id values based on mutation value
 // resets the ID when a picture's index value is less than the data array's length
-function incrementId(target) {
-  target.map(function(img) {
-    checkRange(img, (source_images.length ), 0, img.children[0].id++);
-  });
-}
-
-// decrements all picture Id values
 // resets the ID when a picture's index value is less than 0
-function decrementId(target) {
+function mutateId(target, mutation_value) {
   target.map(function(img) {
-    checkRange(img, -1 , (source_images.length - 1), img.children[0].id--);
-  });
-};
+    if(mutation_value === 1) {
+      checkRange(img, (source_images.length ), 0, img.children[0].id++);
+    } else if(mutation_value === -1) {
+      checkRange(img, -1 , (source_images.length - 1), img.children[0].id--);
+    } // end else
+  })//end map
+}
 
 function mapOverImages(target) {
   target.map(function(image) {
@@ -33,8 +30,8 @@ function mapOverImages(target) {
 // rotates the slideshow to the right or left
 // increments or decrements the image element's ID attribute
 // writes the slide number to the DOM
-function rotate(mutation, target) {
-  mutation(target);
+function rotate(target, mutation_value) {
+  mutateId(target, mutation_value);
   mapOverImages(target);
   writeSlideNumber();
 }
