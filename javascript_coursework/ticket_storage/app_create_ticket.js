@@ -22,13 +22,11 @@ function createTicket() {
   function promptTicketId(){
     var ticket_id = 0;
     ticket_id = parseInt(prompt("Enter a 6 Digit Ticket Id"));
-    console.log(ticket_id);
 
     if(verify(validateUnique(ticket_id, idArr) && isValidNumber(ticket_id, 100000, 999999),
       "Please enter a unique non-negative 6 Digit Ticket Id")) {
       return writeDOMData(ticket_id, idArr, ticket_id);
     } else {
-      ticket_id = 0;
       promptTicketId();
     }
   }
@@ -56,7 +54,7 @@ function createTicket() {
   // writes a new ticket's data field to a DOM column
   function writeNew(write_column, write_fn) {
     document.getElementById(write_column).innerHTML += write_fn + "<br>";
-  };s
+  };
 
   writeNew("foreign_key_", idArr.length);
   writeNew("id_", promptTicketId());

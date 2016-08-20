@@ -5,23 +5,22 @@ var formValidity = true;
 const numErrorDiv = document.getElementById("numErrorText");
 
 // creates a listing of states from a JSON document
-function listStateOptions() {
- var state_hash = states;
- var option = document.createElement("option");
+function listStateOptions(state_options, new_element) {
+ var option;
  var state_selector = document.getElementById("stateinput");
- var node;
 
- for(var i in state_hash) {
-  option = document.createElement("option");
+ for(var i in state_options) {
+  option = document.createElement(new_element);
   option.appendChild(document.createTextNode(i))
   state_selector.appendChild(option);
  }
 }
 
 // validates required fields are filled out
-function validateRequired() {
+function validateRequired(inputElements) {
   // creates array of all input fields
-  var inputElements = document.querySelectorAll("#contactinfo input");
+  // document.querySelectorAll(inputElements);
+  console.log(document.querySelectorAll(inputElements))
   // hidden element that displays a number error message
   var is_valid = true;
 
@@ -30,7 +29,7 @@ function validateRequired() {
     // checks for empty input values
     // if the input is valid: changes the current element's background color
     // returns invalid for empty inputs
-    for(var i in inputElements) {
+    for(var i in document.querySelectorAll(inputElements)) {
       // validates all input elements in fieldset
       if(numberInputs[i].value == "") {
         numberInputs[i].style.background = "green";
@@ -189,7 +188,7 @@ function validateForm(evt) {
   // resets value for revalidation
   formValidity = true;
 
-  validateRequired();
+  validateRequired("#contactinfo input");
   validateNumbers();
 
   // submits form when input is valid
@@ -202,7 +201,7 @@ function validateForm(evt) {
 function setUpPage() {
   createEventListeners();
   generatePlaceholder();
-  listStateOptions();
+  listStateOptions(states, "option");
 }
 
 // executes setup functions when page finishes loading

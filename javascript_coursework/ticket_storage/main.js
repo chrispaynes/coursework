@@ -31,7 +31,7 @@ function verify(condition, message) {
     return true;
   }
   else {
-    alert(message);
+    alert(new Error(message));
     return false;
   }
 }

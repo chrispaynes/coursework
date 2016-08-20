@@ -16,7 +16,7 @@ function initSlideShow() {
     i.children[0].src = "img/" + source_images[SLIDESHOW_IMAGES.indexOf(i)] + ".jpg";
   });
 
-  writeSlideNumber()
+  writeSlideNumber();
 }
 
 // writes the Current Slide # / Max Slide # to the DOM
