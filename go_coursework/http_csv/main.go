@@ -13,6 +13,7 @@ import (
   "net/http"
   "log"
   "encoding/csv"
+	"strconv"
 )
 
 func main() {
@@ -47,8 +48,26 @@ func main() {
 	rows, err := rdr.ReadAll()
 
 	// Loops through array printing each row
-	for _, row := range rows {
-		fmt.Println(row)
+	// "_" signifies a Blank Identifier
+	// Blank Identifiers instruct the program to ignore returned index values
+	// "range" iterates through all entries within row
+	// for _, row := range rows 
+	// 	fmt.Println(row)
+	//	} 
+
+	fmt.Println(rows[0])
+	// Outputs => # 68923 - [2015_06_04 01:09:21 57.70 29.95 51.22 79.00 163.40 12.00 10.00]
+	for i, row := range rows { 
+		//fmt.Println("#", i, "-", row)
+		
+		// Parses columns/slices from strings to float64 precision
+		// Prints first 10 records
+		if i != 0 && i < 10 {
+			air_temp, _ := strconv.ParseFloat(row[1], 64)
+			baro_pres, _ := strconv.ParseFloat(row[2], 64)
+			wind_speed, _ := strconv.ParseFloat(row[7], 64)
+			fmt.Println(air_temp, baro_pres, wind_speed)
+		}
 	} 
 
 	// Defers until the surrounding function executes its return statement
