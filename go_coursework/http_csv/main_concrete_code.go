@@ -67,48 +67,40 @@ func main() {
 	// 	fmt.Println(row)
 	//	}
 
-	// declares zero-value variables to hold accumulated totals
-	// calculations are adding per each loop iteration
-  // :var air_temp_total, baro_pres_total, wind_speed_total, counter float64;
-
-  // RAW INPUT DATA
-  // HEADER  [ date        time      Air_Temp  Barometric_Press  Dew_Point  Relative_Humidity   Wind_Dir  Wind_Gust  Wind_Speed ]
-	// ROW 1:  [ 2015_06_04  01:09:21  57.70     29.95             51.22      79.00               163.40    12.00      10.00      ]
-  // ROW 2:  [ 2015_06_04  01:09:21  57.70     29.95             51.22      79.00               163.40    12.00      10.00      ]
-  // ROW N: ...
-
-  // FORMATTED OUTPUT
-  //           [Air_Temp   Barometric_Press   Wind_Speed ]
-  // # 00001 - [57.70      29.95              10.00      ]
-  // # 00002 - [57.70      29.95              10.00      ]
-  for i, row := range rows {
-    fmt.Println("#", i, " - ", row[1], " ", row[2], " ", row[7])
-  }
-
+  // Prints table column headers
   fmt.Println("----------------------------------------------")
-  fmt.Println("\t   ", rows[0][1], rows[0][2], rows[0][7])
+  fmt.Println(rows[0][1], rows[0][2], rows[0][7])
+  fmt.Println("----------------------------------------------")
+
+  // declares zero-value variables to hold accumulated totals
+  // calculations are adding per each loop iteration
+  var air_temp_total, baro_pres_total, wind_speed_total, counter float64;
+
+	// Outputs => # 68923 - [2015_06_04 01:09:21 57.70 29.95 51.22 79.00 163.40 12.00 10.00]
+	for i, row := range rows {
+		fmt.Println("#", i, "-", row)
+
+		// Parses columns/slices from strings to float64 precision
+		// Prints first 10 records
+			if i != 0 && i < 10 {
+				air_temp, _ := strconv.ParseFloat(row[1], 64)
+				baro_pres, _ := strconv.ParseFloat(row[2], 64)
+				wind_speed, _ := strconv.ParseFloat(row[7], 64)
+				fmt.Println(air_temp, "\t", baro_pres, "\t\t", wind_speed)
+				counter++
+
+				// calculates total value during each loop iteration
+				air_temp_total += air_temp
+				baro_pres_total += baro_pres
+				wind_speed_total += wind_speed
+			}
+		}
+
+	fmt.Println("----------------------------------------------")
+	fmt.Println("TOTAL RECORDS:", counter)
 	fmt.Println("TOTAL RECORDS:", len(rows) - 1)
 	fmt.Println("----------------------------------------------")
-  // calculates the mean for columns 1, 2, 7 (Air_Temp, Barometric_Press, and Wind_Speed)
-	fmt.Println("Mean Air Temp:", calcMean(rows, 1))
-	fmt.Println("Mean Barometric Pressure:", calcMean(rows, 2))
-	fmt.Println("Mean Wind Speed:", calcMean(rows, 7))
-
-} // end main func
-
-// accepts a slice and an index integer
-// returns a float64
-func calcMean(rows [][]string, index int) float64 {
-	var total float64
-
-  // Parses columns/slices from strings to float64 precision
-  // calculates total value during each loop iteration
-	for i, row := range rows {
-		if i != 0 {
-			val, _ := strconv.ParseFloat(row[index], 64)
-			total += val
-		}
-	}
-
-	return total / float64(len(rows) - 1)
+	fmt.Println("Mean Air Temp:", air_temp_total/counter)
+	fmt.Println("Mean Barometric Pressure:", baro_pres_total/counter)
+	fmt.Println("Mean Wind Speed:", wind_speed_total/counter)
 }
