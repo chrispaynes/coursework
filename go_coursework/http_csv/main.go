@@ -12,9 +12,14 @@ import (
   "log"
   "encoding/csv"
 	"strconv"
+  "time"
+  "sort"
 )
 
 func main() {
+  // logs start time for application
+  start := time.Now()
+
 	data_source := "https://raw.githubusercontent.com/lyndadotcom/LPO_weatherdata/master/Environmental_Data_Deep_Moor_2015.txt"
 
 	// Creates HTTP Get request from data_source argument
@@ -81,22 +86,30 @@ func main() {
   //           [Air_Temp   Barometric_Press   Wind_Speed ]
   // # 00001 - [57.70      29.95              10.00      ]
   // # 00002 - [57.70      29.95              10.00      ]
-  for i, row := range rows {
-    fmt.Println("#", i, " - ", row[1], " ", row[2], " ", row[7])
-  }
+  // for i, row := range rows {
+  //   fmt.Println("#", i, " - ", row[1], " ", row[2], " ", row[7])
+  // }
 
   fmt.Println("----------------------------------------------")
   fmt.Println("\t   ", rows[0][1], rows[0][2], rows[0][7])
 	fmt.Println("TOTAL RECORDS:", len(rows) - 1)
 	fmt.Println("----------------------------------------------")
-  // calculates the mean for columns 1, 2, 7 (Air_Temp, Barometric_Press, and Wind_Speed)
-	fmt.Println("Mean Air Temp:", calcMean(rows, 1))
-	fmt.Println("Mean Barometric Pressure:", calcMean(rows, 2))
-	fmt.Println("Mean Wind Speed:", calcMean(rows, 7))
+  // calculates mean and median for columns 1, 2, 7 (Air_Temp, Barometric_Press, and Wind_Speed)
+	fmt.Println("Air Temp:", calcMean(rows, 1), calcMedian(rows, 1))
+	fmt.Println("Barometric Pressure:", calcMean(rows, 2), calcMedian(rows, 2))
+	fmt.Println("Wind Speed:", calcMean(rows, 7), calcMedian(rows, 7))
+
+  // logs end time for application
+  end := time.Now()
+  // calculates the run time speed for func main()
+  // .sub() returns the duration between 2 times (start and end)
+  delta := end.Sub(start)
+
+  fmt.Println("Program runtime is", delta)
 
 } // end main func
 
-// accepts a slice and an index integer
+// accepts a multi-dimensional slice and an index integer
 // returns a float64
 func calcMean(rows [][]string, index int) float64 {
 	var total float64
@@ -110,5 +123,47 @@ func calcMean(rows [][]string, index int) float64 {
 		}
 	}
 
+  // divides total by total number of records to calculate mean
 	return total / float64(len(rows) - 1)
+}
+
+
+func calcMedian(rows [][]string, index int) float64 {
+  // array to hold record values in ascending order
+  var sorted_arr []float64
+
+  // Parses columns/slices from strings to float64 precision
+  // appends each value to the sorted array
+  for i, row := range rows {
+    if i != 0 {
+      value, _ := strconv.ParseFloat(row[index], 64)
+      sorted_arr = append(sorted_arr, value)
+    }
+  }
+
+  // TESTS THE ARRAY SEQUENCE BEFORE SORTING
+  // Before sorting the []float64; the first 10 records.
+  fmt.Println("BEFORE SORTING")
+  for i, v := range sorted_arr  {
+    fmt.Println(v)
+    if i == 20 {
+      break
+    }
+  }
+
+  // takes a slice of []float64s and sorts in ascending order
+  sort.Float64s(sorted_arr)
+
+  // TESTS THE ARRAY SEQUENCE AFTER SORTING
+  // After sorting the []float64; the first 10 records.
+  fmt.Println("AFTER SORTING")
+  for i, v := range sorted_arr  {
+    fmt.Println(v)
+    if i == 20 {
+      break
+    }
+  }
+
+  // ensure func returns a float64
+  return 0.0
 }
