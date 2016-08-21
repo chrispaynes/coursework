@@ -55,7 +55,14 @@ func main() {
 	// 	fmt.Println(row)
 	//	} 
 
-	fmt.Println(rows[0])
+	// declares zero-value variables to hold accumulated totals
+	// calculations are adding per each loop iteration
+	var air_temp_total, baro_pres_total, wind_speed_total, counter float64;
+
+	fmt.Println("----------------------------------------------")
+	fmt.Println(rows[0][1], rows[0][2], rows[0][7])
+	fmt.Println("----------------------------------------------")
+
 	// Outputs => # 68923 - [2015_06_04 01:09:21 57.70 29.95 51.22 79.00 163.40 12.00 10.00]
 	for i, row := range rows { 
 		//fmt.Println("#", i, "-", row)
@@ -66,10 +73,22 @@ func main() {
 			air_temp, _ := strconv.ParseFloat(row[1], 64)
 			baro_pres, _ := strconv.ParseFloat(row[2], 64)
 			wind_speed, _ := strconv.ParseFloat(row[7], 64)
-			fmt.Println(air_temp, baro_pres, wind_speed)
+			fmt.Println(air_temp, "\t", baro_pres, "\t\t", wind_speed)
+			counter++
+
+			// calculates total value during each loop iteration
+			air_temp_total += air_temp
+			baro_pres_total += baro_pres
+			wind_speed_total += wind_speed
 		}
 	} 
 
+	fmt.Println("----------------------------------------------")
+	fmt.Println("TOTAL RECORDS:", counter)
+	fmt.Println("----------------------------------------------")
+	fmt.Println("Mean Air Temp:", air_temp_total/counter)
+	fmt.Println("Mean Barometric Pressure:", baro_pres_total/counter)
+	fmt.Println("Mean Wind Speed:", wind_speed_total/counter)
 	// Defers until the surrounding function executes its return statement
 		// OR defers until the function reaches its function body ending
 		// OR defers because the corresponding goroutine is panicking
