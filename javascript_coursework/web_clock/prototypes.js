@@ -5,31 +5,25 @@ function Time_Zone(abbr, name, utc_offset, selected) {
   this.name = name;
   this.utc_offset = utc_offset;
   this.selected = false;
-}
+};
 
 // Object.prototype.constructor for a clock
-function Clock(hrs, min, sec) {
-  this.hrs = hrs;
-  this.min = min;
-  this.sec = sec;
-  this.period = "am";
-}
+function UTC_Clock(new_date) {
+  this.hrs = new_date.getUTCHours();
+  this.min = new_date.getUTCMinutes();
+  this.sec = new_date.getUTCSeconds();
+  // calculates TimezoneOffset divided by 60 to get hours offset
+  // multiplies by -1 to get a negative number
+  this.tzo = (new_date.getTimezoneOffset() / 60) * -1;
+  this.abs_tzo = Math.abs(this.tzo);
+  this.adj_hrs = this.hrs;
+  this.adj_period = "";
+};
 
 // Object.prototype.constructor for time data specific to DOM
-function DOM_CLOCK(date_obj) {
-  // calculates TimezoneOffset divided by 60 to get hours offset
-  // multiplies by -1 to get a negative offest
-  this.tzo = (date_obj.getTimezoneOffset() / 60) * -1;
+function DOM_CLOCK() {
   // DOM object that displays hours, minutes, seconds
-  this.clock_node = document.getElementById("local_clock")
+  this.t_node = document.getElementById("local_clock")
   // DOM object that displays AM/PM
-  this.period_node = document.getElementById("am_pm");
-
-  this.calcUTCHrs = function() {
-                      if(date_obj.getUTCHours() + this.tzo < 12) {
-                        return 12 + (date_obj.getUTCHours() + this.tzo)
-                      } else {
-                        return date_obj.getUTCHours() + this.tzo;
-                      }
-  };
-}
+  this.p_node = document.getElementById("am_pm");
+};
