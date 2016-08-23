@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!--
+      Simulate a digital clock that appears to "click" off each second by
+      using a setInterval() method that continuously executes code to retrieve
+      the current time.  Use this technique to create a digital clock that
+      displays a 12-hour clock in a form's text box.
+      The should display hours, minutes, seconds, and AM or PM.
+   -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <title>Clock Application</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="modernizr.custom.05819.js"></script>
+</head>
+
+<body>
+  <header>
+    <h1>Clock Application</h1>
+
+  </header>
+  <article>
+    <form>
+      <span id="local_clock"></span>
+      <span id="am_pm"></span>
+    </form>
+
+    <select name="" id="time_zone_selector"> </select>
+
+  </article>
+  <script type="text/javascript" src="prototypes.js"></script>
+  <script type="text/javascript" src="timezones.js"></script>  
+  <script type="text/javascript" src="main.js"></script>
+</body>
+
+</html>
