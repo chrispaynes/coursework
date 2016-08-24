@@ -15,6 +15,9 @@ import (
 )
 
 func main() {
+  /*  The original data source, "https://lpo.dt.navy.mil/data/DM/Environmental_Data_Deep_Moor_2016.txt"
+      had issues with an unsigned HTTPS certificate. Had to use a source file from GitHub
+  */
 	data_source := "https://raw.githubusercontent.com/lyndadotcom/LPO_weatherdata/master/Environmental_Data_Deep_Moor_2015.txt"
 
 	// Creates HTTP Get request from data_source argument

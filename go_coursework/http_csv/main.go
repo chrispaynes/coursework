@@ -32,12 +32,6 @@ func main() {
     log.Fatal(err)
   }
 
-	// Defers until the surrounding function executes its return statement
-		// OR defers until the function reaches its function body ending
-		// OR defers because the corresponding goroutine is panicking
-	// Closes the reader
-  defer resp.Body.Close()
-
 	// Creates NewReader from io.Reader interface
 	// Reads records from a CSV-encoded file
 	// Return value references the *Reader struct {}
@@ -49,6 +43,12 @@ func main() {
 
 	// Sets object to ignore leading white space in a field
   rdr.TrimLeadingSpace = true
+
+  // Defers until the surrounding function executes its return statement
+    // OR defers until the function reaches its function body ending
+    // OR defers because the corresponding goroutine is panicking
+  // Closes the reader
+  defer resp.Body.Close()  
 
 	// ReadAll uses *Reader to read the argument's remaining records
 	// Reads and slices each record/line from source file until io.EOF
@@ -141,29 +141,20 @@ func calcMedian(rows [][]string, index int) float64 {
     }
   }
 
-  // TESTS THE ARRAY SEQUENCE BEFORE SORTING
-  // Before sorting the []float64; the first 10 records.
-  fmt.Println("BEFORE SORTING")
-  for i, v := range sorted_arr  {
-    fmt.Println(v)
-    if i == 20 {
-      break
-    }
-  }
-
-  // takes a slice of []float64s and sorts in ascending order
+  // // takes a slice of []float64s and sorts in ascending order
   sort.Float64s(sorted_arr)
 
-  // TESTS THE ARRAY SEQUENCE AFTER SORTING
-  // After sorting the []float64; the first 10 records.
-  fmt.Println("AFTER SORTING")
-  for i, v := range sorted_arr  {
-    fmt.Println(v)
-    if i == 20 {
-      break
-    }
+  // for slices with an even number of elements...
+  // the median is the average of the middle two slice numbers
+  if len(sorted_arr) % 2 == 0 {
+    mid_num := len(sorted_arr) / 2
+    mid_high_num := sorted_arr[mid_num]
+    mid_low_num := sorted_arr[mid_num - 1]
+    return (mid_high_num + mid_low_num) / 2
   }
 
-  // ensure func returns a float64
-  return 0.0
+  // for slices with an odd number of elements...
+  // the median is the middle slice number
+  mid_num := len(sorted_arr) / 2
+  return sorted_arr[mid_num]
 }
