@@ -1,4 +1,6 @@
-// Time Zone Constants
+// TIME_ZONES is a constant containing a collection of individual Time_Zones
+// Key = Timezone abbreviation *string
+// Value = new Time_Zone(abbr *string, name *string, utc_offset *int, selected, *bool) *object
 const TIME_ZONES = {
   "AST":  new Time_Zone("AST", "Atlantic Standard", -4),
   "ADT":  new Time_Zone("ADT", "Atlantic Daylight Time", -3),
@@ -16,16 +18,19 @@ const TIME_ZONES = {
 };
 
 // TEST DEFAULT TIMEZONE
-TIME_ZONES.CST.selected = true;
+TIME_ZONES.CDT.selected = true;
 
-var tzs = document.getElementById("time_zone_selector");
-var tzs_opt;
+// tz_write() is an IIFE that loops through TIME_ZONES{ } to create
+// and append a dropdown list of timezones options to select from
+(function tz_write() {
+  var tzs = document.getElementById("time_zone_selector");
+  var tzs_opt;
 
-// creates HTML dropdown using keys from TIME_ZONES hash
-for(var tz in TIME_ZONES) {
-  tzs_opt = document.createElement("option");
-  tzs_opt.selected = TIME_ZONES[tz].selected;
-  tzs_opt.value = TIME_ZONES[tz].abbr;
-  tzs_opt.innerHTML = TIME_ZONES[tz].abbr + " - " + TIME_ZONES[tz].name + " (UTC" + TIME_ZONES[tz].utc_offset + ")";
-  tzs.appendChild(tzs_opt)
-}
+  for(var tz in TIME_ZONES) {
+    tzs_opt = document.createElement("option");
+    tzs_opt.selected = TIME_ZONES[tz].selected;
+    tzs_opt.value = TIME_ZONES[tz].abbr;
+    tzs_opt.innerHTML = TIME_ZONES[tz].abbr + " - " + TIME_ZONES[tz].name + " (UTC" + TIME_ZONES[tz].utc_offset + ")";
+    tzs.appendChild(tzs_opt)
+  }
+})();

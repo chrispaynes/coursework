@@ -1,16 +1,18 @@
-// GLOBALS
-var clock = {};
+// GLOBAL VARIABLE
+var CLOCK = {};
 
-// instantiates new time object
+// configTime instantiates a new time object and
 // sets Clock object properties using Date properties
 function configTime() {
   var ND = new Date();
-  clock = new UTC_Clock(ND);
+  CLOCK = new UTC_Clock(ND);
 };
 
 // TODO: abstract conditional logic
-// Corrects object properties based on current time
-function propAdjuster(clock) {
+// propAdj converts the CLOCK{ } object properties
+// based on user's current local time
+// propAdj(CLOCK *object)
+function propAdj(clock) {
   // calculates hours based on 12 hour clock
   // changes time suffic to AM or PM based on hour
   // => EVENING / PRE-MIDNIGHT (ADJUSTED 7:00pm - 11:59pm)
@@ -44,37 +46,43 @@ function propAdjuster(clock) {
   }
 };
 
-// test if a property matches a RegExp
-function padTime(prop, regx) {
-  regx.test(prop) ? prop : prop = "0" + prop;
-  return prop;
+// padder runs a regular expression object against an
+// integer property to verify it has 2 digits, if it
+// doesn't, it pads the integer with a leading "0"
+// padder(prop *int, regx *object)
+function padder(p, regx) {
+  regx.test(p) ? p : p = "0" + p;
+  return p;
 }
 
-// writes clock information to DOM
-function writeClockToDOM() {
+// writeClock writes the global CLOCK{ } properties
+// to Document Object Model
+function writeClock() {
   // creates DOM_CLOCK
   var dom_clock = new DOM_CLOCK();
   configTime();
 
-  // Corrects object properties based on current time
-  propAdjuster(clock);
+  // Converts CLOCK{ } properties based on user's local time
+  propAdj(CLOCK);
 
   // writes UTC Hours, Minutes, and Seconds to DOM
   // uses RegExp to left-pad single digit time numbers
   // "_7:_4:_1 am" becomes "07:04:01 am"
-  dom_clock.t_node.innerHTML = padTime(clock.adj_hrs, /../)
-                  + ":" + padTime(clock.min, /../)
-                  + ":" + padTime(clock.sec, /../);
+  dom_clock.t_node.innerHTML = padder(CLOCK.adj_hrs, /../)
+                  + ":" + padder(CLOCK.min, /../)
+                  + ":" + padder(CLOCK.sec, /../);
 
   // writes time period to DOM based on AM/PM designation
-  dom_clock.p_node.innerHTML = clock.adj_period;
+  dom_clock.p_node.innerHTML = CLOCK.adj_period;
 }
 
-// calls the configTime func() every second to mimic a clock
-setInterval(writeClockToDOM, 1000);
+// setInterval calls the writeClock() every second to mimic a CLOCK
+// setInterval(writeClock *object, 1000 *int);
+setInterval(writeClock, 1000);
 
 if(window.addEventListener) {
-  window.addEventListener("load", writeClockToDOM, false);
-} else if(window.attachEvent) {
-  window.attachEvent("onload", writeClockToDOM);
+  window.addEventListener("load", writeClock, false);
+}
+if(window.attachEvent) {
+  window.attachEvent("onload", writeClock);
 }
