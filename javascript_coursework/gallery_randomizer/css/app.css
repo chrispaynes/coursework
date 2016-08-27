@@ -27,3 +27,7 @@ img {
   display: inline;
   /*min-height: 18vw;*/
 }
+
+label {
+  text-align: center;
+}

@@ -1,5 +1,6 @@
-// file names for jpg images
-var source_images = [ "amersterdam",
+// src_imgs contains file name strings for jpg images
+// src_imgs [ *string ]
+var src_imgs = [ "amersterdam",
                       "bern",
                       "boston",
                       "brazil",
