@@ -1,28 +1,28 @@
-var SLIDESHOW_IMAGES = getFocalSlides([previous_img, current_img, next_img]);
-
-// collects DOM image elements for 3 main slideshow panels
-// saves images globally as previous, current, and next
-function getFocalSlides(images) {
-  images.forEach(function(img) {
+// setFocalImages() returns an array of DOM image elements
+// for the previous, current, and next image
+function setFocalImages() {
+  var imgs = [previous_img, current_img, next_img];
+  imgs.map(function(img) {
     img = document.getElementById(img);
   });
-  return images;
+  return imgs;
 }
 
-// resets slideshow to use the slideshow image array' first 3 values
-function initSlideShow() {
-  SLIDESHOW_IMAGES.map(function(i) {
-    i.children[0].id = SLIDESHOW_IMAGES.indexOf(i);
-    i.children[0].src = "img/" + source_images[SLIDESHOW_IMAGES.indexOf(i)] + ".jpg";
+// initSlides resets the slideshow by displaying image slides 1-3
+function initSlides() {
+  setFocalImages().map(function(i) {
+    i.children[0].id = setFocalImages().indexOf(i);
+    i.children[0].src = "img/" + source_images[setFocalImages().indexOf(i)] + ".jpg";
   });
 
-  writeSlideNumber();
+  writeSlideNums();
 }
 
-// writes the Current Slide # / Max Slide # to the DOM
-// uses the previous image + 1 (because of the 0 index) as the Current Slide #
-// uses data array length as the Max Slide #
-function writeSlideNumber() {
+// writeSlideNums outputs the current slide number to the DOM
+// current_slide = previous_image ID + 1
+// total_slides = data.length
+// returns: "1 / 7" to the DOM when display slide 1 of 7
+function writeSlideNums() {
   document.getElementsByTagName("h2")[0].innerHTML =
     (parseInt(previous_img.children[0].id) + 1) + " / " + (source_images.length);
 };

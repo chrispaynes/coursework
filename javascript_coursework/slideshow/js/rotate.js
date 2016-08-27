@@ -1,37 +1,48 @@
-// checks if an element meets a condition
-// resets element or continues to mutate it
-function checkRange(element, condition, reset, unary_op) {
-  if(element.children[0].id == condition ) {
-    element.children[0].id = reset;
-  } else {
-    element += unary_op;
+// checkRange() verifies an element meets a condition.
+// If the condition = FALSE, it resets the element to the reset value.
+// If the condition = TRUE, it returns a mutated element
+// checkRange(elem *object, cond *int, rst *int, unary_op *int)
+function checkRange(elem, cond, rst, unary_op) {
+  if(elem.children[0].id == cond ) {
+    return elem.children[0].id = rst;
   }
+  return elem += unary_op;
 };
 
-// increments or decrements all picture Id values based on mutation value
-// resets the ID when a picture's index value is less than the data array's length
-// resets the ID when a picture's index value is less than 0
-function mutateId(target, mutation_value) {
-  target.map(function(img) {
-    if(mutation_value === 1) {
-      checkRange(img, (source_images.length ), 0, img.children[0].id++);
-    } else if(mutation_value === -1) {
-      checkRange(img, -1 , (source_images.length - 1), img.children[0].id--);
-    } // end else
-  })//end map
-}
+// mutID maps a mutation value over the data object to
+// increment or decrement image ID values
+// mutID(d_obj *object, mv *int)
+function mutID(d_obj, mv) {
+  d_obj.map(function(img) {
 
-function mapOverImages(target) {
-  target.map(function(image) {
-    image.children[0].src = "img/" + source_images[image.children[0].id] + ".jpg";
+    // resets the ID when a picture's index value is less than the data array's length
+    if(mv === 1) {
+      return checkRange(img, (source_images.length ), 0, img.children[0].id++);
+    }
+
+    // resets the ID when a picture's index value is less than 0
+    if(mv === -1) {
+      return checkRange(img, -1 , (source_images.length - 1), img.children[0].id--);
+    }
   });
 }
 
-// rotates the slideshow to the right or left
-// increments or decrements the image element's ID attribute
-// writes the slide number to the DOM
-function rotate(target, mutation_value) {
-  mutateId(target, mutation_value);
-  mapOverImages(target);
-  writeSlideNumber();
+// mutSRC loops a data array and shifts a target's current image
+// source values up to the next image in the data collection
+// mutSRC(tgt *object)
+function mutSRC(tgt) {
+  tgt.map(function(img) {
+    img.children[0].src = "img/" + source_images[img.children[0].id] + ".jpg";
+  });
+}
+
+// main_rotate() invokes the modules function calls:
+// Increments or decrements the image element's ID attribute
+// Rotates the slideshow right or left
+// Writes the slide number to the DOM
+// rotate(target *object, mutation_value *int)
+function main_rotate(target, mutation_value) {
+  mutID(target, mutation_value);
+  mutSRC(target);
+  writeSlideNums();
 }
