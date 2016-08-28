@@ -1,0 +1,245 @@
+* {
+  /*border: solid 1px lightblue;*/
+  box-sizing: border-box !important;
+}
+
+body,
+html,
+ul,
+figure {
+  margin: 0;
+  padding: 0;
+  line-height: 115%;
+}
+
+li {
+  list-style: none;
+}
+
+
+/*HEADER*/
+
+header {
+  background-color: white;
+  min-height: 150px;
+  padding: 5px 5px 20px 5px;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 0 40px 0;
+}
+
+#hdr-hr_logo_ctnr {
+  flex: 1 10 25%;
+  align-self: center;
+}
+
+#hdr-hr_logo {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+#hdr_address {
+  flex: 1 1 25%;
+  padding: 1%;
+  margin: 0 0 0 5px;
+}
+
+nav {
+  flex: 1 1 auto;
+  display: flex;
+  margin: 15px 0;
+}
+
+.hdr-nav_link {
+  flex: 1 1 50%;
+  height: 20px;
+  position: relative;
+  align-self: flex-end;
+  margin: 0 5px;
+}
+
+.hdr-nav_link a:hover {
+  border-bottom: solid 2px rgb(91,149,66);
+  color: rgb(91,149,66);
+}
+
+@media (min-width: 0) and (max-width: 675px) {
+#hdr-hr_logo_ctnr {
+  flex: 1 10 100%;
+  align-self: center;
+}
+
+
+#hdr_address {
+  flex: 1 1 100%;
+  margin: 30px 0 15px 0;
+}
+
+nav {
+  flex: 1 1 100%;
+  display: block;
+  margin: 10px 0;
+}
+
+.hdr-nav_link {
+  flex: 1 1 100%;
+  margin: 20px 0;
+  text-align: center;
+}
+
+}
+
+
+/*END HEADER*/
+
+
+/*BODY*/
+
+main {
+  padding: 1%;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 10px 0 150px 0;
+}
+
+.article_rental_prop_cntr {
+  flex: 0 2 auto;
+  padding: 5px;
+  margin: 0 5px;
+}
+
+@media (min-width: 0px) and (max-width: 629px) {
+  .article_rental_prop_cntr {
+    flex: 1 2 auto;
+  }
+}
+
+@media (min-width: 630px) and (max-width: 1245px) {
+  .article_rental_prop_cntr {
+    flex: 1 2 45%;
+  }
+}
+
+#subtitle {
+  margin: 0 0 25px 0;
+}
+
+figcaption {
+  margin: 15px 0;
+  padding: 1%;
+}
+
+p {
+  font-family: Titillium Web, Helvetica, Arial;
+  font-weight: normal;
+  font-size: 100%;
+  color: black;
+  text-align: left;
+  margin: 0;
+}
+
+a {
+  font-family: Titillium Web, Helvetica, Arial;
+  font-weight: normal;
+  font-size: 125%;
+  color: black;
+  text-decoration: none;
+}
+
+h1 {
+  font-family: Titillium Web, Helvetica, Arial;
+  font-weight: bold;
+  font-size: 150%;
+  color: black;
+  text-align: center;
+  margin: 5px 0;
+}
+
+h2 {
+  font-family: Titillium Web, Helvetica, Arial;
+  font-weight: normal;
+  font-size: 115%;
+  color: black;
+  text-align: center;
+  margin: 0;
+}
+
+body {
+  background-color: rgb(91,149,66);
+}
+
+h3 {
+  font-family: Titillium Web, Helvetica, Arial;
+  font-weight: bold;
+  font-size: 125%;
+  color: black;
+  text-align: left;
+  margin: 0;
+}
+
+img {
+  width: 100%;
+  border: solid 2px white
+}
+
+figure img:hover {
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
+}
+
+
+/*FOOTER*/
+
+footer >p {
+  text-align: center;
+}
+
+
+/*slideshow*/
+
+section#slideshow {
+  min-height: 500px;
+  padding: 10px;
+  display: none;
+}
+
+section#slideshow div {
+  display: flex;
+}
+
+section#slideshow div aside {
+  flex: 1 1 40%;
+  padding: 10px;
+}
+
+section#slideshow img {
+  flex: 1 1 60%;
+  height: 500px;
+}
+
+section#slideshow div.floorplan img {
+  height: auto;
+  width: 100%;
+}
+
+#NEED_INFO {
+  color: red;
+}
+
+
+
+/* contains rental floorplans and Google Map*/
+#image_cont {
+  display: flex;
+  margin: 50px 0 0 0;
+}
+
+.floorplan {
+    flex: 1 1 auto;
+    height: 300px;
+}
+
+.map {
+    flex: 1 1 30%;
+    height: 300px;
+    overflow: hidden;
+}
