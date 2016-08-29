@@ -46,7 +46,6 @@ function setMarkers() {
     });
   });
 }
-
 setMarkers();
 }
 

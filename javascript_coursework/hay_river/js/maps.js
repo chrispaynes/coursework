@@ -107,56 +107,39 @@ var map_N4923_infoPopup = new google.maps.InfoWindow({content: map_N4923_desc});
   // setMarkers creates new map markers, places the markers on each map
   // and creates event listeners for click events on each marker
   function setMarkers() {
-    // creates custom map markers
-    var map_1821_marker = new google.maps.Marker({
-            position: {
-              lat: 44.865782,
-              lng: -91.922486
-            },
-            map: map_1821,
-            title: "1821 7th Street"
-          });
-
-    var map_1818_marker = new google.maps.Marker({
-            position: {
-              lat: 44.865979,
-              lng: -91.9252027
-            },
-            map: map_1818,
-            title: "1818 6th Street"
-    });
-
-    var map_1815_marker = new google.maps.Marker({
-            position: {
-              lat: 44.866102,
-              lng: -91.9246957
-            },
-            map: map_1815,
-            title: "1815 7th Street"
-    });
-
-    var map_N4923_marker = new google.maps.Marker({
-            position: {
-              lat: 44.8589455,
-              lng: -91.8753319
-            },
-            map: map_N4923,
-            title: "N4923 - 572nd Street"
-    });
-
-      // creates click event listeners for each marker
-      google.maps.event.addListener(map_1821_marker, "click", function() {
-        map_1821_infoPopup.open(map_1821, map_1821_marker);
+    // createsMarker() creates custom map markers using latitude and
+    // longitude *float coordinates. The marker is placed on a map
+    // *object and a title *string is added for an info popup
+    // createMarker(lt *float, ln *float, mp *object, ti *string)
+    function createMarker(lt, ln, mp, ti) {
+      console.log(typeof(lt), typeof(ln), typeof(mp), typeof(ti));
+      return new google.maps.Marker({
+        position: { lat: lt, lng: ln},
+        map: mp,
+        title: ti
       });
-      google.maps.event.addListener(map_1818_marker, "click", function() {
-        map_1818_infoPopup.open(map_1818, map_1818_marker);
+    };
+
+    var map_1821_marker = createMarker(44.865782, -91.922486, map_1821, "1821 7th Street");
+    var map_1818_marker = createMarker(44.865979, -91.9252027, map_1818, "1818 6th Street");
+    var map_1815_marker = createMarker(44.866102, -91.9246957, map_1815, "1815 7th Street");
+    var map_N4923_marker = createMarker(44.8589455, -91.8753319, map_N4923, "N4923 - 572nd Street");
+
+    // setMarkerListener() creates a listener for a click event
+    // on a marker for a specific map. When the marker is clicked
+    // the popup is opened
+    // setMarkerListener(marker *object, popup *object, map *object)
+    function setMarkerListener(marker, popup, map) {
+      google.maps.event.addListener(marker, "click", function() {
+        popup.open(map, marker);
       });
-      google.maps.event.addListener(map_1815_marker, "click", function() {
-        map_1815_infoPopup.open(map_1815, map_1815_marker);
-      });
-      google.maps.event.addListener(map_N4923_marker, "click", function() {
-        map_N4923_infoPopup.open(map_N4923, map_N4923_marker);
-      });
+    };
+
+    // creates click event listeners for each marker
+    setMarkerListener(map_1821_marker, map_1821_infoPopup, map_1821);
+    setMarkerListener(map_1818_marker, map_1818_infoPopup, map_1818);
+    setMarkerListener(map_1815_marker, map_1815_infoPopup, map_1815);
+    setMarkerListener(map_N4923_marker, map_N4923_infoPopup, map_N4923);
 
   }
   ////////////////////////////////////////
