@@ -1,20 +1,20 @@
 // index() displays a listing of all properties from the database
 function index() {
-  var prop_count = document.getElementById("prop_count");
-  prop_count.innerHTML = app_rental_props.length;
+  var count = document.getElementById("count");
+  count.innerHTML = app_rental_props.length;
 
   //  loops through property rental database
+  // app_rental_props.map(function(app_rentals *object, i *int)
   app_rental_props.map(function(app_rentals, i) {
-
     //creates new Rental object to hold each database object
     var prop = new Rental(app_rentals, i);
 
     // adds the property figure to the index page
-    rental_index.appendChild(prop.fig);
+    R_INDEX.appendChild(prop.fig);
 
     //adds image to anchor elem
     prop.anch.appendChild(prop.img);
-    //adds achor to the figure
+    //adds anchor to the figure
     prop.fig.appendChild(prop.anch);
 
     //adds h3 to caption
@@ -28,7 +28,9 @@ function index() {
 }
 
 // show() displays a larger property listing for a single database rental property
+// show(id *string => *int)
 function show(id) {
+  id = parseInt(id);
   var sl = document.getElementById("slideshow");
 
   var fr = new FullRental();
@@ -57,7 +59,6 @@ function show(id) {
   sl.style.display = "block";
 }
 
-
 // expand() increases the size of an image when the use clicks on it's thumbnail
 function expand() {
   // locates all anchor tags in the main index
@@ -77,8 +78,8 @@ function expand() {
       }, false);
     }
     if (window.attachEvent) {
-      rental_index.attachEvent("click", function() {
-        show()
+      R_INDEX.attachEvent("click", function() {
+        show(l.id)
       });
     }
 

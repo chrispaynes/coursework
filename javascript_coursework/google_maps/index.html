@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <title>Google Maps API</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- LOADS GOOGLE MAPS API -->
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js"></script>
+
+    <style>
+      body {
+        margin: 0 auto;
+        background-color: darkslategrey;
+        flex-wrap: wrap;
+        display: flex;
+      }
+
+      #sat_map, #ter_map, #sty_map {
+        height: 400px;
+        margin: 0 auto;
+        border: solid 10px white;
+        flex: 1 1 30%;
+      }
+
+      h4 {
+        color: darkcyan;
+        font-size: 24px;
+        margin-bottom: 0;
+      }
+
+      p.info {
+        padding: 0 0 0 30px;
+        width: 75%;
+        text-align: justify;
+      }
+    </style>
+
+  </head>
+
+  <body>
+    <div id="sat_map"></div>
+    <div id="ter_map"></div>
+    <div id="sty_map"></div>
+
+    <script type="text/javascript" src="map_options.js"></script>
+    <script type="text/javascript" src="map_popups.js"></script>
+    <script type="text/javascript" src="map_styles.js"></script>
+    <script type="text/javascript" src="main.js"></script>
+
+  </body>
+</html>
