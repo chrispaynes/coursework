@@ -1,3 +1,5 @@
+var app_maps = [map_1821, map_1818, map_1815, map_N4923];
+
 // index() displays a listing of all properties from the database
 function index() {
   var count = document.getElementById("count");
@@ -24,6 +26,7 @@ function index() {
 
     //adds figcaption to figure
     prop.fig.appendChild(prop.capt);
+
   });
 }
 
@@ -39,8 +42,8 @@ function show(id) {
   fr.h3.innerHTML = app_rental_props[id].address + "<br />" + app_rental_props[id].city + ", " + app_rental_props[id].state + " " + app_rental_props[id].zip + "<br>"
   fr.p.innerHTML = app_rental_props[id].category + "<br><br>" + "List of Features and Amenities: <br>" + app_rental_props[id].desc.replace(/, /g, "<br>");
   fr.fp.src = app_rental_props[id].floor;
+  // fr.map.id = app_rental_props[id].map;
   fr.map.innerHTML = app_rental_props[id].map;
-
 
   fr.asd.appendChild(fr.h3)
   fr.asd.appendChild(fr.p)
@@ -74,7 +77,9 @@ function expand() {
     // create event listeners when page finishes loading
     if (window.addEventListener) {
       link.addEventListener("click", function() {
-        show(l.id)
+        show(l.id);
+        setTimeout(function(){ initMaps(l.id); }, 1);
+        
       }, false);
     }
     if (window.attachEvent) {

@@ -1,3 +1,4 @@
+
 // Full Rental() creates an Object Prototype of a property listing
 function FullRental() {
   this.dv = document.createElement("div");
@@ -11,6 +12,7 @@ function FullRental() {
   this.fp.innerHTML = "<img src='img/floor.jpg'></img>";
   this.fp.className = "floorplan";
   this.map = document.createElement("div");
+  this.map.id;
   this.map.className = "map";
 }
 

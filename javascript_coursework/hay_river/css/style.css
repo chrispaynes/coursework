@@ -243,3 +243,27 @@ section#slideshow div.floorplan img {
     height: 300px;
     overflow: hidden;
 }
+
+/*GOOGLE MAPS API*/
+#map_cntr{
+flex-wrap: wrap;
+display: flex;
+}
+
+#map_1821, #map_1818, #map_1815, #map_N4923, #image_cont {
+  /*height: 400px;*/
+  border: solid 10px white;
+  flex: 1 1 30%;
+}
+
+h4 {
+  color: darkcyan;
+  font-size: 24px;
+  margin: 0;
+}
+
+p.info {
+  padding: 0 0 0 30px;
+  width: 75%;
+  text-align: justify;
+}
