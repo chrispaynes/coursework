@@ -196,6 +196,8 @@ footer >p {
 }
 
 
+
+
 /* Container Expanded Rental Property Slideshow */
 section#slideshow {
   min-height: 500px;
@@ -204,23 +206,37 @@ section#slideshow {
 }
 
 /* Slideshow container for expanded image and aside */
+#slideshow_main {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+/*
 section#slideshow div {
   display: flex;
+  flex-direction: row;
+  padding: 0 10% 0 0;
 }
-
+*/
 /* Slideshow Property Highlights */
 section#slideshow div aside {
-  flex: 1 1 40%;
+  flex: 1 1 auto;
   padding: 10px;
 }
 
-/* Expanded Slideshow Property Image */
-section#slideshow img {
-  flex: 1 1 auto;
-  height: 500px;
-  border: solid 4px white
-
+/* Expanded Slideshow Floorplan Image */
+.floorplan {
+    flex: 1 1 auto;
+    height: 300px;
+    margin: 0 15px 0 0;
 }
+
+
+#slideshow-slide_image {
+    flex: 1 1 auto;
+    border: solid 4px white;
+    min-height: 500px;
+} 
 
 /* Slideshow's Floorplan Image */
 section#slideshow div.floorplan img {
@@ -233,33 +249,31 @@ section#slideshow div.floorplan img {
 }
 
 
+
 /* Container for Rental floorplans and Google Map */
 #image_cont {
   display: flex;
   margin: 50px 0 0 0;
 }
 
-.floorplan {
-    flex: 1 1 auto;
-    height: 300px;
-}
+
 
 .map {
-    flex: 1 1 30%;
+    flex: 50%;
     height: 300px;
     overflow: hidden;
 }
 
 /* GOOGLE MAPS API */
 #map_cntr{
-flex-wrap: wrap;
-display: flex;
+  flex-wrap: wrap;
+  display: flex;
 }
 
-#map_1821, #map_1818, #map_1815, #map_N4923, #image_cont {
+#image_cont {
   /*height: 400px;*/
-  border: solid 10px white;
-  flex: 1 1 30%;
+  /*border: solid 10px white;*/
+  /*flex: 1 1 30%;*/
 }
 
 /* GOOGLE MAPS API - info popup */

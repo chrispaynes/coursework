@@ -41,14 +41,14 @@ function show(id) {
   fr.img.src = "img/" + app_rental_props[id].image_src;
   fr.h3.innerHTML = app_rental_props[id].address + "<br />" + app_rental_props[id].city + ", " + app_rental_props[id].state + " " + app_rental_props[id].zip + "<br>"
   fr.p.innerHTML = app_rental_props[id].category + "<br><br>" + "List of Features and Amenities: <br>" + app_rental_props[id].desc.replace(/, /g, "<br>");
-  fr.fp.src = app_rental_props[id].floor;
-  // fr.map.id = app_rental_props[id].map;
+  fr.fp.src = "img/" + app_rental_props[id].floor;
   fr.map.innerHTML = app_rental_props[id].map;
 
   fr.asd.appendChild(fr.h3)
   fr.asd.appendChild(fr.p)
   fr.dv.appendChild(fr.img);
   fr.dv.appendChild(fr.asd);
+  fr.dv.id = "slideshow_main";
 
   fr.s.appendChild(fr.fp);
   fr.s.appendChild(fr.map);

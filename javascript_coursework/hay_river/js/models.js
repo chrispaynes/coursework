@@ -8,8 +8,8 @@ function LargeRental() {
   this.p = document.createElement("p");
   this.s = document.createElement("section");
   this.s.id = "image_cont"
-  this.fp = document.createElement("div");
-  this.fp.innerHTML = "<img src='img/floor.jpg'></img>";
+  this.fp = document.createElement("img");
+  this.fp.src = "";
   this.fp.className = "floorplan";
   this.map = document.createElement("div");
   this.map.id;
