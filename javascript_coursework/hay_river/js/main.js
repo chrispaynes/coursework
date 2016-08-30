@@ -6,5 +6,4 @@ var R_INDEX = document.getElementsByTagName("main")[0];
 function app_main() {
   index();
   expand();
-  // initMaps()
 }

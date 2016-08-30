@@ -1,6 +1,6 @@
 
 // Full Rental() creates an Object Prototype of a property listing
-function FullRental() {
+function LargeRental() {
   this.dv = document.createElement("div");
   this.img = document.createElement("img");
   this.asd = document.createElement("aside");
@@ -17,7 +17,7 @@ function FullRental() {
 }
 
 // Rental() creates an Object Prototype of a property listing
-function Rental(db, i) {
+function SmallRental(db, i) {
   this.fig = document.createElement("figure");
   this.fig.className = "article_rental_prop_cntr";
   this.anch = document.createElement("a");

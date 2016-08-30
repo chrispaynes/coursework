@@ -103,7 +103,7 @@ main {
 }
 
 .article_rental_prop_cntr {
-  flex: 0 2 auto;
+  flex: 1 2 auto;
   padding: 5px;
   margin: 0 auto;
 }
@@ -121,7 +121,7 @@ main {
 }
 
 #subtitle {
-  margin: 0 0 25px 0;
+  margin: 25px 0 0 0;
 }
 
 figcaption {
@@ -177,8 +177,10 @@ h3 {
   margin: 0;
 }
 
-img {
-  width: 100%;
+
+
+#index img {
+  width: 95%;
   border: solid 2px white
 }
 
@@ -187,7 +189,7 @@ figure img:hover {
 }
 
 
-/*FOOTER*/
+/* FOOTER */
 
 footer >p {
   text-align: center;
@@ -214,8 +216,10 @@ section#slideshow div aside {
 
 /* Expanded Slideshow Property Image */
 section#slideshow img {
-  flex: 1 1 60%;
+  flex: 1 1 auto;
   height: 500px;
+  border: solid 4px white
+
 }
 
 /* Slideshow's Floorplan Image */
@@ -227,7 +231,6 @@ section#slideshow div.floorplan img {
 #NEED_INFO {
   color: red;
 }
-
 
 
 /* Container for Rental floorplans and Google Map */

@@ -9,7 +9,7 @@ function index() {
   // app_rental_props.map(function(app_rentals *object, i *int)
   app_rental_props.map(function(app_rentals, i) {
     //creates new Rental object to hold each database object
-    var prop = new Rental(app_rentals, i);
+    var prop = new SmallRental(app_rentals, i);
 
     // adds the property figure to the index page
     R_INDEX.appendChild(prop.fig);
@@ -36,7 +36,7 @@ function show(id) {
   id = parseInt(id);
   var sl = document.getElementById("slideshow");
 
-  var fr = new FullRental();
+  var fr = new LargeRental();
   fr.img.id = "slideshow-slide_image";
   fr.img.src = "img/" + app_rental_props[id].image_src;
   fr.h3.innerHTML = app_rental_props[id].address + "<br />" + app_rental_props[id].city + ", " + app_rental_props[id].state + " " + app_rental_props[id].zip + "<br>"
@@ -79,7 +79,7 @@ function expand() {
       link.addEventListener("click", function() {
         show(l.id);
         setTimeout(function(){ initMaps(l.id); }, 1);
-        
+
       }, false);
     }
     if (window.attachEvent) {
