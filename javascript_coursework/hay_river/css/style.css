@@ -195,14 +195,18 @@ footer >p {
   text-align: center;
 }
 
-
-
-
 /* Container Expanded Rental Property Slideshow */
 section#slideshow {
   min-height: 500px;
   padding: 10px;
   display: none;
+}
+
+@media (min-width: 0px) and (max-width: 960px) {
+  section#slideshow {
+    min-height: 500px;
+    padding: 20px;
+  }
 }
 
 /* Slideshow container for expanded image and aside */
@@ -211,13 +215,7 @@ section#slideshow {
   flex-direction: row;
   flex-wrap: wrap;
 }
-/*
-section#slideshow div {
-  display: flex;
-  flex-direction: row;
-  padding: 0 10% 0 0;
-}
-*/
+
 /* Slideshow Property Highlights */
 section#slideshow div aside {
   flex: 1 1 auto;
@@ -231,11 +229,18 @@ section#slideshow div aside {
     margin: 0 15px 0 0;
 }
 
+@media (min-width: 0px) and (max-width: 960px) {
+  /* Expanded Slideshow Floorplan Image */
+  .floorplan {
+      margin: 50px 0;
+      height: auto;
+  }
+}
 
 #slideshow-slide_image {
     flex: 1 1 auto;
     border: solid 4px white;
-    min-height: 500px;
+    min-height: 600px;
 } 
 
 /* Slideshow's Floorplan Image */
@@ -253,15 +258,22 @@ section#slideshow div.floorplan img {
 /* Container for Rental floorplans and Google Map */
 #image_cont {
   display: flex;
-  margin: 50px 0 0 0;
+  margin: 50px 0;
+  display: flex;
+  flex-wrap: wrap;
 }
-
-
 
 .map {
     flex: 50%;
     height: 300px;
     overflow: hidden;
+}
+
+@media (min-width: 0px) and (max-width: 960px) {
+  /* Expanded Slideshow Floorplan Image */
+  .map {
+    height: 500px;
+  }
 }
 
 /* GOOGLE MAPS API */
