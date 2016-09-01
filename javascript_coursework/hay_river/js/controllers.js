@@ -3,11 +3,11 @@ var app_maps = [map_1821, map_1818, map_1815, map_N4923];
 // index() displays a listing of all properties from the database
 function index() {
   var count = document.getElementById("count");
-  count.innerHTML = app_rental_props.length;
+  count.innerHTML = rentals.length;
 
-  //  loops through property rental database
-  // app_rental_props.map(function(app_rentals *object, i *int)
-  app_rental_props.map(function(app_rentals, i) {
+  //  loops through property rentals database
+  // rentals.map(function(app_rentalss *object, i *int)
+  rentals.map(function(app_rentals, i) {
     //creates new Rental object to hold each database object
     var prop = new SmallRental(app_rentals, i);
 
@@ -30,35 +30,38 @@ function index() {
   });
 }
 
-// show() displays a larger property listing for a single database rental property
+// show() displays a larger property listing for a single database rentals property
 // show(id *string => *int)
 function show(id) {
-  id = parseInt(id);
+  parseInt(id);
   var sl = document.getElementById("slideshow");
+  var lr = new LargeRental();
 
-  var fr = new LargeRental();
-  fr.img.id = "slideshow-slide_image";
-  fr.img.src = "img/" + app_rental_props[id].image_src;
-  fr.h3.innerHTML = app_rental_props[id].address + "<br />" + app_rental_props[id].city + ", " + app_rental_props[id].state + " " + app_rental_props[id].zip + "<br>"
-  fr.p.innerHTML = app_rental_props[id].category + "<br><br>" + "List of Features and Amenities: <br>" + app_rental_props[id].desc.replace(/, /g, "<br>");
-  fr.fp.src = "img/" + app_rental_props[id].floor;
-  fr.map.innerHTML = app_rental_props[id].map;
+  lr.img.src = "img/" + rentals[id].image;
+  lr.fp.src = "img/" + rentals[id].floor;
 
-  fr.asd.appendChild(fr.h3)
-  fr.asd.appendChild(fr.p)
-  fr.dv.appendChild(fr.img);
-  fr.dv.appendChild(fr.asd);
-  fr.dv.id = "slideshow_main";
+  aside_body = rentals[id].category + "<br><br>"
+             + "List of Features and Amenities: <br>"
+             + rentals[id].desc.replace(/, /g, "<br>");
 
-  fr.s.appendChild(fr.fp);
-  fr.s.appendChild(fr.map);
+  lr.map.innerHTML = rentals[id].map;
 
-  fr.dv.appendChild(fr.asd);
+  // adds rental description content to aside
+  lr.asd.innerHTML = "<h3>" + rentals[id].addr + "</h3>"
+                   + "<p>" + aside_body + "</p>";
 
-  // resets the slideshow image before appending new slide
+  // adds large photo and <aside> content to div
+  lr.div.appendChild(lr.img);
+  lr.div.appendChild(lr.asd);
+
+  // adds floorplan and map to section
+  lr.sect.appendChild(lr.fp);
+  lr.sect.appendChild(lr.map);
+
+  // resets slideshow element before rendering new slide
   sl.innerHTML = "";
-  sl.appendChild(fr.dv)
-  sl.appendChild(fr.s)
+  sl.appendChild(lr.div);
+  sl.appendChild(lr.sect);
   sl.style.display = "block";
 }
 
@@ -67,25 +70,20 @@ function expand() {
   // locates all anchor tags in the main index
   // slices node array into true array
   var links = Array.prototype.slice.call(document.querySelectorAll("#index a"));
-  var link;
 
   // maps over all image links and adds event listener based on their unique id
   // links.map(function(l *object)
   links.map(function(l) {
-    link = l;
 
     // create event listeners when page finishes loading
     if (window.addEventListener) {
-      link.addEventListener("click", function() {
+      l.addEventListener("click", function() {
         show(l.id);
         setTimeout(function(){ initMaps(l.id); }, 1);
-
       }, false);
     }
     if (window.attachEvent) {
-      R_INDEX.attachEvent("click", function() {
-        show(l.id)
-      });
+      R_INDEX.attachEvent("click", function() { show(l.id) });
     }
 
   });

@@ -234,13 +234,13 @@ section#slideshow div aside {
   .floorplan {
       margin: 50px 0;
       height: auto;
+      width: 100%;
   }
 }
 
 #slideshow-slide_image {
     flex: 1 1 auto;
     border: solid 4px white;
-    min-height: 600px;
 } 
 
 /* Slideshow's Floorplan Image */
@@ -282,17 +282,12 @@ section#slideshow div.floorplan img {
   display: flex;
 }
 
-#image_cont {
-  /*height: 400px;*/
-  /*border: solid 10px white;*/
-  /*flex: 1 1 30%;*/
-}
-
 /* GOOGLE MAPS API - info popup */
 h4 {
   color: darkcyan;
-  font-size: 24px;
+  font-size: 20px;
   margin: 0;
+  line-height: 110%;
 }
 
 p.info {
