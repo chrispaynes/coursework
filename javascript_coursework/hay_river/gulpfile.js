@@ -1,29 +1,32 @@
-var gulp = require('gulp');
-var concat = require('gulp-concat');
-var uglify = require('gulp-uglify');
-var pump = require('pump');
-var cleanCSS = require('gulp-clean-css');
-var rename = require("gulp-rename");
-var htmlmin = require('gulp-htmlmin');
-var server = require('gulp-server-livereload');
+const gulp = require('gulp');
+const concat = require('gulp-concat');
+const uglify = require('gulp-uglify');
+const pump = require('pump');
+const cleanCSS = require('gulp-clean-css');
+const rename = require("gulp-rename");
+const htmlmin = require('gulp-htmlmin');
+const server = require('gulp-server-livereload');
 const autoprefixer = require('gulp-autoprefixer');
 const imagemin = require('gulp-imagemin');
 
-
+// CSS
 cssSrc = './css/*.css';
 cssDest = './dist/css/';
 
+// JS
 jsSrc = ['./data/*.js', './js/*.js'];
 jsDest = 'dist/js';
 
-
 //////////////////////////////////////////////////
+
+// minifies images
 gulp.task('minIMGs', () =>
     gulp.src('./img/*')
         .pipe(imagemin())
         .pipe(gulp.dest('dist/img'))
 );
 
+// minifies HTML
 gulp.task('minHTML', function() {
   return gulp.src('./*.html')
     .pipe(htmlmin({collapseWhitespace: true, collapseInlineTagWhitespace: true, removeComments: true, minifyJS: true}))
@@ -31,6 +34,7 @@ gulp.task('minHTML', function() {
 });
 
 
+// concats, minifies and renames JS files
 gulp.task('minJS', function() {
   return gulp.src(jsSrc)
     .pipe(concat('app.min.js'))
@@ -40,6 +44,7 @@ gulp.task('minJS', function() {
     .pipe(gulp.dest(jsDest));
 });
 
+// minifies and autoprefixes CSS
 gulp.task('minCSS', function() {
   return gulp.src(cssSrc)
     .pipe(autoprefixer({
@@ -61,9 +66,4 @@ gulp.task('webserver', function() {
     }));
 });
 
- 
-
-
-// KEEP AT EOF
-//////////////////////////////////////////////////
 gulp.task('default', ['minHTML', 'minJS', 'minCSS', "minIMGs", "webserver"]);
