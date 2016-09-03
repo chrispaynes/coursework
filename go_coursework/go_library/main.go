@@ -1,19 +1,27 @@
 package main
 
 import (
+	"database/sql"
 	"fmt"
+	_ "github.com/mattn/go-sqlite3"
 	"html/template"
 	"net/http"
 )
 
 type Page struct {
-	Name string
+	Name     string
+	DBStatus bool
 }
 
 func main() {
 	// Creates new template and parses the template or panics upon error
 	// Must wraps a function call returning (*Template, error)
 	templates := template.Must(template.ParseFiles("templates/index.html"))
+
+	// uses "sqlite3" driver to open connection to "dev.db" database
+	db, _ := sql.Open("sqlite3", "dev.db")
+
+	// displays connection status
 
 	// HandleFunc registers the handler function for webserver requests on "/"
 	// w => The HTTP handler uses ResponseWriter interface to construct an HTTP response
@@ -26,6 +34,9 @@ func main() {
 		if name := r.FormValue("name"); name != "" {
 			p.Name = name
 		}
+		// Pings db to verify connectivity and attempts to reconnect
+		// on connection loss or returns error if it cannot connect to db
+		p.DBStatus = db.Ping() == nil
 
 		// w constructs an HTTP response using the "index.html" template to display
 		// template's query parameter, p OR uses err.Error() to write a HTTP error status code

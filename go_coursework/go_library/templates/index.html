@@ -4,6 +4,14 @@
     <title></title>
   </head>
   <body>
-    Go Libary App {{.Name}}
+    <b>Go Libary App:</b> {{.Name}} <br>
+    <b>DB Connection Status:</b> {{.DBStatus}}
+
+    {{if .DBStatus}}
+      <p>The database is connected</p>
+    {{else}}
+      <p>The database is not connected</p>
+    {{end}}
+    
   </body>
 </html>
