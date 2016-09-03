@@ -2,6 +2,7 @@ package main
 
 import (
 	"database/sql"
+	"encoding/json"
 	"fmt"
 	_ "github.com/mattn/go-sqlite3"
 	"html/template"
@@ -13,6 +14,14 @@ type Page struct {
 	DBStatus bool
 }
 
+// text from user search results
+type SearchResult struct {
+	Title  string
+	Author string
+	Year   string
+	ID     string
+}
+
 func main() {
 	// Creates new template and parses the template or panics upon error
 	// Must wraps a function call returning (*Template, error)
@@ -20,8 +29,6 @@ func main() {
 
 	// uses "sqlite3" driver to open connection to "dev.db" database
 	db, _ := sql.Open("sqlite3", "dev.db")
-
-	// displays connection status
 
 	// HandleFunc registers the handler function for webserver requests on "/"
 	// w => The HTTP handler uses ResponseWriter interface to construct an HTTP response
@@ -42,6 +49,22 @@ func main() {
 		// template's query parameter, p OR uses err.Error() to write a HTTP error status code
 		if err := templates.ExecuteTemplate(w, "index.html", p); err != nil {
 			// takes error and returns error with internal server error
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+	})
+
+	http.HandleFunc("/search", func(w http.ResponseWriter, r *http.Request) {
+		// outputs slices of mock search results
+		results := []SearchResult{
+			SearchResult{"Book A", "Author A", "Year 1000", "ID A"},
+			SearchResult{"Book B", "Author B", "Year 2000", "ID B"},
+			SearchResult{"Book C", "Author C", "Year 3000", "ID C"},
+		}
+		// encodes SearchResult data into JSON format
+		encoder := json.NewEncoder(w)
+		// writes output to the response?
+		if err := encoder.Encode(results); err != nil {
+			// writes
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
 	})
