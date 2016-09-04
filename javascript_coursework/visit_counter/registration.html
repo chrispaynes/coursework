@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Visit Counter</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css" />
+    <script src="modernizr.custom.65897.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1>Visit Counter</h1>
+    </header>
+    <article>
+      <p id="regPrompt">You have visited this site many times.
+      <br>Do you wish to register as a user?</p>
+      <form action="index.html">
+        <fieldset>
+          <legend>Registration Form</legend>
+          <input type="text" id="usernameinput" name="username" required="true" />
+          <label for="usernameinput">username</label>
+          <input type="email" id="emailinput" name="email" />
+          <label for="passwordinput">email</label>
+          <input type="submit" class="btn btn-primary" id="submitBtn" value="Register" />
+        </fieldset>
+      </form>
+    </article>
+  </body>
+</html>
