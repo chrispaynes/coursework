@@ -3,18 +3,20 @@ Based on [Larry Price's](https://github.com/larryprice) "Go for web development"
 
 
 ### Featured Concepts:
- * Golang standard library
  * 3rd-Party Go packages
- * Building a webserver
- * Templates
- * Connecting to sqlite
- * Performing db CRUD operations
- * Connecting to an external API
- * Goroutines
- * Channels
- * AJAX calls
- * Gorilla/mux URL router and dispatcher
  * Ace template engine
- * Gorp ORM-ish library
- * Multi-user authentication
+ * AJAX calls
+ * Building a webserver
+ * Channels
+ * Connecting to an external API
+ * Connecting to sqlite
  * Deployment to Heroku
+ * Golang standard library
+ * Gorilla/mux URL router and dispatcher
+ * Goroutines
+ * Gorp ORM-ish library
+ * HTTP Methods
+ * Multi-user authentication
+ * Performing DB CRUD operations
+ * Templates
+ * XML Parsing
