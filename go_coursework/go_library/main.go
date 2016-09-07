@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"encoding/json"
 	"encoding/xml"
-	"fmt"
+	"github.com/codegangsta/negroni"
 	_ "github.com/mattn/go-sqlite3"
 	"html/template"
 	"io/ioutil"
@@ -41,18 +41,34 @@ type ClassifyBookResponse struct {
 	} `xml:"recommendations>ddc>mostPopular"`
 }
 
+// global db that allows middleware access
+var db *sql.DB
+
+// verifyDatabase() middleware pings DB to check connectivity
+// then calls HandlerFunc upon connectivity
+func verifyDatabase(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
+	if err := db.Ping(); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	next(w, r)
+}
+
 func main() {
 	// Creates new template and parses the template or panics upon error
 	// Must wraps a function call returning (*Template, error)
 	templates := template.Must(template.ParseFiles("templates/index.html"))
 
 	// uses "sqlite3" driver to open connection to "dev.db" database
-	db, _ := sql.Open("sqlite3", "dev.db")
+	db, _ = sql.Open("sqlite3", "dev.db")
 
-	// HandleFunc registers the handler function for webserver requests on "/"
+	// mux replaces default ServeMux
+	mux := http.NewServeMux()
+
+	// HandleFunc() registers the handler function for requests on "/"
 	// w => The HTTP handler uses ResponseWriter interface to construct an HTTP response
 	// r => The HTTP request received by the server or to be sent by a client
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		p := Page{Name: "GopherCon 2017"}
 
 		// uses FormValue and a "key" string to return the URL's query value
@@ -72,7 +88,8 @@ func main() {
 		}
 	})
 
-	http.HandleFunc("/search", func(w http.ResponseWriter, r *http.Request) {
+	// HandleFunc() registers handler function for requests on "/search"
+	mux.HandleFunc("/search", func(w http.ResponseWriter, r *http.Request) {
 		var results []SearchResult
 		var err error
 
@@ -91,17 +108,12 @@ func main() {
 
 	// saves search results with URL of /books/add uses find() to search
 	// OCLC Book API for a book's OCLC Work Identifier (OWI)
-	http.HandleFunc("/books/add", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/books/add", func(w http.ResponseWriter, r *http.Request) {
 		var book ClassifyBookResponse
 		var err error
 
 		// finds a book using the id extracted from the requested URL's query string id value
 		if book, err = find(r.FormValue("id")); err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-		}
-
-		// pings DB to verify connectivity
-		if err = db.Ping(); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
 
@@ -115,8 +127,14 @@ func main() {
 		}
 	})
 
+	// stores Negroni object
+	n := negroni.Classic()
+	// instructs Negroni to use new mux
+	n.UseHandler(mux)
+	n.Use(negroni.HandlerFunc(verifyDatabase))
+
 	// starts webserver to listen and serve content on localhost 8080
-	fmt.Println(http.ListenAndServe(":8080", nil))
+	n.Run(":8080")
 }
 
 // searches OCLC Book API and returns a book's OCLC Work Identifier (OWI) ID
@@ -137,8 +155,8 @@ func find(id string) (ClassifyBookResponse, error) {
 	return c, err
 }
 
-// takes search query string and returns list of search results by
-// sending HTTP request to OCLC Book API
+// search() uses search query string to return search results list
+// after sending HTTP request to OCLC Book API
 func search(query string) ([]SearchResult, error) {
 	var c ClassifySearchResponse
 
