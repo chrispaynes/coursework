@@ -2,6 +2,12 @@
 <html>
   <head>
     <title></title>
+    <style>
+      #search-results tr:hover {
+        background-color: lightgray;
+        cursor: pointer;
+      }
+    </style>
   </head>
   <body>
     <form id="search-form" onsubmit="return false">
@@ -21,31 +27,37 @@
       <tbody id="search-results"></tbody>
     </table>
 
-    <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.min.js"
+      integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
     <script>
       // serializes search form when submitting HTTP POST request
-      // makes async HTTP call to Go's search() function
+      // makes async HTTP call to Go's http.HandleFunc("/search"...) at REST endpoint
       function submitSearch() {
         $.ajax({
           url: "/search",
           method: "POST",
           data: $("#search-form").serialize(),
-          // return data callback func
-          // parse JSON data or returns false on invalide data
+          // returns parsed JSON data or returns no results
           success: function(rawData) {
-            // var parsed = JSON.parse(rawData);
             if(!JSON.parse(rawData)) return;
             var searchResults = $("#search-results");
-            // removes previous results
             searchResults.empty();
 
-            // maps over parsed data and writes into <td> elements
-            // before appending to search results
+            // maps over parsed data and writes it to the DOM.
+            // clicking on <tr> sends async HTTP request with the
+            // book id to Go's http.HandleFunc("/books/add"...) at REST endpoint.
+            // the endpoint adds the selected <tr>'s book to the database
             JSON.parse(rawData).map(function(res) {
               var row = $("<tr><td>" + res.Title + "</td><td>"
                           + res.Author + "</td><td>" + res.Year
                           + "</td><td>" + res.ID + "</td></tr>");
               searchResults.append(row);
+              row.on("click", function() {
+                $.ajax({
+                  url: "/books/add?id=" + res.ID,
+                  method: "GET"
+                });
+              });
             });
           }
         });
@@ -53,8 +65,8 @@
         // prevents default button action behavior
         return false;
       }
-      // listen() is an immediately invoke function expression set to call
-      // submitSearch() when the user clicks the search button
+      // listen() is an immediately invoked function expression calling
+      // submitSearch() upon clicking the search button
       (function listen(){
         var s_btn = document.getElementById("search-btn");
         if(window.addEventListener) {

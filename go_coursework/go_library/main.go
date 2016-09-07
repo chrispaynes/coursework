@@ -29,6 +29,18 @@ type ClassifySearchResponse struct {
 	Results []SearchResult `xml:"works>work"`
 }
 
+// nested structs to parse XML node hierarchy
+type ClassifyBookResponse struct {
+	BookData struct {
+		Title  string `xml:"title,attr"`
+		Author string `xml:"author,attr"`
+		ID     string `xml:"owi,attr"`
+	} `xml:"work"`
+	Classification struct {
+		MostPopular string `xml:"sfa,attr"`
+	} `xml:"recommendations>ddc>mostPopular"`
+}
+
 func main() {
 	// Creates new template and parses the template or panics upon error
 	// Must wraps a function call returning (*Template, error)
@@ -61,11 +73,10 @@ func main() {
 	})
 
 	http.HandleFunc("/search", func(w http.ResponseWriter, r *http.Request) {
-		// outputs results
 		var results []SearchResult
 		var err error
 
-		// searches results using text from searchbar or writes HTTP error
+		// queries OCLC Book API using searchbar text or writes HTTP error
 		if results, err = search(r.FormValue("search")); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
@@ -74,7 +85,32 @@ func main() {
 		encoder := json.NewEncoder(w)
 		// writes output to the response?
 		if err := encoder.Encode(results); err != nil {
-			// writes
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+	})
+
+	// saves search results with URL of /books/add uses find() to search
+	// OCLC Book API for a book's OCLC Work Identifier (OWI)
+	http.HandleFunc("/books/add", func(w http.ResponseWriter, r *http.Request) {
+		var book ClassifyBookResponse
+		var err error
+
+		// finds a book using the id extracted from the requested URL's query string id value
+		if book, err = find(r.FormValue("id")); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+
+		// pings DB to verify connectivity
+		if err = db.Ping(); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+
+		// performs external OS command to insert a book into the DB
+		// passes nil for the primary key to allow DB to auto increment
+		_, err = db.Exec("insert into books (pk, title, author, id, classification) values(?, ?, ?, ?, ?)",
+			nil, book.BookData.Title, book.BookData.Author, book.BookData.ID,
+			book.Classification.MostPopular)
+		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
 	})
@@ -83,35 +119,57 @@ func main() {
 	fmt.Println(http.ListenAndServe(":8080", nil))
 }
 
+// searches OCLC Book API and returns a book's OCLC Work Identifier (OWI) ID
+func find(id string) (ClassifyBookResponse, error) {
+	var c ClassifyBookResponse
+
+	// escapes query string id for proper HTTP request
+	body, err := classifyAPI("http://classify.oclc.org/classify2/Classify?&summary=true&owi=" + url.QueryEscape(id))
+
+	// returns empty ClassifyBookResponse struct and error
+	if err != nil {
+		return ClassifyBookResponse{}, err
+	}
+
+	// transforms book object into ClassifyBookResponse object
+	err = xml.Unmarshal(body, &c)
+
+	return c, err
+}
+
 // takes search query string and returns list of search results by
 // sending HTTP request to OCLC Book API
 func search(query string) ([]SearchResult, error) {
+	var c ClassifySearchResponse
+
+	// escapes query string query for proper HTTP request
+	body, err := classifyAPI("http://classify.oclc.org/classify2/Classify?&summary=true&title=" + url.QueryEscape(query))
+
+	if err != nil {
+		return []SearchResult{}, err
+	}
+
+	// Parses XML data and stores result in ClassifySearchResponse
+	// object using reflection
+	err = xml.Unmarshal(body, &c)
+
+	return c.Results, err
+}
+
+// sends HTTP request to OCLC Book API amd returns byte slice
+func classifyAPI(url string) ([]byte, error) {
 	var resp *http.Response
 	var err error
 
 	// queries book collection titles and returns books with a title
-	// matching the search query, else returns empty search results and error
-	// url.QueryEscape() escapes query string for proper HTTP request
-	if resp, err = http.Get("http://classify.oclc.org/classify2/Classify?&summary=true&title=" + url.QueryEscape(query)); err != nil {
-		return []SearchResult{}, err
+	// matching the search query, or returns empty []byte{} and error
+	if resp, err = http.Get(url); err != nil {
+		return []byte{}, err
 	}
 
 	// closes response body at end of the func
-	// reads the response with io util readALL or return error
-	// ReadAll reads all butes (until an error or EOF) and
-	// returns the data it read within SearchResult{}
 	defer resp.Body.Close()
-	var body []byte
-	if body, err = ioutil.ReadAll(resp.Body); err != nil {
-		return []SearchResult{}, err
-	}
 
-	// Unmarshal parses the XML-encoded data and uses reflection
-	// to store the result in the value pointed to
-	var c ClassifySearchResponse
-	err = xml.Unmarshal(body, &c)
-
-	//return search results or last error
-	return c.Results, err
-
+	// reads and returns all bytes in response body (until an error or EOF)
+	return ioutil.ReadAll(resp.Body)
 }
