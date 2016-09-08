@@ -6,7 +6,7 @@ import (
 	"encoding/xml"
 	"github.com/codegangsta/negroni"
 	_ "github.com/mattn/go-sqlite3"
-	"html/template"
+	"github.com/yosssi/ace"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -55,10 +55,6 @@ func verifyDatabase(w http.ResponseWriter, r *http.Request, next http.HandlerFun
 }
 
 func main() {
-	// Creates new template and parses the template or panics upon error
-	// Must wraps a function call returning (*Template, error)
-	templates := template.Must(template.ParseFiles("templates/index.html"))
-
 	// uses "sqlite3" driver to open connection to "dev.db" database
 	db, _ = sql.Open("sqlite3", "dev.db")
 
@@ -69,6 +65,12 @@ func main() {
 	// w => The HTTP handler uses ResponseWriter interface to construct an HTTP response
 	// r => The HTTP request received by the server or to be sent by a client
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		// loads template with default options and caches parsed template after initial call
+		template, err := ace.Load("templates/index", "", nil)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+
 		p := Page{Name: "GopherCon 2017"}
 
 		// uses FormValue and a "key" string to return the URL's query value
@@ -80,10 +82,8 @@ func main() {
 		// on connection loss or returns error if it cannot connect to db
 		p.DBStatus = db.Ping() == nil
 
-		// w constructs an HTTP response using the "index.html" template to display
-		// template's query parameter, p OR uses err.Error() to write a HTTP error status code
-		if err := templates.ExecuteTemplate(w, "index.html", p); err != nil {
-			// takes error and returns error with internal server error
+		// writes HTTP response using template and displays p or error
+		if err := template.Execute(w, p); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
 	})

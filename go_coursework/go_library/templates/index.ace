@@ -1,35 +1,27 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title></title>
-    <style>
+= doctype html
+html
+  head
+    = css
       #search-results tr:hover {
         background-color: lightgray;
         cursor: pointer;
       }
-    </style>
-  </head>
-  <body>
-    <form id="search-form" onsubmit="return false">
-      <input type="text" name="search">
-      <input id="search-btn" type="submit" value="Search" />
-    </form>
+  body
+    form id="search-form" onsubmit="return false"
+      input type="text" name="search"
+      input id="search-btn" type="submit" value="Search"
 
-    <table width="100%">
-      <thead>
-        <tr style="text-align: left;">
-          <th width="40%">Title</th>
-          <th width="30%">Author</th>
-          <th width="10%">Year</th>
-          <th width="20%">ID</th>
-        </tr>
-      </thead>
-      <tbody id="search-results"></tbody>
-    </table>
+    table width="100%"
+      thead
+        tr style="text-align: left;"
+          th width="40%" Title
+          th width="30%" Author
+          th width="10%" Year
+          th width="20%" ID
+      tbody id="search-results"
 
-    <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.min.js"
-      integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-    <script>
+    script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"
+    = javascript
       // serializes search form when submitting HTTP POST request
       // makes async HTTP call to Go's http.HandleFunc("/search"...) at REST endpoint
       function submitSearch() {
@@ -76,7 +68,3 @@
           s_btn.attachEvent("onclick", submitSearch);
         }
       }());
-
-    </script>
-  </body>
-</html>
