@@ -12,9 +12,15 @@ import (
 	"net/url"
 )
 
+type Book struct {
+	PK             int
+	Title          string
+	Author         string
+	Classification string
+}
+
 type Page struct {
-	Name     string
-	DBStatus bool
+	Books []Book
 }
 
 // text from user search results
@@ -71,16 +77,17 @@ func main() {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
 
-		p := Page{Name: "GopherCon 2017"}
+		// initializes page with an empty slice of books
+		p := Page{Books: []Book{}}
 
-		// uses FormValue and a "key" string to return the URL's query value
-		// or returns p if the key's value is empty
-		if name := r.FormValue("name"); name != "" {
-			p.Name = name
+		// queries book DB using column names and iterates over output rows.
+		// scans each row and appends output row text to the DOM
+		rows, _ := db.Query("SELECT pk, title, author, classification FROM books")
+		for rows.Next() {
+			var b Book
+			rows.Scan(&b, &b.PK, &b.Title, &b.Author, &b.Classification)
+			p.Books = append(p.Books, b)
 		}
-		// Pings db to verify connectivity and attempts to reconnect
-		// on connection loss or returns error if it cannot connect to db
-		p.DBStatus = db.Ping() == nil
 
 		// writes HTTP response using template and displays p or error
 		if err := template.Execute(w, p); err != nil {
@@ -119,10 +126,24 @@ func main() {
 
 		// performs external OS command to insert a book into the DB
 		// passes nil for the primary key to allow DB to auto increment
-		_, err = db.Exec("insert into books (pk, title, author, id, classification) values(?, ?, ?, ?, ?)",
+		result, err := db.Exec("insert into books (pk, title, author, id, classification) values(?, ?, ?, ?, ?)",
 			nil, book.BookData.Title, book.BookData.Author, book.BookData.ID,
 			book.Classification.MostPopular)
 		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+
+		// the last book inserted in the DB
+		pk, _ := result.LastInsertId()
+		b := Book{
+			PK:             int(pk),
+			Title:          book.BookData.Title,
+			Author:         book.BookData.Author,
+			Classification: book.Classification.MostPopular,
+		}
+
+		// encodes book in json and sends in http response
+		if err := json.NewEncoder(w).Encode(b); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
 	})

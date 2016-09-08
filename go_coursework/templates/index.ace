@@ -6,63 +6,22 @@ html
         background-color: lightgray;
         cursor: pointer;
       }
-      #page-switcher {
-        width: 100%;
-        text-align: center;
-      }
-      #page-switcher button {
-        font-size: 24px;
-        font-weight: bold;
-        margin: 1em;
-        padding: 0.3em;
-      }
-
   body
-    div#page-switcher
-      button onclick="showViewPage()" View Library
-      button onclick="showSearchPage()" Add Books
+    form id="search-form" onsubmit="return false"
+      input type="text" name="search"
+      input id="search-btn" type="submit" value="Search"
 
-    div#search-page style="display: none;"
-      form id="search-form" onsubmit="return false"
-        input type="text" name="search"
-        input id="search-btn" type="submit" value="Search"
-
-      table width="100%"
-        thead
-          tr style="text-align: left;"
-            th width="40%" Title
-            th width="30%" Author
-            th width="10%" Year
-            th width="20%" ID
-        tbody id="search-results"
-
-    // displays book collection
-    div#view-page
-      table width="100%"
-        thead
-          tr style="text-align: left;"
-            th width="45%" Title
-            th width="35%" Author
-            th width="20%" Classification
-        tbody#view-results
-          {{range .Books}}
-            tr
-              td {{.Title}}
-              td {{.Author}}
-              td {{.Classification}}
-          {{end}}
-
+    table width="100%"
+      thead
+        tr style="text-align: left;"
+          th width="40%" Title
+          th width="30%" Author
+          th width="10%" Year
+          th width="20%" ID
+      tbody id="search-results"
 
     script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"
     = javascript
-      function showSearchPage() {
-        $("#search-page").show();
-        $("#view-page").hide();
-      }
-      function showViewPage() {
-        $("#search-page").hide();
-        $("#view-page").show();
-      }
       // serializes search form when submitting HTTP POST request
       // makes async HTTP call to Go's http.HandleFunc("/search"...) at REST endpoint
       function submitSearch() {
@@ -88,15 +47,7 @@ html
               row.on("click", function() {
                 $.ajax({
                   url: "/books/add?id=" + res.ID,
-                  method: "GET",
-                  // updates view page when user adds new book to library
-                  success: function(data) {
-                    var book = JSON.parse(data);
-                    if(!book) return;
-                    $("#view-results").append("<tr><td>" + book.Title + "</td><td>"
-                                              + book.Author + "</td><td>"
-                                              + book.Classification + "</td></tr>")
-                  }
+                  method: "GET"
                 });
               });
             });
