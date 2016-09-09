@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"encoding/xml"
 	"github.com/codegangsta/negroni"
+	gmux "github.com/gorilla/mux"
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/yosssi/ace"
 	"io/ioutil"
@@ -64,8 +65,8 @@ func main() {
 	// uses "sqlite3" driver to open connection to "dev.db" database
 	db, _ = sql.Open("sqlite3", "dev.db")
 
-	// mux replaces default ServeMux
-	mux := http.NewServeMux()
+	// mux replaces default ServeMux with Gorrilla/Mux router
+	mux := gmux.NewRouter()
 
 	// HandleFunc() registers the handler function for requests on "/"
 	// w => The HTTP handler uses ResponseWriter interface to construct an HTTP response
@@ -94,7 +95,7 @@ func main() {
 		if err := template.Execute(w, p); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
-	})
+	}).Methods("GET")
 
 	// HandleFunc() registers handler function for requests on "/search"
 	mux.HandleFunc("/search", func(w http.ResponseWriter, r *http.Request) {
@@ -112,11 +113,11 @@ func main() {
 		if err := encoder.Encode(results); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
-	})
+	}).Methods("POST")
 
 	// saves search results with URL of /books/add uses find() to search
 	// OCLC Book API for a book's OCLC Work Identifier (OWI)
-	mux.HandleFunc("/books/add", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/books", func(w http.ResponseWriter, r *http.Request) {
 		var book ClassifyBookResponse
 		var err error
 
@@ -147,18 +148,18 @@ func main() {
 		if err := json.NewEncoder(w).Encode(b); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
-	})
+	}).Methods("PUT")
 
-	mux.HandleFunc("/books/delete", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/books/{pk}", func(w http.ResponseWriter, r *http.Request) {
 		// performs external OS command to delete a book from the DB
 		// based on query string's "pk" value
-		if _, err := db.Exec("DELETE from books WHERE pk = ?", r.FormValue("pk")); err != nil {
+		if _, err := db.Exec("DELETE from books WHERE pk = ?", gmux.Vars(r)["pk"]); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
 		// writes 200 status on success
 		w.WriteHeader(http.StatusOK)
-	})
+	}).Methods("DELETE")
 
 	// stores Negroni object
 	n := negroni.Classic()

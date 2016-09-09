@@ -67,8 +67,8 @@ html
     = javascript
       function deleteBook(pk) {
         $.ajax({
-          method: "GET",
-          url: "/books/delete?pk=" + pk,
+          method: "DELETE",
+          url: "/books/" + pk,
           // delete book row from DOM upon book's
           // successful removal from the DB
           success: function() {
@@ -109,8 +109,8 @@ html
               searchResults.append(row);
               row.on("click", function() {
                 $.ajax({
-                  url: "/books/add?id=" + res.ID,
-                  method: "GET",
+                  url: "/books?id=" + res.ID,
+                  method: "PUT",
                   // updates view page when user adds new book to library
                   success: function(data) {
                     var book = JSON.parse(data);
