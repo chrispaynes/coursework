@@ -75,6 +75,7 @@ func main() {
 		template, err := ace.Load("templates/index", "", nil)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
 		}
 
 		// initializes page with an empty slice of books
@@ -85,7 +86,7 @@ func main() {
 		rows, _ := db.Query("SELECT pk, title, author, classification FROM books")
 		for rows.Next() {
 			var b Book
-			rows.Scan(&b, &b.PK, &b.Title, &b.Author, &b.Classification)
+			rows.Scan(&b.PK, &b.Title, &b.Author, &b.Classification)
 			p.Books = append(p.Books, b)
 		}
 
@@ -133,7 +134,7 @@ func main() {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
 
-		// the last book inserted in the DB
+		// the lastest book inserted in the DB
 		pk, _ := result.LastInsertId()
 		b := Book{
 			PK:             int(pk),
@@ -142,10 +143,21 @@ func main() {
 			Classification: book.Classification.MostPopular,
 		}
 
-		// encodes book in json and sends in http response
+		// returns JSON encoded book in http response
 		if err := json.NewEncoder(w).Encode(b); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
+	})
+
+	mux.HandleFunc("/books/delete", func(w http.ResponseWriter, r *http.Request) {
+		// performs external OS command to delete a book from the DB
+		// based on query string's "pk" value
+		if _, err := db.Exec("DELETE from books WHERE pk = ?", r.FormValue("pk")); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		// writes 200 status on success
+		w.WriteHeader(http.StatusOK)
 	})
 
 	// stores Negroni object
