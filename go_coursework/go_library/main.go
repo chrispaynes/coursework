@@ -97,6 +97,32 @@ func main() {
 		}
 	}).Methods("GET")
 
+	mux.HandleFunc("/books", func(w http.ResponseWriter, r *http.Request) {
+		columnName := r.FormValue("sortBy")
+		if columnName != "title" && columnName != "author" && columnName != "classification" {
+			http.Error(w, "Invalid Column Name", http.StatusBadRequest)
+		}
+
+		// creates empty slice of books
+		p := []Book{}
+
+		// queries book DB using column names and iterates over output rows.
+		// scans each row and appends output row text to the DOM
+		rows, _ := db.Query("SELECT pk, title, author, classification FROM books order by " + columnName)
+
+		var b Book
+		for rows.Next() {
+			rows.Scan(&b.PK, &b.Title, &b.Author, &b.Classification)
+			p = append(p, b)
+		}
+
+		if err := json.NewEncoder(w).Encode(p); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+	}).Methods("GET")
+
 	// HandleFunc() registers handler function for requests on "/search"
 	mux.HandleFunc("/search", func(w http.ResponseWriter, r *http.Request) {
 		var results []SearchResult
