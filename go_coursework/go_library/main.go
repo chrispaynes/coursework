@@ -5,6 +5,8 @@ import (
 	"encoding/json"
 	"encoding/xml"
 	"github.com/codegangsta/negroni"
+	"github.com/goincremental/negroni-sessions"
+	"github.com/goincremental/negroni-sessions/cookiestore"
 	gmux "github.com/gorilla/mux"
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/yosssi/ace"
@@ -61,6 +63,26 @@ func verifyDatabase(w http.ResponseWriter, r *http.Request, next http.HandlerFun
 	next(w, r)
 }
 
+// presorts book data using column name OR "pk"
+func getBookCollection(books *[]Book, sortCol string, w http.ResponseWriter) bool {
+	if sortCol != "title" && sortCol != "author" && sortCol != "classification" {
+		sortCol = "pk"
+	}
+	// queries book DB using column names and iterates over output rows.
+	// scans each row and appends output row text to the DOM
+	rows, _ := db.Query("SELECT pk, title, author, classification FROM books order by " + sortCol)
+	p := Page{Books: []Book{}}
+
+	// scans and stores data returned from DB query
+	var b Book
+	for rows.Next() {
+		rows.Scan(&b.PK, &b.Title, &b.Author, &b.Classification)
+		p.Books = append(p.Books, b)
+	}
+	return true
+
+}
+
 func main() {
 	// uses "sqlite3" driver to open connection to "dev.db" database
 	db, _ = sql.Open("sqlite3", "dev.db")
@@ -79,17 +101,26 @@ func main() {
 			return
 		}
 
+		var sortColumn string
+		if sortBy := sessions.GetSession(r).Get("SortBy"); sortBy != nil {
+			sortColumn = sortBy.(string)
+		}
+
 		// initializes page with an empty slice of books
 		p := Page{Books: []Book{}}
 
+		if !getBookCollection(&p.Books, sortColumn, w) {
+			return
+		}
+
 		// queries book DB using column names and iterates over output rows.
 		// scans each row and appends output row text to the DOM
-		rows, _ := db.Query("SELECT pk, title, author, classification FROM books")
-		for rows.Next() {
-			var b Book
-			rows.Scan(&b.PK, &b.Title, &b.Author, &b.Classification)
-			p.Books = append(p.Books, b)
-		}
+		// rows, _ := db.Query("SELECT pk, title, author, classification FROM books")
+		// for rows.Next() {
+		// 	var b Book
+		// 	rows.Scan(&b.PK, &b.Title, &b.Author, &b.Classification)
+		// 	p.Books = append(p.Books, b)
+		// }
 
 		// writes HTTP response using template and displays p or error
 		if err := template.Execute(w, p); err != nil {
@@ -99,23 +130,34 @@ func main() {
 
 	mux.HandleFunc("/books", func(w http.ResponseWriter, r *http.Request) {
 		columnName := r.FormValue("sortBy")
+		// validates query value to prevent SQL injection
 		if columnName != "title" && columnName != "author" && columnName != "classification" {
 			http.Error(w, "Invalid Column Name", http.StatusBadRequest)
 		}
 
 		// creates empty slice of books
 		p := []Book{}
+		if !getBookCollection(&p, r.FormValue("sortBy"), w) {
+			return
+		}
 
 		// queries book DB using column names and iterates over output rows.
 		// scans each row and appends output row text to the DOM
-		rows, _ := db.Query("SELECT pk, title, author, classification FROM books order by " + columnName)
+		// rows, _ := db.Query("SELECT pk, title, author, classification FROM books order by " + columnName)
 
-		var b Book
-		for rows.Next() {
-			rows.Scan(&b.PK, &b.Title, &b.Author, &b.Classification)
-			p = append(p, b)
-		}
+		// scans and stores data returned from DB query
+		// var b Book
+		// for rows.Next() {
+		// 	rows.Scan(&b.PK, &b.Title, &b.Author, &b.Classification)
+		// 	p = append(p, b)
+		// }
 
+		// TODO: roll own cookie session using SetCookie from net/http package in standard library
+		// see https://astaxie.gitbooks.io/build-web-application-with-golang/content/en/06.1.html for implementation
+		// gets session for current request and stores user's sort preference to negroni cookiestore
+		sessions.GetSession(r).Set("SortBy", r.FormValue("sortBy"))
+
+		// encodes and returns data to client
 		if err := json.NewEncoder(w).Encode(p); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
@@ -177,7 +219,7 @@ func main() {
 	}).Methods("PUT")
 
 	mux.HandleFunc("/books/{pk}", func(w http.ResponseWriter, r *http.Request) {
-		// performs external OS command to delete a book from the DB
+		// performs external OS command to delete a DB book
 		// based on query string's "pk" value
 		if _, err := db.Exec("DELETE from books WHERE pk = ?", gmux.Vars(r)["pk"]); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -187,13 +229,16 @@ func main() {
 		w.WriteHeader(http.StatusOK)
 	}).Methods("DELETE")
 
-	// stores Negroni object
+	// store Negroni object with default middleware for
+	// Panic Recovery, Logging and Static File Serving
 	n := negroni.Classic()
+	// create new session
+	n.Use(sessions.Sessions("go-library", cookiestore.New([]byte("password123"))))
 	// instructs Negroni to use new mux
 	n.UseHandler(mux)
 	n.Use(negroni.HandlerFunc(verifyDatabase))
 
-	// starts webserver to listen and serve content on localhost 8080
+	// starts webserver on port 8080
 	n.Run(":8080")
 }
 

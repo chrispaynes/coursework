@@ -14,7 +14,6 @@ Based on [Larry Price's](https://github.com/larryprice) "Go for web development"
  * Golang standard library
  * Gorilla/mux URL router and dispatcher
  * Goroutines
- * Gorp ORM-ish library
  * HTTP Methods
  * Multi-user authentication
  * Performing DB CRUD operations
