@@ -52,9 +52,12 @@ type ClassifyBookResponse struct {
 
 // global database
 var db *sql.DB
+var p = Page{Books: []Book{}}
 
-// verifyDatabase() middleware pings DB to check connectivity
-// then calls HandlerFunc upon connectivity
+// First we initialize a session store calling NewCookieStore() and passing a secret key used to authenticate the session
+var store = sessions.NewCookieStore([]byte("password123"))
+
+// verifyDatabase() checks DB connectivity then calls next HandlerFunc upon connectivity
 func verifyDatabase(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
 	if err := db.Ping(); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -63,40 +66,42 @@ func verifyDatabase(w http.ResponseWriter, r *http.Request, next http.HandlerFun
 	next(w, r)
 }
 
-// presorts book data using column name OR "pk"
-// func getBookCollection(books *[]Book, sortCol string, w http.ResponseWriter) bool {
-// 	if sortCol != "title" && sortCol != "author" && sortCol != "classification" {
-// 		sortCol = "pk"
-// 	}
-// 	// queries book DB using column names and iterates over output rows.
-// 	// scans each row and appends output row text to the DOM
-// 	rows, _ := db.Query("SELECT pk, title, author, classification FROM books order by " + sortCol)
-// 	p := Page{Books: []Book{}}
+func getBookCollection(sortCol string, w http.ResponseWriter) bool {
+	// accepts known sortCol OR defaults to "pk"
+	if sortCol != "title" && sortCol != "author" && sortCol != "classification" {
+		sortCol = "pk"
+	}
 
-// 	// scans and stores data returned from DB query
-// 	var b Book
-// 	for rows.Next() {
-// 		rows.Scan(&b.PK, &b.Title, &b.Author, &b.Classification)
-// 		p.Books = append(p.Books, b)
-// 	}
-// 	fmt.Println("books", b)
-// 	return true
+	// queries book DB columns and stores each row sorted by the sortCol
+	rows, err := db.Query("SELECT pk, title, author, classification FROM books order by " + sortCol)
 
-// }
+	// clears book object
+	p.Books = []Book{}
 
-// First we initialize a session store calling NewCookieStore() and passing a secret key used to authenticate the session
-// var store *gsession.CookieStore
-var store = sessions.NewCookieStore([]byte("password123"))
+	// scans and stores data returned from DB query
+	var b Book
+	for rows.Next() {
+		rows.Scan(&b.PK, &b.Title, &b.Author, &b.Classification)
+		p.Books = append(p.Books, b)
+	}
+
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return false
+	}
+
+	fmt.Println("P in FUNC  ", p)
+	return true
+}
 
 func session(w http.ResponseWriter, r *http.Request, vk string, v string) {
 	// Get a session. We're ignoring the error resulted from decoding an
 	// existing session: Get() always returns a session, even if empty.
-	session, _ := store.Get(r, "go_library")
+	var session, _ = store.Get(r, "go_library")
 	// Set some session values.
 	session.Values[vk] = v
 	// Save it before we write to the response/return from the handler.
 	session.Save(r, w)
-	fmt.Println("\nSESSION:\n", session)
 }
 
 func main() {
@@ -107,48 +112,14 @@ func main() {
 	mux := gmux.NewRouter()
 
 	mux.HandleFunc("/books", func(w http.ResponseWriter, r *http.Request) {
-		// Get a session. We're ignoring the error resulted from decoding an
-		// existing session: Get() always returns a session, even if empty.
-		// session, _ := store.Get(r, "go_library")
-		// Save it before we write to the response/return from the handler.
-		// session.Save(r, w)
-
 		// Set some session values.
 		columnName := r.FormValue("sortBy")
-		// session.Values["sortBy"] = columnName
-		// fmt.Println(session)
+
 		session(w, r, "sortBy", columnName)
 
-		// validates query value to prevent SQL injection
-		if columnName != "title" && columnName != "author" && columnName != "classification" {
-			http.Error(w, "Invalid Column Name", http.StatusBadRequest)
-		}
-
-		// creates empty slice of books
-		p := []Book{}
-		// if !getBookCollection(&p, r.FormValue("sortBy"), w) {
-		//  return
-		// }
-
-		// queries book DB using column names and iterates over output rows.
-		// scans each row and appends output row text to the DOM
-		rows, _ := db.Query("SELECT pk, title, author, classification FROM books order by " + columnName)
-
-		// scans and stores data returned from DB query
-		var b Book
-		for rows.Next() {
-			rows.Scan(&b.PK, &b.Title, &b.Author, &b.Classification)
-			p = append(p, b)
-		}
-
-		// TODO: roll own cookie session using SetCookie from net/http package in standard library
-		// see https://astaxie.gitbooks.io/build-web-application-with-golang/content/en/06.1.html for implementation
-		// gets session for current request and stores user's sort preference to negroni cookiestore
-
-		// encodes and returns data to client
-		if err := json.NewEncoder(w).Encode(p); err != nil {
+		getBookCollection(columnName, w)
+		if err := json.NewEncoder(w).Encode(p.Books); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
 		}
 
 	}).Methods("GET")
@@ -162,9 +133,29 @@ func main() {
 		cookie := http.Cookie{Name: "username", Value: "astaxie", Expires: expiration}
 		http.SetCookie(w, &cookie)
 
-		// retrieve specific cookie property
-		// cookie, _ = r.Cookie("username")
-		fmt.Println("\nCOOKIE:\n", cookie)
+		// if  sortBy != nil {
+		//      sortColumn := hi.Values["sortBy"].(string)
+		// }
+
+		columnName := r.FormValue("sortBy")
+
+		// validates query value to prevent SQL injection
+		if columnName != "title" && columnName != "author" && columnName != "classification" {
+			http.Error(w, "Invalid Column Name", http.StatusBadRequest)
+		}
+
+		// sets sort value to sort value stored in session
+		sortBy, _ := store.Get(r, "go_library")
+		sortColumn := sortBy.Values["sortBy"].(string)
+		// Set some session values.
+
+		// queries book DB using column names and iterates over output rows.
+		// scans each row and appends output row text to the DOM
+		// getBookCollection(sortColumn, w)
+
+		if !getBookCollection(sortColumn, w) {
+			return
+		}
 
 		// loads template with default options and caches parsed template after initial call
 		template, err := ace.Load("templates/index", "", nil)
@@ -172,28 +163,6 @@ func main() {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
-
-		// var sortColumn string
-		// if sortBy := sessions.GetSession(r).Get("SortBy"); sortBy != nil {
-		// 	sortColumn = sortBy.(string)
-		// }
-
-		// initializes page with an empty slice of books
-		p := Page{Books: []Book{}}
-
-		// if !getBookCollection(&p.Books, sortColumn, w) {
-		// 	return
-		// }
-
-		// queries book DB using column names and iterates over output rows.
-		// scans each row and appends output row text to the DOM
-		rows, _ := db.Query("SELECT pk, title, author, classification FROM books")
-		for rows.Next() {
-			var b Book
-			rows.Scan(&b.PK, &b.Title, &b.Author, &b.Classification)
-			p.Books = append(p.Books, b)
-		}
-		fmt.Println("\nBOOKS\n", p.Books)
 
 		// writes HTTP response using template and displays p or error
 		if err := template.Execute(w, p); err != nil {
@@ -271,6 +240,7 @@ func main() {
 
 	// add DB verification to middleware stack
 	n.Use(negroni.HandlerFunc(verifyDatabase))
+	// n.Use(negroni.HandlerFunc(session))
 
 	// create new session
 	// var store = sessions.NewCookieStore([]byte("password123"))
