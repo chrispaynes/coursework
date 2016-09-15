@@ -54,7 +54,7 @@ type ClassifyBookResponse struct {
 var db *sql.DB
 var p = Page{Books: []Book{}}
 
-// First we initialize a session store calling NewCookieStore() and passing a secret key used to authenticate the session
+// Initializes session store with secret authentication key
 var store = sessions.NewCookieStore([]byte("password123"))
 
 // verifyDatabase() checks DB connectivity then calls next HandlerFunc upon connectivity
@@ -67,11 +67,10 @@ func verifyDatabase(w http.ResponseWriter, r *http.Request, next http.HandlerFun
 }
 
 func getBookCollection(sortCol string, w http.ResponseWriter) bool {
-	// accepts known sortCol OR defaults to "pk"
+	// accepts known sortCol values OR defaults to "pk"
 	if sortCol != "title" && sortCol != "author" && sortCol != "classification" {
 		sortCol = "pk"
 	}
-
 	// queries book DB columns and stores each row sorted by the sortCol
 	rows, err := db.Query("SELECT pk, title, author, classification FROM books order by " + sortCol)
 
@@ -90,68 +89,56 @@ func getBookCollection(sortCol string, w http.ResponseWriter) bool {
 		return false
 	}
 
-	fmt.Println("P in FUNC  ", p)
 	return true
 }
 
 func session(w http.ResponseWriter, r *http.Request, vk string, v string) {
-	// Get a session. We're ignoring the error resulted from decoding an
-	// existing session: Get() always returns a session, even if empty.
+	// Get() returns a session, even if empty.
 	var session, _ = store.Get(r, "go_library")
-	// Set some session values.
+	// Sets a value's key and value
 	session.Values[vk] = v
-	// Save it before we write to the response/return from the handler.
+	// Saves session then writes handler response
 	session.Save(r, w)
 }
 
 func main() {
-	// "sqlite3" driver to connect to "dev.db" database
+	// db opens a sqlite3 connection to "dev.db" database
 	db, _ = sql.Open("sqlite3", "dev.db")
 
-	// replaces default ServeMux with Gorilla/Mux Router
+	// mux replaces default ServeMux with Gorilla/Mux Router
 	mux := gmux.NewRouter()
 
 	mux.HandleFunc("/books", func(w http.ResponseWriter, r *http.Request) {
-		// Set some session values.
-		columnName := r.FormValue("sortBy")
 
-		session(w, r, "sortBy", columnName)
+		// sortBy stores user's "sortBy" preference then validates the query value
+		// to prevent SQL injection before storing it to the session
+		sortBy := r.FormValue("sortBy")
+		if sortBy != "title" && sortBy != "author" && sortBy != "classification" {
+			http.Error(w, "Invalid Column Name", http.StatusBadRequest)
+			return
+		}
+		session(w, r, "sortBy", sortBy)
 
-		getBookCollection(columnName, w)
+		// getBookCollection returns a sorted book collection then encodes it in JSON
+		getBookCollection(sortBy, w)
 		if err := json.NewEncoder(w).Encode(p.Books); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
 
 	}).Methods("GET")
 
-	// HandleFunc() registers the handler function for requests on "/"
-	// w => The HTTP handler uses ResponseWriter interface to construct an HTTP response
-	// r => The HTTP request received by the server or to be sent by a client
+	// mux.HandleFunc("/") registers a handler function for requests on "/"
+	// http.ResponseWriter writes an HTTP response
+	// http.Request receives an HTTP server request or a client request
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		// sets cookies
+		// sets cookie expiration date and user info
 		expiration := time.Now().Add(365 * 24 * time.Hour)
-		cookie := http.Cookie{Name: "username", Value: "astaxie", Expires: expiration}
+		cookie := http.Cookie{Name: "username", Value: "gopher", Expires: expiration}
 		http.SetCookie(w, &cookie)
-
-		// if  sortBy != nil {
-		//      sortColumn := hi.Values["sortBy"].(string)
-		// }
-
-		columnName := r.FormValue("sortBy")
-
-		// validates query value to prevent SQL injection
-		if columnName != "title" && columnName != "author" && columnName != "classification" {
-			http.Error(w, "Invalid Column Name", http.StatusBadRequest)
-		}
 
 		// sets sort value to sort value stored in session
 		sortBy, _ := store.Get(r, "go_library")
 		sortColumn := sortBy.Values["sortBy"].(string)
-		// Set some session values.
-
-		// queries book DB using column names and iterates over output rows.
-		// scans each row and appends output row text to the DOM
-		// getBookCollection(sortColumn, w)
 
 		if !getBookCollection(sortColumn, w) {
 			return
@@ -163,6 +150,7 @@ func main() {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
+		fmt.Println("LINE 165, http.ResponseWriter", w)
 
 		// writes HTTP response using template and displays p or error
 		if err := template.Execute(w, p); err != nil {
