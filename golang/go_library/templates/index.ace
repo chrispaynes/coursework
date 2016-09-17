@@ -47,7 +47,7 @@ html
     // displays book collection by ranging over Page.Books
     div#view-page
       form#filter-view-results style="float: right;"
-        select name="filter" style="font-size: 18px; min-width: 10em;" onchange="filterViewResults()"
+        select name="filter" style="font-size: 18px; min-width: 10em;" onchange="filterRes()"
           option value="all" All Books
           option value="fiction" Fiction
           option value="nonfiction" Nonfiction
@@ -72,34 +72,33 @@ html
 
     script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"
     = javascript
+      // Document.ready selects the current "Filter" dropdown option.
       $(document).ready(function() {
         $("#filter-view-results option[value='" + {{.Filter}} + "']").prop("selected", true);
       });
 
-
-      // filterResults sends AJAX request to GET books route
-      // sending the serialized input from the #filter-view-results
-      function filterViewResults() {
+      // FilterRes filters the library results and writes results to the DOM
+      function filterRes() {
         $.ajax({
           method: "GET",
           url: "/books",
           data: $("#filter-view-results").serialize(),
-          success: rebuildLibrary
+          success: writeLibrary
         })
       }
 
-      // Sort sorts the library by a specified column.
+      // Sort sorts the library results by column name and writes results to the DOM
       function sort(col) {
         $.ajax({
           method: "GET",
           url: "/books?sortBy=" + col,
-          success: rebuildLibrary
+          success: writeLibrary
         })
       }
 
-      // rebuildLibrary clears the current library and appends
+      // writeLibrary clears the current library and appends
       // the newly parsed book collection results to the DOM
-      function rebuildLibrary(res) {
+      function writeLibrary(res) {
         var books = JSON.parse(res);
         if(!books) return;
 
@@ -110,21 +109,20 @@ html
         });
       }
 
-      // TODO: ADD COMMENTS: deleteBook...
+      // DeleteBook deletes a book record from the
+      // DOM after removing the book from the DB
       function deleteBook(pk) {
         $.ajax({
           method: "DELETE",
           url: "/books/" + pk,
-          // delete book row from DOM upon book's
-          // successful removal from the DB
+
           success: function() {
-          console.log("deleted book:", pk)
             $("#book-row-" + pk).remove();
           }
         });
       }
 
-      // TODO: ADD COMMENTS: appendBook...
+      // AppendBook appends a book record to the DOM
       function appendBook(bk){
         $("#view-results").append("<tr id='book-row-" + bk.PK + "'><td>" + bk.Title + "</td><td>"
                                   + bk.Author + "</td><td>" + bk.Classification + "</td>"
@@ -132,35 +130,36 @@ html
                                   + ">Delete</button></td></tr>")
       }
 
-      // TODO: ADD COMMENTS: showSearchPage...
+      // ShowSearchPage reveals the library's search box
       function showSearchPage() {
         $("#search-page").show();
         $("#view-page").hide();
       }
 
-      // TODO: ADD COMMENTS: showViewPage...
+      // ShowSearchPage reveals the library's search results
       function showViewPage() {
         $("#search-page").hide();
         $("#view-page").show();
       }
 
-      // submitSearch serializes the search form before submitting HTTP POST request.
+      // SubmitSearch serializes the search form before submitting HTTP POST request.
       // Makes async HTTP call to Go's http.HandleFunc("/search"...) at REST endpoint
       function submitSearch() {
         $.ajax({
           url: "/search",
           method: "POST",
           data: $("#search-form").serialize(),
-          // returns parsed JSON data or returns no results
+          // Success returns parsed JSON data and clears the current results.
+          // OR it returns no results
           success: function(rawData) {
             if(!JSON.parse(rawData)) return;
             var searchResults = $("#search-results");
             searchResults.empty();
 
-            // maps over parsed data and writes it to the DOM.
-            // clicking on <tr> sends async HTTP request with the
+            // JSON.parse().map maps over parsed data and writes it to the DOM.
+            // Clicking on <tr> sends async HTTP request with the
             // book id to Go's http.HandleFunc("/books/add"...) at REST endpoint.
-            // the endpoint adds the selected <tr>'s book to the database
+            // The endpoint adds the selected <tr>'s book to the database
             JSON.parse(rawData).map(function(res) {
               var row = $("<tr><td>" + res.Title + "</td><td>"
                           + res.Author + "</td><td>" + res.Year
@@ -182,11 +181,10 @@ html
           }
         });
 
-        // prevents default button action behavior
+        // False prevents default button action behavior
         return false;
       }
-      // listen is an immediately invoked function expression which
-      // calls submitSearch upon clicking the search button.
+      // Listen calls submitSearch upon clicking the search button.
       (function listen(){
         var s_btn = document.getElementById("search-btn");
         if(window.addEventListener) {

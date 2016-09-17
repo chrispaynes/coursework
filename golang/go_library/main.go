@@ -148,9 +148,9 @@ func main() {
 			http.Error(w, "Invalid Column Name", http.StatusBadRequest)
 			return
 		}
-		fmt.Println("PRE SESSION SORT is:", getSessionString(r, "sortBy"))
+
+		// Session stores the current URL's query's key value into the store.
 		session(w, r, "sortBy", sb)
-		// session(w, r, "sortBy", sb)
 
 		// GetBookCollection returns a sorted book collection, then encodes it in JSON.
 		getBookCollection(getSessionString(r, "sortBy"), getSessionString(r, "filter"), w, r)
@@ -158,40 +158,25 @@ func main() {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
 
-		// Queries ensures the function handles sortBy using a known value
+		// Methods.Queries matches for "?key=" URL queries
+		// that match the regexp patter for "key=value1, key=value2, key=valueN".
 	}).Methods("GET").Queries("sortBy", "{sortBy:title|author|classification}")
-
-	///////////////////////////////////////////////////////////////////////////
 
 	mux.HandleFunc("/books", func(w http.ResponseWriter, r *http.Request) {
 
-		// Sb stores user's "sortBy" preference then validates the query value
-		// to prevent SQL injection before storing it to the session.
-		// sb := r.FormValue("sortBy")
-		// if sb != "title" && sb != "author" && sb != "classification" {
-		// 	http.Error(w, "Invalid Column Name", http.StatusBadRequest)
-		// 	return
-		// }
-
-		fmt.Println("P is:", p)
-		fmt.Println("getSessionString(r, 'filter') is:", getSessionString(r, "filter"))
-		fmt.Println("r.FormValue('filter') is:", r.FormValue("filter"))
+		// Session stores the current URL's query's key value into the store.
 		session(w, r, "filter", r.FormValue("filter"))
-		// session(w, r, "sortBy", getSessionString(r, "SortBy"))
-		// session(w, r, "sortBy", sb)
 
 		// GetBookCollection returns a sorted book collection, then encodes it in JSON.
 		getBookCollection(getSessionString(r, "sortBy"), getSessionString(r, "filter"), w, r)
-		// getBookCollection(getSessionString(r, "SortBy"), w)
-		// getBookCollection(sb, w)
+
 		if err := json.NewEncoder(w).Encode(p.Books); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
 
-		// Queries ensures the function handles sortBy using a known value
+		// Methods.Queries matches for "?key=" URL queries
+		// that match the regexp patter for "key=value1, key=value2, key=valueN".
 	}).Methods("GET").Queries("filter", "{filter:all|fiction|nonfiction}")
-
-	///////////////////////////////////////////////////////////////////////////
 
 	// Mux.HandleFunc("/") registers a handler function for requests on "/"
 	// http.ResponseWriter writes an HTTP response
