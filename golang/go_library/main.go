@@ -24,8 +24,10 @@ type Book struct {
 }
 
 // A Page represents a book collection.
+// Filter specifies which books remain visible
 type Page struct {
-	Books []Book
+	Books  []Book
+	Filter string
 }
 
 // A SearchResult represents a result returned from a book-related search query.
@@ -55,8 +57,8 @@ type ClassifyBookResponse struct {
 // Db stores a global sqlite3 database.
 var db *sql.DB
 
-// P represents the global sqlite3 database
-var p = Page{Books: []Book{}}
+// P represents the global DOM page
+var p = Page{Books: []Book{}, Filter: ""}
 
 // Store initializes a session store with a secret authentication key.
 var store = sessions.NewCookieStore([]byte("password123"))
@@ -70,16 +72,29 @@ func pingDB(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
 	next(w, r)
 }
 
-func getBookCollection(sortCol string, w http.ResponseWriter) bool {
-	// Tests if sortCol is a known value, if not, defaults to "pk".
-	if sortCol != "title" && sortCol != "author" && sortCol != "classification" {
-		sortCol = "pk"
+func getBookCollection(sort string, filter string, w http.ResponseWriter, r *http.Request) bool {
+	// Defaults sorting to "pk" when sort is empty.
+	if sort == "" {
+		sort = "pk"
 	}
-	// Rows stores every row returned from book database query, sorted by the sortCol name.
-	rows, err := db.Query("SELECT pk, title, author, classification FROM books order by " + sortCol)
+
+	// Where stores SQL WHERE clauses, or defaults to no clause.
+	var where string
+	if filter == "fiction" {
+		where = " where classification between '800' and '900' "
+	} else if filter == "nonfiction" {
+		where = " where classification not between '800' and '900' "
+	} else {
+		where = " "
+	}
+
+	// Rows stores every row returned from book database query.
+	// The data is filtered using a WHERE clause and then sorted by the sort name.
+	rows, err := db.Query("SELECT pk, title, author, classification FROM books" + where + "order by " + sort)
 
 	// p.books empties the book object.
 	p.Books = []Book{}
+	p.Filter = getSessionString(r, "filter")
 
 	var b Book
 	// Rows.Next scans and stores data returned from the DB query,
@@ -104,6 +119,17 @@ func session(w http.ResponseWriter, r *http.Request, k string, v string) {
 	var s, _ = store.Get(r, "go_library")
 	s.Values[k] = v
 	s.Save(r, w)
+	fmt.Println("session", s)
+}
+
+// GetSessionString returns a value from the session store in string format
+func getSessionString(r *http.Request, key string) string {
+	var strVal string
+	var s, _ = store.Get(r, "go_library")
+	if val := s.Values[key]; val != nil {
+		strVal = val.(string)
+	}
+	return strVal
 }
 
 func main() {
@@ -122,15 +148,50 @@ func main() {
 			http.Error(w, "Invalid Column Name", http.StatusBadRequest)
 			return
 		}
+		fmt.Println("PRE SESSION SORT is:", getSessionString(r, "sortBy"))
 		session(w, r, "sortBy", sb)
+		// session(w, r, "sortBy", sb)
 
 		// GetBookCollection returns a sorted book collection, then encodes it in JSON.
-		getBookCollection(sb, w)
+		getBookCollection(getSessionString(r, "sortBy"), getSessionString(r, "filter"), w, r)
 		if err := json.NewEncoder(w).Encode(p.Books); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
 
-	}).Methods("GET")
+		// Queries ensures the function handles sortBy using a known value
+	}).Methods("GET").Queries("sortBy", "{sortBy:title|author|classification}")
+
+	///////////////////////////////////////////////////////////////////////////
+
+	mux.HandleFunc("/books", func(w http.ResponseWriter, r *http.Request) {
+
+		// Sb stores user's "sortBy" preference then validates the query value
+		// to prevent SQL injection before storing it to the session.
+		// sb := r.FormValue("sortBy")
+		// if sb != "title" && sb != "author" && sb != "classification" {
+		// 	http.Error(w, "Invalid Column Name", http.StatusBadRequest)
+		// 	return
+		// }
+
+		fmt.Println("P is:", p)
+		fmt.Println("getSessionString(r, 'filter') is:", getSessionString(r, "filter"))
+		fmt.Println("r.FormValue('filter') is:", r.FormValue("filter"))
+		session(w, r, "filter", r.FormValue("filter"))
+		// session(w, r, "sortBy", getSessionString(r, "SortBy"))
+		// session(w, r, "sortBy", sb)
+
+		// GetBookCollection returns a sorted book collection, then encodes it in JSON.
+		getBookCollection(getSessionString(r, "sortBy"), getSessionString(r, "filter"), w, r)
+		// getBookCollection(getSessionString(r, "SortBy"), w)
+		// getBookCollection(sb, w)
+		if err := json.NewEncoder(w).Encode(p.Books); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+
+		// Queries ensures the function handles sortBy using a known value
+	}).Methods("GET").Queries("filter", "{filter:all|fiction|nonfiction}")
+
+	///////////////////////////////////////////////////////////////////////////
 
 	// Mux.HandleFunc("/") registers a handler function for requests on "/"
 	// http.ResponseWriter writes an HTTP response
@@ -142,10 +203,11 @@ func main() {
 		http.SetCookie(w, &cookie)
 
 		// sets sort value to sort value stored in session
-		sortBy, _ := store.Get(r, "go_library")
-		sortColumn := sortBy.Values["sortBy"].(string)
+		// sortBy, _ := store.Get(r, "go_library")
+		// sortColumn := sortBy.Values["sortBy"].(string)
 
-		getBookCollection(sortColumn, w)
+		getBookCollection(getSessionString(r, "sortBy"), getSessionString(r, "filter"), w, r)
+		// getBookCollection(sortColumn, w)
 
 		// loads template with default options and caches parsed template after initial call
 		template, err := ace.Load("templates/index", "", nil)
