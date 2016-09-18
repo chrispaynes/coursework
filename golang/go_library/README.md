@@ -9,10 +9,12 @@ Based on [Larry Price's](https://github.com/larryprice) "Go for web development"
  * Channels
  * Connecting to an external API
  * Connecting to sqlite
+ * Cryptography
  * Database CRUD operations
  * Gorilla/mux URL router and dispatcher
  * Goroutines
  * Heroku Deployment
+ * HTML5 Data Validation
  * HTTP Cookies
  * HTTP Methods
  * JSON Encoding

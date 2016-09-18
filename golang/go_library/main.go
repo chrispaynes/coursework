@@ -139,6 +139,28 @@ func main() {
 	// Mux replaces the default ServeMux with Gorilla/Mux Router.
 	mux := gmux.NewRouter()
 
+	// Mux.HandleFunc("/login") handles user authentication
+	mux.HandleFunc("/login", func(w http.ResponseWriter, r *http.Request) {
+		// Redirects user to main page upon successful authentication
+		if r.FormValue("register") != "" || r.FormValue("login") != "" {
+			http.Redirect(w, r, "/", http.StatusFound)
+			return
+		}
+
+		// Template stores and caches an Ace Template loaded.
+		template, err := ace.Load("templates/login", "", nil)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		// writes HTTP response using template and displays p or error
+		if err := template.Execute(w, nil); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+	})
+
 	mux.HandleFunc("/books", func(w http.ResponseWriter, r *http.Request) {
 
 		// Sb stores user's "sortBy" preference then validates the query value
@@ -192,15 +214,13 @@ func main() {
 		// sortColumn := sortBy.Values["sortBy"].(string)
 
 		getBookCollection(getSessionString(r, "sortBy"), getSessionString(r, "filter"), w, r)
-		// getBookCollection(sortColumn, w)
 
-		// loads template with default options and caches parsed template after initial call
+		// Template stores and caches an Ace Template loaded.
 		template, err := ace.Load("templates/index", "", nil)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
-		fmt.Println("LINE 165, http.ResponseWriter", w)
 
 		// writes HTTP response using template and displays p or error
 		if err := template.Execute(w, p); err != nil {
