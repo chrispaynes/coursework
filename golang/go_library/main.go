@@ -10,6 +10,7 @@ import (
 	"github.com/gorilla/sessions"
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/yosssi/ace"
+	"golang.org/x/crypto/bcrypt"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -21,21 +22,6 @@ type Book struct {
 	Title          string `db:"title"`
 	Author         string `db:"author"`
 	Classification string `db:"classification"`
-}
-
-// A Page represents a book collection.
-// Filter specifies which books remain visible
-type Page struct {
-	Books  []Book
-	Filter string
-}
-
-// A SearchResult represents a result returned from a book-related search query.
-type SearchResult struct {
-	Title  string `xml:"title,attr"`
-	Author string `xml:"author,attr"`
-	Year   string `xml:"hyr,attr"`
-	ID     string `xml:"owi,attr"`
 }
 
 type ClassifySearchResponse struct {
@@ -54,11 +40,36 @@ type ClassifyBookResponse struct {
 	} `xml:"recommendations>ddc>mostPopular"`
 }
 
+type LoginPage struct {
+	Error string
+}
+
+// A Page represents a book collection.
+// Filter specifies which books remain visible
+type Page struct {
+	Books  []Book
+	Filter string
+}
+
+// A SearchResult represents a result returned from a book-related search query.
+type SearchResult struct {
+	Title  string `xml:"title,attr"`
+	Author string `xml:"author,attr"`
+	Year   string `xml:"hyr,attr"`
+	ID     string `xml:"owi,attr"`
+}
+
+// A User represents a unique app user with authentication credentials
+type User struct {
+	Username string `db:"username"`
+	Secret   []byte `db:"secret"`
+}
+
 // Db stores a global sqlite3 database.
 var db *sql.DB
 
-// P represents the global DOM page
-var p = Page{Books: []Book{}, Filter: ""}
+// P represents the DOM Document Object
+var p = new(Page)
 
 // Store initializes a session store with a secret authentication key.
 var store = sessions.NewCookieStore([]byte("password123"))
@@ -132,19 +143,73 @@ func getSessionString(r *http.Request, key string) string {
 	return strVal
 }
 
-func main() {
+func initDB() {
 	// DB opens a sqlite3 connection to the database.
 	db, _ = sql.Open("sqlite3", "dev.db")
+
+	// If the table does not exist, creates books database table based on Book struct.
+	db.Exec(`CREATE TABLE IF NOT EXISTS books(
+    pk integer primary key autoincrement,
+    title text,
+    author text,
+    id text,
+    classification text)`)
+
+	// If the table does not exist, creates users database table based on User struct.
+	db.Exec(`CREATE TABLE IF NOT EXISTS users(
+    username text primary key,
+    secret blob
+    )`)
+}
+
+func main() {
+	initDB()
 
 	// Mux replaces the default ServeMux with Gorilla/Mux Router.
 	mux := gmux.NewRouter()
 
 	// Mux.HandleFunc("/login") handles user authentication
 	mux.HandleFunc("/login", func(w http.ResponseWriter, r *http.Request) {
-		// Redirects user to main page upon successful authentication
-		if r.FormValue("register") != "" || r.FormValue("login") != "" {
-			http.Redirect(w, r, "/", http.StatusFound)
-			return
+		// Lp stores the login page to hold an error for the login page to display
+		lp := new(LoginPage)
+
+		// Creates and stores a new user upon registration, then redirects on successful
+		if r.FormValue("register") != "" {
+			// Secret stores a bcrypt password hash
+			secret, _ := bcrypt.GenerateFromPassword([]byte(r.FormValue("password")), bcrypt.DefaultCost)
+
+			// User stores a username and password hash
+			user := User{r.FormValue("username"), secret}
+
+			// db.Exec inserts new user into a new database row, or fails and return to login page.
+			if _, err := db.Exec("insert into users (username, secret) values(?, ?)", &user.Username, &user.Secret); err != nil {
+				lp.Error = err.Error()
+			} else {
+				http.Redirect(w, r, "/", http.StatusFound)
+				return
+			}
+
+			// Handles user authentication for registered users
+		} else if r.FormValue("login") != "" {
+			// User will store a username and password hash
+			user := new(User)
+
+			// dbQueryRow searches the Database for a user based on primary key,
+			// then scans the query results, placing each column into the user object.
+			err := db.QueryRow("SELECT * FROM users WHERE username="+"'"+r.FormValue("username")+"'").Scan(&user.Username, &user.Secret)
+
+			// sql.ErrNoRows indicates a the queried user does not exist in the database
+			if err == sql.ErrNoRows {
+				lp.Error = "No user found matching Username: " + r.FormValue("username")
+			} else {
+				// bcrypt.CompareHashAndPassword verifies the hashed password matches the plaintext password.
+				if err = bcrypt.CompareHashAndPassword(user.Secret, []byte(r.FormValue("password"))); err != nil {
+					lp.Error = "Invalid Password"
+				} else {
+					http.Redirect(w, r, "/", http.StatusFound)
+					return
+				}
+			}
 		}
 
 		// Template stores and caches an Ace Template loaded.
@@ -155,7 +220,8 @@ func main() {
 		}
 
 		// writes HTTP response using template and displays p or error
-		if err := template.Execute(w, nil); err != nil {
+		// Also sends an error to the login page when present.
+		if err := template.Execute(w, lp); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}

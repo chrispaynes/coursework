@@ -4,12 +4,12 @@ Based on [Larry Price's](https://github.com/larryprice) "Go for web development"
 
 ### Featured Concepts:
  * Ace template engine
- * AJAX calls
+ * AJAX
  * Building a webserver
  * Channels
  * Connecting to an external API
  * Connecting to sqlite
- * Cryptography
+ * Cryptography with bcrypt
  * Database CRUD operations
  * Gorilla/mux URL router and dispatcher
  * Goroutines
@@ -18,7 +18,7 @@ Based on [Larry Price's](https://github.com/larryprice) "Go for web development"
  * HTTP Cookies
  * HTTP Methods
  * JSON Encoding
- * Multi-user authentication
  * Server Sessions
  * Templates
+ * User Authentication
  * XML Parsing
