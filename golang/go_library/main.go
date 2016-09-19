@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"encoding/json"
 	"encoding/xml"
-	"fmt"
 	"github.com/codegangsta/negroni"
 	gmux "github.com/gorilla/mux"
 	"github.com/gorilla/sessions"
@@ -49,6 +48,7 @@ type LoginPage struct {
 type Page struct {
 	Books  []Book
 	Filter string
+	User   string
 }
 
 // A SearchResult represents a result returned from a book-related search query.
@@ -71,8 +71,10 @@ var db *sql.DB
 // P represents the DOM Document Object
 var p = new(Page)
 
-// Store initializes a session store with a secret authentication key.
-var store = sessions.NewCookieStore([]byte("password123"))
+// Store initializes a new CookieStore with a secret authentication key.
+var cookieStore = sessions.NewCookieStore([]byte("password123"))
+
+// var sessionStore = cookieStore.Get(r, "go_library2")
 
 // PingDB checks DB connectivity then calls next HandlerFunc upon connectivity.
 func pingDB(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
@@ -123,24 +125,55 @@ func getBookCollection(sort string, filter string, w http.ResponseWriter, r *htt
 	return true
 }
 
+func startSession(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
+	cookieStore.Get(r, "go_library")
+	next(w, r)
+}
+
 // Session gets a pre-existing session or creates a new session stores.
 // The "k" and "v" arguments set a key/value pair in the store
 // before saving the session and writing a request and response.
-func session(w http.ResponseWriter, r *http.Request, k string, v string) {
-	var s, _ = store.Get(r, "go_library")
+func writeToSession(w http.ResponseWriter, r *http.Request, k string, v string) {
+	s, _ := cookieStore.Get(r, "go_library")
 	s.Values[k] = v
 	s.Save(r, w)
-	fmt.Println("session", s)
 }
 
 // GetSessionString returns a value from the session store in string format
 func getSessionString(r *http.Request, key string) string {
 	var strVal string
-	var s, _ = store.Get(r, "go_library")
+	var s, _ = cookieStore.Get(r, "go_library")
 	if val := s.Values[key]; val != nil {
 		strVal = val.(string)
 	}
 	return strVal
+}
+
+// verifyUser is middleware handler that ensures user's session value is set before entering main page
+func verifyUser(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
+	// if currently on "/login", return from the func to avoid a http.Redirect Loop
+	if r.URL.Path == "/login" {
+		next(w, r)
+		return
+	}
+
+	// verify username held in session store exists in DB
+	// Username stores the username value stored in the session string
+	// if the username is not empty will query the db for it
+	// gets session string, if its blank, query username from form value to see if in DB
+	// redirect to login if not logged in
+	if username := getSessionString(r, "user"); username != "" {
+		// db.Query searches the Database for a username.
+		if user, _ := db.Query("SELECT username FROM users WHERE username=" + "'" + username + "'"); user != nil {
+		} else {
+			// http.Redirect redirects unregistered users to the login page
+			http.Redirect(w, r, "/login", http.StatusTemporaryRedirect)
+		}
+	} else {
+		http.Redirect(w, r, "/login", http.StatusTemporaryRedirect)
+	}
+	next(w, r)
+
 }
 
 func initDB() {
@@ -185,6 +218,8 @@ func main() {
 			if _, err := db.Exec("insert into users (username, secret) values(?, ?)", &user.Username, &user.Secret); err != nil {
 				lp.Error = err.Error()
 			} else {
+				// Session stores the user in the session store
+				writeToSession(w, r, "user", user.Username)
 				http.Redirect(w, r, "/", http.StatusFound)
 				return
 			}
@@ -198,7 +233,7 @@ func main() {
 			// then scans the query results, placing each column into the user object.
 			err := db.QueryRow("SELECT * FROM users WHERE username="+"'"+r.FormValue("username")+"'").Scan(&user.Username, &user.Secret)
 
-			// sql.ErrNoRows indicates a the queried user does not exist in the database
+			// sql.ErrNoRows indicates the queried user does not exist in the database
 			if err == sql.ErrNoRows {
 				lp.Error = "No user found matching Username: " + r.FormValue("username")
 			} else {
@@ -206,6 +241,8 @@ func main() {
 				if err = bcrypt.CompareHashAndPassword(user.Secret, []byte(r.FormValue("password"))); err != nil {
 					lp.Error = "Invalid Password"
 				} else {
+					// Session stores the user in the session store
+					writeToSession(w, r, "user", user.Username)
 					http.Redirect(w, r, "/", http.StatusFound)
 					return
 				}
@@ -227,6 +264,16 @@ func main() {
 		}
 	})
 
+	mux.HandleFunc("/logout", func(w http.ResponseWriter, r *http.Request) {
+		// remove from session store by setting user value to nil
+		writeToSession(w, r, "user", "")
+		// remove default filter setting
+		writeToSession(w, r, "filter", "")
+		//redirects user back to login page
+		http.Redirect(w, r, "/login", http.StatusFound)
+
+	})
+
 	mux.HandleFunc("/books", func(w http.ResponseWriter, r *http.Request) {
 
 		// Sb stores user's "sortBy" preference then validates the query value
@@ -238,7 +285,7 @@ func main() {
 		}
 
 		// Session stores the current URL's query's key value into the store.
-		session(w, r, "sortBy", sb)
+		writeToSession(w, r, "sortBy", sb)
 
 		// GetBookCollection returns a sorted book collection, then encodes it in JSON.
 		getBookCollection(getSessionString(r, "sortBy"), getSessionString(r, "filter"), w, r)
@@ -253,7 +300,7 @@ func main() {
 	mux.HandleFunc("/books", func(w http.ResponseWriter, r *http.Request) {
 
 		// Session stores the current URL's query's key value into the store.
-		session(w, r, "filter", r.FormValue("filter"))
+		writeToSession(w, r, "filter", r.FormValue("filter"))
 
 		// GetBookCollection returns a sorted book collection, then encodes it in JSON.
 		getBookCollection(getSessionString(r, "sortBy"), getSessionString(r, "filter"), w, r)
@@ -276,10 +323,13 @@ func main() {
 		http.SetCookie(w, &cookie)
 
 		// sets sort value to sort value stored in session
-		// sortBy, _ := store.Get(r, "go_library")
+		// sortBy, _ := cookieStore.Get(r, "go_library")
 		// sortColumn := sortBy.Values["sortBy"].(string)
 
 		getBookCollection(getSessionString(r, "sortBy"), getSessionString(r, "filter"), w, r)
+
+		// p.User stores the logged in username
+		p.User = getSessionString(r, "user")
 
 		// Template stores and caches an Ace Template loaded.
 		template, err := ace.Load("templates/index", "", nil)
@@ -364,11 +414,10 @@ func main() {
 
 	// add DB verification to middleware stack
 	n.Use(negroni.HandlerFunc(pingDB))
-	// n.Use(negroni.HandlerFunc(session))
+	n.Use(negroni.HandlerFunc(startSession))
 
-	// create new session
-	// var store = sessions.NewCookieStore([]byte("password123"))
-	// n.Use(negroni.HandlerFunc(gsession.NewCookieStore([]byte("password123"))))
+	// adds user session verification
+	n.Use(negroni.HandlerFunc(verifyUser))
 
 	// PLACE ROUTER AT END OF MIDDLEWARE PIPELINE
 	// Negroni use Gmux Router
