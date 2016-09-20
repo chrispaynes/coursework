@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"encoding/json"
 	"encoding/xml"
+	"fmt"
 	"github.com/codegangsta/negroni"
 	gmux "github.com/gorilla/mux"
 	"github.com/gorilla/sessions"
@@ -13,14 +14,17 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"strconv"
 	"time"
 )
 
 type Book struct {
-	PK             int    `db:"pk"`
+	PK             int64  `db:"pk"`
 	Title          string `db:"title"`
 	Author         string `db:"author"`
 	Classification string `db:"classification"`
+	ID             string `db:"id"`
+	User           string `db:"user"`
 }
 
 type ClassifySearchResponse struct {
@@ -85,25 +89,29 @@ func pingDB(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
 	next(w, r)
 }
 
-func getBookCollection(sort string, filter string, w http.ResponseWriter, r *http.Request) bool {
+// GetBookCollection returns a filtered and sorted book collection.
+func getBookCollection(sort string, filter string, username string, w http.ResponseWriter, r *http.Request) bool {
 	// Defaults sorting to "pk" when sort is empty.
 	if sort == "" {
 		sort = "pk"
 	}
 
-	// Where stores SQL WHERE clauses, or defaults to no clause.
-	var where string
+	// Where stores SQL WHERE clause to filter by username and classification, or defaults to no clause.
+	where := fmt.Sprintf(" WHERE user=%q", username)
 	if filter == "fiction" {
-		where = " where classification between '800' and '900' "
+		where += " AND classification BETWEEN '800' AND '900' "
 	} else if filter == "nonfiction" {
-		where = " where classification not between '800' and '900' "
+		where += " AND classification NOT BETWEEN '800' AND '900' "
 	} else {
-		where = " "
+		where += " "
 	}
 
 	// Rows stores every row returned from book database query.
 	// The data is filtered using a WHERE clause and then sorted by the sort name.
-	rows, err := db.Query("SELECT pk, title, author, classification FROM books" + where + "order by " + sort)
+	rows, err := db.Query("SELECT pk, title, author, classification FROM books" + where + "ORDER BY " + sort)
+	fmt.Println("SELECT pk, title, author, classification FROM books" + where + "ORDER BY " + sort)
+
+	fmt.Println("111\t query", rows)
 
 	// p.books empties the book object.
 	p.Books = []Book{}
@@ -288,7 +296,7 @@ func main() {
 		writeToSession(w, r, "sortBy", sb)
 
 		// GetBookCollection returns a sorted book collection, then encodes it in JSON.
-		getBookCollection(getSessionString(r, "sortBy"), getSessionString(r, "filter"), w, r)
+		getBookCollection(getSessionString(r, "sortBy"), getSessionString(r, "filter"), getSessionString(r, "user"), w, r)
 		if err := json.NewEncoder(w).Encode(p.Books); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
@@ -303,7 +311,7 @@ func main() {
 		writeToSession(w, r, "filter", r.FormValue("filter"))
 
 		// GetBookCollection returns a sorted book collection, then encodes it in JSON.
-		getBookCollection(getSessionString(r, "sortBy"), getSessionString(r, "filter"), w, r)
+		getBookCollection(getSessionString(r, "sortBy"), getSessionString(r, "filter"), getSessionString(r, "user"), w, r)
 
 		if err := json.NewEncoder(w).Encode(p.Books); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -326,7 +334,7 @@ func main() {
 		// sortBy, _ := cookieStore.Get(r, "go_library")
 		// sortColumn := sortBy.Values["sortBy"].(string)
 
-		getBookCollection(getSessionString(r, "sortBy"), getSessionString(r, "filter"), w, r)
+		getBookCollection(getSessionString(r, "sortBy"), getSessionString(r, "filter"), getSessionString(r, "user"), w, r)
 
 		// p.User stores the logged in username
 		p.User = getSessionString(r, "user")
@@ -362,33 +370,34 @@ func main() {
 		}
 	}).Methods("POST")
 
-	// saves search results with URL of /books/add uses find() to search
+	// HandleFunc("/books") saves search results with URL of /books/add uses find() to search
 	// OCLC Book API for a book's OCLC Work Identifier (OWI)
 	mux.HandleFunc("/books", func(w http.ResponseWriter, r *http.Request) {
 		var book ClassifyBookResponse
 		var err error
 
-		// finds a book using the id extracted from the requested URL's query string id value
+		// Book stores a object extracted from the requested URL's query string id value.
+		// Book stores a {Book.Title, Book.Author, Book.Classifiction}.
 		if book, err = find(r.FormValue("id")); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
 
-		// performs external OS command to insert a book into the DB
-		// passes nil for the primary key to allow DB to auto increment
-		result, err := db.Exec("insert into books (pk, title, author, id, classification) values(?, ?, ?, ?, ?)",
-			nil, book.BookData.Title, book.BookData.Author, book.BookData.ID,
-			book.Classification.MostPopular)
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-		}
-
-		// the lastest book inserted in the DB
-		pk, _ := result.LastInsertId()
+		// B uses query values and session values to store the lastest book,
+		// prior to it's database insertion.
 		b := Book{
-			PK:             int(pk),
+			PK:             -1,
 			Title:          book.BookData.Title,
 			Author:         book.BookData.Author,
 			Classification: book.Classification.MostPopular,
+			ID:             r.FormValue("id"),
+			User:           getSessionString(r, "user"),
+		}
+
+		// Db.exec inserts a book into the database, and
+		// passes a nil primary key to allow DB to auto increment the book records.
+		if _, err := db.Exec("insert into books (pk, title, author, id, classification, user) values(?, ?, ?, ?, ?, ?)",
+			nil, &b.Title, &b.Author, &b.ID, &b.Classification, &b.User); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
 
 		// returns JSON encoded book in http response
@@ -398,9 +407,26 @@ func main() {
 	}).Methods("PUT")
 
 	mux.HandleFunc("/books/{pk}", func(w http.ResponseWriter, r *http.Request) {
+		pk, _ := strconv.ParseInt(gmux.Vars(r)["pk"], 10, 64)
+		// ensure book belongs to user
+		// var b Book
+
+		////////////
+
+		// dbQueryRow searches the Database for a user based on primary key,
+		// then scans the query results, placing each column into the user object.
+		if b, err := db.Exec("SELECT * FROM books WHERE pk=? and user=?", pk, getSessionString(r, "user")); err != nil {
+			http.Error(w, err.Error(), http.StatusBadRequest)
+			fmt.Println("416\terr", b)
+
+			return
+		}
+		// fmt.Println("416\terr", err)
+
+		////////////
 		// performs external OS command to delete a DB book
 		// based on query string's "pk" value
-		if _, err := db.Exec("DELETE from books WHERE pk = ?", gmux.Vars(r)["pk"]); err != nil {
+		if _, err := db.Exec("DELETE from books WHERE pk = ?", pk); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
