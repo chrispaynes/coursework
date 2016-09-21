@@ -18,6 +18,7 @@ import (
 	"time"
 )
 
+// Book represents a book object
 type Book struct {
 	PK             int64  `db:"pk"`
 	Title          string `db:"title"`
@@ -27,11 +28,14 @@ type Book struct {
 	User           string `db:"user"`
 }
 
+// ClassifySearchResponse represents the
+// book collection returned from a search.
 type ClassifySearchResponse struct {
 	Results []SearchResult `xml:"works>work"`
 }
 
-// nested structs to parse XML node hierarchy
+// ClassifyBookResponse represented nested structs
+// to parse XML node hierarchy.
 type ClassifyBookResponse struct {
 	BookData struct {
 		Title  string `xml:"title,attr"`
@@ -43,6 +47,7 @@ type ClassifyBookResponse struct {
 	} `xml:"recommendations>ddc>mostPopular"`
 }
 
+// LoginPage represents the data reported to the Login Page.
 type LoginPage struct {
 	Error string
 }
