@@ -38,9 +38,7 @@ function createBoard(data, [board_width, board_height], board_array = []) {
     elem.push(randomizeRow(data, board_width))
   })
 
-  writeDims(board_height, "# of Rows", 0);
-  writeDims(board_width, "# of Columns", 1)
-
+  writeDims(board_width, board_height);
   return board_array;
 }
 
@@ -78,10 +76,10 @@ function setImage(w, scale) {
     document.head.appendChild(img_style);
 }
 
-// writeDims writes gallery dimensions to the DOM.
-// writeDims(dim *int, header *string, label_num *int)
-function writeDims(dim, header, label_num) {
-  return document.getElementsByTagName("label")[label_num].innerHTML = header + "<h3>" + dim;
+// writeDims(rows *int, columns *int)
+function writeDims(rows, columns) {
+  document.getElementsByTagName("label")[0].innerHTML = "# of Columns" + "<h3>" + columns;
+  document.getElementsByTagName("label")[1].innerHTML = "# of Rows" + "<h3>" + rows;
 }
 
 // getDims returns an array containing the gallery dimensions
@@ -97,8 +95,6 @@ function getDims(dimension) {
   } else {
     return Array.from([row_dim, column_dim])
   }
-  // return Array.from([Number(document.getElementsByTagName("h3")[0].textContent),
-  //   Number(document.getElementsByTagName("h3")[1].textContent)]);
 }
 
 // mutateDimensions mutates the gallery dimension based on the +/- DOM buttons
