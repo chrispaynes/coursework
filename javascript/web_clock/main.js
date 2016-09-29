@@ -4,8 +4,7 @@ var CLOCK = {};
 // configTime instantiates a new time object and
 // sets Clock object properties using Date properties
 function configTime() {
-  var ND = new Date();
-  CLOCK = new UTC_Clock(ND);
+  CLOCK = new UTC_Clock(new Date());
 };
 
 // TODO: abstract conditional logic
@@ -13,33 +12,33 @@ function configTime() {
 // based on user's current local time
 // propAdj(CLOCK *object)
 function propAdj(clock) {
-  // calculates hours based on 12 hour clock
-  // changes time suffic to AM or PM based on hour
-  // => EVENING / PRE-MIDNIGHT (ADJUSTED 7:00pm - 11:59pm)
+  // Calculates hours based on 12 hour clock.
+  // Changes time suffix to AM or PM based on hour.
+  // Handles EVENING / PRE-MIDNIGHT (ADJUSTED 7:00pm - 11:59pm)
   if(clock.hrs == 0 || clock.hrs < clock.abs_tzo) {
     clock.adj_period = "pm";
     clock.adj_hrs = clock.hrs + (12 - clock.abs_tzo)
   }
 
-  // => MIDNIGHT ADJUSTMENT (@12:00am local time)
+  // Handles MIDNIGHT ADJUSTMENT (@12:00am local time)
   if(clock.hrs == clock.abs_tzo) {
     clock.adj_period = "am";
     clock.adj_hrs = clock.hrs + (12 - clock.abs_tzo)
   }
 
-  // => MORNING ADJUSTMENT (from 1:00am - 11am local time)
+  // Handles MORNING ADJUSTMENT (from 1:00am - 11am local time)
   if(clock.hrs >= clock.abs_tzo && clock.hrs < 17) {
     clock.adj_period = "am";
     clock.adj_hrs = clock.hrs + clock.tzo
   }
 
-   // => NOON ADJUSTMENT (@12:00pm local time)
+   // Handles NOON ADJUSTMENT (@12:00pm local time)
   if(clock.hrs == (12 + clock.abs_tzo)) {
     clock.adj_period = "pm";
     clock.adj_hrs = clock.hrs - clock.abs_tzo
   }
 
-  // => AFTERNOON ADJUSTMENT (from 1:00pm - 6:00pm)
+  // Handles AFTERNOON ADJUSTMENT (from 1:00pm - 6:00pm)
   if(clock.hrs > (12 + clock.abs_tzo)) {
     clock.adj_period = "pm";
     clock.adj_hrs = clock.hrs - (12 + clock.abs_tzo)
