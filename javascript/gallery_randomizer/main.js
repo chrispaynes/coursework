@@ -82,19 +82,16 @@ function writeDims(rows, columns) {
   document.getElementsByTagName("label")[1].innerHTML = "# of Rows" + "<h3>" + rows;
 }
 
-// getDims returns an array containing the gallery dimensions
-// returns: [# rows *int, # columns *int]
-function getDims(dimension) {
-  var row_dim = Number(document.getElementsByTagName("h3")[0].textContent);
-  var column_dim = Number(document.getElementsByTagName("h3")[1].textContent);
-
+// readDims() returns an array containing the gallery dimensions.
+// readDims("column"/"row") returns a specific dimension as an integer.
+// returns: [# rows *int, # columns *in]
+function readDims(dimension) {
   if(dimension == "column") {
-    return column_dim;
+    return Number(readDims()[0].textContent);
   } else if (dimension == "row") {
-    return row_dim;
-  } else {
-    return Array.from([row_dim, column_dim])
+    return Number(readDims()[1].textContent);
   }
+  return document.getElementsByTagName("h3");
 }
 
 // mutateDimensions mutates the gallery dimension based on the +/- DOM buttons
@@ -102,10 +99,9 @@ function getDims(dimension) {
 // mutateDimensions(btn_id *string, mutation *int)
 function mutateDimensions(btn_id, mutation) {
   if(btn_id.includes("col")) {
-    newDimensions = [(getDims("column") + mutation), getDims("row")]
+    newDimensions = [(readDims("column") + mutation), readDims("row")]
   } else if(btn_id.includes("row")) {
-    newDimensions = [getDims("column"), (getDims("row") + mutation)]
+    newDimensions = [readDims("column"), (readDims("row") + mutation)]
   }
-  console.log( newDimensions)
   createPics(createBoard(src_imgs, newDimensions))
 }
