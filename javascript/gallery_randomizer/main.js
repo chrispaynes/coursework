@@ -49,16 +49,14 @@ function createBoard(data, [columns, rows]) {
 // and maps randomized rows of array elements as images to #img_board
 // createPics(files *object)
 function createPics(f){
-  var img_board = document.getElementById("img_board");
-  img_board.innerHTML = "";
   var img;
 
- f.map(function(i) {
-  i.map(function(j){
+ f.map(function(row) {
+  row.map(function(image){
       img = document.createElement("img");
-      img.src = "img/" + j + ".jpg";
+      img.src = "img/" + image + ".jpg";
       img.className = "img-responsive";
-      img_board.appendChild(img);
+      document.getElementById("img_board").appendChild(img);
   })
  })
 }
