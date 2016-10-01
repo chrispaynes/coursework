@@ -12,10 +12,10 @@ function mListen(id, evt, func, mut) {
 }
 
 function createEventListeners() {
-  window.addEventListener("load", createPics(createBoard(src_imgs, [randNum(3, 5), randNum(3, 5)])), false);
+  window.addEventListener("load", createPics(createGallery(src_imgs, [randNum(3, 5), randNum(3, 5)])), false);
 
   // mListen creates event listener for +/- row and column mutation buttons
-  mListen("randomizer_btn", "click", function() { createPics(createBoard(src_imgs, [randNum(2, 6), randNum(2, 5)])) })
+  mListen("randomizer_btn", "click", function() { createPics(createGallery(src_imgs, [randNum(2, 6), randNum(2, 5)])) })
   mListen("col_minus", "click", mutateDimensions, -1)
   mListen("col_plus", "click", mutateDimensions, 1)
   mListen("row_minus", "click", mutateDimensions, -1)

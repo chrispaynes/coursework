@@ -1,6 +1,8 @@
 createEventListeners();
-
-var DOC = document;
+function $(text, item) {
+  console.log(text + ":\t" + item)
+  console.log(typeof(item))
+}
 
 // randNum returns a random number inclusive of min and max arguments.
 // randNum(min *int, max *int)
@@ -8,16 +10,9 @@ function randNum(min, max) {
   return Math.floor(Math.random() * (Math.floor(max) - Math.ceil(min) + 1)) + Math.ceil(min);
 }
 
-// randomizeRow returns array of randomized values from array data
-// randomizeRow(data *object, row_width *int, row = [] *object)
-function randomizeRow(data, row_width, row = []) {
-  // if the number of elements is less than the row_width
-  // append randomized data array values to the array
-  // until the data array is long enough
-  for(var i = 0; data.length < row_width; i++) {
-    data.push(data[randNum(0, data.length - 1)]);
-  }
-
+// randomizeValues returns array of randomized values from array data.
+// randomizeValues(data *object, row_width *int, row = [] *object)
+function randomizeValues(data, row_width, row = []) {
   // maps over a data array a number of times equal to the row_width
   // chooses a random value from the data
   data.slice(0, row_width).map(function(num) {
@@ -27,32 +22,38 @@ function randomizeRow(data, row_width, row = []) {
   return row;
 }
 
-function build_rows(start, end, container, data, rows) {
-  // container.push adds a random row of images to the gallery.
-  container.push(randomizeRow(data, rows));
 
-  if(start < end -1) {
-    build_rows(start + 1, end, container, data, rows);
+// buildRow adds a random image row to the gallery until the # of rows
+// matches the requested # of rows.
+// buildRow(end *int, container *obj, data *obj, rows *int) => container *obj
+function buildRow(acc, container, data, rows) {
+  container.push(randomizeValues(data, rows));
+
+  if(acc > 1) {
+    buildRow(acc - 1, container, data, rows);
   }
+
   return container;
 }
 
-// creates (board_width x board_height) size array
-function createBoard(data, [columns, rows]) {
+// createGallery creates the gallery with scaled images and
+// writes the dimensions to the DOM.
+// createGallery (date *arr, [columns *int, rows *int]) => buildRow *obj
+function createGallery(data, [columns, rows]) {
   scaleImage(columns, 0.70);
   writeDims(rows, columns);
-  return build_rows(0, rows, [], data, columns);
+  return buildRow(rows, [], data, columns);
 }
 
-// createBoard finds the DOM's #img_board, clears out its innerHTML
-// and maps randomized rows of array elements as images to #img_board
+// createPics clears the image gallery, then
+// creates and maps the randomized images to the gallery.
 // createPics(files *object)
-function createPics(f){
+function createPics(images){
   var board = document.getElementById("img_board");
   while(board.firstChild) {
     board.removeChild(board.firstChild);
   }
- f.map(function(row) {
+ images.map(function(row) {
   row.map(function(image){
       var img = document.createElement("img");
       img.src = "img/" + image + ".jpg";
@@ -62,28 +63,28 @@ function createPics(f){
  })
 }
 
-// scaleImage sets the CSS image dimensions for responsive grid images
-// and appends the CSS style to the document.head.To evenly distribute
-// images, the image width is 100% divided by #items. The height is
-// based on the scale argument
-// scaleImage(columns *int, vert_scale *float)
+// scaleImage sets and appends responsive CSS image
+// grid dimensions to the document head.
+// scaleImage(columns *int, vert_scale *float) => HTML *obj
 function scaleImage(columns, vert_scale) {
     var grid_scale = 100 / columns;
     var width = "img {width:" + grid_scale + "%;}";
     var height = "img {height:" + (grid_scale * vert_scale ) + "vw !important;}";
-    document.getElementsByTagName("style")[0].appendChild(document.createTextNode(width + height));
+    return document.getElementsByTagName("style")[0].appendChild(document.createTextNode(width + height));
 }
 
-// writeDims(rows *int, columns *int)
+// writeDims writes the gallery dimensions to the DOM.
+// writeDims(rows *int, columns *int) => [object HTMLCollection]
 function writeDims(rows, columns) {
   var labels = document.getElementsByTagName("label");
   labels[0].innerHTML = "Columns" + "<h3>" + columns;
   labels[1].innerHTML = "Rows" + "<h3>" + rows;
+  return labels;
 }
 
-// readDims() returns an array containing the gallery dimensions.
-// readDims("column"/"row") returns a specific dimension as an integer.
-// returns: [# rows *int, # columns *in]
+// readDims returns an array containing the gallery dimensions.
+// readDims("column" or "row") returns a specific integer dimension.
+// readDims(dimension *string) => [object HTMLCollection] OR *int
 function readDims(dimension) {
   if(dimension == "column") {
     return Number(readDims()[0].textContent);
@@ -93,18 +94,20 @@ function readDims(dimension) {
   return document.getElementsByTagName("h3");
 }
 
+// prevent_neg_dims prevents board dimensions from scaling to less than 0.
+// prevent_neg_dims(dimension *string, btn_id *string) => boolean
+function prevent_neg_dims(dimension, btn_id) {
+  return readDims(dimension) > 0 || btn_id.includes("plus");
+}
+
 // mutateDimensions mutates the gallery dimension based on the +/- DOM buttons
 // inputs by creating a new gallery using new dimensions
 // mutateDimensions(btn_id *string, mutation *int)
 function mutateDimensions(btn_id, mutation) {
   if(btn_id.includes("col") && prevent_neg_dims("column", btn_id)) {
-    return createPics(createBoard(src_imgs, [(readDims("column") + mutation), readDims("row")]));
+    return createPics(createGallery(src_imgs, [(readDims("column") + mutation), readDims("row")]));
   } else if(btn_id.includes("row") && prevent_neg_dims("row", btn_id)) {
-    return createPics(createBoard(src_imgs, [readDims("column"), (readDims("row") + mutation)]))
+    return createPics(createGallery(src_imgs, [readDims("column"), (readDims("row") + mutation)]))
   }
   return
-}
-
-function prevent_neg_dims(dimension, btn_id) {
-  return readDims(dimension) > 0 || btn_id.includes("plus");
 }
