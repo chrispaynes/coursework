@@ -18,7 +18,6 @@ function randomizeRow(data, row_width, row = []) {
     data.push(data[randNum(0, data.length - 1)]);
   }
 
-
   // maps over a data array a number of times equal to the row_width
   // chooses a random value from the data
   data.slice(0, row_width).map(function(num) {
@@ -49,14 +48,16 @@ function createBoard(data, [columns, rows]) {
 // and maps randomized rows of array elements as images to #img_board
 // createPics(files *object)
 function createPics(f){
-  var img;
-
+  var board = document.getElementById("img_board");
+  while(board.firstChild) {
+    board.removeChild(board.firstChild);
+  }
  f.map(function(row) {
   row.map(function(image){
-      img = document.createElement("img");
+      var img = document.createElement("img");
       img.src = "img/" + image + ".jpg";
       img.className = "img-responsive";
-      document.getElementById("img_board").appendChild(img);
+      board.appendChild(img);
   })
  })
 }
@@ -76,8 +77,8 @@ function scaleImage(columns, vert_scale) {
 // writeDims(rows *int, columns *int)
 function writeDims(rows, columns) {
   var labels = document.getElementsByTagName("label");
-  labels[0].innerHTML = "# of Columns" + "<h3>" + columns;
-  labels[1].innerHTML = "# of Rows" + "<h3>" + rows;
+  labels[0].innerHTML = "Columns" + "<h3>" + columns;
+  labels[1].innerHTML = "Rows" + "<h3>" + rows;
 }
 
 // readDims() returns an array containing the gallery dimensions.
@@ -96,10 +97,14 @@ function readDims(dimension) {
 // inputs by creating a new gallery using new dimensions
 // mutateDimensions(btn_id *string, mutation *int)
 function mutateDimensions(btn_id, mutation) {
-  if(btn_id.includes("col")) {
-    newDimensions = [(readDims("column") + mutation), readDims("row")]
-  } else if(btn_id.includes("row")) {
-    newDimensions = [readDims("column"), (readDims("row") + mutation)]
+  if(btn_id.includes("col") && prevent_neg_dims("column", btn_id)) {
+    return createPics(createBoard(src_imgs, [(readDims("column") + mutation), readDims("row")]));
+  } else if(btn_id.includes("row") && prevent_neg_dims("row", btn_id)) {
+    return createPics(createBoard(src_imgs, [readDims("column"), (readDims("row") + mutation)]))
   }
-  return createPics(createBoard(src_imgs, newDimensions))
+  return
+}
+
+function prevent_neg_dims(dimension, btn_id) {
+  return readDims(dimension) > 0 || btn_id.includes("plus");
 }

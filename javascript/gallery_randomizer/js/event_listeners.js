@@ -2,11 +2,12 @@
 // and call a mutation function using a specified mutation argument
 // mListen(id *string, event *string, fn_call *function, mutation *int)
 function mListen(id, evt, func, mut) {
+  var elem = document.getElementById(id);
   if(window.addEventListener) {
-    document.getElementById(id).addEventListener(evt, function() { func(id, mut), false });
+    elem.addEventListener(evt, function() { func(id, mut), false });
   }
   if(window.attachEvent) {
-      document.getElementById(id).attachEvent(evt, function() { func(id, mut), false });
+      elem.attachEvent(evt, function() { func(id, mut), false });
   }
 }
 

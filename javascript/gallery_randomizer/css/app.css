@@ -12,6 +12,10 @@ ul,li {
   list-style-type: none;
 }
 
+h1 {
+  text-align: center;
+}
+
 /* IMAGE PANELS */
 #current_img {
   position: relative;
@@ -30,4 +34,12 @@ img {
 
 label {
   text-align: center;
+}
+
+.btn_row {
+  width: auto;
+}
+
+.dim_display_cont {
+
 }

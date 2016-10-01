@@ -14,22 +14,27 @@
 
 <body class="container-fluid">
 
+<h1>Gallery Randomizer</h1>
   <!-- begin gallery controls -->
-  <button id="randomizer_btn" class="btn btn-default">Shuffle Photos</button>
+  <button id="randomizer_btn" class="btn btn-primary">Shuffle Photos</button>
   <hr />
 
   <div class="row">
-    <div class="col-md-3" >
-          <label for=""></label>
+    <div class="col-md-2 dim_display_cont" >
+        <label for=""></label>
+        <div class="btn_row">
+          <button id="col_minus" class="btn btn-warning">-</button>
+          <button id="col_plus" class="btn btn-success">+</button>
+        </div>
 
-      <button id="col_minus" class="btn btn-warning">-</button>
-      <button id="col_plus" class="btn btn-success">+</button>
     </div>
 
-    <div class="col-md-3">
+    <div class="col-md-2 dim_display_cont">
       <label for=""></label>
-    <button id="row_minus" class="btn btn-warning">-</button>
-    <button id="row_plus" class="btn btn-success">+</button>
+      <div class="btn_row">
+        <button id="row_minus" class="btn btn-warning">-</button>
+        <button id="row_plus" class="btn btn-success">+</button>
+      </div>
 
     </div>
   </div>
