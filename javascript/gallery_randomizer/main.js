@@ -1,5 +1,7 @@
 createEventListeners();
 
+var DOC = document;
+
 // randNum returns a random number inclusive of min and max arguments.
 // randNum(min *int, max *int)
 function randNum(min, max) {
@@ -26,20 +28,21 @@ function randomizeRow(data, row_width, row = []) {
   return row;
 }
 
-// creates (board_width x board_height) size array
-function createBoard(data, [board_width, board_height], board_array = []) {
-  setImage(board_width, 0.70);
+function build_rows(start, end, container, data, rows) {
+  // container.push adds a random row of images to the gallery.
+  container.push(randomizeRow(data, rows));
 
-  for(var i = 0; i < board_height; i++) {
-    board_array.push([]);
+  if(start < end -1) {
+    build_rows(start + 1, end, container, data, rows);
   }
+  return container;
+}
 
-  board_array.map(function(elem){
-    elem.push(randomizeRow(data, board_width))
-  })
-
-  writeDims(board_width, board_height);
-  return board_array;
+// creates (board_width x board_height) size array
+function createBoard(data, [columns, rows]) {
+  scaleImage(columns, 0.70);
+  writeDims(rows, columns);
+  return build_rows(0, rows, [], data, columns);
 }
 
 // createBoard finds the DOM's #img_board, clears out its innerHTML
@@ -52,34 +55,31 @@ function createPics(f){
 
  f.map(function(i) {
   i.map(function(j){
-    j.map(function(k){
       img = document.createElement("img");
-      img.src = "img/" + k + ".jpg";
+      img.src = "img/" + j + ".jpg";
       img.className = "img-responsive";
       img_board.appendChild(img);
-    })
   })
  })
 }
 
-// setImage sets the CSS image dimensions for responsive grid images
+// scaleImage sets the CSS image dimensions for responsive grid images
 // and appends the CSS style to the document.head.To evenly distribute
 // images, the image width is 100% divided by #items. The height is
 // based on the scale argument
-// setImage(w *int, scale *float)
-function setImage(w, scale) {
-    var img_style = document.createElement("style");
-    var img_width = document.createTextNode("img {width:" + (100 / w) + "%;}");
-    var img_height = document.createTextNode("img {height:" + ((100 / w) * scale ) + "vw !important;}");
-    img_style.appendChild(img_height);
-    img_style.appendChild(img_width);
-    document.head.appendChild(img_style);
+// scaleImage(columns *int, vert_scale *float)
+function scaleImage(columns, vert_scale) {
+    var grid_scale = 100 / columns;
+    var width = "img {width:" + grid_scale + "%;}";
+    var height = "img {height:" + (grid_scale * vert_scale ) + "vw !important;}";
+    document.getElementsByTagName("style")[0].appendChild(document.createTextNode(width + height));
 }
 
 // writeDims(rows *int, columns *int)
 function writeDims(rows, columns) {
-  document.getElementsByTagName("label")[0].innerHTML = "# of Columns" + "<h3>" + columns;
-  document.getElementsByTagName("label")[1].innerHTML = "# of Rows" + "<h3>" + rows;
+  var labels = document.getElementsByTagName("label");
+  labels[0].innerHTML = "# of Columns" + "<h3>" + columns;
+  labels[1].innerHTML = "# of Rows" + "<h3>" + rows;
 }
 
 // readDims() returns an array containing the gallery dimensions.
@@ -103,5 +103,5 @@ function mutateDimensions(btn_id, mutation) {
   } else if(btn_id.includes("row")) {
     newDimensions = [readDims("column"), (readDims("row") + mutation)]
   }
-  createPics(createBoard(src_imgs, newDimensions))
+  return createPics(createBoard(src_imgs, newDimensions))
 }
