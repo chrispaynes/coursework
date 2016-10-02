@@ -31,10 +31,12 @@ function createHeader() {
 function writeTicket(ticket) {
   var record = createNode("tr", "", "id", "record");
   var btns = createNode("td", "", "id", "btns");
+  var delete_btn = createNode("button", "", "class", "delete_btn");
 
-  btns.appendChild(createNode("button", "", "class", "delete_btn"));
+  delete_btn.id = ticket.id
+  delete_btn.appendChild(createNode("i", "", "class", "fa fa-trash-o fa-fw"))
+  btns.appendChild(delete_btn);
   btns.id = "deleteTicketButton" + ticket.id
-  btns.appendChild(createNode("i", "", "class", "fa fa-trash-o fa-fw"))
   record.appendChild(btns);
   record.appendChild(createNode("td", ticket.id, "id", "id_" + ticket.id));
   record.appendChild(createNode("td", ticket.client, "id", "client_" + ticket.id));
@@ -78,10 +80,6 @@ function verify(condition, message) {
     alert(new Error(message));
     return false;
   }
-}
-
-function nodesToArray(node_list_query) {
-  return Array.prototype.slice.call(node_list_query);
 }
 
 // function populateTable(ta *object, ra)
