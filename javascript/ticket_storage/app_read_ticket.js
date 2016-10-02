@@ -1,50 +1,45 @@
 // uses foreign key to read a ticket across parallel arrays
 function readTicket() {
 
-  function getQuery(){
-    var query_id = 0;
-
+  function getQuery(message){
     // prompts user to enter a search value
     // continues with search if user enters a valid 6 digit entry
     // returns the parsed 6-digit value
-    query_id = parseInt(prompt("Enter a 6-Digit Ticket ID to Begin Your Search"));
-    if(query_id === "" || query_id === null ) {
+    var query = prompt(message);
+    return validateQuery(query);
+  }
+
+  function validateQuery(query) {
+    // "No records found matching that Ticket Id");
+    var rangeError = "No records found matching that Ticket Id \nSearch values must be between 100000 and 999999";
+    var reQuery = "Enter a 6-Digit Ticket ID to Begin Your Search";
+
+    if(!query || query == "") {
       return;
     }
-    else if(isValidNumber(query_id, 100000, 999999)) {
-      return query_id;
+
+// getForeignKey(query)
+    if(isValidNumber(Number(query), 100000, 999999) && getForeignKey(query) > -1) {
+      return Number(query);
     } else {
-      alert("Please Enter a valid 6-Digit Integer");
-      getQuery()
+      alert(rangeError);
+      return getQuery(reQuery);
     }
   }
 
   // displays ticket if found in the database
   // otherwise prompts user to start a new query
   function writeTicketToDOM() {
-
-    // finds the foreign key based on the parsed_query_id
-    foreignKey = getForeignKey(getQuery());
-
-    // ensures foreignKey is present in array
-    // ensures 0 does not return a falsy or undefined value
-    if(foreignKey >= 0 || foreignKey === 0) {
-      initTable()
-
-      record.id = "schedule_record_" + idArr[foreignKey];
-      record.children[0].children[0].id = "deleteTicketButton" +idArr[foreignKey];
-      record.children[0].children[0].innerHTML = "<i class='fa fa-trash-o fa-fw'></i>";
-      record.children[1].textContent = foreignKey;
-      record.children[2].textContent = idArr[foreignKey];
-      record.children[3].textContent = clientArr[foreignKey];
-      record.children[4].textContent = statusArr[foreignKey];
-      record.children[5].innerHTML = "&#36;" + costArr[foreignKey].toLocaleString();
-      tbl.appendChild(record.cloneNode(true));
-
-    } else if(foreignKey === -1) {
-      alert("No records found matching that Ticket Id");
-      // getQuery();
-    }
+    // t_index stores a ticket's index value from the database.
+    var t_index = getForeignKey(getQuery("Enter a 6-Digit Ticket ID to Begin Your Search"))
+    initTable()
+    record.children[0].children[0].id = "deleteTicketButton" +ticket_db[t_index].id;
+    record.children[0].children[0].innerHTML = "<i class='fa fa-trash-o fa-fw'></i>";
+    record.children[1].textContent = ticket_db[t_index].id;
+    record.children[2].textContent = ticket_db[t_index].client;
+    record.children[3].textContent = ticket_db[t_index].status;
+    record.children[4].innerHTML = "&#36;" + ticket_db[t_index].cost.toLocaleString();
+    tbl.appendChild(record.cloneNode(true));
   };
 
   writeTicketToDOM();

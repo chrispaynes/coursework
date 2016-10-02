@@ -3,8 +3,6 @@
 // a foreign key links ticket information across arrays
 function readIndex() {
   initTable()
-  // populateTable(tbl, record)
   populateTable(tbl, record)
   deleteTicket()
 };
-

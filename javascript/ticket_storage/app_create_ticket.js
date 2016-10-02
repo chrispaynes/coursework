@@ -35,8 +35,9 @@ function createTicket() {
   // pushes string value to specified array array
   // returns the entered value
   function getString(get_var, get_prompt, get_array) {
-    var get_var = prompt(get_prompt);
-    persistDBData(get_var, get_array)
+    // var get_var = prompt(get_prompt);
+    persistDBData(prompt(get_prompt), get_array)
+    // persistDBData(get_var, get_array)
     return get_var;
   }
 
