@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
     <style>
       * {
-        border: solid 1px gray;
+        /*border: solid 1px gray;*/
         border-spacing: 0;
       }
       body {
@@ -37,6 +37,9 @@
       }
       th {
         background-color: lightskyblue;
+      }
+      table {
+        margin: 10px 0px;
       }
 
       #foreign_key, #btns {
@@ -72,32 +75,12 @@
       <button type="button" class="btn btn-success" id="createTicketButton">Create Ticket</button>
       <button type="button" class="btn btn-primary" id="readTicketButton">Read Ticket</button>
       <button type="button" class="btn btn-warning" id="updateTicketButton">Update Ticket</button>
-      <!-- <button type="button" class="btn btn-danger" id="deleteTicketButton">Delete Ticket</button> -->
     </nav>
     <!-- end navigation -->
 
     <!-- begin production schedule -->
     <table>
-      <h1 id="scheduleHeader"></h1>
-      <tr>
-        <th></th>
-        <th>#</th>
-        <th>Ticket ID</th>
-        <th>Client</th>
-        <th>Status</th>
-        <th>Cost</th>
-      </tr>
-
-      <tr id="schedule">
-        <td id="btns">
-          <button id='deleteTicketButton' class='delete_btn'></button>
-        </td>
-        <td id="foreign_key_"></td>
-        <td id="id_"></td>
-        <td id="client_"></td>
-        <td id="status_"></td>
-        <td id="cost_"></td>
-      </tr>
+      <tbody></tbody>
     </table>
     <!-- end production schedule -->
 

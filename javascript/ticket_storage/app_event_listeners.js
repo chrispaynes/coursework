@@ -1,4 +1,5 @@
 if(window.addEventListener) {
+  // window.document.addEventListener("load", initTable(), false);
   window.document.addEventListener("load", readIndex(), false);
 }
 if(window.attachEvent) {

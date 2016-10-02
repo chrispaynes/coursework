@@ -2,7 +2,7 @@
 // reads all production tickets across parallel arrays
 // a foreign key links ticket information across arrays
 function readIndex() {
-  initTable()
+  createHeader()
   populateTable(tbl, record)
   deleteTicket()
 };
