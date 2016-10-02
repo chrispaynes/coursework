@@ -1,5 +1,4 @@
 if(window.addEventListener) {
-  // window.document.addEventListener("load", initTable(), false);
   window.document.addEventListener("load", readIndex(), false);
 }
 if(window.attachEvent) {
@@ -8,7 +7,12 @@ if(window.attachEvent) {
 
 // registers all buttons by mapping them to click events
 // calls functions by passing array string value as a Window object method
-["readIndex", "createTicket", "readTicket", "updateTicket"].map(function(evt)  {
-  document.getElementById(evt + "Button").addEventListener("click",
-    window[evt]);
+var events = ["readIndex", "createTicket", "readTicket", "updateTicket"];
+events.map(function(evt)  {
+  if(window.addEventListener) {
+    document.getElementById(evt + "Button").addEventListener("click", window[evt], false);
+  }
+  if(window.attachEvent) {
+    document.getElementById(evt + "Button").attachEvent("onclick", window[evt]);
+  }
 });

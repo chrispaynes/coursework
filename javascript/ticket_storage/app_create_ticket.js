@@ -8,27 +8,23 @@ function createTicket() {
 
   // validateUnique ensures a record does not already exist in the database.
   // validateUnique(record_id *int, database *obj) => *bool
-  function validateUnique(record_id, database) {
-    database.some(function(r) {
-      if(r.id == record_id ) {
-        return false;
-      }
+  function validateUnique(new_record_id, database) {
+    return database.some(function(db_record) {
+      return db_record.id == new_record_id;
     })
-    return true;
   }
 
-  // prompts user to input a new ticket id
-  // validates and returns ticket id
+  // promptTicketId prompts user for a new ticket id and returns ticket id.
+  // promptTicketId() => *int
   function promptTicketId(){
-    var ticket_id = 0;
-    ticket_id = parseInt(prompt("Enter a 6 Digit Ticket Id"));
-
-    if(verify(isValidNumber(ticket_id, 100000, 999999) && validateUnique(ticket_id, ticket_db),
-      "Please enter a unique non-negative 6 Digit Ticket Id")) {
+    var ticket_id = parseInt(prompt("Enter a 6 Digit Ticket Id"));
+    if(isValidNumber(ticket_id, 100000, 999999) && !validateUnique(ticket_id, ticket_db)) {
       return ticket_id;
     } else {
+      alert("Please enter a unique non-negative 6 Digit Ticket Id");
       promptTicketId();
     }
+    return ticket_id;
   }
 
   // getTicketCost prompts the user to enter a ticket cost
