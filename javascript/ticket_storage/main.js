@@ -57,17 +57,6 @@ function emptyTable() {
 
 // // initializes the table by removing records
 function initTable() {
-
-  // return;
-      // <tr id="schedule">
-      //   <td id="btns">
-      //     <button id='deleteTicketButton' class='delete_btn'></button>
-      //   </td>
-      //   <td id="id_"></td>
-      //   <td id="client_"></td>
-      //   <td id="status_"></td>
-      //   <td id="cost_"></td>
-      // </tr>
 }
 
 // private function that creates a foreign key to search for a ticket

@@ -1,20 +1,20 @@
-// creates a new production ticket
+// createTicket creates a new production ticket record.
 function createTicket() {
-
-  // writes data to DOM and Database and returns formatted data
-  function writeDOMData(data, data_array, data_return) {
-    persistDBData(data, data_array)
-    return data_return;
+  // persistDBData persists data to the database.
+  // persistDBData(data *string || *int, database *obj)
+  function persistDBData(data, database) {
+    database.push(data);
   }
 
-  // subroutine to push data to a data array
-  function persistDBData(data_arg, array_arg) {
-    array_arg.push(data_arg);
-  }
-
-  // ensures a record does not already exist within a data store
-  function validateUnique(record, data_store) {
-    return data_store.indexOf(record) === -1
+  // validateUnique ensures a record does not already exist in the database.
+  // validateUnique(record_id *int, database *obj) => *bool
+  function validateUnique(record_id, database) {
+    database.some(function(r) {
+      if(r.id == record_id ) {
+        return false;
+      }
+    })
+    return true;
   }
 
   // prompts user to input a new ticket id
@@ -23,44 +23,28 @@ function createTicket() {
     var ticket_id = 0;
     ticket_id = parseInt(prompt("Enter a 6 Digit Ticket Id"));
 
-    if(verify(validateUnique(ticket_id, idArr) && isValidNumber(ticket_id, 100000, 999999),
+    if(verify(isValidNumber(ticket_id, 100000, 999999) && validateUnique(ticket_id, ticket_db),
       "Please enter a unique non-negative 6 Digit Ticket Id")) {
-      return writeDOMData(ticket_id, idArr, ticket_id);
+      return ticket_id;
     } else {
       promptTicketId();
     }
   }
 
-  // prompts user to enter a string value
-  // pushes string value to specified array array
-  // returns the entered value
-  function getString(get_var, get_prompt, get_array) {
-    // var get_var = prompt(get_prompt);
-    persistDBData(prompt(get_prompt), get_array)
-    // persistDBData(get_var, get_array)
-    return get_var;
-  }
-
-  // prompts user to enter a ticket cost
-  // validates the user enters an integer
-  // returns the cost prefixed with a dollar sign
+  // getTicketCost prompts the user to enter a ticket cost
+  // and returns the value as an integer.
+  // getTicketCost() => *int
   function getTicketCost() {
-    var ticket_cost = 0;
-    ticket_cost = parseInt(prompt("enter a cost"));
-
-    return writeDOMData(ticket_cost, costArr, "$" + ticket_cost.toLocaleString());
-
+    return parseInt(prompt("enter a cost"));
   };
 
-  // writes a new ticket's data field to a DOM column
-  function writeNew(write_column, write_fn) {
-    document.getElementById(write_column).innerHTML += write_fn + "<br>";
-  };
+  // new_ticket stores a new production ticket.
+  var new_ticket = new Ticket(promptTicketId(),
+                              prompt("Enter a client name:"),
+                              prompt("Enter a ticket status:"),
+                              getTicketCost());
 
-  writeNew("foreign_key_", idArr.length);
-  writeNew("id_", promptTicketId());
-  writeNew("client_", getString("client", "enter a client name", clientArr));
-  writeNew("status_", getString("status", "enter a ticket status", statusArr));
-  writeNew("cost_", getTicketCost());
-
+  // Persists to database and writes ticket to DOM.
+  persistDBData(new_ticket, ticket_db)
+  writeTicket(new_ticket);
 };
