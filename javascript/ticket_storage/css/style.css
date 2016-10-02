@@ -1,0 +1,53 @@
+* {
+  /*border: solid 1px gray;*/
+  border-spacing: 0;
+}
+body {
+  border: solid 1px lightgray;
+  padding: 2%;
+  width: 700px;
+  margin: auto;
+  margin-top: 50px;
+}
+fieldset {
+    border: none;
+    width: auto;
+}
+
+input {
+    float: right;
+    padding: 2px;
+}
+th, td {
+  padding: 1%;
+  /*width: auto;*/
+}
+td, th {
+  width: 350px;
+}
+th {
+  background-color: lightskyblue;
+}
+table {
+  margin: 10px 0px;
+}
+
+#foreign_key, #btns {
+  width: 50px;
+}
+
+#id, #cost, #status {
+  width: 150px;
+}
+
+#client {
+  width: 500px;
+}
+
+.delete_btn {
+  border: none;
+  background-color: white;
+}
+#schedule_record_0 {
+  display: none;
+}

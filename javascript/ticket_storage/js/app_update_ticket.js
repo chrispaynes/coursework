@@ -48,7 +48,7 @@ var validID = "n"
 
 
 
-    revTicket = getForeignKey(revTicket);
+    revTicket = getTicketIndex(revTicket);
 
     revisionProperty = selectionDict[selection];
     revisionValue = prompt("enter a new " + revisionProperty);

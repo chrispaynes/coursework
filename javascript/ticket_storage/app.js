@@ -1,11 +1,8 @@
-// foreign key to link ticket data across parallel arrays
-var foreignKey = 0;
 var tbl = document.getElementsByTagName("tbody")[0];
 var record = document.getElementById("record");
 
 function createNode(node, content, attr_name, attr_value) {
   var n = document.createElement(node);
-
   if(content) {
     n.textContent = content;
   }
@@ -24,7 +21,6 @@ function createHeader() {
   header.appendChild(createNode("th", "Cost"));
   tbl.appendChild(header)
 }
-
 
 // writeTicket returns a ticket object's properties to the DOM.
 // writeTicket(ticket *obj)
@@ -48,7 +44,6 @@ function writeTicket(ticket) {
 };
 
 function emptyTable() {
-
   tbl.removeChild(tbl.lastChild);
 
   if(tbl.children.length > 1) {
@@ -57,19 +52,30 @@ function emptyTable() {
   return;
 }
 
-// // initializes the table by removing records
+// initializes the table by removing records
 function initTable() {
 }
 
-// private function that creates a foreign key to search for a ticket
-function getForeignKey(queryId) {
-  foreignKey = idArr.indexOf(parseInt(queryId));
-  return foreignKey;
+// getTicketIndex uses a ticket value to retrieve the ticket's database index.
+// getTicketIndex(queryId *int) => *int
+function getTicketIndex(queryId) {
+  // searchDBIndex() is a private callback function that searches the database
+  // for a ticket_id's index value. Returns true if it finds a match.
+  // searchDBIndex(element *obj, index *int, array *obj) => *bool
+  function searchDBIndex(element, index, array) {
+    // "this" is queryId.toString()
+    if(element.id == this) {
+      return true;
+    }
+  }
+  // queryId.toString() is a closure passed as "this" within searchDBIndex().
+  return ticket_db.findIndex(searchDBIndex, queryId.toString())
 }
 
-// ensures a number is an integer between a specific integer range
+// isValidNumber(num, min, max) ensures a number is an integer between a specific integer range.
+// isValidNumber(num *int, min *int, max *int) => *bool
 function isValidNumber(num, min, max) {
-  return Number.isInteger(num) && num >= min && num <= max;
+  return Number.isInteger(num) && (num >= min) && (num <= max);
 }
 
 function verify(condition, message) {

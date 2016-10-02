@@ -11,6 +11,7 @@ Open "index.html" in a browser.
 ## Features
 * Bootstrap
 * CRUD Operations
+* Closures
 * Data Validation
 * Data Persistence
 * DOM Manipulation

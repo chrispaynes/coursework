@@ -27,7 +27,7 @@ function readTicket() {
 
   function main() {
     var search = getQuery("Enter a 6-Digit Ticket ID to Begin Your Search", validateQuery);
-    var ticket_index = getForeignKey(search);
+    var ticket_index = getTicketIndex(search);
 
     // If the ticket exists in the DB, pass it to writeTicket(),
     // else leave the DOM as is.

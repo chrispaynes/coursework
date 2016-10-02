@@ -28,11 +28,11 @@ function deleteTicket() {
   // delete button is clicked.
   // destroyDBData(database *obj, event *obj)
   function destroyDBData(database, event) {
-    var record = getForeignKey(event.currentTarget.id)
+    var record = getTicketIndex(event.currentTarget.id)
     return ticket_db.splice(record, 1);
 }
 
-  // removes a ticket record by deleting the parent <tr> node
+  // removes a ticket record by deleting the parent tr node.
   // uses callback to destroyDBData() to remove array data
   function removeParentNodes(event) {
     return verify(confirmDeletion(event),
