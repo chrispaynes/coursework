@@ -18,7 +18,7 @@ function createTicket() {
   // promptTicketId() => *int
   function promptTicketId(){
     var ticket_id = parseInt(prompt("Enter a 6 Digit Ticket Id"));
-    if(isValidNumber(ticket_id, 100000, 999999) && !validateUnique(ticket_id, ticket_db)) {
+    if(isNumberWithinRange(ticket_id, 100000, 999999) && !validateUnique(ticket_id, ticket_db)) {
       return ticket_id;
     } else {
       alert("Please enter a unique non-negative 6 Digit Ticket Id");

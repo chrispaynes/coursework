@@ -72,10 +72,17 @@ function getTicketIndex(queryId) {
   return ticket_db.findIndex(searchDBIndex, queryId.toString())
 }
 
-// isValidNumber(num, min, max) ensures a number is an integer between a specific integer range.
-// isValidNumber(num *int, min *int, max *int) => *bool
-function isValidNumber(num, min, max) {
-  return Number.isInteger(num) && (num >= min) && (num <= max);
+// isNumberWithinRange(num, n1, n2) ensures a number is an integer between a specific integer range.
+// Accepts range numbers in any order and sorts them in ascending order.
+// isNumberWithinRange(num *int, n1 *int|*float, n2 *int|*float) => *bool
+function isNumberWithinRange(num, n1, n2) {
+  var range = [n1, n2]
+  range.sort(function(a, b) {
+    return a - b;
+  });
+
+  return Number.isInteger(num) && (num >= range[0]) && (num <= range[1]);
+  // return Number.isInteger(num) && (num >= min) && (num <= max);
 }
 
 function verify(condition, message) {

@@ -17,7 +17,7 @@ function readTicket() {
       return;
     }
 
-    if(isValidNumber(Number(query), 100000, 999999)) {
+    if(isNumberWithinRange(Number(query), 100000, 999999)) {
       return Number(query);
     } else {
       alert(range_error);
