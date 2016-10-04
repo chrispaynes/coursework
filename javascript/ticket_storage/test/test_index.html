@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Number Validation Test</title>
+  <link rel="stylesheet" media="all" href="vendor/mocha.css">
+</head>
+<body>
+
+  <!-- BEGIN MOCK DOM -->
+  <!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Production Schedule</title><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"><link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"><link rel="stylesheet" type="text/css" href="css/style.css"></head><body><header><h1>Production Schedule</h1></header><nav><button type="button" class="btn btn-info" id="readIndexButton">Read Index</button><button type="button" class="btn btn-success" id="createTicketButton">Create Ticket</button><button type="button" class="btn btn-primary" id="readTicketButton">Read Ticket</button><button type="button" class="btn btn-warning" id="updateTicketButton">Update Ticket</button></nav><table><tbody></tbody></table><script src="js/app.min.js"></script></body></html>
+  <!-- END MOCK DOM-->
+
+  <div id="mocha"><p><a href=".">Index</a></p></div>
+  <div id="messages"></div>
+  <div id="fixtures"></div>
+  <script src="vendor/mocha.js"></script>
+  <script src="../node_modules/mocha/mocha.js"></script>
+  <script src="../node_modules/chai/chai.js"></script>
+  <script src="../dist/js/app.min.js"></script>
+  <script>mocha.setup('bdd')</script>
+  <script src="is_number_within_range.js"></script>
+  <script src="get_ticket_index.js"></script>
+
+
+
+  <script>mocha.run();</script>
+</body>
+</html>

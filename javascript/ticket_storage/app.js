@@ -57,7 +57,7 @@ function initTable() {
 }
 
 // getTicketIndex uses a ticket value to retrieve the ticket's database index.
-// getTicketIndex(queryId *int) => *int
+// getTicketIndex(queryId *int) => *int | *undefined
 function getTicketIndex(queryId) {
   // searchDBIndex() is a private callback function that searches the database
   // for a ticket_id's index value. Returns true if it finds a match.
