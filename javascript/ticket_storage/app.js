@@ -85,6 +85,7 @@ function isNumberWithinRange(num, n1, n2) {
   // return Number.isInteger(num) && (num >= min) && (num <= max);
 }
 
+// verify(condition *obj, message *string) => *bool
 function verify(condition, message) {
   if(condition) {
     return true;
