@@ -12,14 +12,20 @@ function createNode(node, content, attr_name, attr_value) {
   return n;
 }
 
+// createHeader creates a table header with table column names.
+// createHeader() => *html obj
 function createHeader() {
-  var header = createNode("tr", "", "id", "table_header");
-  header.appendChild(createNode("th", ""));
-  header.appendChild(createNode("th", "Ticket ID"));
-  header.appendChild(createNode("th", "Client"));
-  header.appendChild(createNode("th", "Status"));
-  header.appendChild(createNode("th", "Cost"));
-  tbl.appendChild(header)
+  if(document.getElementById("table_header") === null ) {
+    var header = createNode("tr", "", "id", "table_header");
+    header.appendChild(createNode("th", ""));
+    header.appendChild(createNode("th", "Ticket ID"));
+    header.appendChild(createNode("th", "Client"));
+    header.appendChild(createNode("th", "Status"));
+    header.appendChild(createNode("th", "Cost"));
+    tbl.appendChild(header)
+  } else {
+    return;
+  }
 }
 
 // writeTicket returns a ticket object's properties to the DOM.

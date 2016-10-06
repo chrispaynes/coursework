@@ -1,13 +1,7 @@
-// define(function (require) {
-//   var sinon = require("sinon");
-//   var chai = require("chai");
-//   var mocha = require("mocha")
-// });
-
+var assert = chai.assert;
 var expect = chai.expect;
 var should = chai.should;
 var sinon = sinon;
-
 
 // Overrides default Window.alert() method.
 var alert;
@@ -24,12 +18,17 @@ describe('Verification', function() {
     });
 
     it('should return false when condition is false', function() {
-      expect(verify(1 > 2, "alert message if false")).to.be.false;
+      expect(verify(1 > 2, 'alert message if false')).to.be.false;
     });
 
     it('should call the alert function when condition is false', function() {
-      verify(1 > 2, "alert message if false");
-      expect(alert.calledOnce).to.be.true;
+      verify(1 > 2, 'alert message if false');
+      expect(alert.called).to.be.true;
+    });
+
+    it("should not call the alert function when condition is true", function () {
+      verify(1 < 2, "alert message if false");
+      expect(alert.called).to.be.false;
     });
   });
 });
