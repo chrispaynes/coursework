@@ -1,5 +1,6 @@
-var tbl = document.getElementsByTagName("tbody")[0];
-var record = document.getElementById("record");
+function getTable() {
+  return document.getElementsByTagName("tbody")[0];
+}
 
 function createNode(node, content, attr_name, attr_value) {
   var n = document.createElement(node);
@@ -17,12 +18,13 @@ function createNode(node, content, attr_name, attr_value) {
 function createHeader() {
   if(document.getElementById("table_header") === null ) {
     var header = createNode("tr", "", "id", "table_header");
+    var table = getTable();
     header.appendChild(createNode("th", ""));
     header.appendChild(createNode("th", "Ticket ID"));
     header.appendChild(createNode("th", "Client"));
     header.appendChild(createNode("th", "Status"));
     header.appendChild(createNode("th", "Cost"));
-    tbl.appendChild(header)
+    table.appendChild(header)
   } else {
     return;
   }
@@ -45,14 +47,15 @@ function writeTicket(ticket) {
   record.appendChild(createNode("td", ticket.status, "id", "status_" + ticket.id));
   record.appendChild(createNode("td", "$" + ticket.cost.toLocaleString(), "id", "cost_" + ticket.id));
 
-  tbl.appendChild(record)
+  getTable().appendChild(record)
 
 };
 
 function emptyTable() {
-  tbl.removeChild(tbl.lastChild);
+  var t = getTable();
+  t.removeChild(t.lastChild);
 
-  if(tbl.children.length > 1) {
+  if(t.children.length > 1) {
     emptyTable();
   }
   return;

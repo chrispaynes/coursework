@@ -3,6 +3,6 @@
 // a foreign key links ticket information across arrays
 function readIndex() {
   createHeader()
-  populateTable(tbl, record)
+  populateTable(getTable(), document.getElementById("record"))
   deleteTicket()
 };
