@@ -2,7 +2,8 @@
 // reads all production tickets across parallel arrays
 // a foreign key links ticket information across arrays
 function readIndex() {
-  createHeader()
-  populateTable(getTable(), document.getElementById("record"))
-  deleteTicket()
+  emptyTable();
+  createHeader(["", "Ticket ID", "Client", "Status", "Cost"], "table_header");
+  populateTable(getTable(), document.getElementById("record"));
+  deleteTicket();
 };

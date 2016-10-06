@@ -2,29 +2,39 @@ function getTable() {
   return document.getElementsByTagName("tbody")[0];
 }
 
-function createNode(node, content, attr_name, attr_value) {
-  var n = document.createElement(node);
-  if(content) {
-    n.textContent = content;
-  }
-  if(attr_name) {
-    n.setAttribute(attr_name, attr_value);
+// createNode creates a new node with text content,
+// and an array of optional element attributes.
+// createNode(node *obj, attrs *array obj) => *html obj
+function createNode(node, attrs) {
+  var n = document.createElement(Object.keys(node));
+  n.textContent = node[Object.keys(node)]
+
+  if(attrs) {
+    // attrs.map maps over attrs array setting element
+    // attributes for each key/value pair.
+    attrs.map(function(a) {
+      var key = Object.keys(a);
+      var value = a[Object.keys(a)];
+      n.setAttribute(key, value);
+    });
   }
   return n;
 }
 
 // createHeader creates a table header with table column names.
-// createHeader() => *html obj
-function createHeader() {
-  if(document.getElementById("table_header") === null ) {
-    var header = createNode("tr", "", "id", "table_header");
+// createHeader(columns *array obj, header_id *string) => *html obj
+function createHeader(columns, header_id) {
+  if(document.getElementById(header_id) === null ) {
+    var header = createNode({"tr": ""}, [{"id": header_id}]);
     var table = getTable();
-    header.appendChild(createNode("th", ""));
-    header.appendChild(createNode("th", "Ticket ID"));
-    header.appendChild(createNode("th", "Client"));
-    header.appendChild(createNode("th", "Status"));
-    header.appendChild(createNode("th", "Cost"));
-    table.appendChild(header)
+
+    // columns.map maps over columns array adding a column for each element.
+    columns.map(function(c) {
+      header.appendChild(createNode({"th": c}));
+    });
+
+    // table.insertBefore inserts the header as the first child node.
+    table.insertBefore(header, table.childNodes[0]);
   } else {
     return;
   }
@@ -33,29 +43,29 @@ function createHeader() {
 // writeTicket returns a ticket object's properties to the DOM.
 // writeTicket(ticket *obj)
 function writeTicket(ticket) {
-  var record = createNode("tr", "", "id", "record");
-  var btns = createNode("td", "", "id", "btns");
-  var delete_btn = createNode("button", "", "class", "delete_btn");
+  var record = createNode({"tr": ""}, [{"id": "record"}]);
+  var btns = createNode({"td": ""}, [{"id": "btns"}]);
+  var delete_btn = createNode({"button": ""}, [{"class": "delete_btn"}]);
 
   delete_btn.id = ticket.id
-  delete_btn.appendChild(createNode("i", "", "class", "fa fa-trash-o fa-fw"))
+  delete_btn.appendChild(createNode({"i": ""}, [{"class": "fa fa-trash-o fa-fw"}]))
   btns.appendChild(delete_btn);
   btns.id = "deleteTicketButton" + ticket.id
   record.appendChild(btns);
-  record.appendChild(createNode("td", ticket.id, "id", "id_" + ticket.id));
-  record.appendChild(createNode("td", ticket.client, "id", "client_" + ticket.id));
-  record.appendChild(createNode("td", ticket.status, "id", "status_" + ticket.id));
-  record.appendChild(createNode("td", "$" + ticket.cost.toLocaleString(), "id", "cost_" + ticket.id));
+  record.appendChild(createNode({"td": ticket.id}, [{"id": "id_" + ticket.id}]));
+  record.appendChild(createNode({"td": ticket.client}, [{"id": "client_" + ticket.id}]));
+  record.appendChild(createNode({"td": ticket.status}, [{"id": "status_" + ticket.id}]));
+  record.appendChild(createNode({"td": "$" + ticket.cost.toLocaleString()}, [{"id": "cost_" + ticket.id}]));
 
-  getTable().appendChild(record)
+  getTable().appendChild(record);
 
 };
 
+// emptyTable clears out the table contents except for the header.
 function emptyTable() {
-  var t = getTable();
-  t.removeChild(t.lastChild);
-
-  if(t.children.length > 1) {
+  var table = getTable();
+  if(table.childNodes[1]) {
+    table.removeChild(table.childNodes[1]);
     emptyTable();
   }
   return;
