@@ -3,27 +3,21 @@
   border-spacing: 0;
 }
 body {
-  border: solid 1px lightgray;
   padding: 2%;
-  width: 700px;
   margin: auto;
-  margin-top: 50px;
 }
 fieldset {
     border: none;
     width: auto;
 }
 
-input {
-    float: right;
+input, label {
     padding: 2px;
 }
 th, td {
   padding: 1%;
-  /*width: auto;*/
-}
-td, th {
   width: 350px;
+
 }
 th {
   background-color: lightskyblue;
@@ -46,8 +40,44 @@ table {
 
 .delete_btn {
   border: none;
-  background-color: white;
+  background-color: inherit;
 }
-#schedule_record_0 {
-  display: none;
+
+tr.record {
+    border-bottom: solid 1px lightgray;
+    height: 50px;
+}
+
+tr.record:hover {
+    background-color: #eee;
+}
+
+.delete_cntr {
+  width: 100px;
+}
+
+nav#dashboard {
+  width: auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+button.dash_btn {
+  margin: auto;
+  display: inline-grid;
+  flex: auto;
+}
+
+button.dash_btn:first-child {
+  margin: 0 auto 0 0;
+}
+
+div#create_ticket_form {
+    display: flex;
+    flex-direction: row;
+    margin: 15px 0;
+}
+
+.input_set {
+  flex: auto;
 }

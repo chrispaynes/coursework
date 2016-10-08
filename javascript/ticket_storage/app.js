@@ -43,19 +43,20 @@ function createHeader(columns, header_id) {
 // writeTicket returns a ticket object's properties to the DOM.
 // writeTicket(ticket *obj)
 function writeTicket(ticket) {
-  var record = createNode({"tr": ""}, [{"id": "record"}]);
-  var btns = createNode({"td": ""}, [{"id": "btns"}]);
-  var delete_btn = createNode({"button": ""}, [{"class": "delete_btn"}]);
+  var record = createNode({"tr": ""}, [{"class": "record"}]);
+  var btn_cntr = createNode({"td": ""}, [{"id": "deleteTicketButton" + ticket.id},
+                                          {"class": "delete_cntr"}]);
+  var delete_btn = createNode({"button": ""}, [{"class": "delete_btn"},
+                                                {"id": ticket.id}]);
 
-  delete_btn.id = ticket.id
   delete_btn.appendChild(createNode({"i": ""}, [{"class": "fa fa-trash-o fa-fw"}]))
-  btns.appendChild(delete_btn);
-  btns.id = "deleteTicketButton" + ticket.id
-  record.appendChild(btns);
+  btn_cntr.appendChild(delete_btn);
+  record.appendChild(btn_cntr);
   record.appendChild(createNode({"td": ticket.id}, [{"id": "id_" + ticket.id}]));
   record.appendChild(createNode({"td": ticket.client}, [{"id": "client_" + ticket.id}]));
   record.appendChild(createNode({"td": ticket.status}, [{"id": "status_" + ticket.id}]));
-  record.appendChild(createNode({"td": "$" + ticket.cost.toLocaleString()}, [{"id": "cost_" + ticket.id}]));
+  record.appendChild(createNode({"td": "$" + ticket.cost.toLocaleString()},
+                                  [{"id": "cost_" + ticket.id}]));
 
   getTable().appendChild(record);
 
