@@ -14,61 +14,41 @@ function createTicket() {
     })
   }
 
-  // promptTicketId prompts user for a new ticket id and returns ticket id.
+  // getClient returns client name value from the create ticket from.
   // promptTicketId() => *int
   function getId() {
-    var id = document.getElementById("create_ticket_id").value.substr(0, 6);
-    console.log(typeof(id), id)
-
-    if(sanitizeNum(id)) {
-      return id;
-    } else {
-      return "";
-    }
+    var id = document.getElementById("create_ticket_id").value.replace(/-\./g, "");
+    return parseInt(sanitizeNum(id).substr(0, 6));
   }
 
+  // getClient returns client name value from the create ticket from.
+  // getClient() => *string
   function getClient() {
     var client = document.getElementById("create_ticket_client").value;
-
-    if(sanitizeAlphaNumeric(client)) {
-      return client.toString();
-    } else {
-      return "";
-    }
+    return sanitizeAlphaNumeric(client);
   };
 
   function getStatus() {
     var status = document.getElementById("create_ticket_status").value;
-
-    if(sanitizeAlphaNumeric(status)) {
-      return status.toString();
-    } else {
-      return "";
-    }
+    return sanitizeAlphaNumeric(status)
   };
 
   // getCost returns the ticket cost input value as an integer.
   // getCost() => *int
   function getCost() {
-    var cost = document.getElementById("create_ticket_cost").value;
-
-    if(sanitizeNum(cost)) {
-      return parseInt(cost);
-    } else {
-      return "";
-    }
+    var cost = document.getElementById("create_ticket_cost").value.replace(/-\./g, "");
+    return parseInt(sanitizeNum(cost))
   };
 
   document.getElementById("create_ticket_submit").addEventListener("click", function() {
     if(!validateUnique(getId(), ticket_db)) {
       // new_ticket stores a new production ticket.
       var new_ticket = new Ticket(getId(), getClient(), getStatus(), getCost());
-console.log(new_ticket)
       // Persists to database and writes ticket to DOM.
       persistDBData(new_ticket, ticket_db);
       writeTicket(new_ticket);
-
-      // document.getElementById("create_ticket_form").parentNode.remove();
+      // Removes form from DOM.
+      document.getElementById("create_ticket_form").parentNode.remove();
     } else {
       return false;
     }

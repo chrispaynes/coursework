@@ -81,8 +81,8 @@ function writeTicket(ticket) {
   if(document.getElementById("schedule")) {
     table.appendChild(record);
   } else {
-    createTable();
-    table.appendChild(record);
+    initSchedule()
+    getTable().appendChild(record);
   }
 };
 
@@ -143,17 +143,15 @@ function pipeline(func_pipeline) {
 }
 
 function sanitizeNum(value) {
-  return value.match(/\d/g);
+  return value.match(/\d/g).join("");
 }
 
 function sanitizeAlpha(value) {
-  console.log("sanitized sanitizeAlpha(value)\t", value)
-  return value.match(/^[a-zA-Z]$/g);
+  return value.match(/^[a-zA-Z]$/g).join("");
 }
 
 function sanitizeAlphaNumeric(value) {
-  console.log("sanitized sanitizeAlphaNumeric(value)\t", value)
-  return value.match(/^[0-9a-zA-Z]$/g);
+  return value.match(/[0-9a-zA-Z]/g).join("");
 }
 
 // function populateTable(ta *object, ra)
