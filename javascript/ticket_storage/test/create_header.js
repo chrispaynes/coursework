@@ -9,6 +9,7 @@ describe('Create Header', function() {
     var last_child;
 
     beforeEach(function() {
+      createTable();
       createHeader(["", "Ticket ID", "Client", "Status", "Cost"], "table_header2");
       table_header2 = document.getElementById("table_header2");
       tbody = document.getElementsByTagName("tbody")[0];
@@ -20,8 +21,7 @@ describe('Create Header', function() {
     });
 
     it('should not append more table_header elements if a header already exists', function () {
-      expect(last_child).to.not.equal(table_header2);
-      expect(last_child.isEqualNode(table_header2)).to.not.be.true;
+      expect(document.getElementsByTagName("tr").length).to.equal(1);
     });
 
     it('should create a table_header element', function() {

@@ -1,42 +1,5 @@
 // createTicket creates a new production ticket record.
 function createTicket() {
-
-
-  (function renderInputForm(){
-    var div = createNode({"div": ""}, [{"id": "create_ticket_form"}]);
-    var ticket_number = createNode({"div": ""}, [{"class": "input_set"}]);
-    var client_name = createNode({"div": ""}, [{"class": "input_set"}]);
-    var client_status = createNode({"div": ""}, [{"class": "input_set"}]);
-    var client_cost = createNode({"div": ""}, [{"class": "input_set"}]);
-    var submit_btn = createNode({"div": ""}, [{"class": "input_set"}]);
-    var t = getTable();
-    ticket_number.appendChild(createNode({"span": "Ticket Id"}, [{"for": "Ticket Id"}]));
-    ticket_number.appendChild(createNode({"input": ""}, [{"type": "number"},
-                                                {"id": "create_ticket_id"},
-                                                {"placeholder": "000000"},
-                                                {"min": "100000"},
-                                                {"maxlength": "6"}]));
-
-    client_name.appendChild(createNode({"span": "Client Name"}, [{"for": "Client Name"}]));
-    client_name.appendChild(createNode({"input": ""}, [{"type": "text"}, {"id": "create_ticket_client"}, {"placeholder": "client name"}]));
-
-    client_status.appendChild(createNode({"span": "Client Status"}, [{"for": "Client Status"}]));
-    client_status.appendChild(createNode({"input": ""}, [{"type": "text"}, {"id": "create_ticket_status"}, {"placeholder": "ticket status"}]));
-
-    client_cost.appendChild(createNode({"span": "Client Cost"}, [{"for": "Client Cost"}]));
-    client_cost.appendChild(createNode({"input": ""}, [{"type": "number"}, {"id": "create_ticket_cost"}, {"placeholder": "0000.00"}]));
-
-    submit_btn.appendChild(createNode({"input": ""}, [{"type": "submit"}, {"id": "create_ticket_submit"}, {"class": "btn btn-success"}]));
-
-    div.appendChild(ticket_number);
-    div.appendChild(client_name);
-    div.appendChild(client_status);
-    div.appendChild(client_cost);
-    div.appendChild(submit_btn);
-
-    t.insertBefore(div, t.childNodes[0]);
-  })();
-
   // persistDBData persists data to the database.
   // persistDBData(data *string || *int, database *obj)
   function persistDBData(data, database) {
@@ -53,31 +16,62 @@ function createTicket() {
 
   // promptTicketId prompts user for a new ticket id and returns ticket id.
   // promptTicketId() => *int
-  function promptTicketId(){
-    var ticket_id = parseInt(prompt("Enter a 6 Digit Ticket Id"));
-    if(isNumberWithinRange(ticket_id, 100000, 999999) && !validateUnique(ticket_id, ticket_db)) {
-      return ticket_id;
+  function getId() {
+    var id = document.getElementById("create_ticket_id").value.substr(0, 6);
+    console.log(typeof(id), id)
+
+    if(sanitizeNum(id)) {
+      return id;
     } else {
-      alert("Please enter a unique non-negative 6 Digit Ticket Id");
-      promptTicketId();
+      return "";
     }
-    return ticket_id;
   }
 
-  // getTicketCost prompts the user to enter a ticket cost
-  // and returns the value as an integer.
-  // getTicketCost() => *int
-  function getTicketCost() {
-    return parseInt(prompt("enter a cost"));
+  function getClient() {
+    var client = document.getElementById("create_ticket_client").value;
+
+    if(sanitizeAlphaNumeric(client)) {
+      return client.toString();
+    } else {
+      return "";
+    }
   };
 
-  // new_ticket stores a new production ticket.
-  // var new_ticket = new Ticket(promptTicketId(),
-  //                             prompt("Enter a client name:"),
-  //                             prompt("Enter a ticket status:"),
-  //                             getTicketCost());
+  function getStatus() {
+    var status = document.getElementById("create_ticket_status").value;
 
-  // Persists to database and writes ticket to DOM.
-  persistDBData(new_ticket, ticket_db)
-  writeTicket(new_ticket);
+    if(sanitizeAlphaNumeric(status)) {
+      return status.toString();
+    } else {
+      return "";
+    }
+  };
+
+  // getCost returns the ticket cost input value as an integer.
+  // getCost() => *int
+  function getCost() {
+    var cost = document.getElementById("create_ticket_cost").value;
+
+    if(sanitizeNum(cost)) {
+      return parseInt(cost);
+    } else {
+      return "";
+    }
+  };
+
+  document.getElementById("create_ticket_submit").addEventListener("click", function() {
+    if(!validateUnique(getId(), ticket_db)) {
+      // new_ticket stores a new production ticket.
+      var new_ticket = new Ticket(getId(), getClient(), getStatus(), getCost());
+console.log(new_ticket)
+      // Persists to database and writes ticket to DOM.
+      persistDBData(new_ticket, ticket_db);
+      writeTicket(new_ticket);
+
+      // document.getElementById("create_ticket_form").parentNode.remove();
+    } else {
+      return false;
+    }
+    return;
+  }, false);
 };

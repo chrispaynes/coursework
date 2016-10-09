@@ -1,3 +1,22 @@
+// initSchedule initializes a
+// initSchedule() => *html obj
+function initSchedule() {
+  if(getTable() == null) {
+    createTable();
+    createHeader(["", "Ticket ID", "Client", "Status", "Cost"], "table_header");
+  } else {
+    emptyTable();
+    createHeader(["", "Ticket ID", "Client", "Status", "Cost"], "table_header");
+  }
+}
+
+function createTable() {
+  var table = createNode({"table": ""}, [{"id": "schedule"}]);
+  document.getElementById("app").appendChild(table);
+  document.getElementsByTagName("table")[0].appendChild(createNode({"tbody": ""}));
+  return table;
+}
+
 function getTable() {
   return document.getElementsByTagName("tbody")[0];
 }
@@ -43,6 +62,7 @@ function createHeader(columns, header_id) {
 // writeTicket returns a ticket object's properties to the DOM.
 // writeTicket(ticket *obj)
 function writeTicket(ticket) {
+  var table = getTable();
   var record = createNode({"tr": ""}, [{"class": "record"}]);
   var btn_cntr = createNode({"td": ""}, [{"id": "deleteTicketButton" + ticket.id},
                                           {"class": "delete_cntr"}]);
@@ -58,8 +78,12 @@ function writeTicket(ticket) {
   record.appendChild(createNode({"td": "$" + ticket.cost.toLocaleString()},
                                   [{"id": "cost_" + ticket.id}]));
 
-  getTable().appendChild(record);
-
+  if(document.getElementById("schedule")) {
+    table.appendChild(record);
+  } else {
+    createTable();
+    table.appendChild(record);
+  }
 };
 
 // emptyTable clears out the table contents except for the header.
@@ -70,10 +94,6 @@ function emptyTable() {
     emptyTable();
   }
   return;
-}
-
-// initializes the table by removing records
-function initTable() {
 }
 
 // getTicketIndex uses a ticket value to retrieve the ticket's database index.
@@ -114,6 +134,26 @@ function verify(condition, message) {
     alert(new Error(message));
     return false;
   }
+}
+
+function pipeline(func_pipeline) {
+  func_pipeline.forEach(function(f) {
+    f()
+  })
+}
+
+function sanitizeNum(value) {
+  return value.match(/\d/g);
+}
+
+function sanitizeAlpha(value) {
+  console.log("sanitized sanitizeAlpha(value)\t", value)
+  return value.match(/^[a-zA-Z]$/g);
+}
+
+function sanitizeAlphaNumeric(value) {
+  console.log("sanitized sanitizeAlphaNumeric(value)\t", value)
+  return value.match(/^[0-9a-zA-Z]$/g);
 }
 
 // function populateTable(ta *object, ra)

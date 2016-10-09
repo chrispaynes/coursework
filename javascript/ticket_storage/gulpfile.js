@@ -6,13 +6,23 @@ const rename = require("gulp-rename");
 const htmlmin = require('gulp-htmlmin');
 const server = require('gulp-server-livereload');
 const autoprefixer = require('gulp-autoprefixer');
+const livereload = require('gulp-livereload');
+
+gulp.task('less', function() {
+  gulp.src('less/*.less')
+    .pipe(less())
+    .pipe(gulp.dest('css'))
+    .pipe(livereload());
+});
+
+
 
 // CSS
 cssSrc = './css/*.css';
 cssDest = './dist/css/';
 
 // JS
-jsSrc = ['./app.js', './data/*.js', './js/*.js', './js/models/*.js'];
+jsSrc = ['./app.js', './data/*.js', './js/*.js', './js/models/*.js', './js/templates/*.js'];
 jsDest = 'dist/js';
 
 //////////////////////////////////////////////////
@@ -21,7 +31,8 @@ jsDest = 'dist/js';
 gulp.task('minHTML', function() {
   return gulp.src('./*.html')
     .pipe(htmlmin({collapseWhitespace: true, collapseInlineTagWhitespace: true, removeComments: true, minifyJS: true}))
-    .pipe(gulp.dest('dist'));
+    .pipe(gulp.dest('dist'))
+    .pipe(livereload());
 });
 
 
@@ -32,7 +43,8 @@ gulp.task('minJS', function() {
     .pipe(gulp.dest(jsDest))
     .pipe(rename('app.min.js'))
     // .pipe(uglify())
-    .pipe(gulp.dest(jsDest));
+    .pipe(gulp.dest(jsDest))
+    .pipe(livereload());
 });
 
 // minifies and autoprefixes CSS
@@ -43,7 +55,8 @@ gulp.task('minCSS', function() {
       cascade: false
     }))
     .pipe(cleanCSS({compatibility: 'ie8'}))
-    .pipe(gulp.dest(cssDest));
+    .pipe(gulp.dest(cssDest))
+    .pipe(livereload());
 });
 
 gulp.task('webserver', function() {
@@ -56,4 +69,12 @@ gulp.task('webserver', function() {
     }));
 });
 
-gulp.task('default', ['minHTML', 'minJS', 'minCSS', "webserver"]);
+gulp.task('watch', function() {
+  // livereload.listen();
+  livereload({ start: true });
+  gulp.watch(jsSrc, ['minJS']);
+  gulp.watch(cssSrc, ['minCC']);
+  gulp.watch('./*html', ['minHTML']);
+});
+
+gulp.task('default', ['minHTML', 'minJS', 'minCSS', "webserver", "watch"]);

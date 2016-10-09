@@ -11,7 +11,7 @@ fieldset {
     width: auto;
 }
 
-input, label {
+input, span {
     padding: 2px;
 }
 th, td {
@@ -72,7 +72,7 @@ button.dash_btn:first-child {
   margin: 0 auto 0 0;
 }
 
-div#create_ticket_form {
+td#create_ticket_form {
     display: flex;
     flex-direction: row;
     margin: 15px 0;
@@ -80,4 +80,5 @@ div#create_ticket_form {
 
 .input_set {
   flex: auto;
+  margin: 10px;
 }

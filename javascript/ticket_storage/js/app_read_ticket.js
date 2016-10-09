@@ -6,6 +6,16 @@ function readTicket() {
     return validation_func(prompt(message));
   }
 
+  function getId() {
+    var id = document.getElementById("read_ticket_id").value;
+
+    if(sanitizeNum(id)) {
+      return parseInt(id);
+    } else {
+      return 0;
+    }
+  }
+
   // validateQuery validates a user query to ensure the query
   // exists can be retrieved from the database.
   // validateQuery(query *string) => *int // *getQuery() // *false
@@ -26,18 +36,20 @@ function readTicket() {
   }
 
   function main() {
-    var search = getQuery("Enter a 6-Digit Ticket ID to Begin Your Search", validateQuery);
+    var search = getId();
     var ticket_index = getTicketIndex(search);
 
     // If the ticket exists in the DB, pass it to writeTicket(),
     // else leave the DOM as is.
     if(ticket_index != -1) {
-      emptyTable()
+      document.getElementById("create_ticket_form").parentNode.remove();
+      emptyTable();
       return writeTicket(ticket_db[ticket_index]);
     } else {
       return;
     }
   }
 
-  main();
+  document.getElementById("read_ticket_submit").addEventListener("click",
+    main, false);
 }
