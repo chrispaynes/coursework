@@ -31,6 +31,19 @@ function addListeners(events) {
   })
 }
 
+// addDeleteListeners() adds event listeners for each delete button.
+function addDeleteListeners() {
+  var delete_btns = Array.prototype.slice.call(document.getElementsByClassName("delete_btn"))
+
+  // delete_btns.map maps over each delete button adding a click event listener.
+  delete_btns.map(function(btn) {
+    btn.addEventListener('click', function(event){
+      removeParentNodes(event);
+    }, false);
+  });
+
+};
+
 (function listen() {
   addListeners(events());
 })();
