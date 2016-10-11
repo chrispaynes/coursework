@@ -1,4 +1,4 @@
-function readTicket() {
+function readTicketModule() {
   // getQuery prompts the user with a message to input a query value.
   // validation_func validates the query value.
   // getQuery(message *string) => *int

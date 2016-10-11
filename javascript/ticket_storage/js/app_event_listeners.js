@@ -12,10 +12,10 @@ function toggle(evnt, evnt_target, evnt_func, parent_func){
 // registers all buttons by mapping them to click events
 // calls functions by passing array string value as a Window object method
 function events() {
-  return [{"index": [toggle("indexButton", "schedule", index, index)]},
-          {"createTicket": [toggle("createTicketButton", "form_cntr", renderCreateForm, createTicket)]},
-          {"readTicket": [toggle("readTicketButton", "read_cntr", renderSearchForm, readTicket)]},
-          {"updateTicket": [readTicket]}];
+  return [{"index": [toggle("indexButton", "schedule", indexModule, indexModule)]},
+          {"createTicket": [toggle("createTicketButton", "form_cntr", renderCreateForm, createTicketModule)]},
+          {"readTicket": [toggle("readTicketButton", "read_cntr", renderSearchForm, readTicketModule)]},
+          {"updateTicket": [readTicketModule]}];
 }
 
 function addListeners(events) {

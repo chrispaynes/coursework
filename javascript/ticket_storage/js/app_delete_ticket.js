@@ -1,4 +1,4 @@
-function deleteTicket() {
+function deleteTicketModule() {
   // addDeleteListeners() adds event listeners for each delete button.
   (function addDeleteListeners() {
     var delete_btns = Array.prototype.slice.call(document.getElementsByClassName("delete_btn"))

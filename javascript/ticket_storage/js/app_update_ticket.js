@@ -1,6 +1,6 @@
 
 // updates ticket information across parallel arrays
-function updateTicket() {
+function updateTicketModule() {
   var revisionProperty = "";
   var revisionValue;
   var revTicket = 0;
