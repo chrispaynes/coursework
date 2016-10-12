@@ -5,26 +5,28 @@ function createTicketModule() {
   // promptTicketId() => *int
   function getId() {
     var id = document.getElementById("create_ticket_id").value.replace(/-\./g, "");
-    return parseInt(sanitizeNum(id).substr(0, 6));
+    console.log(typeof(id), id);
+    // return parseInt(sanitizeNum(id).substr(0, 6));
+    return parseInt(sanitize(id, "numeric", 6));
   }
 
   // getClient returns client name value from the create ticket form.
   // getClient() => *string
   function getClient() {
     var client = document.getElementById("create_ticket_client").value;
-    return sanitizeAlphaNumeric(client);
+    return sanitize(client, "alphaNumeric", 50)
   };
 
   function getStatus() {
     var status = document.getElementById("create_ticket_status").value;
-    return sanitizeAlphaNumeric(status)
+    return sanitize(status, "alpha", 20)
   };
 
   // getCost returns the ticket cost input value as an integer.
   // getCost() => *int
   function getCost() {
     var cost = document.getElementById("create_ticket_cost").value.replace(/-\./g, "");
-    return parseInt(sanitizeNum(cost))
+    return parseInt(sanitize(cost, "numeric", 12));
   };
 
   // validateUnique ensures a record does not already exist in the database.
