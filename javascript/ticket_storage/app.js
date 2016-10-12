@@ -21,6 +21,22 @@ function getTable() {
   return document.getElementsByTagName("tbody")[0];
 }
 
+function getSchedule() {
+  return document.getElementById("schedule");
+}
+
+function getApp() {
+  return document.getElementById("app");
+}
+
+function emptyNode(node) {
+  if(node && node.children.length !== 0 ) {
+    node.firstChild.remove();
+    emptyNode(node);
+  }
+  return;
+}
+
 // createNode creates a new node with text content,
 // and an array of optional element attributes.
 // createNode(node *obj, attrs *array obj) => *html obj

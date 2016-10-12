@@ -1,8 +1,7 @@
 // renderSearchForm creates an html form used to search records.
 function renderCreateForm(){
-  var t = getTable();
-  var tr = createNode({"tr": form}, [{"class": "record"},
-                                   {"id": "form_cntr"}]);
+  var app = getApp();
+  var tr = createNode({"tr": form}, [{"id": "form_cntr"}]);
   var form = ['<td id="create_ticket_form">',
                 '<div class="input_set">',
                   '<span for="Ticket Id">Ticket Id</span>',
@@ -21,15 +20,12 @@ function renderCreateForm(){
                   '<input type="number" id="create_ticket_cost" placeholder="0000.00">',
                 '</div>',
                 '<div class="input_set">',
-                  '<input type="submit" id="create_ticket_submit" class="btn btn-success">',
+                  '<input type="submit" id="create_ticket_submit" class="btn btn-success" value="Create New Ticket">',
                 '</div>',
              '</td>'].join("");
 
   tr.innerHTML = form;
 
-  if(t == null || t == undefined) {
-    return document.getElementById("app").appendChild(tr)
-  } else {
-    t.insertBefore(tr, t.childNodes[0]);
-  }
+  emptyNode(app);
+  return app.appendChild(tr)
 };

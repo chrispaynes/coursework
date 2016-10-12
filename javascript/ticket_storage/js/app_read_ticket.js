@@ -1,4 +1,5 @@
 function readTicketModule() {
+  renderSearchForm();
   // getQuery prompts the user with a message to input a query value.
   // validation_func validates the query value.
   // getQuery(message *string) => *int
@@ -43,7 +44,7 @@ function readTicketModule() {
     // else leave the DOM as is.
     if(ticket_index != -1) {
       document.getElementById("create_ticket_form").parentNode.remove();
-      emptyTable();
+      // emptyTable();
       return writeTicket(ticket_db[ticket_index]);
     } else {
       return;

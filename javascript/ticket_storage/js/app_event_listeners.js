@@ -1,8 +1,8 @@
 function toggle(evnt, evnt_target, evnt_func, parent_func){
   document.getElementById(evnt).addEventListener("click", function() {
     if(document.getElementById(evnt_target) == null) {
-      evnt_func();
-      return parent_func();
+      return evnt_func();
+      // return parent_func();
     } else {
       document.getElementById(evnt_target).remove();
     }
@@ -12,9 +12,9 @@ function toggle(evnt, evnt_target, evnt_func, parent_func){
 // registers all buttons by mapping them to click events
 // calls functions by passing array string value as a Window object method
 function events() {
-  return [{"index": [toggle("indexButton", "schedule", indexModule, indexModule)]},
-          {"createTicket": [toggle("createTicketButton", "form_cntr", renderCreateForm, createTicketModule)]},
-          {"readTicket": [toggle("readTicketButton", "read_cntr", renderSearchForm, readTicketModule)]},
+  return [{"index": [toggle("indexButton", "schedule", indexModule)]},
+          {"createTicket": [toggle("createTicketButton", "form_cntr", createTicketModule)]},
+          {"readTicket": [toggle("readTicketButton", "read_cntr", readTicketModule)]},
           {"updateTicket": [readTicketModule]}];
 }
 

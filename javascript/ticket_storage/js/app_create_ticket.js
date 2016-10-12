@@ -1,5 +1,6 @@
 // createTicket creates a new production ticket record.
 function createTicketModule() {
+  renderCreateForm();
   // getClient returns client name value from the create ticket from.
   // promptTicketId() => *int
   function getId() {
@@ -51,7 +52,7 @@ function createTicketModule() {
 
   // submitTicket ensures a new ticket's id does not exist in the database,
   // then persists it to the database before writing it to the DOM.
-  // After completiion, it removes the form element from the DOM.
+  // After completion, it removes the form element from the DOM.
   function submitTicket() {
     var new_ticket = createNewTicket();
     if(new_ticket) {
