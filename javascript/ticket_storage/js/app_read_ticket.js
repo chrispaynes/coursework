@@ -44,7 +44,6 @@ function readTicketModule() {
     // else leave the DOM as is.
     if(ticket_index != -1) {
       document.getElementById("create_ticket_form").parentNode.remove();
-      // emptyTable();
       return writeTicket(ticket_db[ticket_index]);
     } else {
       return;

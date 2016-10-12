@@ -1,15 +1,17 @@
-// initSchedule initializes a
+// initSchedule creates a schedule instance with an empty table and header.
 // initSchedule() => *html obj
 function initSchedule() {
-  if(getTable() == null) {
+  var table = getTable()
+  if(table == null) {
     createTable();
-    createHeader(["", "Ticket ID", "Client", "Status", "Cost"], "table_header");
   } else {
-    emptyTable();
-    createHeader(["", "Ticket ID", "Client", "Status", "Cost"], "table_header");
+    emptyNode(table)
   }
+  createHeader(["", "Ticket ID", "Client", "Status", "Cost"], "table_header");
 }
 
+// createTable creates and appends a table an empty table to the app.
+// createTable() => *html obj.
 function createTable() {
   var table = createNode({"table": ""}, [{"id": "schedule"}]);
   document.getElementById("app").appendChild(table);
@@ -17,14 +19,20 @@ function createTable() {
   return table;
 }
 
+// getTable returns the contents of the table body.
+// getTable() => *html obj
 function getTable() {
   return document.getElementsByTagName("tbody")[0];
 }
 
+// getSchedule returns the contents of the schedule index.
+// getSchedule() => *html obj
 function getSchedule() {
   return document.getElementById("schedule");
 }
 
+// getApp returns the contents of the app.
+// getApp() => *html obj
 function getApp() {
   return document.getElementById("app");
 }
@@ -101,16 +109,6 @@ function writeTicket(ticket) {
     getTable().appendChild(record);
   }
 };
-
-// emptyTable clears out the table contents except for the header.
-function emptyTable() {
-  var table = getTable();
-  if(table.childNodes[1]) {
-    table.removeChild(table.childNodes[1]);
-    emptyTable();
-  }
-  return;
-}
 
 // getTicketIndex uses a ticket value to retrieve the ticket's database index.
 // getTicketIndex(queryId *int) => *int | *undefined
