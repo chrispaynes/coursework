@@ -161,13 +161,16 @@ function pipeline(func_pipeline) {
 // sanitize(value *string, sanitize_type *string, char_limit *int) => *string
 function sanitize(value, sanitize_type, char_limit) {
   var sanitized_array;
-  var sanitize_lookup = {
-    "numeric": /\d/g,
-    "alpha": /[a-zA-Z]/g,
+  var sanitize_lookup = {"numeric": /\d/g, "alpha": /[a-zA-Z]/g,
     "alphaNumeric": /[0-9a-zA-Z]/g
   };
-  sanitized_array = value.match(sanitize_lookup[sanitize_type]);
-  return sanitized_array.join("").substr(0, char_limit);
+
+  if(value == null || value == "") {
+    return "";
+  } else {
+    sanitized_array = value.match(sanitize_lookup[sanitize_type]);
+    return sanitized_array.join("").substr(0, char_limit);
+  }
 }
 
 // function populateTable(ta *object, ra)

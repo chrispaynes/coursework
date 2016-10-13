@@ -27,5 +27,5 @@ function renderCreateForm(){
   tr.innerHTML = form;
 
   emptyNode(app);
-  return app.appendChild(tr)
+  return app.appendChild(tr);
 };

@@ -1,11 +1,11 @@
 // createTicket creates a new production ticket record.
 function createTicketModule() {
   renderCreateForm();
+
   // getClient returns client name value from the create ticket from.
   // promptTicketId() => *int
   function getId() {
     var id = document.getElementById("create_ticket_id").value.replace(/-\./g, "");
-    console.log(typeof(id), id);
     // return parseInt(sanitizeNum(id).substr(0, 6));
     return parseInt(sanitize(id, "numeric", 6));
   }
