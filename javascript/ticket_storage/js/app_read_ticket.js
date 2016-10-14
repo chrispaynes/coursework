@@ -9,12 +9,7 @@ function readTicketModule() {
 
   function getId() {
     var id = document.getElementById("read_ticket_id").value;
-
-    if(sanitizeNum(id)) {
-      return parseInt(id);
-    } else {
-      return 0;
-    }
+    return sanitize(id, "numeric", 6);
   }
 
   // validateQuery validates a user query to ensure the query

@@ -2,7 +2,6 @@ function toggle(evnt, evnt_target, evnt_func, parent_func){
   document.getElementById(evnt).addEventListener("click", function() {
     if(document.getElementById(evnt_target) == null) {
       return evnt_func();
-      // return parent_func();
     } else {
       document.getElementById(evnt_target).remove();
     }
