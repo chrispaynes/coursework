@@ -53,5 +53,27 @@ describe('Sanitize', function() {
       expect( list_test6.map(function(i){ return typeof(i) == "number"}) ).to.have.members([]);
       expect( list_test6.map(function(i){ return typeof(i) == "number"}) ).to.not.have.members([true]);
     });
+
+    it('should only return characters when using the "alpha" sanitize_type argument', function() {
+      var alpha_test1 = sanitize(test1, "alpha", 5).split("").map(function(x) { console.log(x); return x });
+      var alpha_test2 = sanitize(test2, "alpha", 5).split("").map(function(x) { console.log(x); return x });
+      var alpha_test3 = sanitize(test3, "alpha", 5).split("").map(function(x) { console.log(x); return x });
+      var alpha_test4 = sanitize(test4, "alpha", 5).split("").map(function(x) { console.log(x); return x });
+      var alpha_test5 = sanitize(test5, "alpha", 5).split("").map(function(x) { console.log(x); return x });
+      var alpha_test6 = sanitize(test6, "alpha", 5).split("").map(function(x) { console.log(x); return x });
+
+      expect( alpha_test1.map(function(i){ return typeof(i) == "string"}) ).to.have.members([true]);
+      expect( alpha_test1.map(function(i){ return typeof(i) == "string"}) ).to.not.have.members([false]);
+      expect( alpha_test2.map(function(i){ return typeof(i) == "string"}) ).to.have.members([true]);
+      expect( alpha_test2.map(function(i){ return typeof(i) == "string"}) ).to.not.have.members([false]);
+      expect( alpha_test3.map(function(i){ return typeof(i) == "string"}) ).to.have.members([true]);
+      expect( alpha_test3.map(function(i){ return typeof(i) == "string"}) ).to.not.have.members([false]);
+      expect( alpha_test4.map(function(i){ return typeof(i) == "string"}) ).to.have.members([]);
+      expect( alpha_test4.map(function(i){ return typeof(i) == "string"}) ).to.not.have.members([true]);
+      expect( alpha_test5.map(function(i){ return typeof(i) == "string"}) ).to.have.members([]);
+      expect( alpha_test5.map(function(i){ return typeof(i) == "string"}) ).to.not.have.members([true]);
+      expect( alpha_test6.map(function(i){ return typeof(i) == "string"}) ).to.have.members([]);
+      expect( alpha_test6.map(function(i){ return typeof(i) == "string"}) ).to.not.have.members([true]);
+    });
   });
 });
