@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "chai": "^3.5.0",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.1",
     "gulp-clean-css": "^2.0.12",
@@ -20,6 +21,12 @@
     "gulp-server-livereload": "^1.8.4",
     "gulp-uglify": "^2.0.0",
     "gulp-watch": "^4.3.9",
-    "pump": "^1.0.1"
+    "jsdom": "^9.6.0",
+    "pump": "^1.0.1",
+    "mocha": "^3.1.0",
+    "mocha-jsdom": "^1.1.0",
+    "requirejs": "^2.3.2",
+    "sinon": "^1.17.6",
+    "sinon-chai": "^2.8.0"
   }
 }

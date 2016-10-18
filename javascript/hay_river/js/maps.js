@@ -2,7 +2,7 @@ function initMaps(property_id) {
   // configMapOptions() defines and returns an object of map options
   // for zoom level, map type, control type
   // and latitude and longitude to center the map app
-  // configMapOptions(z *int, mType *string, cStyle *string, lt *float, ln *float)
+  // configMapOptions(lt *float, ln *float)
   function configMapOptions(lt, ln){
     return  {
               // ZOOM LEVELS: 1: World, 5: Landmass/continent, 10: City, 15: Streets, 20: Buildings
