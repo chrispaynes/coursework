@@ -1,12 +1,9 @@
 * {
-  /*border: solid 1px lightblue;*/
   box-sizing: border-box !important;
+  /*border: solid 1px white;*/
 }
 
-body,
-html,
-ul,
-figure {
+body, html, ul, figure {
   margin: 0;
   padding: 0;
   line-height: 115%;
@@ -18,7 +15,6 @@ li {
 
 
 /*HEADER*/
-
 header {
   background-color: white;
   min-height: 150px;
@@ -34,8 +30,8 @@ header {
 }
 
 #hdr-hr_logo {
-    width: 350px;
-    height: 85px;
+  width: 350px;
+  height: 85px;
 }
 
 #hdr_address {
@@ -59,42 +55,35 @@ nav {
 }
 
 .hdr-nav_link a:hover {
-  border-bottom: solid 2px rgb(91,149,66);
-  color: rgb(91,149,66);
+  border-bottom: solid 2px rgb(91, 149, 66);
+  color: rgb(91, 149, 66);
 }
 
 @media (min-width: 0) and (max-width: 675px) {
-#hdr-hr_logo_ctnr {
-  flex: 1 10 100%;
-  align-self: center;
+  #hdr-hr_logo_ctnr {
+    flex: 1 10 100%;
+    align-self: center;
+  }
+  #hdr_address {
+    flex: 1 1 100%;
+    margin: 30px 0 15px 0;
+  }
+  nav {
+    flex: 1 1 100%;
+    display: block;
+    margin: 10px 0;
+  }
+  .hdr-nav_link {
+    flex: 1 1 100%;
+    margin: 20px 0;
+    text-align: center;
+  }
 }
-
-
-#hdr_address {
-  flex: 1 1 100%;
-  margin: 30px 0 15px 0;
-}
-
-nav {
-  flex: 1 1 100%;
-  display: block;
-  margin: 10px 0;
-}
-
-.hdr-nav_link {
-  flex: 1 1 100%;
-  margin: 20px 0;
-  text-align: center;
-}
-
-}
-
 
 /*END HEADER*/
 
 
 /*BODY*/
-
 main {
   padding: 1%;
   display: flex;
@@ -165,7 +154,7 @@ h2 {
 }
 
 body {
-  background-color: rgb(91,149,66);
+  background-color: rgb(91, 149, 66);
 }
 
 h3 {
@@ -177,12 +166,10 @@ h3 {
   margin: 0;
 }
 
-
-
 #index img {
-    border: solid 2px white;
-    height: 100%;
-    width: 100%;
+  border: solid 2px white;
+  height: 100%;
+  width: 100%;
 }
 
 figure img:hover {
@@ -191,10 +178,10 @@ figure img:hover {
 
 
 /* FOOTER */
-
-footer >p {
+footer>p {
   text-align: center;
 }
+
 
 /* Container Expanded Rental Property Slideshow */
 section#slideshow {
@@ -210,6 +197,7 @@ section#slideshow {
   }
 }
 
+
 /* Slideshow container for expanded image and aside */
 #slideshow_main {
   display: flex;
@@ -217,32 +205,34 @@ section#slideshow {
   flex-wrap: wrap;
 }
 
+
 /* Slideshow Property Highlights */
 section#slideshow div aside {
   flex: 1 1 auto;
   padding: 10px;
 }
 
+
 /* Expanded Slideshow Floorplan Image */
 .floorplan {
-    flex: 1 1 auto;
-    height: 300px;
-    margin: 0 15px 0 0;
+  flex: 1 1 auto;
+  height: 300px;
+  margin: 0 15px 0 0;
 }
 
 @media (min-width: 0px) and (max-width: 960px) {
   /* Expanded Slideshow Floorplan Image */
   .floorplan {
-      margin: 50px 0;
-      height: auto;
-      width: 100%;
+    margin: 50px 0;
+    height: auto;
+    width: 100%;
   }
 }
 
 #slideshow-slide_image {
-    flex: 1 1 auto;
-    border: solid 4px white;
-} 
+  flex: 1 1 auto;
+  border: solid 4px white;
+}
 
 #NEED_INFO {
   color: red;
@@ -258,9 +248,9 @@ section#slideshow div aside {
 }
 
 .map {
-    flex: 50%;
-    height: 300px;
-    overflow: hidden;
+  flex: 50%;
+  height: 300px;
+  overflow: hidden;
 }
 
 @media (min-width: 0px) and (max-width: 960px) {

@@ -12,7 +12,7 @@ const livereload = require('gulp-livereload');
 
 
 // HTML
-htmlSrc = htmlSrc;
+htmlSrc = './*.html';
 
 // CSS
 cssSrc = './css/*.css';

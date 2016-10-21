@@ -12,7 +12,65 @@
 
 </head>
 
-<body>
+
+<style>
+  label {
+    font-family: "Titillium Web", "Helvetica", "Roboto", "Arial", sans-serif;
+    line-height: 1.7;
+    font-weight: 300 !important;
+    font-size: 22px;
+    color: #504A5A;
+  }
+
+  input#textinput {
+    font-size: 16px;
+    font-weight: 300;
+    font-family: Titillium Web;
+    letter-spacing: 1px;
+    padding: 14px;
+  }
+
+  .sign-up-container {
+    display: block;
+    margin-bottom: 40px;
+    padding: 40px;
+  }
+
+  .sign-up-form {
+    border-bottom: 1px solid #DDD;
+    border-top: 1px solid #DDD;
+    border-left: 1px solid #DDD;
+    border-right: 1px solid #DDD;
+    border-bottom-left-radius: 2px;
+    border-top-left-radius: 2px;
+    display: inline-block;
+    float: left;
+    padding: 40px 20px;
+  }
+
+  .form-header-container {
+    text-align: center;
+    padding: 60px 0 0;
+    margin: 0 auto;
+  }
+
+  #rental-form-text-header {
+    font-size: 34px;
+    margin-bottom: 14px;
+    font-family: "Titillium Web", "Helvetica", "Roboto", "Arial", sans-serif;
+    font-weight: bold;
+  }
+
+  #rental-form-text-subhead {
+    font-size: 22px;
+    margin-bottom: 14px;
+    font-family: "Titillium Web", "Helvetica", "Roboto", "Arial", sans-serif;
+    font-weight: 300;
+    text-align: center;
+  }
+</style>
+
+<body style="background-color: white;">
   <header>
 
     <div id="hdr-hr_logo_ctnr">
@@ -42,72 +100,101 @@
 
   <main id="index">
 
-    <form>
+    <div class="form-header-container">
+      <h2 id="rental-form-text-header">HRMC Residential Rental Application</h2>
+      <h3 id="rental-form-text-subhead">Start Your Application Below</h3>
+    </div>
 
-      <!-- NAMES, DOB and SSN -->
-      <div class="container">
-        <div class="row">
+    <section class="sign-up-container">
 
-          <div class="form-group col-md-4 .col-xs-12">
-            <label for="exampleInputEmail1">FULL NAMES OF PERSONS</label>
-            <input type="email" class="form-control" id="nameInput1" aria-describedby="fullnameHelp" placeholder="Enter full name of person">
-            <input type="email" class="form-control" id="nameInput2" aria-describedby="fullnameHelp" placeholder="Enter full name of person">
-            <input type="email" class="form-control" id="nameInput3" aria-describedby="fullnameHelp" placeholder="Enter full name of person">
-            <input type="email" class="form-control" id="nameInput4" aria-describedby="fullnameHelp" placeholder="Enter full name of person">
-            <input type="email" class="form-control" id="nameInput5" aria-describedby="fullnameHelp" placeholder="Enter full name of person">
-            <small id="fullnameHelp" class="form-text text-muted">Insert small subheading</small>
+      <div class="sign-up-form">
+        <form>
+
+          <!-- BEGIN NAMES, DOB and SSN -->
+          <div class="container">
+            <div class="row">
+
+              <!-- FULL NAMES OF PERSONS Text input-->
+              <div class="form-group col-sm-6 col-md-6 col-xs-12">
+                <label for="textinput">Full Names of Persons</label>
+                <div>
+                  <input id="textinput" name="textinput" type="text" placeholder="Full Name" class="form-control input-md">
+                  <input id="textinput" name="textinput" type="text" placeholder="Full Name" class="form-control input-md">
+                  <input id="textinput" name="textinput" type="text" placeholder="Full Name" class="form-control input-md">
+                  <input id="textinput" name="textinput" type="text" placeholder="Full Name" class="form-control input-md">
+                  <input id="textinput" name="textinput" type="text" placeholder="Full Name" class="form-control input-md">
+                  <!-- <span class="help-block">help</span> -->
+                </div>
+              </div>
+
+              <!-- FULL NAMES OF PERSONS Text input-->
+              <div class="form-group col-sm-3 col-md-3 col-xs-12">
+                <label for="textinput">Date of Birth</label>
+                <div>
+                  <input id="textinput" name="textinput" type="text" placeholder="Full Name" class="form-control input-md">
+                  <input id="textinput" name="textinput" type="text" placeholder="Full Name" class="form-control input-md">
+                  <input id="textinput" name="textinput" type="text" placeholder="Full Name" class="form-control input-md">
+                  <input id="textinput" name="textinput" type="text" placeholder="Full Name" class="form-control input-md">
+                  <input id="textinput" name="textinput" type="text" placeholder="Full Name" class="form-control input-md">
+                </div>
+              </div>
+
+              <div class="form-group col-sm-3 col-md-3 col-xs-12">
+                <label for="textinput">S.S.N</label>
+                <input id="textinput" name="textinput" type="password" placeholder="Password" class="form-control input-md">
+                <input id="textinput" name="textinput" type="password" placeholder="Password" class="form-control input-md">
+                <input id="textinput" name="textinput" type="password" placeholder="Password" class="form-control input-md">
+                <input id="textinput" name="textinput" type="password" placeholder="Password" class="form-control input-md">
+                <input id="textinput" name="textinput" type="password" placeholder="Password" class="form-control input-md">
+              </div>
+            </div>
           </div>
+          <hr>
+          <!-- END NAMES, DOB and SSN -->
 
-          <div class="form-group col-md-4 .col-xs-12">
-            <label for="exampleDateOfBirth">DATE OF BIRTH</label>
-            <input type="email" class="form-control" id="birthDate1" aria-describedby="dateOfBirthHelp" placeholder="Enter date of birth">
-            <input type="email" class="form-control" id="birthDate2" aria-describedby="dateOfBirthHelp" placeholder="Enter date of birth">
-            <input type="email" class="form-control" id="birthDate3" aria-describedby="dateOfBirthHelp" placeholder="Enter date of birth">
-            <input type="email" class="form-control" id="birthDate4" aria-describedby="dateOfBirthHelp" placeholder="Enter date of birth">
-            <input type="email" class="form-control" id="birthDate5" aria-describedby="dateOfBirthHelp" placeholder="Enter date of birth">
-            <small id="dateOfBirthHelp" class="form-text text-muted">Insert small subheading</small>
+          <!-- BEGIN PET INFORMATION -->
+          <div class="form-group">
+            <label class="col-md-12 control-label" for="prependedcheckbox">Pet Information</label>
+            <div class="col-md-4">
+              <div class="input-group">
+                <span class="input-group-addon">
+                    <input type="checkbox">
+                </span>
+                <input id="prependedcheckbox" name="prependedcheckbox" class="form-control" type="text" placeholder="No Pets">
+                <input id="textinput" name="textinput" type="text" placeholder="Full Name" class="form-control input-md">
+              </div>
+              <div class="input-group">
+                <span class="input-group-addon">
+                    <input type="checkbox">
+                </span>
+                <input id="prependedcheckbox" name="prependedcheckbox" class="form-control" type="text" placeholder="Cat">
+              </div>
+              <div class="input-group">
+                <span class="input-group-addon">
+                    <input type="checkbox">
+                </span>
+                <input id="prependedcheckbox" name="prependedcheckbox" class="form-control" type="text" placeholder="Dog">
+              </div>
+              <div class="input-group">
+                <span class="input-group-addon">
+                    <input type="checkbox">
+                </span>
+                <input id="prependedcheckbox" name="prependedcheckbox" class="form-control" type="text" placeholder="Bird">
+              </div>
+              <div class="input-group">
+                <span class="input-group-addon">
+                    <input type="checkbox">
+                </span>
+                <input id="prependedcheckbox" name="prependedcheckbox" class="form-control" type="text" placeholder="Other: please describe the pet below.">
+                <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+
+              </div>
+            </div>
           </div>
-
-          <div class="form-group col-md-4 .col-xs-12">
-            <label for="exampleInput">S.S.N.</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-          </div>
-
-        </div>
       </div>
+      <hr>
+      <!-- END PET INFORMATION -->
 
-      <!-- PET INFORMATION -->
-      <div class="form-check">
-        <label class="form-check-label">
-          <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="option1">
-          I have pets.
-        </label>
-      </div>
-      <div class="form-check">
-        <label class="form-check-label">
-          <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-          I do not have pets.
-        </label>
-      </div>
-
-      <div class="form-group">
-        <label for="exampleSelect2">Select the appropriate pet type</label>
-        <select multiple class="form-control" id="exampleSelect2">
-          <option>Cat(s)</option>
-          <option>Dog(s)</option>
-          <option>Bird(s)</option>
-          <option>Other</option>
-        </select>
-        <label for="exampleSelect2">If other: please describe the pet:</label>
-        <div class="form-group">
-          <label for="exampleTextarea">Example textarea</label>
-          <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
-        </div>
-      </div>
 
       <!-- ADDRESS INFO -->
       <div class="form-group">
@@ -129,6 +216,7 @@
         <input type="" class="form-control" id="" placeholder="How long?:">
         <input type="" class="form-control" id="" placeholder="Rate: $______/month">
       </div>
+
       <!-- Income and Employment Information -->
       <div class="form-group">
         <label for="exampleInput">Income and Employment Information</label>
@@ -170,7 +258,9 @@
       </div>
 
       <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+      </form>
+      </div>
+    </section>
 
   </main>
 
@@ -181,18 +271,32 @@
     <!-- <div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div> -->
   </footer>
   <!-- LOADS GOOGLE MAPS API -->
-  <script type="text/javascript" src="js/app.min.js"></script>
-  <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyDkBispyyLmx1xW9592Narr1BNbYyGq9jI" async></script>
+  <!-- <script type="text/javascript" src="js/app.min.js"></script> -->
 
   <script>
     /* create event listeners when page finishes loading */
     if (window.addEventListener) {
-      window.addEventListener("load", app_main, false);
+      // window.addEventListener("load", app_main, false);
     }
     if (window.attachEvent) {
-      window.attachEvent("onload", app_main);
+      // window.attachEvent("onload", app_main);
     }
   </script>
+</body>
+
+</html>
+}
+</script>
+</body>
+
+</html>
+ow.attachEvent("onload", app_main); }
+</script>
+</body>
+
+</html>
+}
+</script>
 </body>
 
 </html>

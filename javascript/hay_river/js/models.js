@@ -1,4 +1,3 @@
-
 // Full Rental() creates an Object Prototype of a property listing
 function LargeRental() {
   this.div = document.createElement("div");
