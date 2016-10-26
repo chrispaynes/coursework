@@ -1,6 +1,5 @@
 * {
   box-sizing: border-box !important;
-  /*border: solid 1px white;*/
 }
 
 body,
@@ -12,17 +11,17 @@ figure {
   line-height: 115%;
 }
 
+body {
+  background-color: rgb(91, 149, 66);
+  font-size: 16px;
+}
+
 li {
   list-style: none;
 }
 
-figcaption {
-  margin: 15px 0;
-  padding: 1%;
-}
-
 p {
-  font-family: "Titillium Web", Helvetica, Arial;
+  font-family: "Titillium Web", Helvetica, Arial, sans-serif;
   font-weight: normal;
   font-size: 100%;
   color: black;
@@ -31,7 +30,7 @@ p {
 }
 
 a {
-  font-family: "Titillium Web", Helvetica, Arial;
+  font-family: "Titillium Web", Helvetica, Arial, sans-serif;
   font-weight: normal;
   font-size: 125%;
   color: black;
@@ -39,7 +38,7 @@ a {
 }
 
 h1 {
-  font-family: "Titillium Web", Helvetica, Arial;
+  font-family: "Titillium Web", Helvetica, Arial, sans-serif;
   font-weight: bold;
   font-size: 150%;
   color: black;
@@ -48,7 +47,7 @@ h1 {
 }
 
 h2 {
-  font-family: "Titillium Web", Helvetica, Arial;
+  font-family: "Titillium Web", Helvetica, Arial, sans-serif;
   font-weight: normal;
   font-size: 115%;
   color: black;
@@ -56,18 +55,18 @@ h2 {
   margin: 0;
 }
 
-body {
-  background-color: rgb(91, 149, 66);
-  font-size: 16px;
-}
-
 h3 {
-  font-family: "Titillium Web", Helvetica, Arial;
+  font-family: "Titillium Web", Helvetica, Arial, sans-serif;
   font-weight: bold;
   font-size: 125%;
   color: black;
   text-align: left;
   margin: 0;
+}
+
+figcaption {
+  margin: 15px 0;
+  padding: 1%;
 }
 
 
@@ -76,23 +75,23 @@ h3 {
 header {
   background-color: white;
   min-height: 150px;
-  padding: 2rem 3rem .5rem 3rem;
+  padding: 2rem 3rem 0.5rem 3rem;
   display: flex;
   flex-wrap: wrap;
   margin: 0 0 40px 0;
 }
 
-.hdr-hr_logo_ctnr {
+#header-logo-cntr {
   align-self: center;
   margin-right: 3rem;
 }
 
-.hdr-hr_logo {
+#header-logo {
   width: 350px;
   height: auto;
 }
 
-.hdr_address {
+.header-addr-cntr {
   padding: 1rem;
   margin-right: 2rem;
 }
@@ -102,7 +101,7 @@ nav {
   display: flex;
 }
 
-nav ul {
+.header-nav-list {
   display: flex;
   padding: 0.5rem;
   width: auto;
@@ -110,17 +109,17 @@ nav ul {
   flex: 1 1 auto;
 }
 
-.hdr-nav_link a:hover {
+.hdr-nav-link-text:hover {
   border-bottom: solid 2px rgb(91, 149, 66);
   color: rgb(91, 149, 66);
   text-decoration: none;
 }
 
-.hdr-nav_link {
+.header-nav-link-cntr {
   align-self: flex-end;
 }
 
-.hdr-nav_link a {
+.hdr-nav-link-text {
   font-size: 18px;
   text-decoration: none;
   min-width: 125px;
@@ -130,15 +129,15 @@ nav ul {
   header {
     padding: 1rem;
   }
-  .hdr-hr_logo_ctnr {
+  .header-logo-cntr {
     margin: 0 auto;
     width: 100%;
   }
-  .hdr-hr_logo {
+  .header-logo {
     width: 100%;
     height: auto;
   }
-  .hdr_address {
+  .header-addr-cntr {
     flex: 1 1 100%;
     margin: 2rem 0;
     display: flex;
@@ -148,38 +147,36 @@ nav ul {
     margin-bottom: 10px;
     flex: 1 1 200%;
   }
-  nav ul {
+  .header-nav-list {
     display: block;
     padding-top: 20px;
   }
-  .hdr-nav_link {
+  .header-nav-link-cntr {
     flex: 1 1 100%;
     margin-bottom: 2rem;
     text-align: center;
   }
-  .hdr-nav_link a {
+  .hdr-nav-link-text {
     font-size: 1.25rem;
   }
 }
 
 @media (min-width:769px) and (max-width:1000px) {
-  nav ul {
+  .header-nav-list {
     margin: 1rem auto 0;
     width: 100%;
-    -webkit-justify-content: space-around;
     justify-content: space-around;
   }
-  .hdr-hr_logo_ctnr {
+  .header-logo-cntr {
     width: 100%;
     margin: 0 auto;
-    /*border: 1px solid;*/
   }
-  .hdr-hr_logo {
+  .header-logo {
     width: 50%;
     height: auto;
     margin: 0 auto;
   }
-  .hdr_address {
+  .header-addr-cntr {
     width: 100%;
     margin: 2rem auto 0;
   }
@@ -240,7 +237,7 @@ footer>p {
 
 /* Container Expanded Rental Property Slideshow */
 
-section#slideshow {
+#slideshow {
   min-height: 500px;
   padding: 3.75rem;
   display: none;
@@ -258,7 +255,7 @@ section#slideshow {
 
 /* Slideshow Property Highlights */
 
-section#slideshow div aside {
+#slideshow div aside {
   flex: 1 1 auto;
 }
 
@@ -272,11 +269,9 @@ section#slideshow div aside {
 }
 
 #slideshow-slide_image {
-  flex: 1 1 auto;
+  /*  flex: 1 1 auto; */
   border: solid 4px white;
   margin-right: 2rem;
-  -webkit-flex: 1 1 25%;
-  -ms-flex: 1 1 25%;
   flex: 1 1 25%;
   height: 400px;
 }
@@ -285,7 +280,6 @@ section#slideshow div aside {
 /* Container for Rental floorplans and Google Map */
 
 #image_cont {
-  display: flex;
   margin: 50px 0;
   display: flex;
   flex-wrap: wrap;
@@ -298,7 +292,7 @@ section#slideshow div aside {
 }
 
 @media (min-width: 321px) and (max-width: 768px) {
-  section#slideshow div aside {
+  #slideshow div aside {
     margin: 0;
   }
   #slideshow-slide_image {
@@ -310,7 +304,7 @@ section#slideshow div aside {
     margin-bottom: 3rem;
     height: auto;
   }
-  section#slideshow {
+  #slideshow {
     min-height: 500px;
     padding: 20px;
   }
@@ -321,9 +315,6 @@ section#slideshow div aside {
 }
 
 @media (min-width:769px) and (max-width:1100px) {
-  #slideshow-slide_image {
-    /*margin: 0 0 1rem 0;*/
-  }
   /* Expanded Slideshow Floorplan Image */
   .map {
     height: 500px;
@@ -351,7 +342,7 @@ h4 {
 
 /* RENTAL FORM */
 
-<style> label {
+label {
   font-family: "Titillium Web", "Helvetica", "Roboto", "Arial", sans-serif;
   line-height: 1.7;
   font-weight: 300 !important;
@@ -359,10 +350,10 @@ h4 {
   color: #504A5A;
 }
 
-input#textinput {
+#textinput {
   font-size: 16px;
   font-weight: 300;
-  font-family: Titillium Web;
+  font-family: "Titillium Web";
   letter-spacing: 1px;
   padding: 14px;
 }
@@ -404,4 +395,9 @@ input#textinput {
   font-family: "Titillium Web", "Helvetica", "Roboto", "Arial", sans-serif;
   font-weight: 300;
   text-align: center;
+}
+
+#header-logo {
+  width: 350px;
+  height: auto;
 }

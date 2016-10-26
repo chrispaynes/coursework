@@ -67,6 +67,10 @@ gulp.task('minCSS', function() {
     .pipe(cleanCSS({
       compatibility: 'ie8'
     }))
+    .pipe(cleanCSS({ debug: true }, function(details) {
+      console.log(details.name + ': ' + details.stats.originalSize);
+      console.log(details.name + ': ' + details.stats.minifiedSize);
+    }))
     .pipe(gulp.dest(cssDest))
     .pipe(livereload());
 });
