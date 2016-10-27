@@ -8,12 +8,14 @@ import (
 	"github.com/codegangsta/negroni"
 	gmux "github.com/gorilla/mux"
 	"github.com/gorilla/sessions"
+	_ "github.com/lib/pq"
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/yosssi/ace"
 	"golang.org/x/crypto/bcrypt"
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"os"
 	"strconv"
 	"time"
 )
@@ -53,14 +55,13 @@ type LoginPage struct {
 }
 
 // A Page represents a book collection.
-// Filter specifies which books remain visible
 type Page struct {
 	Books  []Book
 	Filter string
 	User   string
 }
 
-// A SearchResult represents a result returned from a book-related search query.
+// A SearchResult represents a book-related query result.
 type SearchResult struct {
 	Title  string `xml:"title,attr"`
 	Author string `xml:"author,attr"`
@@ -68,7 +69,7 @@ type SearchResult struct {
 	ID     string `xml:"owi,attr"`
 }
 
-// A User represents a unique app user with authentication credentials
+// A User represents a unique app user with authentication credentials.
 type User struct {
 	Username string `db:"username"`
 	Secret   []byte `db:"secret"`
@@ -77,13 +78,41 @@ type User struct {
 // Db stores a global sqlite3 database.
 var db *sql.DB
 
-// P represents the DOM Document Object
+// P stores a newly constructed Page type.
 var p = new(Page)
 
 // Store initializes a new CookieStore with a secret authentication key.
 var cookieStore = sessions.NewCookieStore([]byte("password123"))
+var bindVar string
 
 // var sessionStore = cookieStore.Get(r, "go_library2")
+
+func initDB() {
+	// Os.Getenv instructs the app to behave a certain way depending on
+	// whether the app is in development or production mode.
+	if os.Getenv("ENV") != "production" {
+		// DB opens a sqlite3 database connection.
+		db, _ = sql.Open("sqlite3", "dev.db")
+		// &bindVar = "?"
+	} else {
+		db, _ = sql.Open("postgres", os.Getenv("DATABASE_URL"))
+		// &bindVar = fmt.Sprintf("$%d", 1)
+	}
+
+	// If the Books database table does not exist, create one from Book struct.
+	db.Exec(`CREATE TABLE IF NOT EXISTS books(
+    pk integer primary key autoincrement,
+    title text,
+    author text,
+    id text,
+    classification text)`)
+
+	// If the Users table does not exist, create one from User struct.
+	db.Exec(`CREATE TABLE IF NOT EXISTS users(
+    username text primary key,
+    secret blob
+    )`)
+}
 
 // PingDB checks DB connectivity then calls next HandlerFunc upon connectivity.
 func pingDB(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
@@ -94,37 +123,42 @@ func pingDB(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
 	next(w, r)
 }
 
+// setWhereClause returns a WHERE SQL clause using a filter and username;
+func setWhereClause(f, u string) string {
+	// W stores the where clause or defaults to no clause.
+	wc := fmt.Sprintf(" WHERE user=%q", u)
+	if f == "fiction" {
+		wc += " AND classification BETWEEN '800' AND '900' "
+	} else if f == "nonfiction" {
+		wc += " AND classification NOT BETWEEN '800' AND '900' "
+	} else {
+		wc += " "
+	}
+
+	return wc
+}
+
 // GetBookCollection returns a filtered and sorted book collection.
-func getBookCollection(sort string, filter string, username string, w http.ResponseWriter, r *http.Request) bool {
+func getBookCollection(sort, filter, username string, w http.ResponseWriter, r *http.Request) bool {
+	// p.books empties the book object.
+	p.Books = []Book{}
+	p.Filter = getSessionString(r, "filter")
+
 	// Defaults sorting to "pk" when sort is empty.
 	if sort == "" {
 		sort = "pk"
 	}
 
-	// Where stores SQL WHERE clause to filter by username and classification, or defaults to no clause.
-	where := fmt.Sprintf(" WHERE user=%q", username)
-	if filter == "fiction" {
-		where += " AND classification BETWEEN '800' AND '900' "
-	} else if filter == "nonfiction" {
-		where += " AND classification NOT BETWEEN '800' AND '900' "
-	} else {
-		where += " "
-	}
+	where := setWhereClause(filter, username)
 
-	// Rows stores every row returned from book database query.
 	// The data is filtered using a WHERE clause and then sorted by the sort name.
+	// Rows stores every row returned from book database query.
 	rows, err := db.Query("SELECT pk, title, author, classification FROM books" + where + "ORDER BY " + sort)
-	fmt.Println("SELECT pk, title, author, classification FROM books" + where + "ORDER BY " + sort)
-
-	fmt.Println("111\t query", rows)
-
-	// p.books empties the book object.
-	p.Books = []Book{}
-	p.Filter = getSessionString(r, "filter")
+	defer rows.Close()
 
 	var b Book
-	// Rows.Next scans and stores data returned from the DB query,
-	// then appends each row to p.Books.
+	p.Books = []Book{}
+	// Rows.Next appends data returned from the DB query to the book collection.
 	for rows.Next() {
 		rows.Scan(&b.PK, &b.Title, &b.Author, &b.Classification)
 		p.Books = append(p.Books, b)
@@ -187,25 +221,6 @@ func verifyUser(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
 	}
 	next(w, r)
 
-}
-
-func initDB() {
-	// DB opens a sqlite3 connection to the database.
-	db, _ = sql.Open("sqlite3", "dev.db")
-
-	// If the table does not exist, creates books database table based on Book struct.
-	db.Exec(`CREATE TABLE IF NOT EXISTS books(
-    pk integer primary key autoincrement,
-    title text,
-    author text,
-    id text,
-    classification text)`)
-
-	// If the table does not exist, creates users database table based on User struct.
-	db.Exec(`CREATE TABLE IF NOT EXISTS users(
-    username text primary key,
-    secret blob
-    )`)
 }
 
 func main() {
