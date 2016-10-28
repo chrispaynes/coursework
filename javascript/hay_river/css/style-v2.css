@@ -14,6 +14,11 @@ figure {
 body {
   background-color: rgb(91, 149, 66);
   font-size: 16px;
+  font-family: "Titillium Web", Helvetica, Arial, sans-serif;
+}
+
+.body-white {
+  background-color: white;
 }
 
 li {
@@ -21,7 +26,6 @@ li {
 }
 
 p {
-  font-family: "Titillium Web", Helvetica, Arial, sans-serif;
   font-weight: normal;
   font-size: 100%;
   color: black;
@@ -30,7 +34,6 @@ p {
 }
 
 a {
-  font-family: "Titillium Web", Helvetica, Arial, sans-serif;
   font-weight: normal;
   font-size: 125%;
   color: black;
@@ -38,7 +41,6 @@ a {
 }
 
 h1 {
-  font-family: "Titillium Web", Helvetica, Arial, sans-serif;
   font-weight: bold;
   font-size: 150%;
   color: black;
@@ -47,7 +49,6 @@ h1 {
 }
 
 h2 {
-  font-family: "Titillium Web", Helvetica, Arial, sans-serif;
   font-weight: normal;
   font-size: 115%;
   color: black;
@@ -56,7 +57,6 @@ h2 {
 }
 
 h3 {
-  font-family: "Titillium Web", Helvetica, Arial, sans-serif;
   font-weight: bold;
   font-size: 125%;
   color: black;
@@ -343,7 +343,6 @@ h4 {
 /* RENTAL FORM */
 
 label {
-  font-family: "Titillium Web", "Helvetica", "Roboto", "Arial", sans-serif;
   line-height: 1.7;
   font-weight: 300 !important;
   font-size: 22px;
@@ -353,7 +352,6 @@ label {
 #textinput {
   font-size: 16px;
   font-weight: 300;
-  font-family: "Titillium Web";
   letter-spacing: 1px;
   padding: 14px;
 }
@@ -385,19 +383,28 @@ label {
 #rental-form-text-header {
   font-size: 34px;
   margin-bottom: 14px;
-  font-family: "Titillium Web", "Helvetica", "Roboto", "Arial", sans-serif;
   font-weight: bold;
 }
 
 #rental-form-text-subhead {
   font-size: 22px;
   margin-bottom: 14px;
-  font-family: "Titillium Web", "Helvetica", "Roboto", "Arial", sans-serif;
   font-weight: 300;
   text-align: center;
 }
 
-#header-logo {
-  width: 350px;
-  height: auto;
+.text-right {
+  text-align: right;
+}
+
+.form-row {
+  margin-bottom: 2px;
+}
+
+.form-disclaimer {
+  /* border: solid; */
+  margin-bottom: 3rem;
+  line-height: 2.5rem;
+  font-size: 1.75rem;
+  padding: 0;
 }

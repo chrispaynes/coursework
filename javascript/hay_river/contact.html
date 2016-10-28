@@ -11,13 +11,10 @@
     <link rel="stylesheet" type="text/css" href="css/style-v2.css">
     <script src="js/modernizr.custom.05819.js"></script>
     <link rel="icon" type="image/png" href="img/favicon.png">
-
   </head>
 
-  <body style="background-color: white;">
-
+  <body class="body-white">
     <header>
-
       <div id="header-logo-cntr">
         <a href="index.html">
           <img src="img/hr_mgmt_logo.jpg" alt="Hay River Management Company Logo" width="279" height="57" id="header-logo">
@@ -38,188 +35,230 @@
           <li class="header-nav-link-cntr"><a class="hdr-nav-link-text" href="./contact.html">Rental Application</a></li>
         </ul>
       </nav>
-
     </header>
-
     <main id="index">
-
       <div class="form-header-container">
         <h2 id="rental-form-text-header">HRMC Residential Rental Application</h2>
         <h3 id="rental-form-text-subhead">Start Your Application Below</h3>
       </div>
-
       <section class="sign-up-container">
-
         <div class="sign-up-form">
           <form>
-
+            <!-- BEGIN DISCLAIMER-->
+            <div class="container">
+              <div class="form-group form-row">
+                <div class="form-group row form-row">
+                  <label for="example-text-input" class="col-xs-4 col-form-label">Apartment Location</label>
+                  <div class="col-sm-5 col-md-5 col-xs-12 row">
+                    <div class="form-group">
+                      <select class="form-control" id="exampleSelect1">
+                        <option>1821 7th Street, Menomonie, WI 54751 - 4 Bdrm. Apt.</option>
+                        <option>1818 6th Street, Menomonie, WI 54751 - 4 Bdrm. Apt.</option>
+                        <option>1815 7th Street, Menomonie, WI 54751 - 4 Bdrm. Apt.</option>
+                        <option>N4923 - 572nd Street, Menomonie, WI 54751 - 3 Bdrm. TH.</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group row form-row">
+                  <label for="example-text-input" class="col-xs-4 col-form-label">Date of expected move in:</label>
+                  <div class="col-sm-3 col-md-3 col-xs-12 row">
+                    <input id="textinput" name="textinput" type="date" placeholder="mm/dd/yyyy" class="form-control input-md">
+                  </div>
+                </div>
+              </div>
+              <p class="col-sm-12 col-md-12 col-xs-12 form-disclaimer"><strong>This application is NOT a Rental Agreement, Contract or Lease. All applications are subject to management approval. No applicant will be judged on the basis of race, color, religion, sex, handicap, familial status, national origin, sexual orientation, marital status, legal source of income, age, or ancestry.</strong></p>
+            </div>
+            <hr>
             <!-- BEGIN NAMES, DOB and SSN -->
             <div class="container">
               <div class="row">
-
                 <!-- FULL NAMES OF PERSONS Text input-->
-                <div class="form-group col-sm-6 col-md-6 col-xs-12">
-                  <label for="textinput">Full Names of Persons</label>
-                  <div>
-                    <input id="textinput" name="textinput" type="text" placeholder="Full Name" class="form-control input-md">
-                    <input id="textinput" name="textinput" type="text" placeholder="Full Name" class="form-control input-md">
-                    <input id="textinput" name="textinput" type="text" placeholder="Full Name" class="form-control input-md">
-                    <input id="textinput" name="textinput" type="text" placeholder="Full Name" class="form-control input-md">
-                    <input id="textinput" name="textinput" type="text" placeholder="Full Name" class="form-control input-md">
-                    <!-- <span class="help-block">help</span> -->
+                <div>
+                  <label for="textinput" class="col-form-label col-sm-5 col-md-5 col-xs-12 col-sm-offset-1 col-md-offset-1">Full Names of Persons</label>
+                  <label for="textinput" class="col-form-label col-sm-3 col-md-3 col-xs-12">Date of Birth</label>
+                  <label for="textinput" class="col-form-label col-sm-3 col-md-3 col-xs-12">Social Security</label>
+                  <div class="form-group row form-row">
+                    <label for="example-text-input" class="col-xs-1 col-form-label "><small>1.</small></label>
+                    <div class="col-sm-5 col-md-5 col-xs-12">
+                      <input id="textinput" name="textinput" type="text" placeholder="First Middle Last" class="form-control input-md">
+                    </div>
+                    <div class="col-sm-3 col-md-3 col-xs-12">
+                      <input id="textinput" name="textinput" type="date" placeholder="mm/dd/yyyy" class="form-control input-md">
+                    </div>
+                    <div class="col-sm-3 col-md-3 col-xs-12">
+                      <input id="textinput" name="textinput" type="password" placeholder="000 00 0000" class="form-control input-md">
+                    </div>
+                  </div>
+                  <div class="form-group row form-row">
+                    <label for="example-text-input" class="col-xs-1 col-form-label "><small>2.</small></label>
+                    <div class="col-sm-5 col-md-5 col-xs-12">
+                      <input id="textinput" name="textinput" type="text" placeholder="First Middle Last" class="form-control input-md">
+                    </div>
+                    <div class="col-sm-3 col-md-3 col-xs-12">
+                      <input id="textinput" name="textinput" type="text" placeholder="mm/dd/yyyy" class="form-control input-md">
+                    </div>
+                    <div class="col-sm-3 col-md-3 col-xs-12">
+                      <input id="textinput" name="textinput" type="password" placeholder="000 00 0000" class="form-control input-md">
+                    </div>
+                  </div>
+                  <div class="form-group row form-row">
+                    <label for="example-text-input" class="col-xs-1 col-form-label "><small>3.</small></label>
+                    <div class="col-sm-5 col-md-5 col-xs-12">
+                      <input id="textinput" name="textinput" type="text" placeholder="First Middle Last" class="form-control input-md">
+                    </div>
+                    <div class="col-sm-3 col-md-3 col-xs-12">
+                      <input id="textinput" name="textinput" type="text" placeholder="mm/dd/yyyy" class="form-control input-md">
+                    </div>
+                    <div class="col-sm-3 col-md-3 col-xs-12">
+                      <input id="textinput" name="textinput" type="password" placeholder="000 00 0000" class="form-control input-md">
+                    </div>
+                  </div>
+                  <div class="form-group row form-row">
+                    <label for="example-text-input" class="col-xs-1 col-form-label "><small>4.</small></label>
+                    <div class="col-sm-5 col-md-5 col-xs-12">
+                      <input id="textinput" name="textinput" type="text" placeholder="First Middle Last" class="form-control input-md">
+                    </div>
+                    <div class="col-sm-3 col-md-3 col-xs-12">
+                      <input id="textinput" name="textinput" type="text" placeholder="mm/dd/yyyy" class="form-control input-md">
+                    </div>
+                    <div class="col-sm-3 col-md-3 col-xs-12">
+                      <input id="textinput" name="textinput" type="password" placeholder="000 00 0000" class="form-control input-md">
+                    </div>
+                  </div>
+                  <div class="form-group row form-row">
+                    <label for="example-text-input" class="col-xs-1 col-form-label "><small>5.</small></label>
+                    <div class="col-sm-5 col-md-5 col-xs-12">
+                      <input id="textinput" name="textinput" type="text" placeholder="First Middle Last" class="form-control input-md">
+                    </div>
+                    <div class="col-sm-3 col-md-3 col-xs-12">
+                      <input id="textinput" name="textinput" type="text" placeholder="mm/dd/yyyy" class="form-control input-md">
+                    </div>
+                    <div class="col-sm-3 col-md-3 col-xs-12">
+                      <input id="textinput" name="textinput" type="password" placeholder="000 00 0000" class="form-control input-md">
+                    </div>
+                  </div>
+                  <hr>
+                </div>
+                <!-- END NAMES, DOB and SSN -->
+
+                <!-- BEGIN PET INFORMATION -->
+                <div class="container">
+                  <div class="form-group row">
+                    <label class="col-md-12 control-label" for="prependedcheckbox">Pet Information</label>
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                      <input type="checkbox">
+                    </span>
+                      <input id="prependedcheckbox" name="prependedcheckbox" class="form-control" type="text" placeholder="No Pets">
+                      <input id="textinput" name="textinput" type="text" placeholder="" class="form-control input-md">
+                    </div>
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                      <input type="checkbox">
+                    </span>
+                      <input id="prependedcheckbox" name="prependedcheckbox" class="form-control" type="text" placeholder="Cat">
+                    </div>
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                      <input type="checkbox">
+                    </span>
+                      <input id="prependedcheckbox" name="prependedcheckbox" class="form-control" type="text" placeholder="Dog">
+                    </div>
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                      <input type="checkbox">
+                    </span>
+                      <input id="prependedcheckbox" name="prependedcheckbox" class="form-control" type="text" placeholder="Bird">
+                    </div>
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                      <input type="checkbox">
+                    </span>
+                      <input id="prependedcheckbox" name="prependedcheckbox" class="form-control" type="text" placeholder="Other: please describe the pet below.">
+                      <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+                    </div>
+
                   </div>
                 </div>
-
-                <!-- FULL NAMES OF PERSONS Text input-->
-                <div class="form-group col-sm-3 col-md-3 col-xs-12">
-                  <label for="textinput">Date of Birth</label>
-                  <div>
-                    <input id="textinput" name="textinput" type="text" placeholder="Full Name" class="form-control input-md">
-                    <input id="textinput" name="textinput" type="text" placeholder="Full Name" class="form-control input-md">
-                    <input id="textinput" name="textinput" type="text" placeholder="Full Name" class="form-control input-md">
-                    <input id="textinput" name="textinput" type="text" placeholder="Full Name" class="form-control input-md">
-                    <input id="textinput" name="textinput" type="text" placeholder="Full Name" class="form-control input-md">
-                  </div>
-                </div>
-
-                <div class="form-group col-sm-3 col-md-3 col-xs-12">
-                  <label for="textinput">S.S.N</label>
-                  <input id="textinput" name="textinput" type="password" placeholder="Password" class="form-control input-md">
-                  <input id="textinput" name="textinput" type="password" placeholder="Password" class="form-control input-md">
-                  <input id="textinput" name="textinput" type="password" placeholder="Password" class="form-control input-md">
-                  <input id="textinput" name="textinput" type="password" placeholder="Password" class="form-control input-md">
-                  <input id="textinput" name="textinput" type="password" placeholder="Password" class="form-control input-md">
-                </div>
               </div>
-            </div>
-            <hr>
-            <!-- END NAMES, DOB and SSN -->
-
-            <!-- BEGIN PET INFORMATION -->
-            <div class="form-group">
-              <label class="col-md-12 control-label" for="prependedcheckbox">Pet Information</label>
-              <div class="col-md-4">
-                <div class="input-group">
-                  <span class="input-group-addon">
-                    <input type="checkbox">
-                </span>
-                  <input id="prependedcheckbox" name="prependedcheckbox" class="form-control" type="text" placeholder="No Pets">
-                  <input id="textinput" name="textinput" type="text" placeholder="Full Name" class="form-control input-md">
-                </div>
-                <div class="input-group">
-                  <span class="input-group-addon">
-                    <input type="checkbox">
-                </span>
-                  <input id="prependedcheckbox" name="prependedcheckbox" class="form-control" type="text" placeholder="Cat">
-                </div>
-                <div class="input-group">
-                  <span class="input-group-addon">
-                    <input type="checkbox">
-                </span>
-                  <input id="prependedcheckbox" name="prependedcheckbox" class="form-control" type="text" placeholder="Dog">
-                </div>
-                <div class="input-group">
-                  <span class="input-group-addon">
-                    <input type="checkbox">
-                </span>
-                  <input id="prependedcheckbox" name="prependedcheckbox" class="form-control" type="text" placeholder="Bird">
-                </div>
-                <div class="input-group">
-                  <span class="input-group-addon">
-                    <input type="checkbox">
-                </span>
-                  <input id="prependedcheckbox" name="prependedcheckbox" class="form-control" type="text" placeholder="Other: please describe the pet below.">
-                  <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
-
-                </div>
+              <hr>
+              <!-- END PET INFORMATION -->
+              <!-- ADDRESS INFO -->
+              <div class="form-group">
+                <label for="exampleInput">Income and Employment Information</label>
+                <input type="" class="form-control" id="" placeholder="Present Address">
+                <input type="" class="form-control" id="" placeholder="Present Address2">
+                <input type="" class="form-control" id="" placeholder="Phone Number">
+                <input type="" class="form-control" id="" placeholder="Work Number:">
+                <input type="" class="form-control" id="" placeholder="Cell Number:">
+                <input type="" class="form-control" id="" placeholder="Present Landlord:">
+                <input type="" class="form-control" id="" placeholder="Present Landlord's Phone:">
+                <input type="" class="form-control" id="" placeholder="How long?:">
+                <input type="" class="form-control" id="" placeholder="Rate: $______/month">
+                <br>
+                <input type="" class="form-control" id="" placeholder="Previous Address:">
+                <input type="" class="form-control" id="" placeholder="Previous Address2:">
+                <input type="" class="form-control" id="" placeholder="Previous Landlord:">
+                <input type="" class="form-control" id="" placeholder="Previous Landlord's Phone:">
+                <input type="" class="form-control" id="" placeholder="How long?:">
+                <input type="" class="form-control" id="" placeholder="Rate: $______/month">
               </div>
-            </div>
-        </div>
-        <hr>
-        <!-- END PET INFORMATION -->
-
-        <!-- ADDRESS INFO -->
-        <div class="form-group">
-          <label for="exampleInput">Income and Employment Information</label>
-          <input type="" class="form-control" id="" placeholder="Present Address">
-          <input type="" class="form-control" id="" placeholder="Present Address2">
-          <input type="" class="form-control" id="" placeholder="Phone Number">
-          <input type="" class="form-control" id="" placeholder="Work Number:">
-          <input type="" class="form-control" id="" placeholder="Cell Number:">
-          <input type="" class="form-control" id="" placeholder="Present Landlord:">
-          <input type="" class="form-control" id="" placeholder="Present Landlord's Phone:">
-          <input type="" class="form-control" id="" placeholder="How long?:">
-          <input type="" class="form-control" id="" placeholder="Rate: $______/month">
-          <br>
-          <input type="" class="form-control" id="" placeholder="Previous Address:">
-          <input type="" class="form-control" id="" placeholder="Previous Address2:">
-          <input type="" class="form-control" id="" placeholder="Previous Landlord:">
-          <input type="" class="form-control" id="" placeholder="Previous Landlord's Phone:">
-          <input type="" class="form-control" id="" placeholder="How long?:">
-          <input type="" class="form-control" id="" placeholder="Rate: $______/month">
-        </div>
-
-        <!-- Income and Employment Information -->
-        <div class="form-group">
-          <label for="exampleInput">Income and Employment Information</label>
-          <input type="" class="form-control" id="" placeholder="">
-          <input type="" class="form-control" id="" placeholder="">
-          <input type="" class="form-control" id="" placeholder="">
-          <input type="" class="form-control" id="" placeholder="">
-          <input type="" class="form-control" id="" placeholder="">
-        </div>
-
-        <!-- Automobile Information -->
-        <div class="form-group">
-          <label for="exampleInput">Automobile Information</label>
-          <input type="" class="form-control" id="" placeholder="">
-          <input type="" class="form-control" id="" placeholder="">
-          <input type="" class="form-control" id="" placeholder="">
-          <input type="" class="form-control" id="" placeholder="">
-          <input type="" class="form-control" id="" placeholder="">
-        </div>
-
-        <!-- Emergency Contacts -->
-        <div class="form-group">
-          <label for="exampleInput">Emergency Contacts</label>
-          <input type="" class="form-control" id="" placeholder="">
-          <input type="" class="form-control" id="" placeholder="">
-          <input type="" class="form-control" id="" placeholder="">
-          <input type="" class="form-control" id="" placeholder="">
-          <input type="" class="form-control" id="" placeholder="">
-        </div>
-
-        <!-- References: -->
-        <div class="form-group">
-          <label for="exampleInput">References</label>
-          <input type="" class="form-control" id="" placeholder="">
-          <input type="" class="form-control" id="" placeholder="">
-          <input type="" class="form-control" id="" placeholder="">
-          <input type="" class="form-control" id="" placeholder="">
-          <input type="" class="form-control" id="" placeholder="">
-        </div>
-
-        <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-        </div>
+              <!-- Income and Employment Information -->
+              <div class="form-group">
+                <label for="exampleInput">Income and Employment Information</label>
+                <input type="" class="form-control" id="" placeholder="">
+                <input type="" class="form-control" id="" placeholder="">
+                <input type="" class="form-control" id="" placeholder="">
+                <input type="" class="form-control" id="" placeholder="">
+                <input type="" class="form-control" id="" placeholder="">
+              </div>
+              <!-- Automobile Information -->
+              <div class="form-group">
+                <label for="exampleInput">Automobile Information</label>
+                <input type="" class="form-control" id="" placeholder="">
+                <input type="" class="form-control" id="" placeholder="">
+                <input type="" class="form-control" id="" placeholder="">
+                <input type="" class="form-control" id="" placeholder="">
+                <input type="" class="form-control" id="" placeholder="">
+              </div>
+              <!-- Emergency Contacts -->
+              <div class="form-group">
+                <label for="exampleInput">Emergency Contacts</label>
+                <input type="" class="form-control" id="" placeholder="">
+                <input type="" class="form-control" id="" placeholder="">
+                <input type="" class="form-control" id="" placeholder="">
+                <input type="" class="form-control" id="" placeholder="">
+                <input type="" class="form-control" id="" placeholder="">
+              </div>
+              <!-- References: -->
+              <div class="form-group">
+                <label for="exampleInput">References</label>
+                <input type="" class="form-control" id="" placeholder="">
+                <input type="" class="form-control" id="" placeholder="">
+                <input type="" class="form-control" id="" placeholder="">
+                <input type="" class="form-control" id="" placeholder="">
+                <input type="" class="form-control" id="" placeholder="">
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+          </div>
       </section>
-
     </main>
-
     <footer>
       <p><span id="NEED_INFO">FOOTER INFO</span> Hay River Management Company 2016</p>
       <!--   <div>Icons made by <a href="http://www.flaticon.com/authors/yannick" title="Yannick">Yannick</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div> -->
-
       <!-- <div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div> -->
     </footer>
     <!-- LOADS GOOGLE MAPS API -->
     <!-- <script type="text/javascript" src="js/app.min.js"></script> -->
-
-    <script>
-    /* create event listeners when page finishes loading */
-    if (window.addEventListener) {
-      // window.addEventListener("load", app_main, false);
-    }
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
+    < script >
+      /* create event listeners when page finishes loading */
+      if (window.addEventListener) {
+        // window.addEventListener("load", app_main, false);
+      }
     if (window.attachEvent) {
       // window.attachEvent("onload", app_main);
     }
