@@ -13,6 +13,7 @@ import (
 	"github.com/yosssi/ace"
 	"golang.org/x/crypto/bcrypt"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"net/url"
 	"os"
@@ -78,14 +79,15 @@ type User struct {
 // Db stores a global sqlite3 database.
 var db *sql.DB
 
-// P stores a newly constructed Page type.
-var p = new(Page)
+// page stores a newly instantiated Page.
+var page = new(Page)
 
-// Store initializes a new CookieStore with a secret authentication key.
+// store initializes a new CookieStore with a secret authentication key.
 var cookieStore = sessions.NewCookieStore([]byte("password123"))
-var bindVar string
 
-// var sessionStore = cookieStore.Get(r, "go_library2")
+const store = "go_library"
+
+var bindVar string
 
 func initDB() {
 	// Os.Getenv instructs the app to behave a certain way depending on
@@ -125,7 +127,7 @@ func pingDB(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
 
 // setWhereClause returns a WHERE SQL clause using a filter and username;
 func setWhereClause(f, u string) string {
-	// W stores the where clause or defaults to no clause.
+	// wc stores the where clause or defaults to no clause.
 	wc := fmt.Sprintf(" WHERE user=%q", u)
 	if f == "fiction" {
 		wc += " AND classification BETWEEN '800' AND '900' "
@@ -138,50 +140,60 @@ func setWhereClause(f, u string) string {
 	return wc
 }
 
-// GetBookCollection returns a filtered and sorted book collection.
-func getBookCollection(sort, filter, username string, w http.ResponseWriter, r *http.Request) bool {
-	// p.books empties the book object.
-	p.Books = []Book{}
-	p.Filter = getSessionString(r, "filter")
+// setCollection maps each DB row to a book and appends each book to a collection.
+func setCollection(w http.ResponseWriter, rs *sql.Rows) {
+	defer rs.Close()
 
-	// Defaults sorting to "pk" when sort is empty.
+	page.Books = []Book{}
+
+	for rs.Next() {
+		var b Book
+		rs.Scan(&b.PK, &b.Title, &b.Author, &b.Classification)
+
+		page.Books = append(page.Books, b)
+	}
+
+}
+
+// queryBooks queries for books and returns the results sorted by name.
+func queryBooks(where, sort string, w http.ResponseWriter) (*sql.Rows, error) {
+	rows, err := db.Query("SELECT pk, title, author, classification FROM books" + where + "ORDER BY " + sort)
+
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		log.Fatal(err)
+
+	}
+
+	return rows, err
+}
+
+// getBookCollection returns a filtered and sorted book collection.
+func getBookCollection(sort, filter, username string, w http.ResponseWriter, r *http.Request) bool {
+	page.Filter = getSessionString(r, "filter")
+
+	// Sort by "pk" when sort is not specified.
 	if sort == "" {
 		sort = "pk"
 	}
 
 	where := setWhereClause(filter, username)
+	rows, _ := queryBooks(where, sort, w)
 
-	// The data is filtered using a WHERE clause and then sorted by the sort name.
-	// Rows stores every row returned from book database query.
-	rows, err := db.Query("SELECT pk, title, author, classification FROM books" + where + "ORDER BY " + sort)
-	defer rows.Close()
-
-	var b Book
-	p.Books = []Book{}
-	// Rows.Next appends data returned from the DB query to the book collection.
-	for rows.Next() {
-		rows.Scan(&b.PK, &b.Title, &b.Author, &b.Classification)
-		p.Books = append(p.Books, b)
-	}
-
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return false
-	}
+	setCollection(w, rows)
 
 	return true
 }
 
 func startSession(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
-	cookieStore.Get(r, "go_library")
+	cookieStore.Get(r, store)
 	next(w, r)
 }
 
-// Session gets a pre-existing session or creates a new session stores.
-// The "k" and "v" arguments set a key/value pair in the store
-// before saving the session and writing a request and response.
+// writeToSession gets a pre-existing session or creates a new session
+// and sets key/value pair data.
 func writeToSession(w http.ResponseWriter, r *http.Request, k string, v string) {
-	s, _ := cookieStore.Get(r, "go_library")
+	s, _ := cookieStore.Get(r, store)
 	s.Values[k] = v
 	s.Save(r, w)
 }
@@ -189,7 +201,7 @@ func writeToSession(w http.ResponseWriter, r *http.Request, k string, v string) 
 // GetSessionString returns a value from the session store in string format
 func getSessionString(r *http.Request, key string) string {
 	var strVal string
-	var s, _ = cookieStore.Get(r, "go_library")
+	var s, _ = cookieStore.Get(r, store)
 	if val := s.Values[key]; val != nil {
 		strVal = val.(string)
 	}
@@ -317,7 +329,7 @@ func main() {
 
 		// GetBookCollection returns a sorted book collection, then encodes it in JSON.
 		getBookCollection(getSessionString(r, "sortBy"), getSessionString(r, "filter"), getSessionString(r, "user"), w, r)
-		if err := json.NewEncoder(w).Encode(p.Books); err != nil {
+		if err := json.NewEncoder(w).Encode(page.Books); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
 
@@ -333,7 +345,7 @@ func main() {
 		// GetBookCollection returns a sorted book collection, then encodes it in JSON.
 		getBookCollection(getSessionString(r, "sortBy"), getSessionString(r, "filter"), getSessionString(r, "user"), w, r)
 
-		if err := json.NewEncoder(w).Encode(p.Books); err != nil {
+		if err := json.NewEncoder(w).Encode(page.Books); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
 
@@ -356,8 +368,8 @@ func main() {
 
 		getBookCollection(getSessionString(r, "sortBy"), getSessionString(r, "filter"), getSessionString(r, "user"), w, r)
 
-		// p.User stores the logged in username
-		p.User = getSessionString(r, "user")
+		// page.User stores the logged in username
+		page.User = getSessionString(r, "user")
 
 		// Template stores and caches an Ace Template loaded.
 		template, err := ace.Load("templates/index", "", nil)
@@ -367,7 +379,7 @@ func main() {
 		}
 
 		// writes HTTP response using template and displays p or error
-		if err := template.Execute(w, p); err != nil {
+		if err := template.Execute(w, page); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
 	}).Methods("GET")
