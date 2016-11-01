@@ -1,87 +1,56 @@
 function initMaps(property_id) {
-  // configMapOptions() defines and returns an object of map options
-  // for zoom level, map type, control type
-  // and latitude and longitude to center the map app.
-  // configMapOptions(lt *float, ln *float)
-  function configMapOptions(lt, ln) {
+  'use strict';
+
+  function setMapProperties(lat, lng) {
+    // Zoom Options: 1: World, 5: Landmass/continent, 10: City, 15: Streets, 20: Buildings
+    // Style Options:['roadmap', 'satellite', 'hybrid', 'terrain','styled_map']
     return {
-      // ZOOM LEVELS: 1: World, 5: Landmass/continent, 10: City, 15: Streets, 20: Buildings
       zoom: 15,
-
-      // mapTypeId accepts *string to define map style.
-      // options:['roadmap', 'satellite', 'hybrid', 'terrain','styled_map']
       mapTypeId: google.maps.MapTypeId.roadmap,
-
       mapTypeControlStyle: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
-
-      // centers the map around specific coordinates
-      center: {
-        lat: lt,
-        lng: ln
-      }
+      center: { lat: lat, lng: lng }
     };
   };
 
-  // instantiates new Google Maps with pre-defined options and
-  // places maps into the slideshow map's DOM element.
-  function renderMap(map_lat, map_lon) {
+  function createMapOntoDOM(coordinates) {
     return new google.maps.Map(document.getElementsByClassName("map")[0],
-      configMapOptions(map_lat, map_lon));
-  };
+      setMapProperties(coordinates.lat, coordinates.lon));
+  }
 
-  // createsMarker() creates custom map markers using latitude and
-  // longitude *float coordinates. The marker is placed on a map.
-  // *object and a title *string is added for an info popup
-  // createMarker(lt *float, ln *float, mp *object, ti *string)
-  function createMarker(lt, ln, mp, ti) {
+  function createMapMarker(coordinates, map, title) {
     return new google.maps.Marker({
-      position: {
-        lat: lt,
-        lng: ln
-      },
-      map: mp,
-      title: ti
+      position: { lat: coordinates.lat, lng: coordinates.lon },
+      map: map,
+      title: title.replace("<br> ", "")
     });
-  };
-
-  // createMarkerDesc() creates text content within an info popup.
-  // createMarkerDesc(t *string, d *string)
-  function createMarkerDesc(t, d) {
-    return "<h4>" + t + "</h4>" + "<p>" + d + "</p>";
   }
 
-  // setMarkerListener() creates a listener for a click event
-  // on a marker for a specific map. When the marker is clicked
-  // the popup is opened.
-  // setMarkerListener(marker *object, popup *object, map *object)
-  function setMarkerListener(marker, popup, map) {
+  function createMapMarkerContent(property_id) {
+    return "<h4>" + rentals[property_id].addr + "</h4>" + "<p>" + rentals[property_id].desc + "</p>";
+  }
+
+  function addMapMarkerListener(marker, info_window, map) {
     google.maps.event.addListener(marker, "click", function() {
-      popup.open(map, marker);
+      info_window.open(map, marker);
     });
-  };
-
-  // placeMarkers creates new map markers, places the markers on each map
-  // and creates event listeners for click events on each marker.
-  function placeMarkers(p_id) {
-
-    // TODO: improve commenting
-    // generates a marker
-    // creates click event listeners for each marker
-    // infoPopup holds a Google Maps InfoWindow object
-    // created from content *strings passed to createMarkerDesc(t, d).
-    // the popups open when clicking a Google Map marker
-    // new google.maps.InfoWindow creates a Google Maps
-    return setMarkerListener(
-      createMarker(rentals[p_id].lat,
-        rentals[p_id].lon,
-        renderMap(rentals[p_id].lat, rentals[p_id].lon), rentals[p_id].addr),
-      new google.maps.InfoWindow({
-        content: createMarkerDesc(rentals[p_id].addr,
-          rentals[p_id].desc)
-      }),
-      rentals[p_id].map);
-
   }
 
-  placeMarkers(property_id);
+  function getMapCoordinates(property_id) {
+    return { "lat": rentals[property_id].lat, "lon": rentals[property_id].lon };
+  }
+
+  function createInfoWindow(property_id) {
+    return new google.maps.InfoWindow({
+      content: createMapMarkerContent(property_id)
+    });
+  }
+
+  function placeMapMarker(p_id) {
+    var coordinates = getMapCoordinates(p_id);
+    var mapMarker = createMapMarker(coordinates, createMapOntoDOM(coordinates), rentals[p_id].addr);
+
+    return addMapMarkerListener(mapMarker, createInfoWindow(p_id), rentals[p_id].map);
+  }
+
+  placeMapMarker(property_id);
 }
