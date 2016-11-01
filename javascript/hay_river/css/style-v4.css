@@ -1,0 +1,469 @@
+* {
+  box-sizing: border-box !important;
+}
+
+body,
+html,
+ul,
+figure {
+  margin: 0;
+  padding: 0;
+  line-height: 115%;
+}
+
+body {
+  background-color: rgb(91, 149, 66);
+  font-size: 16px;
+  font-family: "Titillium Web", Helvetica, Arial, sans-serif;
+}
+
+.body-white {
+  background-color: white;
+}
+
+li {
+  list-style: none;
+}
+
+p {
+  font-weight: normal;
+  font-size: 100%;
+  color: black;
+  text-align: left;
+  margin: 0;
+}
+
+a {
+  font-weight: normal;
+  font-size: 125%;
+  color: black;
+  text-decoration: none;
+}
+
+h1 {
+  font-weight: bold;
+  font-size: 150%;
+  color: black;
+  text-align: center;
+  margin: 5px 0;
+}
+
+h2 {
+  font-weight: normal;
+  font-size: 115%;
+  color: black;
+  text-align: center;
+  margin: 0;
+}
+
+h3 {
+  font-weight: bold;
+  font-size: 125%;
+  color: black;
+  text-align: left;
+  margin: 0;
+}
+
+figcaption {
+  margin: 15px 0;
+  padding: 1%;
+}
+
+
+/* HEADER */
+
+header {
+  background-color: white;
+  min-height: 150px;
+  padding: 2rem 3rem 0.5rem 3rem;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 0 40px 0;
+}
+
+#header-logo-cntr {
+  align-self: center;
+  margin-right: 3rem;
+}
+
+#header-logo {
+  width: 350px;
+  height: auto;
+}
+
+.header-addr-cntr {
+  padding: 1rem;
+  margin-right: 2rem;
+}
+
+nav {
+  flex: 1 1 auto;
+  display: flex;
+}
+
+.header-nav-list {
+  display: flex;
+  padding: 0.5rem;
+  width: auto;
+  justify-content: space-around;
+  flex: 1 1 auto;
+}
+
+.hdr-nav-link-text:hover {
+  border-bottom: solid 2px rgb(91, 149, 66);
+  color: rgb(91, 149, 66);
+  text-decoration: none;
+}
+
+.header-nav-link-cntr {
+  align-self: flex-end;
+}
+
+.hdr-nav-link-text {
+  font-size: 18px;
+  text-decoration: none;
+  min-width: 125px;
+}
+
+@media (min-width: 321px) and (max-width: 768px) {
+  header {
+    padding: 1rem;
+  }
+  .header-logo-cntr {
+    margin: 0 auto;
+    width: 100%;
+  }
+  .header-logo {
+    width: 100%;
+    height: auto;
+  }
+  .header-addr-cntr {
+    flex: 1 1 100%;
+    margin: 2rem 0;
+    display: flex;
+  }
+  nav {
+    display: block;
+    margin-bottom: 10px;
+    flex: 1 1 200%;
+  }
+  .header-nav-list {
+    display: block;
+    padding-top: 20px;
+  }
+  .header-nav-link-cntr {
+    flex: 1 1 100%;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  .hdr-nav-link-text {
+    font-size: 1.25rem;
+  }
+}
+
+@media (min-width:769px) and (max-width:1000px) {
+  .header-nav-list {
+    margin: 1rem auto 0;
+    width: 100%;
+    justify-content: space-around;
+  }
+  .header-logo-cntr {
+    width: 100%;
+    margin: 0 auto;
+  }
+  .header-logo {
+    width: 50%;
+    height: auto;
+    margin: 0 auto;
+  }
+  .header-addr-cntr {
+    width: 100%;
+    margin: 2rem auto 0;
+  }
+}
+
+
+/*END HEADER*/
+
+
+/*BODY*/
+
+main {
+  padding: 3rem;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 10px 0 150px 0;
+}
+
+.article_rental_prop_cntr {
+  flex: 1 2 auto;
+  padding: 5px;
+  margin: 0 auto;
+}
+
+@media (min-width: 0px) and (max-width: 629px) {
+  .article_rental_prop_cntr {
+    flex: 1 2 auto;
+  }
+}
+
+@media (min-width: 630px) and (max-width: 1245px) {
+  .article_rental_prop_cntr {
+    flex: 1 2 45%;
+  }
+}
+
+.subtitle {
+  margin: 25px 0 0 0;
+}
+
+.index img {
+  border: solid 2px white;
+  height: 100%;
+  width: 100%;
+}
+
+figure img:hover {
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
+}
+
+
+/* FOOTER */
+
+footer>p {
+  text-align: center;
+}
+
+
+/* Container Expanded Rental Property Slideshow */
+
+#slideshow {
+  min-height: 500px;
+  padding: 3.75rem;
+  display: none;
+}
+
+
+/* Slideshow container for expanded image and aside */
+
+#slideshow_main {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+
+/* Slideshow Property Highlights */
+
+#slideshow div aside {
+  flex: 1 1 auto;
+}
+
+
+/* Expanded Slideshow Floorplan Image */
+
+.floorplan {
+  flex: 1 1 auto;
+  height: 300px;
+  margin: 0 2rem 0 0;
+}
+
+#slideshow-slide_image {
+  /*  flex: 1 1 auto; */
+  border: solid 4px white;
+  margin-right: 2rem;
+  flex: 1 1 25%;
+  height: 400px;
+}
+
+
+/* Container for Rental floorplans and Google Map */
+
+#image_cont {
+  margin: 50px 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.map {
+  flex: 50%;
+  height: 300px;
+  overflow: hidden;
+}
+
+@media (min-width: 321px) and (max-width: 768px) {
+  #slideshow div aside {
+    margin: 0;
+  }
+  #slideshow-slide_image {
+    margin: 0 0 1rem 0;
+  }
+  .floorplan {
+    margin: 0;
+    width: 100%;
+    margin-bottom: 3rem;
+    height: auto;
+  }
+  #slideshow {
+    min-height: 500px;
+    padding: 20px;
+  }
+  /* Expanded Slideshow Floorplan Image */
+  .map {
+    height: 500px;
+  }
+}
+
+@media (min-width:769px) and (max-width:1100px) {
+  /* Expanded Slideshow Floorplan Image */
+  .map {
+    height: 500px;
+  }
+  .floorplan {
+    margin: 0 0 2rem 0;
+    height: auto;
+  }
+}
+
+.NEED_INFO {
+  color: red;
+}
+
+
+/* GOOGLE MAPS API - info popup */
+
+h4 {
+  color: darkcyan;
+  font-size: 20px;
+  margin: 0;
+  line-height: 110%;
+}
+
+
+/* RENTAL FORM */
+
+label {
+  line-height: 1.7;
+  font-weight: 300 !important;
+  font-size: 22px;
+  color: #504A5A;
+}
+
+#textinput {
+  font-size: 16px;
+  font-weight: 300;
+  letter-spacing: 1px;
+  padding: 14px;
+}
+
+.sign-up-container {
+  display: block;
+  margin: 0 auto;
+}
+
+.sign-up-form {
+  border-bottom: 1px solid #DDD;
+  border-top: 1px solid #DDD;
+  border-left: 1px solid #DDD;
+  border-right: 1px solid #DDD;
+  border-bottom-left-radius: 2px;
+  border-top-left-radius: 2px;
+  display: inline-block;
+  float: left;
+  padding: 5rem 0 0 0;
+}
+
+.form-header-container {
+  text-align: center;
+  padding: 60px 0 0;
+  margin: 0 auto;
+}
+
+#rental-form-text-header {
+  font-size: 34px;
+  margin-bottom: 14px;
+  font-weight: bold;
+}
+
+#rental-form-text-subhead {
+  font-size: 22px;
+  margin-bottom: 5rem;
+  font-weight: 300;
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.form-row {
+  margin-bottom: 2px;
+}
+
+.form-disclaimer {
+  margin-bottom: 3rem;
+  line-height: 2.5rem;
+  font-size: 1.75rem;
+  padding: 0;
+}
+
+.form-signature-disclaimer {
+  line-height: 3.25rem;
+  font-size: 1.5rem;
+  text-align: justify;
+  background-color: #3f3b47;
+  color: #fff;
+  padding: 5rem;
+  letter-spacing: 0.5px;
+}
+
+input[type="radio"] {
+  vertical-align: middle;
+  margin-top: 1rem;
+}
+
+input.form-control {
+  margin-bottom: 0.75rem;
+}
+
+.radio label {
+  margin-right: 2rem;
+}
+
+.generic-label {
+  font-size: 1.5rem;
+  display: block;
+  color: rgb(91, 149, 66);
+}
+
+.nested-form-group {
+  padding-bottom: 1.5rem;
+}
+
+hr.green-divider {
+  border-top: .375rem solid rgb(91, 149, 66);
+}
+
+.submit-field {
+  margin-bottom: 4rem;
+}
+
+.submit-button {
+  appearance: none;
+  cursor: pointer;
+  outline: none;
+  padding: 12px 30px;
+  user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+  background-color: rgb(91, 149, 66);
+  color: #FFF;
+  border: none;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.sign-up-info {
+  margin-right: auto;
+  margin-left: auto;
+}
