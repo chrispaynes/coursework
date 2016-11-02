@@ -1,99 +1,67 @@
-var app_maps = [map_1821, map_1818, map_1815, map_N4923];
-
-// index() displays a listing of all properties from the database
-function index() {
-  var count = document.getElementById("count");
-  count.innerHTML = rentals.length;
-
-  // loops through property rentals database
-  // rentals.map(function(app_rentalss *object, i *int)
+function listIndexOfProperties() {
+  document.getElementById("count").innerHTML = rentals.length;
   rentals.map(function(app_rentals, i) {
-    // creates new Rental object to hold each database object
-    var prop = new SmallRental(app_rentals, i);
-
-    // adds the property figure to the index page
-    R_INDEX.appendChild(prop.fig);
-
-    // adds image to anchor elem
-    prop.anch.appendChild(prop.img);
-    // adds anchor to the figure
-    prop.fig.appendChild(prop.anch);
-
-    // adds h3 to caption
-    prop.capt.appendChild(prop.h3);
-    // adds p element to caption
-    prop.capt.appendChild(prop.para);
-
-    // adds figcaption to figure
-    prop.fig.appendChild(prop.capt);
-
+    var prop = new PropertyThumbnail(app_rentals, i);
+    setPropertyThumbail(prop);
   });
 }
 
-// getSlideshow returns the slideshow object.
-// getSlideshow() => *html obj
-function getSlideshow() {
-  return document.getElementById("slideshow");
+function setPropertyThumbail(property) {
+  R_INDEX.appendChild(property.figure);
+  property.anchor.appendChild(property.image);
+  property.figure.appendChild(property.anchor);
+  property.figcaption.appendChild(property.address);
+  property.figcaption.appendChild(property.content);
+  property.figure.appendChild(property.figcaption);
 }
 
-// attachClickContent appends DOM content when the user clicks the thumbnail.
-// attachClickContent(model *obj)
-function attachClickContent(model) {
-  // adds large photo and <aside> content to div
-  model.div.appendChild(model.img);
-  model.div.appendChild(model.asd);
-
-  // adds floorplan and map to section
-  model.sect.appendChild(model.fp);
-  model.sect.appendChild(model.map);
-}
-
-// resets slideshow element before rendering new slide
-function resetSlideShow(s, lr) {
-  s.innerHTML = "";
-  s.appendChild(lr.div);
-  s.appendChild(lr.sect);
-  s.style.display = "block";
-}
-
-// show() displays a larger property listing for a single database rentals property
-// show(id *string => *int)
-function show(id) {
-  parseInt(id);
-  var sl = getSlideshow();
-  var lr = new LargeRental();
-
-  lr.img.src = "img/" + rentals[id].image;
-  lr.fp.src = "img/" + rentals[id].floor;
-
-  aside_body = rentals[id].category + "<br><br>" +
+function setPropertyContent(id) {
+  return "<h3>" + rentals[id].addr + "</h3>" +
+    "<p>" + rentals[id].category + "<br><br>" +
     "List of Features and Amenities: <br>" +
-    rentals[id].desc.replace(/, /g, "<br>");
+    rentals[id].desc.replace(/, /g, "<br>") + "</p>";
+}
 
-  lr.map.innerHTML = rentals[id].map;
+function appendPropertyPageToDOM(property) {
+  property.div.appendChild(property.image);
+  property.div.appendChild(property.content);
+  property.section.appendChild(property.floorplan);
+  property.section.appendChild(property.map);
+}
 
-  // adds rental description content to aside
-  lr.asd.innerHTML = "<h3>" + rentals[id].addr + "</h3>" +
-    "<p>" + aside_body + "</p>";
+function renderNewRentalPage(newLargeRental) {
+  var slideshow = document.getElementById("slideshow");
+  slideshow.innerHTML = "";
+  slideshow.appendChild(newLargeRental.div);
+  slideshow.appendChild(newLargeRental.section);
+  slideshow.style.display = "block";
+}
 
-  attachClickContent(lr);
-  resetSlideShow(sl, lr);
+function showDetailedPropertyListing(id) {
+  var listing = new DetailedPropertyListing();
+
+  listing.map.innerHTML = rentals[id].map;
+  listing.image.src = "img/" + rentals[id].image;
+  listing.floorplan.src = "img/" + rentals[id].floor;
+  listing.content.innerHTML = setPropertyContent(id);
+
+  appendPropertyPageToDOM(listing);
+  renderNewRentalPage(listing);
 }
 
 
-
-// expand() enlarges an image when a user clicks it's thumbnail.
-function expand() {
+// expandImage() enlarges an image when a user clicks it's thumbnail.
+function expandImage() {
   // links stores an array of all anchor tags in the main index.
   var links = Array.prototype.slice.call(document.querySelectorAll("#index a"));
 
-  // links.map adds a show() event listener to each link.
+  // links.map adds a showDetailedPropertyListing() event listener to each link.
   links.map(function(l) {
 
     // Creates event listeners when page finishes loading
     if (window.addEventListener) {
       l.addEventListener("click", function() {
-        show(l.id);
+        showDetailedPropertyListing(l.id);
         setTimeout(function() {
           initMaps(l.id);
         }, 1);
@@ -101,7 +69,7 @@ function expand() {
     }
     if (window.attachEvent) {
       R_INDEX.attachEvent("click", function() {
-        show(l.id)
+        showDetailedPropertyListing(l.id)
       });
     }
 
