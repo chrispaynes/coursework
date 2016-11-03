@@ -5,28 +5,31 @@ function initMaps(property_id) {
     // Zoom Options: 1: World, 5: Landmass/continent, 10: City, 15: Streets, 20: Buildings
     // Style Options:['roadmap', 'satellite', 'hybrid', 'terrain','styled_map']
     return {
-      zoom: 15,
+      zoom: 12,
       mapTypeId: google.maps.MapTypeId.roadmap,
       mapTypeControlStyle: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
       center: { lat: lat, lng: long }
     };
   };
 
-  function createMapOntoDOM(coordinates) {
-    return new google.maps.Map(document.getElementsByClassName("map")[0],
+  function createMapOntoDOM(coordinates, propertyId) {
+    var map = new google.maps.Map(document.getElementsByClassName("map")[0],
       setMapProperties(coordinates.lat, coordinates.long));
+
+    map.panBy(rentals[propertyId].mapPanBy.x, rentals[propertyId].mapPanBy.y);
+    return map;
   }
 
-  function createMapMarker(coordinates, map, title) {
+  function createMapMarker(coordinates, map, p_id) {
     return new google.maps.Marker({
       position: { lat: coordinates.lat, lng: coordinates.long },
       map: map,
-      title: title.replace("<br> ", "")
+      title: rentals[p_id].addr.replace("<br> ", "")
     });
   }
 
   function createMapMarkerContent(property_id) {
-    return "<h4>" + rentals[property_id].addr + "</h4>" + "<p>" + rentals[property_id].description + "</p>";
+    return "<h4>" + rentals[property_id].addr + "</h4>" + "<p>" + rentals[property_id].features + "</p>";
   }
 
   function addMapMarkerListener(marker, info_window, map) {
@@ -47,9 +50,10 @@ function initMaps(property_id) {
 
   function placeMapMarker(p_id) {
     var coordinates = getMapCoordinates(p_id);
-    var mapMarker = createMapMarker(coordinates, createMapOntoDOM(coordinates), rentals[p_id].addr);
+    var map = createMapOntoDOM(coordinates, p_id);
+    var mapMarker = createMapMarker(coordinates, map, p_id);
 
-    return addMapMarkerListener(mapMarker, createInfoWindow(p_id), rentals[p_id].map);
+    return addMapMarkerListener(mapMarker, createInfoWindow(p_id), map);
   }
 
   placeMapMarker(property_id);

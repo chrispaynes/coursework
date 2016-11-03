@@ -18,8 +18,8 @@ function setPropertyThumbail(property) {
 function setPropertyContent(id) {
   return "<h3>" + rentals[id].addr + "</h3>" +
     "<p>" + rentals[id].category + "<br><br>" +
-    "List of Features and Amenities: <br>" +
-    rentals[id].description.replace(/, /g, "<br>") + "</p>";
+    "<p>" + rentals[id].description + "<br><br>" +
+    rentals[id].features.replace(/, /g, "<br>") + "</p>";
 }
 
 function appendPropertyPageToDOM(property) {
