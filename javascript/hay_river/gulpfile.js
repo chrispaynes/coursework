@@ -10,31 +10,22 @@ const autoprefixer = require('gulp-autoprefixer');
 const imagemin = require('gulp-imagemin');
 const livereload = require('gulp-livereload');
 
+// Static File Variable
+const HTMLSource = './*.html';
+const CSSSource = './css/*.css';
+const CSSDestination = './dist/css/';
+const JSSource = ['./data/*.js', './js/*.js'];
+const JSDestination = 'dist/js';
 
-// HTML
-htmlSrc = './*.html';
-
-// CSS
-cssSrc = './css/*.css';
-cssDest = './dist/css/';
-
-// JS
-jsSrc = ['./data/*.js', './js/*.js'];
-jsDest = 'dist/js';
-
-//////////////////////////////////////////////////
-
-// minifies images
-gulp.task('minIMGs', () =>
+gulp.task('minifyImages', () =>
   gulp.src('./img/*')
   .pipe(imagemin())
   .pipe(gulp.dest('dist/img'))
   .pipe(livereload())
 );
 
-// minifies HTML
-gulp.task('minHTML', function() {
-  return gulp.src(htmlSrc)
+gulp.task('minifyHTML', function() {
+  return gulp.src(HTMLSource)
     .pipe(htmlmin({
       collapseWhitespace: true,
       collapseInlineTagWhitespace: true,
@@ -45,21 +36,18 @@ gulp.task('minHTML', function() {
     .pipe(livereload());
 });
 
-
-// concats, minifies and renames JS files
-gulp.task('minJS', function() {
-  return gulp.src(jsSrc)
+gulp.task('minifyJS', function() {
+  return gulp.src(JSSource)
     .pipe(concat('app.min.js'))
-    .pipe(gulp.dest(jsDest))
+    .pipe(gulp.dest(JSDestination))
     .pipe(rename('app.min.js'))
     .pipe(uglify())
-    .pipe(gulp.dest(jsDest))
+    .pipe(gulp.dest(JSDestination))
     .pipe(livereload());
 });
 
-// minifies and autoprefixes CSS
-gulp.task('minCSS', function() {
-  return gulp.src(cssSrc)
+gulp.task('minifyCSS', function() {
+  return gulp.src(CSSSource)
     .pipe(autoprefixer({
       browsers: ['last 2 versions'],
       cascade: false
@@ -67,32 +55,28 @@ gulp.task('minCSS', function() {
     .pipe(cleanCSS({
       compatibility: 'ie8'
     }))
-    .pipe(cleanCSS({ debug: true }, function(details) {
-      console.log(details.name + ': ' + details.stats.originalSize);
-      console.log(details.name + ': ' + details.stats.minifiedSize);
-    }))
-    .pipe(gulp.dest(cssDest))
+    .pipe(cleanCSS({ debug: true }, function(details) {}))
+    .pipe(gulp.dest(CSSDestination))
     .pipe(livereload());
 });
 
-gulp.task('webserver', function() {
+gulp.task('startWebserver', function() {
   gulp.src('dist')
     .pipe(server({
       livereload: true,
       fallback: 'index.html',
-      defaultFile: 'index.html',
-      open: true
+      open: false
     }))
     .pipe(livereload());
 });
 
-gulp.task('watch', function() {
+gulp.task('watchSourceFiles', function() {
   livereload.listen();
   livereload.reload(["index.html"])
-  gulp.watch(cssSrc, ['minCSS']);
-  gulp.watch('./img/*', ['minIMGs']);
-  gulp.watch(jsSrc, ['minJS']);
-  gulp.watch(htmlSrc, ['minHTML']);
+  gulp.watch(CSSSource, ['minifyCSS']);
+  gulp.watch('./img/*', ['minifyImages']);
+  gulp.watch(JSSource, ['minifyJS']);
+  gulp.watch(HTMLSource, ['minifyHTML']);
 });
 
-gulp.task('default', ['minHTML', 'minJS', 'minCSS', "minIMGs", "webserver", "watch"]);
+gulp.task('default', ['minifyHTML', 'minifyJS', 'minifyCSS', "minifyImages", "startWebserver", "watchSourceFiles"]);

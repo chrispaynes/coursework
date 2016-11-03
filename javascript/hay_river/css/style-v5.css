@@ -17,6 +17,10 @@ body {
   font-family: "Titillium Web", Helvetica, Arial, sans-serif;
 }
 
+img {
+  vertical-align: initial;
+}
+
 .body-white {
   background-color: white;
 }
@@ -94,6 +98,15 @@ header {
 .header-addr-cntr {
   padding: 1rem;
   margin-right: 2rem;
+}
+
+.header-email-link {
+  font-size: 16px;
+}
+
+.header-email-link:hover {
+  color: rgb(91, 149, 66);
+  text-decoration: none;
 }
 
 nav {

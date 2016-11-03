@@ -8,42 +8,38 @@
     <title>Hay River Management</title>
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Titillium+Web:regular,bold">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" media="screen" title="no title">
-    <link rel="stylesheet" type="text/css" href="css/style-v4.css">
+    <link rel="stylesheet" type="text/css" href="css/style-v5.css">
     <script src="js/modernizr.custom.05819.js"></script>
     <link rel="icon" type="image/png" href="img/favicon.png">
   </head>
 
   <body class="body-white">
     <header>
+
       <div id="header-logo-cntr">
         <a href="index.html">
           <img src="img/hr_mgmt_logo.jpg" alt="Hay River Management Company Logo" width="279" height="57" id="header-logo">
         </a>
       </div>
       <div class="header-addr-cntr">
-        <p class="NEED_INFO">1234 Anywhere Street</p>
-        <p class="NEED_INFO">Anywhere, WI 55555</p>
+        <p>436 Brookwood Drive</p>
+        <p>Hudson, WI 54016</p>
         <img src="img/vintage-telephone-call.svg" alt="email" style="width: 20px;height: 20px;position: relative;top: 5px; left: -2px;"> 612-791-0161
         <br />
-        <img src="img/close-envelope.svg" alt="email" style="width: 20px;height: 20px;position: relative;top: 5px; left: -2px;">hrmco@live.com
+        <a class="header-email-link" href="mailto:hrmco@live.com?Subject=Subject%20Line%20Test&body=Body%20Test">
+          <img src="img/close-envelope.svg" alt="email" style="width: 20px;height: 20px;position: relative;top: 5px; left: -2px;">hrmco@live.com
+        </a>
         <br>
       </div>
       <nav>
         <ul class="header-nav-list">
-          <li class="header-nav-link-cntr">
-            <a class="hdr-nav-link-text" href="#">Navigation Link</a>
-          </li>
-          <li class="header-nav-link-cntr">
-            <a class="hdr-nav-link-text" href="#">Navigation Link</a>
-          </li>
-          <li class="header-nav-link-cntr">
-            <a class="hdr-nav-link-text" href="#">Navigation Link</a>
-          </li>
-          <li class="header-nav-link-cntr">
-            <a class="hdr-nav-link-text" href="./contact.html">Rental Application</a>
-          </li>
+          <li class="header-nav-link-cntr"><a class="hdr-nav-link-text" href="#">Navigation Link</a></li>
+          <li class="header-nav-link-cntr"><a class="hdr-nav-link-text" href="#">Navigation Link</a></li>
+          <li class="header-nav-link-cntr"><a class="hdr-nav-link-text" href="#">About Us</a></li>
+          <li class="header-nav-link-cntr"><a class="hdr-nav-link-text" href="./contact.html">Rental Application</a></li>
         </ul>
       </nav>
+
     </header>
     <main id="index">
       <div class="form-header-container">
@@ -51,7 +47,7 @@
         <h3 id="rental-form-text-subhead">Start Your Application Below</h3>
       </div>
       <section class="sign-up-container">
-        <div class="sign-up-form">
+        <div class="sign-up-form" role=“form”>
           <form>
             <!-- BEGIN DISCLAIMER-->
             <div class="container">

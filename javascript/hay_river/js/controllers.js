@@ -19,7 +19,7 @@ function setPropertyContent(id) {
   return "<h3>" + rentals[id].addr + "</h3>" +
     "<p>" + rentals[id].category + "<br><br>" +
     "List of Features and Amenities: <br>" +
-    rentals[id].desc.replace(/, /g, "<br>") + "</p>";
+    rentals[id].description.replace(/, /g, "<br>") + "</p>";
 }
 
 function appendPropertyPageToDOM(property) {
@@ -42,13 +42,12 @@ function showDetailedPropertyListing(id) {
 
   listing.map.innerHTML = rentals[id].map;
   listing.image.src = "img/" + rentals[id].image;
-  listing.floorplan.src = "img/" + rentals[id].floor;
+  listing.floorplan.src = "img/" + rentals[id].floorplan;
   listing.content.innerHTML = setPropertyContent(id);
 
   appendPropertyPageToDOM(listing);
   renderNewRentalPage(listing);
 }
-
 
 // expandImage() enlarges an image when a user clicks it's thumbnail.
 function expandImage() {
