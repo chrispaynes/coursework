@@ -16,8 +16,20 @@ function initMaps(property_id) {
     var map = new google.maps.Map(document.getElementsByClassName("map")[0],
       setMapProperties(coordinates.lat, coordinates.long));
 
-    map.panBy(rentals[propertyId].mapPanBy.x, rentals[propertyId].mapPanBy.y);
+    panMapToArea(propertyId, map);
+
     return map;
+  }
+
+  function panMapToArea(propertyId, map) {
+    var xPan = rentals[propertyId].mapPanBy.x;
+    var yPan = rentals[propertyId].mapPanBy.y;
+
+    if (xPan > 0 || yPan > 0) {
+      map.panBy(rentals[propertyId].mapPanBy.x, rentals[propertyId].mapPanBy.y);
+    }
+
+    return;
   }
 
   function createMapMarker(coordinates, map, p_id) {

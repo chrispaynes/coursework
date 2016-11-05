@@ -21,7 +21,7 @@
     "4 Bedroom Apartment",
     "DESCRIPTION",
     "PROP #1: 4 Bedrooms, Eat-in kitchen, 2 Bathrooms, Plenty of sun, Deck, Storage, Washing Machine/Dryer, Gas Stove, Personal Butler, Oversized Garage, Option for fully-furnished",
-    "floor.jpg", { "x": 0, "x": 0 },
+    "floor.jpg", { "x": 0, "y": 0 },
     map_1821);
 
   var property1818 = new Property("1818 6th Street <br> Menomonie, WI 54751", { "latitude": 44.865979, "longitude": -91.9252027 },
@@ -29,7 +29,7 @@
     "4 Bedroom Apartment",
     "DESCRIPTION",
     "PROP #2: 4 Bedrooms, Eat-in kitchen, 2 Bathrooms, Plenty of sun, Deck, Storage, Washing Machine/Dryer, Gas Stove, Personal Butler, Oversized Garage, Option for fully-furnished",
-    "floor.jpg", { "x": 0, "x": 0 },
+    "floor.jpg", { "x": 0, "y": 0 },
     map_1818);
 
   var property1815 = new Property("1815 7th Street <br> Menomonie, WI 54751", { "latitude": 44.866102, "longitude": -91.9246957 },
@@ -37,7 +37,7 @@
     "4 Bedroom Apartment",
     "DESCRIPTION",
     "PROP #3: 4 Bedrooms, Eat-in kitchen, 2 Bathrooms, Plenty of sun, Deck, Storage, Washing Machine/Dryer, Gas Stove, Personal Butler, Oversized Garage, Option for fully-furnished",
-    "floor.jpg", { "x": 0, "x": 0 },
+    "floor.jpg", { "x": 0, "y": 0 },
     map_1815);
 
   var propertyN4923 = new Property("N4923 - 572nd Street <br> Menomonie, WI 54751", { "latitude": 44.8589455, "longitude": -91.8753319 },
