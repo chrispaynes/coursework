@@ -2,34 +2,33 @@
 # https://github.com/DanielVartanov/enigma-ruby/blob/master/lib/enigma/rotor_deck.rb
 # https://github.com/turingschool/curriculum/blob/master/source/projects/enigma.markdown
 class Key
-
   def initialize(key_string)
     split_key(key_string)
-    self.reflector = rotations[0]
-    self.rotor_left = rotations[1]
-    self.rotor_middle = rotations[2]
-    self.rotor_right = rotations[3]
+    self.reflector = rotations[:reflector]
+    self.rotor_left = rotations[:rotor_left]
+    self.rotor_middle = rotations[:rotor_middle]
+    self.rotor_right = rotations[:rotor_right]
   end
-  
+
   def rotate(rotor)
     rotor
   end
 
   def split_key(key_string)
-    nums_arr = key_string.split("")
-    ints_array = []
-  
-    (nums_arr.length - 1).times do |n|
-      ints_array << [nums_arr[n], nums_arr[n + 1]].join().to_i
+    numbers = key_string.split('')
+    rotor_numbers = []
+
+    key_string.split('').each_index do |n|
+      rotor_numbers << [numbers[n], numbers[n + 1]].join.to_i
     end
 
-    self.rotations = ints_array
+    self.rotations = Hash[[:reflector, :rotor_left,
+                           :rotor_middle, :rotor_right].zip(rotor_numbers)]
   end
-  
-    attr_accessor :rotations
-    attr_accessor :reflector
-    attr_accessor :rotor_left
-    attr_accessor :rotor_middle
-    attr_accessor :rotor_right
 
+  attr_accessor :rotations
+  attr_accessor :reflector
+  attr_accessor :rotor_left
+  attr_accessor :rotor_middle
+  attr_accessor :rotor_right
 end
