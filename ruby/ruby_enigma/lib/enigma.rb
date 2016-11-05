@@ -1,5 +1,5 @@
-require_relative 'enigma/key'
-
+require './lib/enigma/key'
+# 
 class Enigma
   def encrypt(message, key, date)
     # get key rotations

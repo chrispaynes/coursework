@@ -1,4 +1,4 @@
-require_relative '../lib/enigma'
+require './lib/enigma'
 require 'minitest/autorun'
 require 'date'
 
