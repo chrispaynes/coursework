@@ -4,7 +4,6 @@ require 'date'
 
 class EnigmaTest < Minitest::Test
   def test_it_encrypts_a_message
-    skip
     e = Enigma.new
     my_message = 'this is so secret ..end..'
     output = e.encrypt(my_message, '12345', Date.today)
@@ -16,6 +15,6 @@ class EnigmaTest < Minitest::Test
     e = Enigma.new
     my_message = 'this is so secret ..end..'
     output = e.encrypt(my_message, '12345', Date.today)
-    assert my_message != output
+    refute_equal my_message, output
   end
 end
