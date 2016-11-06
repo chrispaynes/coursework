@@ -1,24 +1,26 @@
 class Offset
-  attr_reader :last_four_digits
-  attr_reader :squared_message_date
+  attr_reader :last_four_digits, :message_date_squared, :reflector_offset,
+              :left_rotor_offset, :middle_rotor_offset, :center_rotor_offset
 
   def initialize(message_date)
     @message_date = message_date
-    @squared_message_date = square_the_date
-    @last_four_digits = get_last_four_squared_date_ints
+    @message_date_squared = square_the_date
+    @last_four_digits = set_last_four_squared_date_ints
+    @reflector_offset = @last_four_digits[0]
+    @left_rotor_offset = @last_four_digits[1]
+    @middle_rotor_offset = @last_four_digits[2]
+    @center_rotor_offset = @last_four_digits[3]
   end
 
   def square_the_date
-    message_first_char = @message_date.split(//).first
-
-    if message_first_char == "0"
-      return @squared_message_date = @message_date.sub!(/^0/, '').to_i ** 2
-    else
-      return @squared_message_date = @message_date.to_i ** 2
+    if @message_date.split(//).first == '0'
+      return @message_date_squared = @message_date.sub!(/^0/, '').to_i**2
     end
+
+    @message_date_squared = @message_date.to_i**2
   end
 
-  def get_last_four_squared_date_ints
-    @squared_message_date.to_s.split("").last(4).join().to_i
+  def set_last_four_squared_date_ints
+    @message_date_squared.to_s.split('').last(4).map(&:to_i)
   end
 end
