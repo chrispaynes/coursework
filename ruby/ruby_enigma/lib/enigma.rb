@@ -1,5 +1,5 @@
-require './lib/enigma/key'
-# 
+require './lib/enigma/key.rb'
+#
 class Enigma
   def encrypt(message, key, date)
     # get key rotations

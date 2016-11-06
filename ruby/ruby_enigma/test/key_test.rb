@@ -1,6 +1,6 @@
-require './lib/enigma'
+require './lib/enigma.rb'
 require 'minitest/autorun'
-require './lib/enigma/key'
+require './lib/enigma/key.rb'
 
 class KeyTest < Minitest::Test
   def test_it_is_made_from_a_key_string

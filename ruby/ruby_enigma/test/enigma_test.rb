@@ -1,9 +1,10 @@
-require './lib/enigma'
+require './lib/enigma.rb'
 require 'minitest/autorun'
 require 'date'
 
 class EnigmaTest < Minitest::Test
   def test_it_encrypts_a_message
+    skip
     e = Enigma.new
     my_message = 'this is so secret ..end..'
     output = e.encrypt(my_message, '12345', Date.today)
@@ -11,6 +12,7 @@ class EnigmaTest < Minitest::Test
   end
 
   def test_actually_encrypts_something
+    skip
     e = Enigma.new
     my_message = 'this is so secret ..end..'
     output = e.encrypt(my_message, '12345', Date.today)
