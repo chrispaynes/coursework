@@ -1,5 +1,5 @@
 require 'minitest/autorun'
-require '../lib/enigma/Offset'
+require './lib/enigma/Offset'
 
 class OffsetTest < Minitest::Test
   def test_it_squares_the_numeric_date_form
