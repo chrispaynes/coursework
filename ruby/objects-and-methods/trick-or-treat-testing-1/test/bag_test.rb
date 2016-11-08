@@ -38,9 +38,9 @@ class BagTest < Minitest::Test
 
   def test_bag_contains_candies_and_candies_have_a_type
     bag = Bag.new
-    bag << Candy.new('Hershey's Kisses')
+    bag << Candy.new("Hershey's Kisses")
     type = bag.candies.first.type
-    assert_equal 'Hershey's Kisses', type
+    assert_equal "Hershey's Kisses", type
   end
 
   def test_ask_bag_if_it_contains_a_particular_type_of_candy
@@ -48,7 +48,6 @@ class BagTest < Minitest::Test
     bag << Candy.new('Lindt chocolate')
 
     assert bag.contains?('Lindt chocolate')
-    refute bag.contains?('Hershey's chocolate')
+    refute bag.contains?("Hershey's chocolate")
   end
 end
-

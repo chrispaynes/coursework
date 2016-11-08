@@ -14,4 +14,3 @@ class CostumeTest < Minitest::Test
     assert_equal 'Princess', costume.style
   end
 end
-

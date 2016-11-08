@@ -17,16 +17,11 @@ class Bag
     @candies << candy
   end
 
-  def candies
-    @candies
-  end
-
   def contains?(candy_type)
     @candies.each do |candy|
       return true if candy.type == candy_type
     end
 
-    return false
+    false
   end
-
 end
