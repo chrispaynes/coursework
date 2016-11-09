@@ -7,12 +7,9 @@ function DetailedPropertyListing(property) {
   this.image.src = "img/" + rentals[property].image;
   this.content = document.createElement("aside");
   this.content.innerHTML = setPropertyContent(property);
-
   this.section = document.createElement("section");
   this.section.id = "image_cont"
-  this.floorplan = document.createElement("img");
-  this.floorplan.className = "floorplan";
-  this.floorplan.src = "img/" + rentals[property].floorplan;
+  this.floorplan = new Floorplan(property);
   this.map = document.createElement("div");
   this.map.id;
   this.map.className = "map";
@@ -32,4 +29,11 @@ function PropertyThumbnail(collection, index) {
   this.address.innerHTML = collection["addr"];
   this.content = document.createElement("p");
   this.content.innerHTML = collection["category"];
+}
+
+function Floorplan(property) {
+  this.floorplan = document.createElement("img");
+  this.floorplan.className = "floorplan";
+  this.floorplan.src = "img/" + rentals[property].floorplan;
+  return this.floorplan;
 }
