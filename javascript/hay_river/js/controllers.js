@@ -1,18 +1,13 @@
-function listIndexOfProperties() {
-  document.getElementById("count").innerHTML = rentals.length;
-  rentals.map(function(app_rentals, i) {
-    var prop = new PropertyThumbnail(app_rentals, i);
-    setPropertyThumbail(prop);
-  });
+function setPropertyCounter() {
+  return document.getElementById("count").innerHTML = rentals.length +
+    " Great Locations to Choose from";
 }
 
-function setPropertyThumbail(property) {
-  R_INDEX.appendChild(property.figure);
-  property.anchor.appendChild(property.image);
-  property.figure.appendChild(property.anchor);
-  property.figcaption.appendChild(property.address);
-  property.figcaption.appendChild(property.content);
-  property.figure.appendChild(property.figcaption);
+function renderPropertyCollection() {
+  setPropertyCounter();
+  rentals.map(function(rental, i) {
+    new PropertyThumbnail(rental, i).appendToPage();
+  });
 }
 
 function setPropertyContent(id) {

@@ -2,27 +2,29 @@
 function DetailedPropertyListing(property) {
   this.div = document.createElement("div");
   this.div.id = "slideshow_main";
-  this.thumbnail = new Thumbnail(property);
-  this.description = new Description(property);
+  this.thumbnail = new Thumbnail(property, "slideshow-slide_image");
+  this.description = new Description(property, "aside");
   this.section = document.createElement("section");
   this.section.id = "image_cont"
   this.floorplan = new Floorplan(property);
   this.map = new GoogleMap(property);
 }
 
-function PropertyThumbnail(collection, index) {
+function PropertyThumbnail(property, index) {
   this.figure = document.createElement("figure");
   this.figure.className = "article_rental_prop_cntr";
   this.anchor = document.createElement("a");
   this.anchor.href = "#";
   this.anchor.id = index;
-  this.image = document.createElement("img");
-  this.image.src = "img/" + collection["image"];
-  this.figcaption = document.createElement("figcaption");
-  this.address = document.createElement("h3");
-  this.address.innerHTML = collection["addr"];
-  this.content = document.createElement("p");
-  this.content.innerHTML = collection["category"];
+  this.thumbnail = new Thumbnail(index);
+  this.figcaption = new FigCaption(index)
+  this.description = new Description(index);
+  this.appendToPage = function() {
+    R_INDEX.appendChild(this.figure);
+    this.anchor.appendChild(this.thumbnail);
+    this.figure.appendChild(this.anchor);
+    this.figure.appendChild(this.figcaption);
+  }
 }
 
 function Floorplan(property) {
@@ -32,11 +34,11 @@ function Floorplan(property) {
   return this.floorplan;
 }
 
-function Thumbnail(property) {
-  this.image = document.createElement("img");
-  this.image.id = "slideshow-slide_image";
-  this.image.src = "img/" + rentals[property].image;
-  return this.image;
+function Thumbnail(property, cssId) {
+  this.thumbnail = document.createElement("img");
+  this.thumbnail.id = cssId;
+  this.thumbnail.src = "img/" + rentals[property].image;
+  return this.thumbnail;
 }
 
 function GoogleMap(property) {
@@ -48,7 +50,19 @@ function GoogleMap(property) {
 }
 
 function Description(property) {
-  this.description = document.createElement("aside");
+  this.description = document.createElement("p");
   this.description.innerHTML = setPropertyContent(property);
   return this.description;
+}
+
+function FigCaption(property) {
+  this.figcaption = document.createElement("figcaption");
+  this.address = document.createElement("h3");
+  this.address.innerHTML = rentals[property].addr;
+  this.description = document.createElement("p");
+  this.description.innerHTML = rentals[property].category;
+
+  this.figcaption.appendChild(this.address);
+  this.figcaption.appendChild(this.description);
+  return this.figcaption
 }
