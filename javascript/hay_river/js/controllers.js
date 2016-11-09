@@ -23,8 +23,8 @@ function setPropertyContent(id) {
 }
 
 function appendPropertyPageToDOM(property) {
-  property.div.appendChild(property.image);
-  property.div.appendChild(property.content);
+  property.div.appendChild(property.thumbnail);
+  property.div.appendChild(property.description);
   property.section.appendChild(property.floorplan);
   property.section.appendChild(property.map);
 }

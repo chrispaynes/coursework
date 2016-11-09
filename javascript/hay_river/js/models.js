@@ -2,18 +2,12 @@
 function DetailedPropertyListing(property) {
   this.div = document.createElement("div");
   this.div.id = "slideshow_main";
-  this.image = document.createElement("img");
-  this.image.id = "slideshow-slide_image";
-  this.image.src = "img/" + rentals[property].image;
-  this.content = document.createElement("aside");
-  this.content.innerHTML = setPropertyContent(property);
+  this.thumbnail = new Thumbnail(property);
+  this.description = new Description(property);
   this.section = document.createElement("section");
   this.section.id = "image_cont"
   this.floorplan = new Floorplan(property);
-  this.map = document.createElement("div");
-  this.map.id;
-  this.map.className = "map";
-  this.map.innerHTML = rentals[property].map;
+  this.map = new GoogleMap(property);
 }
 
 function PropertyThumbnail(collection, index) {
@@ -36,4 +30,25 @@ function Floorplan(property) {
   this.floorplan.className = "floorplan";
   this.floorplan.src = "img/" + rentals[property].floorplan;
   return this.floorplan;
+}
+
+function Thumbnail(property) {
+  this.image = document.createElement("img");
+  this.image.id = "slideshow-slide_image";
+  this.image.src = "img/" + rentals[property].image;
+  return this.image;
+}
+
+function GoogleMap(property) {
+  this.map = document.createElement("div");
+  this.map.id;
+  this.map.className = "map";
+  this.map.innerHTML = rentals[property].map;
+  return this.map;
+}
+
+function Description(property) {
+  this.description = document.createElement("aside");
+  this.description.innerHTML = setPropertyContent(property);
+  return this.description;
 }
