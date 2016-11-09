@@ -38,12 +38,7 @@ function renderNewRentalPage(newLargeRental) {
 }
 
 function showDetailedPropertyListing(id) {
-  var listing = new DetailedPropertyListing();
-
-  listing.map.innerHTML = rentals[id].map;
-  listing.image.src = "img/" + rentals[id].image;
-  listing.floorplan.src = "img/" + rentals[id].floorplan;
-  listing.content.innerHTML = setPropertyContent(id);
+  var listing = new DetailedPropertyListing(id);
 
   appendPropertyPageToDOM(listing);
   renderNewRentalPage(listing);

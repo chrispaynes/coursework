@@ -41,7 +41,7 @@ gulp.task('minifyJS', function() {
     .pipe(concat('app.min.js'))
     .pipe(gulp.dest(JSDestination))
     .pipe(rename('app.min.js'))
-    .pipe(uglify())
+    // .pipe(uglify())
     .pipe(gulp.dest(JSDestination))
     .pipe(livereload());
 });
