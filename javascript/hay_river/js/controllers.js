@@ -1,20 +1,20 @@
 function setPropertyCounter() {
-  return document.getElementById("count").innerHTML = rentals.length +
+  return document.getElementById("count").innerHTML = RENTALS.length +
     " Great Locations to Choose from";
 }
 
 function renderPropertyCollection() {
   setPropertyCounter();
-  rentals.map(function(rental, i) {
+  RENTALS.map(function(rental, i) {
     new PropertyThumbnail(rental, i).appendToPage();
   });
 }
 
 function setPropertyContent(id) {
-  return "<h3>" + rentals[id].addr + "</h3>" +
-    "<p>" + rentals[id].category + "<br><br>" +
-    "<p>" + rentals[id].description + "<br><br>" +
-    rentals[id].features.replace(/, /g, "<br>") + "</p>";
+  return "<h3>" + RENTALS[id].addr + "</h3>" +
+    "<p>" + RENTALS[id].category + "<br><br>" +
+    "<p>" + RENTALS[id].description + "<br><br>" +
+    RENTALS[id].features.replace(/, /g, "<br>&bull; ") + "</p>";
 }
 
 function appendPropertyPageToDOM(property) {

@@ -30,14 +30,14 @@ function PropertyThumbnail(property, index) {
 function Floorplan(property) {
   this.floorplan = document.createElement("img");
   this.floorplan.className = "floorplan";
-  this.floorplan.src = "img/" + rentals[property].floorplan;
+  this.floorplan.src = "img/" + RENTALS[property].floorplan;
   return this.floorplan;
 }
 
 function Thumbnail(property, cssId) {
   this.thumbnail = document.createElement("img");
   this.thumbnail.id = cssId;
-  this.thumbnail.src = "img/" + rentals[property].image;
+  this.thumbnail.src = "img/" + RENTALS[property].image;
   return this.thumbnail;
 }
 
@@ -45,7 +45,7 @@ function GoogleMap(property) {
   this.map = document.createElement("div");
   this.map.id;
   this.map.className = "map";
-  this.map.innerHTML = rentals[property].map;
+  this.map.innerHTML = RENTALS[property].map;
   return this.map;
 }
 
@@ -58,9 +58,9 @@ function Description(property) {
 function FigCaption(property) {
   this.figcaption = document.createElement("figcaption");
   this.address = document.createElement("h3");
-  this.address.innerHTML = rentals[property].addr;
+  this.address.innerHTML = RENTALS[property].addr;
   this.description = document.createElement("p");
-  this.description.innerHTML = rentals[property].category;
+  this.description.innerHTML = RENTALS[property].category;
 
   this.figcaption.appendChild(this.address);
   this.figcaption.appendChild(this.description);
