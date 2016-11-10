@@ -51,9 +51,7 @@ function expandImage() {
     if (window.addEventListener) {
       l.addEventListener("click", function() {
         showDetailedPropertyListing(l.id);
-        setTimeout(function() {
-          initMaps(l.id);
-        }, 1);
+        return new GoogleMap(l.id).render();
       }, false);
     }
     if (window.attachEvent) {

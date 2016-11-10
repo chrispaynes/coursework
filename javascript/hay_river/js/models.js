@@ -7,7 +7,7 @@ function DetailedPropertyListing(property) {
   this.section = document.createElement("section");
   this.section.id = "image_cont"
   this.floorplan = new Floorplan(property);
-  this.map = new GoogleMap(property);
+  this.map = new PropertyMap(property);
 }
 
 function PropertyThumbnail(property, index) {
@@ -20,7 +20,7 @@ function PropertyThumbnail(property, index) {
   this.figcaption = new FigCaption(index)
   this.description = new Description(index);
   this.appendToPage = function() {
-    R_INDEX.appendChild(this.figure);
+    document.getElementsByTagName("main")[0].appendChild(this.figure);
     this.anchor.appendChild(this.thumbnail);
     this.figure.appendChild(this.anchor);
     this.figure.appendChild(this.figcaption);
@@ -41,7 +41,7 @@ function Thumbnail(property, cssId) {
   return this.thumbnail;
 }
 
-function GoogleMap(property) {
+function PropertyMap(property) {
   this.map = document.createElement("div");
   this.map.id;
   this.map.className = "map";
@@ -61,7 +61,6 @@ function FigCaption(property) {
   this.address.innerHTML = RENTALS[property].addr;
   this.description = document.createElement("p");
   this.description.innerHTML = RENTALS[property].category;
-
   this.figcaption.appendChild(this.address);
   this.figcaption.appendChild(this.description);
   return this.figcaption
