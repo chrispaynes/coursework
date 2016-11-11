@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Hay River Management</title>
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Titillium+Web:regular,bold">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="css/style-v6.css">
+    <script src="js/modernizr.custom.05819.js"></script>
+    <link rel="icon" type="image/png" href="img/favicon.png">
+  </head>
+
+  <body class="body-white">
+    <header class="header-bottom-border" role="banner">
+
+      <div class="header-logo-cntr">
+        <a class="logo-anchor" href="index.html">
+          <img id="header-logo" src="img/hr_mgmt_logo.jpg" alt="Hay River Management Company Logo" width="279" height="57">
+        </a>
+      </div>
+      <div class="header-addr-cntr">
+        <p>436 Brookwood Drive</p>
+        <p>Hudson, WI 54016</p>
+        <img src="img/vintage-telephone-call.svg" alt="Hay River Phone Number" style="width: 20px;height: 20px;position: relative;top: 5px; left: -2px;"> 612-791-0161
+        <br />
+        <a class="header-email-link" href="mailto:hrmco@live.com?Subject=Subject%20Line%20Test&body=Body%20Test">
+          <img src="img/close-envelope.svg" alt="Hay River Email Address" style="width: 20px;height: 20px;position: relative;top: 5px; left: -2px;">hrmco@live.com
+        </a>
+        <br>
+      </div>
+      <nav class="header-nav-list-cntr">
+        <ul class="header-nav-list">
+          <li class="header-nav-link-cntr"><a class="hdr-nav-link-text" href="./index.html">Properties</a></li>
+          <li class="header-nav-link-cntr"><a class="hdr-nav-link-text" href="./about.html">About Us</a></li>
+          <li class="header-nav-link-cntr"><a class="hdr-nav-link-text" href="#">Tenant Info Form</a></li>
+          <li class="header-nav-link-cntr"><a class="hdr-nav-link-text" href="./rentalapp.html">Rental Application</a></li>
+        </ul>
+      </nav>
+
+    </header>
+    <main id="index">
+      <div class="form-header-container">
+        <h2 id="rental-form-text-header">HRMC Residential Rental Application</h2>
+        <h3 id="rental-form-text-subhead">Start Your Application&nbsp;Below</h3>
+      </div>
+      <section class="sign-up-container">
+        <div class="sign-up-form" role=“form”>
+          <form>
+            <!-- BEGIN DISCLAIMER-->
+            <div class="container">
+              <div class="form-group form-row">
+                <div class="form-group row form-row">
+                  <label for="example-text-input" class="col-xs-4 col-form-label">Apartment Location</label>
+                  <div class="col-sm-5 col-md-5 col-xs-12 row">
+                    <div class="form-group">
+                      <select class="form-control" id="exampleSelect1">
+                        <option>1821 7th Street, Menomonie, WI 54751 - 4 Bdrm. Apt.</option>
+                        <option>1818 6th Street, Menomonie, WI 54751 - 4 Bdrm. Apt.</option>
+                        <option>1815 7th Street, Menomonie, WI 54751 - 4 Bdrm. Apt.</option>
+                        <option>N4923 - 572nd Street, Menomonie, WI 54751 - 3 Bdrm. TH.</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group row form-row">
+                  <label for="example-text-input" class="col-xs-4 col-form-label">Date of expected move in:</label>
+                  <div class="col-sm-3 col-md-3 col-xs-12 row">
+                    <input id="textinput" name="textinput" type="date" placeholder="mm/dd/yyyy" class="form-control input-md">
+                  </div>
+                </div>
+              </div>
+              <p class="col-sm-12 col-md-12 col-xs-12 form-disclaimer">
+                <strong>This application is NOT a Rental Agreement, Contract or Lease. All applications are subject to management approval. No applicant will be judged on the basis of race, color, religion, sex, handicap, familial status, national origin, sexual orientation, marital status, legal source of income, age, or ancestry.</strong>
+              </p>
+            </div>
+            <hr>
+            <!-- BEGIN NAMES, DOB and SSN -->
+            <div class="container">
+              <div class="row">
+                <!-- FULL NAMES OF PERSONS Text input-->
+                <div>
+                  <label for="textinput" class="col-form-label col-sm-5 col-md-5 col-xs-12 col-sm-offset-1 col-md-offset-1">Full Names of Persons</label>
+                  <label for="textinput" class="col-form-label col-sm-3 col-md-3 col-xs-12">Date of Birth</label>
+                  <label for="textinput" class="col-form-label col-sm-3 col-md-3 col-xs-12">Social Security</label>
+                  <div class="form-group row form-row">
+                    <label for="example-text-input" class="col-xs-1 col-form-label ">
+                      <small>1.</small>
+                    </label>
+                    <div class="col-sm-5 col-md-5 col-xs-12">
+                      <input id="textinput" name="textinput" type="text" placeholder="First Middle Last" class="form-control input-md">
+                    </div>
+                    <div class="col-sm-3 col-md-3 col-xs-12">
+                      <input id="textinput" name="textinput" type="date" placeholder="mm/dd/yyyy" class="form-control input-md">
+                    </div>
+                    <div class="col-sm-3 col-md-3 col-xs-12">
+                      <input id="textinput" name="textinput" type="password" placeholder="000 00 0000" class="form-control input-md">
+                    </div>
+                  </div>
+                  <div class="form-group row form-row">
+                    <label for="example-text-input" class="col-xs-1 col-form-label ">
+                      <small>2.</small>
+                    </label>
+                    <div class="col-sm-5 col-md-5 col-xs-12">
+                      <input id="textinput" name="textinput" type="text" placeholder="First Middle Last" class="form-control input-md">
+                    </div>
+                    <div class="col-sm-3 col-md-3 col-xs-12">
+                      <input id="textinput" name="textinput" type="text" placeholder="mm/dd/yyyy" class="form-control input-md">
+                    </div>
+                    <div class="col-sm-3 col-md-3 col-xs-12">
+                      <input id="textinput" name="textinput" type="password" placeholder="000 00 0000" class="form-control input-md">
+                    </div>
+                  </div>
+                  <div class="form-group row form-row">
+                    <label for="example-text-input" class="col-xs-1 col-form-label ">
+                      <small>3.</small>
+                    </label>
+                    <div class="col-sm-5 col-md-5 col-xs-12">
+                      <input id="textinput" name="textinput" type="text" placeholder="First Middle Last" class="form-control input-md">
+                    </div>
+                    <div class="col-sm-3 col-md-3 col-xs-12">
+                      <input id="textinput" name="textinput" type="text" placeholder="mm/dd/yyyy" class="form-control input-md">
+                    </div>
+                    <div class="col-sm-3 col-md-3 col-xs-12">
+                      <input id="textinput" name="textinput" type="password" placeholder="000 00 0000" class="form-control input-md">
+                    </div>
+                  </div>
+                  <div class="form-group row form-row">
+                    <label for="example-text-input" class="col-xs-1 col-form-label ">
+                      <small>4.</small>
+                    </label>
+                    <div class="col-sm-5 col-md-5 col-xs-12">
+                      <input id="textinput" name="textinput" type="text" placeholder="First Middle Last" class="form-control input-md">
+                    </div>
+                    <div class="col-sm-3 col-md-3 col-xs-12">
+                      <input id="textinput" name="textinput" type="text" placeholder="mm/dd/yyyy" class="form-control input-md">
+                    </div>
+                    <div class="col-sm-3 col-md-3 col-xs-12">
+                      <input id="textinput" name="textinput" type="password" placeholder="000 00 0000" class="form-control input-md">
+                    </div>
+                  </div>
+                  <div class="form-group row form-row">
+                    <label for="example-text-input" class="col-xs-1 col-form-label ">
+                      <small>5.</small>
+                    </label>
+                    <div class="col-sm-5 col-md-5 col-xs-12">
+                      <input id="textinput" name="textinput" type="text" placeholder="First Middle Last" class="form-control input-md">
+                    </div>
+                    <div class="col-sm-3 col-md-3 col-xs-12">
+                      <input id="textinput" name="textinput" type="text" placeholder="mm/dd/yyyy" class="form-control input-md">
+                    </div>
+                    <div class="col-sm-3 col-md-3 col-xs-12">
+                      <input id="textinput" name="textinput" type="password" placeholder="000 00 0000" class="form-control input-md">
+                    </div>
+                  </div>
+                  <hr>
+                </div>
+                <!-- END NAMES, DOB and SSN -->
+
+                <!-- BEGIN PET INFORMATION -->
+                <div class="container">
+                  <div class="form-group">
+                    <label class="control-label" for="prependedcheckbox">Pet Information</label>
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <input type="checkbox"> No Pets
+                      </span>
+                    </div>
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <input type="checkbox"> Cat(s)
+                      </span>
+                      <div class="form-group">
+                        <select class="form-control" id="exampleSelect1">
+                          <option>0</option>
+                          <option>1</option>
+                          <option>2</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <input type="checkbox"> Dog(s)
+                      </span>
+                      <div class="form-group">
+                        <select class="form-control" id="exampleSelect1">
+                          <option>0</option>
+                          <option>1</option>
+                          <option>2</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <input type="checkbox"> Bird(s)
+                      </span>
+                      <div class="form-group">
+                        <select class="form-control" id="exampleSelect1">
+                          <option>0</option>
+                          <option>1</option>
+                          <option>2</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <input type="checkbox"> Other
+                      </span>
+                      <textarea class="form-control" id="exampleTextarea" rows="1"></textarea>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <!-- END PET INFORMATION -->
+              <!-- ADDRESS INFO -->
+              <div class="form-group">
+                <div class="radio">
+                  <label>
+                    <input type="radio" name="pets">Yes</label>
+                  <label>
+                    <input type="radio" name="pets">No</label>
+                  <span class="question_body">Do you have a pet?</span>
+
+                </div>
+                <div class="radio">
+                  <label>
+                    <input type="radio" name="eviction">Yes</label>
+                  <label>
+                    <input type="radio" name="eviction">No</label>
+                  <span class="question_body">Have you ever been evicted?</span>
+                </div>
+                <div class="radio">
+                  <label>
+                    <input type="radio" name="pay_refusal">Yes</label>
+                  <label>
+                    <input type="radio" name="pay_refusal">No</label>
+                  <span class="question_body">Have you ever willfully refused to pay rent when due?</span>
+                </div>
+              </div>
+
+              <!-- Address Information -->
+              <div class="form-group">
+                <label for="exampleInput">Address Information</label>
+                <div class="nested-form-group">
+                  <label class="generic-label" for="">Current Address</label>
+                  <input type="" class="form-control" id="" placeholder="Present Address:">
+                  <input type="" class="form-control" id="" placeholder="Phone Number:">
+                  <input type="" class="form-control" id="" placeholder="Work Number:">
+                  <input type="" class="form-control" id="" placeholder="Cell Number:">
+                  <input type="" class="form-control" id="" placeholder="Present Landlord's Phone:">
+                  <input type="" class="form-control" id="" placeholder="How long?:">
+                  <input type="" class="form-control" id="" placeholder="Rate: $______/month">
+                </div>
+                <div class="nested-form-group">
+                  <label class="generic-label" for="">Previous Address</label>
+                  <input type="" class="form-control" id="" placeholder="Previous Address:">
+                  <input type="" class="form-control" id="" placeholder="Previous Landlord:">
+                  <input type="" class="form-control" id="" placeholder="Previous Landlord's Phone:">
+                  <input type="" class="form-control" id="" placeholder="How long?:">
+                  <input type="" class="form-control" id="" placeholder="Rate: $______/month">
+                </div>
+              </div>
+
+              <hr class="green-divider">
+
+              <!-- Income and Employment Information -->
+              <div class="form-group">
+                <label for="exampleInput">Income and Employment Information</label>
+                <div class="nested-form-group">
+                  <input type="" class="form-control" id="" placeholder="Present Employer:">
+                  <input type="" class="form-control" id="" placeholder="Phone:">
+                  <input type="" class="form-control" id="" placeholder="Supervisor:">
+                  <input type="" class="form-control" id="" placeholder="Position:">
+                  <input type="" class="form-control" id="" placeholder="Net Wages:">
+                  <input type="" class="form-control" id="" placeholder="Income Source">
+                  <input type="" class="form-control" id="" placeholder="Address:">
+                  <input type="" class="form-control" id="" placeholder="Phone">
+                  <input type="" class="form-control" id="" placeholder="How long will income be received?">
+                  <input type="" class="form-control" id="" placeholder="Payment">
+                </div>
+              </div>
+
+              <hr class="green-divider">
+
+              <!-- Automobile Information -->
+              <div class="form-group">
+                <label for="exampleInput">Automobile Information</label>
+                <div class="nested-form-group">
+                  <label class="generic-label" for="">Vehicle #1</label>
+                  <input type="" class="form-control" id="" placeholder="Make/Model/Year:">
+                  <input type="" class="form-control" id="" placeholder="Plate#">
+                  <input type="" class="form-control" id="" placeholder="Driver's License Number">
+                </div>
+                <div class="nested-form-group">
+                  <label class="generic-label" for="">Vehicle #2</label>
+                  <input type="" class="form-control" id="" placeholder="Make/Model/Year:">
+                  <input type="" class="form-control" id="" placeholder="Plate#">
+                  <input type="" class="form-control" id="" placeholder="Driver's License Number">
+                </div>
+              </div>
+
+              <hr class="green-divider">
+
+              <!-- Emergency Contacts -->
+              <div class="form-group">
+                <label for="exampleInput">Emergency Contacts</label>
+                <small>&nbsp;&nbsp;Please List the Two Closest Relatives Living Nearest to You.</small>
+                <div class="nested-form-group">
+                  <label class="generic-label" for="">Emergency Contact #1</label>
+                  <input type="" class="form-control" id="" placeholder="First Last Name">
+                  <input type="" class="form-control" id="" placeholder="Phone">
+                  <input type="" class="form-control" id="" placeholder="Address, City, State, Zip Code">
+                  <input type="" class="form-control" id="" placeholder="Relationship">
+                </div>
+                <div class="nested-form-group">
+                  <label class="generic-label" for="">Emergency Contact #2</label>
+                  <input type="" class="form-control" id="" placeholder="First Last Name">
+                  <input type="" class="form-control" id="" placeholder="Phone">
+                  <input type="" class="form-control" id="" placeholder="Address, City, State, Zip Code">
+                  <input type="" class="form-control" id="" placeholder="Relationship">
+                </div>
+              </div>
+
+              <hr class="green-divider">
+
+              <!-- References: -->
+              <div class="form-group">
+                <label for="exampleInput">References</label>
+                <small>&nbsp;&nbsp;Please list &nbsp; <strong>Personal References'</strong></small>
+                <div class="nested-form-group">
+                  <label class="generic-label" for="">Personal Reference #1</label>
+                  <input type="" class="form-control" id="" placeholder=" First Last Name">
+                  <input type="" class="form-control" id="" placeholder="Phone">
+                  <input type="" class="form-control" id="" placeholder="Address, City, State, Zip Code">
+                </div>
+                <div class="nested-form-group">
+                  <label class="generic-label" for="">Personal Reference #2</label>
+                  <input type="" class="form-control" id="" placeholder="First Last Name">
+                  <input type="" class="form-control" id="" placeholder="Phone">
+                  <input type="" class="form-control" id="" placeholder="Address, City, State, Zip Code">
+                </div>
+                <div class="nested-form-group">
+                  <label class="generic-label" for="">Personal Reference #3</label>
+                  <input type="" class="form-control" id="" placeholder="First Last Name">
+                  <input type="" class="form-control" id="" placeholder="Phone">
+                  <input type="" class="form-control" id="" placeholder="Address, City, State, Zip Code">
+                </div>
+              </div>
+
+              <!-- <hr class="green-divider"> -->
+              <div class="submit-field">
+                <input type="submit" name="commit" value="Submit Application" class="submit-button">
+              </div>
+
+          </form>
+
+          <div class="sign-up-info">
+            <p class=" col-md-12 form-signature-disclaimer">WE ARE REQUIRED TO NOTIFY YOU THAT AS PART OF OUR PROCEDURE FOR PROCESSING YOUR APPLICATION, WE MAY INVESTIGATE YOUR CREDIT HISTORY, EMPLOYMENT HISTORY AND GENERAL BACKGROUND. BY SIGNING BELOW, YOU HEREBY GRANT PERMISSION FOR US TO DO SO. IN ADDITION, SIGNING BELOW CERTIFIES THAT ALL OF THE ABOVE INFORMATION IS TRUE, CORRECT AND COMPLETE TO THE BEST OF YOUR KNOWLEDGE.
+            </p>
+          </div>
+          </div>
+
+      </section>
+
+    </main>
+    <footer class="footer-top-border">
+      <p>
+        <span id="NEED_INFO">FOOTER INFO</span> Hay River Management Company 2016
+      </p>
+      <!--   <div>Icons made by <a href="http://www.flaticon.com/authors/yannick" title="Yannick">Yannick</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div> -->
+      <!-- <div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div> -->
+    </footer>
+    <!-- LOADS GOOGLE MAPS API -->
+    <!-- <script type="text/javascript" src="js/app.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
+    < script >
+      /* create event listeners when page finishes loading */
+      if (window.addEventListener) {
+        // window.addEventListener("load", app_main, false);
+      }
+    if (window.attachEvent) {
+      // window.attachEvent("onload", app_main);
+    }
+    </script>
+  </body>
+
+</html>
