@@ -6,7 +6,7 @@ function setPropertyCounter() {
 function renderPropertyCollection() {
   setPropertyCounter();
   RENTALS.map(function(rental, i) {
-    new PropertyThumbnail(rental, i).appendToPage();
+    new PropertyPreview(rental, i).appendToPage();
   });
 }
 
