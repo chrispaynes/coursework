@@ -48,3 +48,8 @@ Return true if the given string is a palindrome. Otherwise, return false. A pali
 
 ####Chunky Monkey 
 Write a function that splits an array (first argument) into groups the length of size (second argument) and returns them as a two-dimensional array.
+
+####Confirm the Ending 
+Check if a string (first argument, str) ends with the given target string (second argument, target).
+
+
