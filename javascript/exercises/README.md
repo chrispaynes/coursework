@@ -41,10 +41,8 @@ Boolean primitives are true and false.
 ####Caesars Cipher 
 A common modern use is the ROT13 cipher, where the values of the letters are shifted by 13 places. Thus 'A' ↔ 'N', 'B' ↔ 'O' and so on. Write a function which takes a ROT13 encoded string as input and returns a decoded string. All letters will be uppercase. Do not transform any non-alphabetic character (i.e. spaces, punctuation), but do pass them on.
 
-
 ####Check for Palindromes 
 Return true if the given string is a palindrome. Otherwise, return false. A palindrome is a word or sentence that's spelled the same way both forward and backward, ignoring punctuation, case, and spacing. You'll need to remove all non-alphanumeric characters (punctuation, spaces and symbols) and turn everything lower case in order to check for palindromes. We'll pass strings with varying formats, such as "racecar", "RaceCar", and "race CAR" among others.
-
 
 ####Chunky Monkey 
 Write a function that splits an array (first argument) into groups the length of size (second argument) and returns them as a two-dimensional array.
@@ -57,4 +55,9 @@ Compare two arrays and return a new array with any items only found in one of th
 
 ####DNA Pairing 
 The DNA strand is missing the pairing element. Take each character, get its pair, and return the results as a 2D array. Base pairs are a pair of AT and CG. Match the missing element to the provided character. Return the provided character as the first element in each array. For example, for the input GCG, return [["G", "C"], ["C","G"],["G", "C"]] The character and its pair are paired up in an array, and all the arrays are grouped into one encapsulating array.
+
+####Drop it 
+Drop the elements of an array (first argument), starting from the front, until the predicate (second argument) returns true.
+The second argument, func, is a function you'll use to test the first elements of the array to decide if you should drop it or not.
+Return the rest of the array, otherwise return an empty array.
 
