@@ -72,3 +72,5 @@ Return the factorial of the provided integer. If the integer is represented with
 Remove all falsy values from an array.
 Falsy values in JavaScript are false, null, 0, "", undefined, and NaN.
 
+####Find the Longest Word in a String 
+Return the length of the longest word in the provided sentence. Your response should be a number.
