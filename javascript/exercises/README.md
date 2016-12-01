@@ -61,3 +61,7 @@ Drop the elements of an array (first argument), starting from the front, until t
 The second argument, func, is a function you'll use to test the first elements of the array to decide if you should drop it or not.
 Return the rest of the array, otherwise return an empty array.
 
+####Everything Be True 
+Check if the predicate (second argument) is truthy on all elements of a collection (first argument).
+Remember, you can access object properties through either dot notation or [] notation.
+
