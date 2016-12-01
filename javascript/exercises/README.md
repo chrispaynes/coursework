@@ -65,3 +65,5 @@ Return the rest of the array, otherwise return an empty array.
 Check if the predicate (second argument) is truthy on all elements of a collection (first argument).
 Remember, you can access object properties through either dot notation or [] notation.
 
+####Factorialize a Number 
+Return the factorial of the provided integer. If the integer is represented with the letter n, a factorial is the product of all positive integers less than or equal to n. 
