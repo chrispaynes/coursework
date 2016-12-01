@@ -67,3 +67,8 @@ Remember, you can access object properties through either dot notation or [] not
 
 ####Factorialize a Number 
 Return the factorial of the provided integer. If the integer is represented with the letter n, a factorial is the product of all positive integers less than or equal to n. 
+
+####Falsy Bouncer 
+Remove all falsy values from an array.
+Falsy values in JavaScript are false, null, 0, "", undefined, and NaN.
+
