@@ -74,3 +74,6 @@ Falsy values in JavaScript are false, null, 0, "", undefined, and NaN.
 
 ####Find the Longest Word in a String 
 Return the length of the longest word in the provided sentence. Your response should be a number.
+
+####Finders Keepers 
+Create a function that looks through an array (first argument) and returns the first element in the array that passes a truth test (second argument).
