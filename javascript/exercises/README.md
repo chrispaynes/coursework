@@ -77,3 +77,6 @@ Return the length of the longest word in the provided sentence. Your response sh
 
 ####Finders Keepers 
 Create a function that looks through an array (first argument) and returns the first element in the array that passes a truth test (second argument).
+
+####Missing letters 
+Find the missing letter in the passed letter range and return it. If all letters are present in the range, return undefined.
