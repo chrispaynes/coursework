@@ -89,3 +89,7 @@ Translate the provided string to pig latin. Pig Latin takes the first consonant 
 
 ####Repeat a string repeat a string 
 Repeat a given string (first argument) a specific number of times (second argument). Return an empty string if the number is a negative number.
+
+####Return Largest Numbers in Arrays 
+Return an array consisting of the largest number from each provided sub-array.
+
