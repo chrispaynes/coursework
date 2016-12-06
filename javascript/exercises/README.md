@@ -86,3 +86,6 @@ Return true if the string in the first element of the array contains all of the 
 
 ####Pig Latin 
 Translate the provided string to pig latin. Pig Latin takes the first consonant (or consonant cluster) of an English word, moves it to the end of the word and suffixes an "ay". If a word begins with a vowel you just add "way" to the end.
+
+####Repeat a string repeat a string 
+Repeat a given string (first argument) a specific number of times (second argument). Return an empty string if the number is a negative number.
