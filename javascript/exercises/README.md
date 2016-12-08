@@ -97,3 +97,8 @@ Return an array consisting of the largest number from each provided sub-array.
 You may need to turn the string into an array before you can reverse it.
 Your result must be a string.
 
+###Roman Numeral Converter 
+Convert the given number into a roman numeral.
+All roman numerals answers should be provided in upper-case.
+
+
