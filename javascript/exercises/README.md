@@ -93,3 +93,7 @@ Repeat a given string (first argument) a specific number of times (second argume
 ####Return Largest Numbers in Arrays 
 Return an array consisting of the largest number from each provided sub-array.
 
+###Reverse The Provided String
+You may need to turn the string into an array before you can reverse it.
+Your result must be a string.
+
