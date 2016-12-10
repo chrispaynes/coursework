@@ -46,19 +46,9 @@ function expandImage() {
 
   // links.map adds a showDetailedPropertyListing() event listener to each link.
   links.map(function(l) {
-
-    // Creates event listeners when page finishes loading
-    if (window.addEventListener) {
-      l.addEventListener("click", function() {
-        showDetailedPropertyListing(l.id);
-        return new GoogleMap(l.id).render();
-      }, false);
-    }
-    if (window.attachEvent) {
-      R_INDEX.attachEvent("click", function() {
-        showDetailedPropertyListing(l.id)
-      });
-    }
-
+    google.maps.event.addDomListener(l, 'click', function() {
+      showDetailedPropertyListing(l.id);
+      return new GoogleMap(l.id).render();
+    });
   });
 }
