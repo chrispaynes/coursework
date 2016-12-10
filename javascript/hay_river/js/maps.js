@@ -15,6 +15,8 @@ function GoogleMap(property) {
     this.map.panBy(this.rental.mapPanBy.x, this.rental.mapPanBy.y);
     new GoogleMapMarker(this.infoWindow, this.map, property).render()
   }
+  this.render();
+  google.maps.event.trigger(this.map, 'resize')
 }
 
 function GoogleMapMarker(infoWindow, GoogleMap, property) {
@@ -28,7 +30,10 @@ function GoogleMapMarker(infoWindow, GoogleMap, property) {
     title: this.rental.addr.replace("<br> ", "")
   });
   this.render = function() {
-    google.maps.event.addListener(this.marker, "click", function() {
+    // google.maps.event.addDomListener(mapDiv, 'click', function() {
+    //   window.alert('Map was clicked!');
+    // });
+    google.maps.event.addDomListener(this.marker, "click", function() {
       infoWindow.open(GoogleMap, this.marker);
     });
   }
