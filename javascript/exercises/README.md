@@ -113,3 +113,6 @@ Write a function that takes two or more arrays and returns a new array of unique
 
 ####Spinal Tap Case 
 Convert a string to spinal case. Spinal case is all-lowercase-words-joined-by-dashes.
+
+####Steamroller 
+Flatten a nested array. You must account for varying levels of nesting.
