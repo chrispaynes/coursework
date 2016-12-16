@@ -116,3 +116,6 @@ Convert a string to spinal case. Spinal case is all-lowercase-words-joined-by-da
 
 ####Steamroller 
 Flatten a nested array. You must account for varying levels of nesting.
+
+####Sum All Numbers in a Range 
+Return the sum of two array numbers and all numbers between them. The lowest number will not always come first.
