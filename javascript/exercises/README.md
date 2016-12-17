@@ -127,3 +127,7 @@ As an example, passing 4 to the function should return 5 because all the odd Fib
 ####Title Case a Sentence 
 Return the provided string with the first letter of each word capitalized. Make sure the rest of the word is in lower case. For the purpose of this exercise, you should also capitalize connecting words like "the" and "of".
 
+####Where Do I Belong
+Return the lowest index at which a value (second argument) should be inserted into an array (first argument) once it has been sorted. For example, getIndexToIns([1,2,3,4], 1.5) should return 1 because it is greater than 1 (index 0), but less than 2 (index 1). Likewise, getIndexToIns([20,3,5], 19) should return 2 because once the array has been sorted it will look like [3,5,20] and 19 is less than 20 (index 2) and greater than 5 (index 1).
+
+
