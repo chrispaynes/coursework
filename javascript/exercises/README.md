@@ -30,9 +30,9 @@ return the sum: var sumTwoAnd = addTogether(2); sumTwoAnd(3) returns 5.
 
 If either argument isn't a valid number, return undefined.
 
-<!-- ####Binary Agents 
+####Binary Agents 
 Return an English translated sentence of the passed binary string.
-The binary string will be space separated. -->
+The binary string will be space separated.
 
 ####Boo Who 
 Check if a value is classified as a boolean primitive. Return true or false.

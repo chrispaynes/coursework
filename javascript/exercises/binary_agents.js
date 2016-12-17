@@ -1,38 +1,23 @@
 function binaryAgent(str) {
-  var engSent = "";
-  var sentence = "";
+  return str.split(' ').map((word) => bitStringToChar(word)).join("");
 }
 
+function bitStringToChar(bitstring) {
+  return String.fromCharCode(reduceBitstringToDecimal(bitstring));
+}
 
-function bitStringToLetter(bString) {
-  var indices;
-  bString.split(" ").map(function(x) {
-    indices = [];
-    var array = x;
-    var element = '1';
-    var idx = array.indexOf(element);
-    while (idx != -1) {
-      indices.push(idx - 1);
-      idx = array.indexOf(element, idx + 1);
+function reduceBitstringToDecimal(numbers) {
+  let sum = 0;
+
+  numbers.split('').map((number, index) => {
+    if (numbers.length === 1 && parseInt(numbers[0]) === 1) {
+      sum += Math.pow(2, index);
+    } else if (numbers.length > 1 && parseInt(number) == 1) {
+      sum += Math.pow(2, numbers.length - (index + 1));
     }
-
   });
-  return String.fromCharCode(reducePowersArray(indices))
+
+  return sum;
 }
 
-// bitStringToLetter("01000001")
-
-function bitStringToWord(bString) {
-  bstring.split(" ").map(function(x) {
-    console.log(x)
-  })
-}
-
-// reducePowersArray([0, 6])
-function reducePowersArray(powersArray) {
-  return powersArray.reduce(function(a, b) {
-    return Math.pow(2, a) + Math.pow(2, b);
-  })
-}
-
-module.exports = binaryAgent;
+module.exports = { binaryAgent, bitStringToChar, reduceBitstringToDecimal };
