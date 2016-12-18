@@ -61,9 +61,12 @@ function FigCaption(property) {
   this.figcaption = document.createElement("figcaption");
   this.address = document.createElement("h3");
   this.address.innerHTML = RENTALS[property].addr;
+  this.addressContainer = document.createElement("div");
+  this.addressContainer.className = "address-container";
   this.description = document.createElement("p");
   this.description.innerHTML = RENTALS[property].category;
-  this.figcaption.appendChild(this.address);
+  this.addressContainer.appendChild(this.address);
+  this.figcaption.appendChild(this.addressContainer);
   this.figcaption.appendChild(this.description);
   return this.figcaption;
 }
