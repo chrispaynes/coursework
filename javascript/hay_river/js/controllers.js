@@ -1,6 +1,6 @@
 function setPropertyCounter() {
   return document.getElementById("count").innerHTML = RENTALS.length +
-    " Great Locations to Choose from";
+    " Great Locations to\xa0Choose\xa0from";
 }
 
 function renderPropertyCollection() {
@@ -48,7 +48,7 @@ function expandImage() {
   links.map(function(l) {
     google.maps.event.addDomListener(l, 'click', function() {
       showDetailedPropertyListing(l.id);
-      return new GoogleMap(l.id).render();
+      return new GoogleMap(l.id);
     });
   });
 }
