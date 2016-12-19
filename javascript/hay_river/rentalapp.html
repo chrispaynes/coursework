@@ -16,22 +16,26 @@
   <body class="body-white">
     <div class="vertical-flex-container">
       <header class="header-bottom-border" role="banner">
-
         <div class="header-logo-cntr">
           <a class="logo-anchor" href="index.html">
-            <img id="header-logo" src="img/hr_mgmt_logo.jpg" alt="Hay River Management Company Logo" width="279" height="57">
+            <img id="header-logo" src="img/hr_mgmt_logo.jpg" alt="Hay River Management Company Logo">
           </a>
         </div>
 
         <div class="header-addr-cntr">
           <p>436 Brookwood Drive</p>
           <p>Hudson, WI 54016</p>
-          <img src="img/vintage-telephone-call.svg" alt="Hay River Phone Number" style="width: 20px;height: 20px;position: relative;top: 5px; left: -2px;"> 612-791-0161
-          <br>
-          <a class="header-email-link" href="mailto:hrmco@live.com?Subject=Subject%20Line%20Test&body=Body%20Test">
-            <img src="img/close-envelope.svg" alt="Hay River Email Address" style="width: 20px;height: 20px;position: relative;top: 5px; left: -2px;">hrmco@live.com
-          </a>
-          <br>
+
+          <div>
+            <img class="phone" src="img/vintage-telephone-call.svg" alt="Hay River Phone Number">
+            <p>612-791-0161</p>
+          </div>
+          <div>
+            <a class="header-email-link" href="mailto:hrmco@live.com?Subject=Subject%20Line%20Test&body=Body%20Test">
+              <img class="envelope" src="img/close-envelope.svg" alt="Hay River Email Address">
+            </a>
+            <p>hrmco@live.com</p>
+          </div>
         </div>
 
         <nav class="header-nav-list-cntr">
@@ -42,13 +46,12 @@
             <li class="header-nav-link-cntr"><a class="hdr-nav-link-text" href="./rentalapp.html">Rental Application</a></li>
           </ul>
         </nav>
-
       </header>
 
       <!-- BEGIN FORM SECTION -->
       <main class="main-form">
         <div class="form-header-container">
-          <h2 id="rental-form-text-header">HRMC Residential Rental Application</h2>
+          <h2 id="rental-form-text-header">HRMC Residential Rental&nbsp;Application</h2>
           <h3 id="rental-form-text-subhead">Start Your Application&nbsp;Below</h3>
         </div>
 
@@ -57,12 +60,12 @@
             <form>
 
               <!-- BEGIN DISCLAIMER -->
-              <section class="container">
+              <section class="container-fluid">
                 <div class="form-group form-row">
 
                   <div class="form-group row form-row">
-                    <label for="example-text-input" class="col-xs-4 col-form-label">Apartment Location</label>
-                    <div class="col-sm-5 col-md-5 col-xs-12 row">
+                    <label for="example-text-input" class="col-xs-12 col-sm-5 col-md-4 col-form-label">Apartment Location</label>
+                    <div class="col-sm-6 col-md-5 row">
                       <div class="form-group">
                         <select class="form-control" id="exampleSelect1">
                           <option>1821 7th Street, Menomonie, WI 54751 - 4 Bdrm. Apt.</option>
@@ -75,8 +78,8 @@
                   </div>
 
                   <div class="form-group row form-row">
-                    <label for="example-text-input" class="col-xs-4 col-form-label">Date of expected move in:</label>
-                    <div class="col-sm-3 col-md-3 col-xs-12 row">
+                    <label for="example-text-input" class="col-xs-12 col-sm-5 col-md-4 col-form-label">Date of expected move in:</label>
+                    <div class="col-sm-4 col-md-3 row">
                       <input id="textinput" name="textinput" type="date" placeholder="mm/dd/yyyy" class="form-control input-md">
                     </div>
                   </div>
@@ -88,17 +91,19 @@
               </section>
               <!-- END DISCLAIMER -->
 
-              <hr>
+              <hr class="green-divider">
 
               <!-- BEGIN NAMES, DOB and SSN -->
-              <div class="container">
-                <div class="row">
+              <div>
+                <div>
 
                   <!-- BEGIN FULL NAMES OF PERSONS Text input-->
-                  <section>
-                    <label for="textinput" class="col-form-label col-sm-5 col-md-5 col-xs-12 col-sm-offset-1 col-md-offset-1">Full Names of Persons</label>
-                    <label for="textinput" class="col-form-label col-sm-3 col-md-3 col-xs-12">Date of Birth</label>
-                    <label for="textinput" class="col-form-label col-sm-3 col-md-3 col-xs-12">Social Security</label>
+                  <section class="container-fluid">
+                    <div class="container-fluid">
+                      <label for="textinput" class="col-form-label col-xs-12 col-sm-5 col-md-4">Full Names of Persons</label>
+                      <label for="textinput" class="col-form-label col-xs-12 col-sm-3 col-md-4">Date of Birth</label>
+                      <label for="textinput" class="col-form-label col-xs-12 col-sm-4 col-md-4">Social Security</label>
+                    </div>
 
                     <div class="form-group row form-row">
                       <label for="example-text-input" class="col-xs-1 col-form-label ">
@@ -108,7 +113,7 @@
                         <input id="textinput" name="textinput" type="text" placeholder="First Middle Last" class="form-control input-md">
                       </div>
                       <div class="col-sm-3 col-md-3 col-xs-12">
-                        <input id="textinput" name="textinput" type="date" placeholder="mm/dd/yyyy" class="form-control input-md">
+                        <input id="textinput" name="textinput" type="text" placeholder="mm/dd/yyyy" class="form-control input-md">
                       </div>
                       <div class="col-sm-3 col-md-3 col-xs-12">
                         <input id="textinput" name="textinput" type="password" placeholder="000 00 0000" class="form-control input-md">
@@ -178,20 +183,24 @@
                   </section>
                   <!-- END FULL NAMES OF PERSONS Text input-->
 
+                  <hr class="green-divider">
+
                   <!-- BEGIN PET INFORMATION -->
-                  <section class="container">
+                  <section class="container-fluid">
                     <div class="form-group">
                       <label class="control-label" for="prependedcheckbox">Pet Information</label>
+
                       <div class="input-group">
                         <span class="input-group-addon">
                         <input type="checkbox"> No Pets
                       </span>
+
                       </div>
 
-                      <div class="input-group">
+                      <div class="input-group row">
                         <span class="input-group-addon">
-                        <input type="checkbox"> Cat(s)
-                      </span>
+                        <input type="checkbox"> Cat(s)&nbsp;
+                        </span>
                         <div class="form-group">
                           <select class="form-control" id="exampleSelect1">
                             <option>0</option>
@@ -201,7 +210,7 @@
                         </div>
                       </div>
 
-                      <div class="input-group">
+                      <div class="input-group row">
                         <span class="input-group-addon">
                         <input type="checkbox"> Dog(s)
                       </span>
@@ -214,7 +223,7 @@
                         </div>
                       </div>
 
-                      <div class="input-group">
+                      <div class="input-group row">
                         <span class="input-group-addon">
                         <input type="checkbox"> Bird(s)
                       </span>
@@ -227,20 +236,19 @@
                         </div>
                       </div>
 
-                      <div class="input-group">
+                      <div class="input-group row">
                         <span class="input-group-addon">
-                        <input type="checkbox"> Other
+                        <input type="checkbox"> Other&nbsp;&nbsp;
                       </span>
                         <textarea class="form-control" id="exampleTextarea" rows="1"></textarea>
                       </div>
                     </div>
+                    <hr>
                   </section>
                   <!-- END PET INFORMATION -->
 
-                  <hr>
-
                   <!-- BEGIN PET, CONVICTION AND RENT REFUSAL INFO -->
-                  <section class="form-group">
+                  <section class="container-fluid">
                     <div class="radio">
                       <label>
                         <input type="radio" name="pets">Yes</label>
@@ -267,8 +275,10 @@
                   </section>
                   <!-- END  PET, CONVICTION AND RENT REFUSAL INFO -->
 
+                  <hr class="green-divider">
+
                   <!-- BEGIN Address Information -->
-                  <section class="form-group">
+                  <section class="container-fluid">
                     <label for="exampleInput">Address Information</label>
                     <div class="nested-form-group">
                       <label class="generic-label" for="">Current Address</label>
@@ -295,7 +305,7 @@
                   <hr class="green-divider">
 
                   <!-- BEGIN Income and Employment Information -->
-                  <section class="form-group">
+                  <section class="container-fluid">
                     <label for="exampleInput">Income and Employment Information</label>
                     <div class="nested-form-group">
                       <input type="" class="form-control" id="" placeholder="Present Employer:">
@@ -315,7 +325,7 @@
                   <hr class="green-divider">
 
                   <!-- BEGIN Automobile Information -->
-                  <section class="form-group">
+                  <section class="container-fluid">
                     <label for="exampleInput">Automobile Information</label>
                     <div class="nested-form-group">
                       <label class="generic-label" for="">Vehicle #1</label>
@@ -335,7 +345,7 @@
                   <hr class="green-divider">
 
                   <!-- BEGIN Emergency Contacts -->
-                  <section class="form-group">
+                  <section class="container-fluid">
                     <label for="exampleInput">Emergency Contacts</label>
                     <small>&nbsp;&nbsp;Please List the Two Closest Relatives Living Nearest to You.</small>
                     <div class="nested-form-group">
@@ -358,9 +368,12 @@
                   <hr class="green-divider">
 
                   <!-- BEGIN References -->
-                  <section class="form-group">
-                    <label for="exampleInput">References</label>
-                    <small>&nbsp;&nbsp;Please list &nbsp; <strong>Personal References</strong></small>
+                  <section class="container-fluid">
+                    <label for="exampleInput">References
+                      <p>
+                        <small>Please list&nbsp;<strong>Personal References</strong></small></p>
+                    </label>
+
                     <div class="nested-form-group">
                       <label class="generic-label" for="">Personal Reference #1</label>
                       <input type="" class="form-control" id="" placeholder=" First Last Name">
@@ -407,7 +420,7 @@
     <!-- END FORM SECTION -->
 
     <footer class="footer">
-      <p><span class="NEED_INFO">FOOTER INFO: &nbsp;</span> Hay River Management Company 2016</p>
+      <p>Hay River Management Company 2016</p>
       <!--   <div>Icons made by <a href="http://www.flaticon.com/authors/yannick" title="Yannick">Yannick</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div> -->
       <!-- <div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div> -->
     </footer>
