@@ -1,0 +1,20 @@
+{
+  "name": "vue_js",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "chrispaynes"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/chrispaynes/coursework",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  }
+}
