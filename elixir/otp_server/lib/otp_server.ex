@@ -1,2 +1,0 @@
-defmodule OtpServer do
-end

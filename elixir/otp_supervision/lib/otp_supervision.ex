@@ -1,2 +1,0 @@
-defmodule OtpSupervision do
-end

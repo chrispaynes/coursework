@@ -1,2 +1,0 @@
-defmodule GenFsm do
-end

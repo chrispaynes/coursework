@@ -1,2 +1,0 @@
-defmodule OtpZeldacat do
-end

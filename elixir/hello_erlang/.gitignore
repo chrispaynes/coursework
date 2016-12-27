@@ -1,5 +1,0 @@
-relx
-deps/
-.erlang.mk/
-hello_erlang_release/
-ebin/
