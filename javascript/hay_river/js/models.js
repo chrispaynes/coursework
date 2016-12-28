@@ -2,6 +2,7 @@ function DetailedPropertyListing(property) {
   this.div = document.createElement("div");
   this.div.id = "slideshow_main";
   this.thumbnail = new Thumbnail(property, "slideshow-slide_image");
+  // this.slideshow = new Slideshow(property, "slideshow-slides");
   this.description = new Description(property, "aside");
   this.section = document.createElement("section");
   this.section.id = "image_cont";
@@ -33,10 +34,11 @@ function Floorplan(property) {
   return this.floorplan;
 }
 
-function Thumbnail(property, cssId) {
+function Thumbnail(property, cssClass) {
   this.thumbnail = document.createElement("img");
-  this.thumbnail.id = cssId;
-  this.thumbnail.src = "img/" + RENTALS[property].image;
+  this.thumbnail.className = cssClass;
+  this.thumbnail.id = property;
+  this.thumbnail.src = "img/" + RENTALS[property].image[0];
   return this.thumbnail;
 }
 
