@@ -1,5 +1,5 @@
 function setPropertyCounter() {
-  return document.getElementById("count").innerHTML = RENTALS.length +
+  return document.getElementById("count").textContent = RENTALS.length +
     " Great Locations to\xa0Choose\xa0from";
 }
 
@@ -11,10 +11,16 @@ function renderPropertyCollection() {
 }
 
 function setPropertyContent(id) {
+  var features = RENTALS[id].features.map(function(feature) {
+    return "<li><span>" + feature + "</span></li>"
+  });
+
   return "<h3>" + RENTALS[id].addr + "</h3>" +
-    "<p>" + RENTALS[id].category + "<br><br>" +
-    "<p>" + RENTALS[id].description + "<br><br>" +
-    RENTALS[id].features.replace(/, /g, "<br>&bull; ") + "</p>";
+    "<p class='property-category'>" + RENTALS[id].category + "<br>" +
+    "<p class='property-description-header'>DESCRIPTION</p>" +
+    "<p class='property-description'>" + RENTALS[id].description + "<br>" +
+    "<p class='property-features-header'>AMENITIES</p>" +
+    "<ul class='property-features' id='property-features-container'>" + features.join("") + "</ul>";
 }
 
 function appendPropertyPageToDOM(property) {
@@ -22,6 +28,17 @@ function appendPropertyPageToDOM(property) {
   property.div.appendChild(property.description);
   property.section.appendChild(property.floorplan);
   property.section.appendChild(property.map);
+}
+
+function rotateSlide(image_element, id, mutation) {
+  console.log(image_element.src);
+  var current_image = RENTALS[id].image.indexOf(image_element.src.replace(/^[^*]*\//, ""));
+  console.log((mutation + current_image) + " / " + current_image + " / " + (RENTALS[id].image.length - 1) + " " + RENTALS[id].image[current_image + mutation]);
+
+  // TODO: CLEAN UP REGEX AND IMPROVE READABILITY
+  // If mutating results in out of bounds, then the mutation is the array length * -1. else mutation
+  (mutation + current_image) == RENTALS[id].image.length ? (mutation += ((current_image * -1) - 1)) : mutation = mutation;
+  image_element.src = "img/" + RENTALS[id].image[current_image + mutation]
 }
 
 function renderNewRentalPage(newLargeRental) {
@@ -34,9 +51,15 @@ function renderNewRentalPage(newLargeRental) {
 
 function showDetailedPropertyListing(id) {
   var listing = new DetailedPropertyListing(id);
+  var image_element = {};
 
   appendPropertyPageToDOM(listing);
   renderNewRentalPage(listing);
+
+  image_element = document.getElementById(id)
+  image_element.addEventListener("click", function() {
+    rotateSlide(image_element, id, 1);
+  }, false);
 }
 
 // expandImage() enlarges an image when a user clicks it's thumbnail.
