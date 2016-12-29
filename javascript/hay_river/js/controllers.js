@@ -30,15 +30,15 @@ function appendPropertyPageToDOM(property) {
   property.section.appendChild(property.map);
 }
 
-function rotateSlide(image_element, id, mutation) {
+function rotateSlide(image_element, id, mutation, collection) {
   console.log(image_element.src);
-  var current_image = RENTALS[id].image.indexOf(image_element.src.replace(/^[^*]*\//, ""));
-  console.log((mutation + current_image) + " / " + current_image + " / " + (RENTALS[id].image.length - 1) + " " + RENTALS[id].image[current_image + mutation]);
+  var current_image = collection.indexOf(image_element.src.replace(/^[^*]*\//, ""));
+  console.log((mutation + current_image) + " / " + current_image + " / " + (collection.length - 1) + " " + collection[current_image + mutation]);
 
   // TODO: CLEAN UP REGEX AND IMPROVE READABILITY
   // If mutating results in out of bounds, then the mutation is the array length * -1. else mutation
-  (mutation + current_image) == RENTALS[id].image.length ? (mutation += ((current_image * -1) - 1)) : mutation = mutation;
-  image_element.src = "img/" + RENTALS[id].image[current_image + mutation]
+  (mutation + current_image) == collection.length ? (mutation += ((current_image * -1) - 1)) : mutation = mutation;
+  image_element.src = "img/" + collection[current_image + mutation]
 }
 
 function renderNewRentalPage(newLargeRental) {
@@ -52,13 +52,21 @@ function renderNewRentalPage(newLargeRental) {
 function showDetailedPropertyListing(id) {
   var listing = new DetailedPropertyListing(id);
   var image_element = {};
+  var floorplan_element = {};
+
 
   appendPropertyPageToDOM(listing);
   renderNewRentalPage(listing);
 
-  image_element = document.getElementById(id)
+  image_element = document.getElementById(id);
+  floorplan_element = document.getElementById("floorplan_" + id);
+
+  floorplan_element.addEventListener("click", function() {
+    rotateSlide(floorplan_element, id, 1, RENTALS[id].floorplan);
+  }, false);
+
   image_element.addEventListener("click", function() {
-    rotateSlide(image_element, id, 1);
+    rotateSlide(image_element, id, 1, RENTALS[id].image);
   }, false);
 }
 

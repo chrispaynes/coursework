@@ -30,7 +30,8 @@ function PropertyPreview(property, index) {
 function Floorplan(property) {
   this.floorplan = document.createElement("img");
   this.floorplan.className = "floorplan";
-  this.floorplan.src = "img/" + RENTALS[property].floorplan;
+  this.floorplan.id = "floorplan_" + property;
+  this.floorplan.src = "img/" + RENTALS[property].floorplan[0];
   return this.floorplan;
 }
 
