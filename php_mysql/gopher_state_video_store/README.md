@@ -22,6 +22,4 @@ Design and implement a website and a relational database system to support the o
 * XHTML
 
 ## Usage
-1. Move into the chicago_transit folder
-2. Compile the app with `$ go install`
-3. Execute the app by calling the chicago_transit binary
+Todo
