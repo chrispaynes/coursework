@@ -121,6 +121,39 @@
 
     <footer></footer>
 
+<script>
+function main() {
+  var categories = document.getElementsByClassName("category-container")[0].children;
+  categories = Array.prototype.slice.call(categories);
+  categories.map(function(c) {
+    addListeners(c)
+  });
+}
+
+function addListeners(target) {
+  if (document.addEventListener) {
+    target.addEventListener("click", function() {
+      showContent(this)
+    }, false);
+  } else {
+    target.attachListener("click", function() {
+      showContent(this)
+    });
+  }
+}
+
+function showContent(target) {
+  var categoryDict = {
+    "action": "ACTION & ADVENTURE: Action films usually include exciting high energy films, big-budget physical stunts and chases, possibly with rescues, battles, fights, escapes, destructive crises. Featuring heroes and heroines designed for pure audience escapism. ",
+    "dramas": "DRAMA: Dramas are serious, plot-driven presentations, portraying realistic characters, settings, life situations, and stories involving intense character development and interaction. Usually, they are not focused on special-effects, comedy, or action",
+    "classics": "CLASSICS: Classic Films are often distinguished or unique works of cinema that have transcended time and trends, with indefinable quality. Classic films are often universal favorites that hold up after repeated rescreenings. Classics are renowned films of first rank, reference points in film mythology, or films that have become a part of American cultural folklore.",
+    "mystery": "MYSTERY: is a genre of film that revolves around the solution of a problem or a crime. It focuses on the efforts of the detective, private investigator or amateur sleuth to solve the mysterious circumstances of an issue by means of clues, investigation, and clever deduction."
+  }
+  document.getElementById("category-description").textContent = categoryDict[target.id];
+}
+main()
+</script>
+
   </body>
 
 </html>
