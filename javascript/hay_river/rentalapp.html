@@ -40,12 +40,19 @@
 
         <nav class="header-nav-list-cntr">
           <ul class="header-nav-list">
+            <li class="header-nav-link-cntr"><a class="hdr-nav-link-text" href="./index.html">Home</a></li>
             <li class="header-nav-link-cntr"><a class="hdr-nav-link-text" href="./index.html">Properties</a></li>
             <li class="header-nav-link-cntr"><a class="hdr-nav-link-text" href="./about.html">About Us</a></li>
-            <li class="header-nav-link-cntr"><a class="hdr-nav-link-text" href="./tenantinfo.html">Tenant Info Form</a></li>
-            <li class="header-nav-link-cntr"><a class="hdr-nav-link-text" href="./rentalapp.html">Rental Application</a></li>
+            <div class="dropdown header-nav-link-cntr">
+              <button onclick="myFunction()" class="dropbtn">Forms</button>
+              <div id="myDropdown" class="dropdown-content">
+                <li class="header-nav-link-cntr"><a class="hdr-nav-link-text" href="./tenantinfo.html">Tenant Info Form</a></li>
+                <li class="header-nav-link-cntr"><a class="hdr-nav-link-text" href="./rentalapp.html">Rental Application</a></li>
+              </div>
+            </div>
           </ul>
         </nav>
+
       </header>
 
       <!-- BEGIN FORM SECTION -->
@@ -439,6 +446,27 @@
       }
     if (window.attachEvent) {
       // window.attachEvent("onload", app_main);
+    }
+    </script>
+
+    <script>
+    /* When the user clicks on the button, 
+            toggle between hiding and showing the dropdown content */
+    function myFunction() {
+      document.getElementById("myDropdown").classList.toggle("show");
+    }
+    // Close the dropdown menu if the user clicks outside of it
+    window.onclick = function(event) {
+      if (!event.target.matches('.dropbtn')) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+          }
+        }
+      }
     }
     </script>
   </body>
