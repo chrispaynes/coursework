@@ -5,14 +5,15 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html charset=UTF-8" />
     <title>Gopher State Videos</title>
-    <link rel="stylesheet" href="style/main.css" />
+    <link rel="stylesheet" href="css/main.css" />
   </head>
 
   <body>
-    <header id="main-header">
+    <div id="main-header">
       <h1 class="store-name">Gopher State Video Store</h1>
 
       <div class="category-nav-container">
+        <p><i>Click on a category below for more details</i></p>
         <ul class="category-container">
           <li id="action" class="category">Action &amp; Adventure</li>
           <li id="dramas" class="category">Dramas</li>
@@ -21,26 +22,26 @@
         </ul>
         <p id="category-description"></p>
       </div>
-    </header>
+    </div>
 
     <div id="main-content-container">
       <div class="movie-category-container">
         <h2 class="movie-category">Action &amp; Adventure</h2>
         <ul class="movie-container">
           <li class="movie">
-            <header class="movie-title">Skyfall</header>
+            <h3 class="movie-title">Skyfall</h3>
             <p class="movie-actor">Daniel Craig</p>
             <p class="movie-actor">Javier Bardem</p>
             <p class="movie-actor">Judi Dench</p>
           </li>
           <li class="movie">
-            <header class="movie-title">Star Wars: Episode V - The&nbsp;Empire&nbsp;Strikes&nbsp;Back</header>
+            <h3 class="movie-title">Star Wars: Episode V - The&nbsp;Empire&nbsp;Strikes&nbsp;Back</h3>
             <p class="movie-actor">Mark Hamill</p>
             <p class="movie-actor">Harrison Ford</p>
             <p class="movie-actor">Carrie Fisher</p>
           </li>
           <li class="movie">
-            <header class="movie-title">Harry Potter and the Deathly&nbsp;Hallows - Part&nbsp;2</header>
+            <h3 class="movie-title">Harry Potter and the Deathly&nbsp;Hallows - Part&nbsp;2</h3>
             <p class="movie-actor">Daniel Radcliffe</p>
             <p class="movie-actor">Rupert Grint </p>
             <p class="movie-actor">Emma Watson</p>
@@ -52,19 +53,19 @@
         <h2 class="movie-category">Dramas</h2>
         <ul class="movie-container">
           <li class="movie">
-            <header class="movie-title">Gravity</header>
+            <h3 class="movie-title">Gravity</h3>
             <p class="movie-actor">Sandra Bullock </p>
             <p class="movie-actor">George Clooney </p>
           </li>
           <li class="movie">
-            <header class="movie-title">The Godfather: Part II</header>
+            <h3 class="movie-title">The Godfather: Part&nbsp;II</h3>
             <p class="movie-actor">Al Pacino</p>
             <p class="movie-actor">Robert De Niro</p>
             <p class="movie-actor">Robert Duvall</p>
             <p class="movie-actor">Diane Keaton</p>
           </li>
           <li class="movie">
-            <header class="movie-title">Jaws</header>
+            <h3 class="movie-title">Jaws</h3>
             <p class="movie-actor">Roy Scheider</p>
             <p class="movie-actor">Robert Shaw</p>
             <p class="movie-actor">Richard Dreyfuss</p>
@@ -76,16 +77,16 @@
         <h2 class="movie-category">Classics</h2>
         <ul class="movie-container">
           <li class="movie">
-            <header class="movie-title">The Wizard of Oz</header>
+            <h3 class="movie-title">The Wizard of Oz</h3>
             <p class="movie-actor">Judy Garland</p>
           </li>
           <li class="movie">
-            <header class="movie-title">Casablanca</header>
+            <h3 class="movie-title">Casablanca</h3>
             <p class="movie-actor">Humphrey Bogart</p>
             <p class="movie-actor">Ingrid Bergman</p>
           </li>
           <li class="movie">
-            <header class="movie-title">Psycho</header>
+            <h3 class="movie-title">Psycho</h3>
             <p class="movie-actor">Anthony Perkins</p>
             <p class="movie-actor">Janet Leigh</p>
           </li>
@@ -96,18 +97,18 @@
         <h2 class="movie-category">Mystery &amp; Suspense</h2>
         <ul class="movie-container">
           <li class="movie">
-            <header class="movie-title">Chinatown</header>
+            <h3 class="movie-title">Chinatown</h3>
             <p class="movie-actor">Jack Nicholson</p>
             <p class="movie-actor">Faye Dunaway</p>
           </li>
           <li class="movie">
-            <header class="movie-title">Nightcrawler</header>
+            <h3 class="movie-title">Nightcrawler</h3>
             <p class="movie-actor">Jake Gyllenhaal</p>
             <p class="movie-actor">Rene Russo</p>
             <p class="movie-actor">Bill Paxton</p>
           </li>
           <li class="movie">
-            <header class="movie-title">No Country for Old Men</header>
+            <h3 class="movie-title">No Country for Old Men</h3>
             <p class="movie-actor">Tommy Lee Jones</p>
             <p class="movie-actor">Javier Bardem</p>
             <p class="movie-actor">Josh Brolin</p>
@@ -119,41 +120,40 @@
     </div>
     <!-- END MAIN CONTENT CONTAINER -->
 
-    <footer></footer>
+    <div id="footer"></div>
 
-<script>
-function main() {
-  var categories = document.getElementsByClassName("category-container")[0].children;
-  categories = Array.prototype.slice.call(categories);
-  categories.map(function(c) {
-    addListeners(c)
-  });
-}
+    <script type="text/javascript">
+    function main() {
+      var categories = document.getElementsByClassName("category-container")[0].children;
+      categories = Array.prototype.slice.call(categories);
+      categories.map(function(c) {
+        addListeners(c)
+      });
+    }
 
-function addListeners(target) {
-  if (document.addEventListener) {
-    target.addEventListener("click", function() {
-      showContent(this)
-    }, false);
-  } else {
-    target.attachListener("click", function() {
-      showContent(this)
-    });
-  }
-}
+    function addListeners(target) {
+      if (document.addEventListener) {
+        target.addEventListener("click", function() {
+          showContent(this)
+        }, false);
+      } else {
+        target.attachListener("click", function() {
+          showContent(this)
+        });
+      }
+    }
 
-function showContent(target) {
-  var categoryDict = {
-    "action": "ACTION & ADVENTURE: Action films usually include exciting high energy films, big-budget physical stunts and chases, possibly with rescues, battles, fights, escapes, destructive crises. Featuring heroes and heroines designed for pure audience escapism. ",
-    "dramas": "DRAMA: Dramas are serious, plot-driven presentations, portraying realistic characters, settings, life situations, and stories involving intense character development and interaction. Usually, they are not focused on special-effects, comedy, or action",
-    "classics": "CLASSICS: Classic Films are often distinguished or unique works of cinema that have transcended time and trends, with indefinable quality. Classic films are often universal favorites that hold up after repeated rescreenings. Classics are renowned films of first rank, reference points in film mythology, or films that have become a part of American cultural folklore.",
-    "mystery": "MYSTERY: is a genre of film that revolves around the solution of a problem or a crime. It focuses on the efforts of the detective, private investigator or amateur sleuth to solve the mysterious circumstances of an issue by means of clues, investigation, and clever deduction."
-  }
-  document.getElementById("category-description").textContent = categoryDict[target.id];
-}
-main()
-</script>
-
+    function showContent(target) {
+      var categoryDict = {
+        "action": "Action and adventure films usually include exciting high energy films, big-budget physical stunts and chases, possibly with rescues, battles, fights, escapes, destructive crises. Featuring heroes and heroines designed for pure audience escapism. ",
+        "dramas": "Dramas are serious, plot-driven presentations, portraying realistic characters, settings, life situations, and stories involving intense character development and interaction. Usually, they are not focused on special-effects, comedy, or action",
+        "classics": "Classic films are often distinguished or unique works of cinema that have transcended time and trends, with indefinable quality. Classic films are often universal favorites that hold up after repeated rescreenings. Classics are renowned films of first rank, reference points in film mythology, or films that have become a part of American cultural folklore.",
+        "mystery": "Mysteries revolves around the solution of a problem or a crime. It focuses on the efforts of the detective, private investigator or amateur sleuth to solve the mysterious circumstances of an issue by means of clues, investigation, and clever deduction."
+      }
+      document.getElementById("category-description").textContent = categoryDict[target.id];
+    }
+    main()
+    </script>
   </body>
 
 </html>
