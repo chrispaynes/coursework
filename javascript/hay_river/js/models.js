@@ -2,7 +2,6 @@ function DetailedPropertyListing(property) {
   this.div = document.createElement("div");
   this.div.id = "slideshow_main";
   this.thumbnail = new Thumbnail(property, "slideshow-slide_image");
-  // this.slideshow = new Slideshow(property, "slideshow-slides");
   this.description = new Description(property, "aside");
   this.section = document.createElement("section");
   this.section.id = "image_cont";
@@ -63,7 +62,8 @@ function Description(property, element) {
 function FigCaption(property) {
   this.figcaption = document.createElement("figcaption");
   this.address = document.createElement("h3");
-  this.address.innerHTML = RENTALS[property].addr;
+
+  this.address.innerHTML = "<a href='#'>" + RENTALS[property].addr + "</a>";
   this.addressContainer = document.createElement("div");
   this.addressContainer.className = "address-container";
   this.description = document.createElement("p");
