@@ -41,56 +41,61 @@ $email_from = "tenantInfoForm@rubypupil.com";
 $subject = "New Tenant Info Form Submission From $tenant_first_name";
 $message = <<<EMAIL
 
-You have received a new message
+You have received a new tenant submission
 from applicant: $tenant_first_name
 
-RENTAL UNIT INFORMATION #2
+RENTAL UNIT INFORMATION
 =============================================================
-hrmc_rental_addr: $hrmc_rental_addr
-hrmc_rental_unit: $hrmc_rental_unit
+HRMC Rental Addr: $hrmc_rental_addr
+HRMC Rental Unit: $hrmc_rental_unit
 
 TENANT INFORMATION
 =============================================================
-tenant_first_name: $tenant_first_name
-tenant_middle_name: $tenant_middle_name
-tenant_last_name: $tenant_last_name
-tenant_dob: $tenant_dob
-tenant_social: $tenant_social
-tenant_email: $tenant_email
-tenant_school_major: $tenant_school_major
-tenant_dlnum: $tenant_dlnum
-tenant_vehicle_description: $tenant_vehicle_description
-tenant_vehicle_plate: $tenant_vehicle_plate
-tenant_employer: $tenant_employer
-tenant_employer_phone: $tenant_employer_phone
+Tenant First Name: $tenant_first_name
+Tenant Middle Name: $tenant_middle_name
+Tenant Last Name: $tenant_last_name
+Tenant DOB: $tenant_dob
+Tenant Social: $tenant_social
+Tenant Email: $tenant_email
+Tenant School Major: $tenant_school_major
+Tenant DL Num: $tenant_dlnum
+Tenant Vehicle Description: $tenant_vehicle_description
+Tenant Vehicle Plate: $tenant_vehicle_plate
+Tenant Employer: $tenant_employer
+Tenant Employer Phone: $tenant_employer_phone
 
-VEHICLE INFORMATION
+VEHICLE #1 INFORMATION
 =============================================================
-vehicle1_description: $vehicle1_description
-vehicle1_plate: $vehicle1_plate
-vehicle1_dlnum: $vehicle1_dlnum
-vehicle2_desciption: $vehicle2_desciption
-vehicle2_plate: $vehicle2_plate
-vehicle2_dlnum: $vehicle2_dlnum
+Vehicle1 Description: $vehicle1_description
+Vehicle1 Plate: $vehicle1_plate
+Vehicle1 DL Num: $vehicle1_dlnum
+
+
+VEHICLE #2 INFORMATION
+=============================================================
+Vehicle2 Desciption: $vehicle2_desciption
+Vehicle2 Plate: $vehicle2_plate
+Vehicle2 DL Num: $vehicle2_dlnum
 
 EMERGENCY CONTACT #1
 =============================================================
-emerg1_contact_name: $emerg1_contact_name
-emerg1_contact_phone: $emerg1_contact_phone
-emerg1_contact_addr: $emerg1_contact_addr
-emerg1_contact_relationship: $emerg1_contact_relationship
+Emergency1 Contact Name: $emerg1_contact_name
+Emergency1 Contact Phone: $emerg1_contact_phone
+Emergency1 Contact Addr: $emerg1_contact_addr
+Emergency1 Contact Relationship: $emerg1_contact_relationship
 
 EMERGENCY CONTACT #2
 =============================================================
-emerg2_contact_name: $emerg2_contact_name
-emerg2_contact_phone: $emerg2_contact_phone
-emerg2_contact_addr: $emerg2_contact_addr
-emerg2_contact_relationship: $emerg2_contact_relationship
+Emergency2 Contact Name: $emerg2_contact_name
+Emergency2 Contact Phone: $emerg2_contact_phone
+Emergency2 Contact Addr: $emerg2_contact_addr
+Emergency2 Contact Relationship: $emerg2_contact_relationship
 
-submission_date: $timestamp
+Submission Date: $timestamp
 EMAIL;
 
-$to = "cdpaynes@gmail.com, tjensen333@hotmail.com";
+//tjensen333@hotmail.com
+$to = "cdpaynes@gmail.com";
 $headers = "From: $email_from \r\n";
 $headers .= "Reply-To: $tenant_email \r\n";
 
