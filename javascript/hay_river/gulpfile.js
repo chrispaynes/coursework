@@ -16,9 +16,12 @@ const CSSSource = './css/*.css';
 const CSSDestination = './dist/css/';
 const JSSource = ['./data/*.js', './js/*.js'];
 const JSDestination = 'dist/js';
+const PHPSource = './php/*.php';
+const PHPDestination = 'dist/';
 
 gulp.task('minifyImages', () =>
   gulp.src('./img/*')
+
   .pipe(imagemin())
   .pipe(gulp.dest('dist/img'))
   .pipe(livereload())
@@ -41,8 +44,14 @@ gulp.task('minifyJS', function() {
     .pipe(concat('app.min.js'))
     .pipe(gulp.dest(JSDestination))
     .pipe(rename('app.min.js'))
-    // .pipe(uglify())
+    .pipe(uglify())
     .pipe(gulp.dest(JSDestination))
+    .pipe(livereload());
+});
+
+gulp.task('packagePHP', function() {
+  return gulp.src(PHPSource)
+    .pipe(gulp.dest(PHPDestination))
     .pipe(livereload());
 });
 
@@ -77,6 +86,7 @@ gulp.task('watchSourceFiles', function() {
   gulp.watch('./img/*', ['minifyImages']);
   gulp.watch(JSSource, ['minifyJS']);
   gulp.watch(HTMLSource, ['minifyHTML']);
+  gulp.watch(PHPSource, ['packagePHP']);
 });
 
-gulp.task('default', ['minifyHTML', 'minifyJS', 'minifyCSS', "minifyImages", "startWebserver", "watchSourceFiles"]);
+gulp.task('default', ['minifyHTML', 'minifyJS', 'packagePHP', 'minifyCSS', 'minifyImages', 'startWebserver', 'watchSourceFiles']);
