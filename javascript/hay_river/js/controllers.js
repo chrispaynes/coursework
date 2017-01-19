@@ -27,7 +27,9 @@ function appendPropertyPageToDOM(property) {
   var slideshow_parent_container = document.createElement("div");
   var slideshow_btn_container = document.createElement("div");
   var prev_slide = document.createElement("a");
+  prev_slide.id = "prev_slide";
   var next_slide = document.createElement("a");
+  next_slide.id = "next_slide";
 
   slideshow_parent_container.className = "slideshow_parent_container";
   slideshow_btn_container.className = "w3-clear nextprev";
@@ -55,7 +57,15 @@ function rotateSlide(image_element, id, mutation, collection) {
 
   // TODO: CLEAN UP REGEX AND IMPROVE READABILITY
   // If mutating results in out of bounds, then the mutation is the array length * -1. else mutation
-  (mutation + current_image) == collection.length ? (mutation += ((current_image * -1) - 1)) : mutation = mutation;
+  if (mutation === 1) {
+    (mutation + current_image) == collection.length ? (mutation += ((current_image * -1) - 1)) : mutation = mutation;
+  } else if (mutation === -1) {
+    current_image === 0 ? (mutation += collection.length) : mutation = mutation;
+  }
+
+
+  console.log(mutation, "mutation")
+  console.log(current_image, "current_image")
   image_element.src = "img/" + collection[current_image + mutation];
 }
 
@@ -76,15 +86,26 @@ function showDetailedPropertyListing(id) {
   renderNewRentalPage(listing);
 
   image_element = document.getElementById(id);
+  next_slide_btn = document.getElementById("next_slide");
+  prev_slide_btn = document.getElementById("prev_slide");
   floorplan_element = document.getElementById("floorplan_" + id);
 
   floorplan_element.addEventListener("click", function() {
     rotateSlide(floorplan_element, id, 1, RENTALS[id].floorplan);
   }, false);
 
-  image_element.addEventListener("click", function() {
+  prev_slide_btn.addEventListener("click", function() {
+    rotateSlide(image_element, id, -1, RENTALS[id].image);
+  }, false);
+
+  next_slide_btn.addEventListener("click", function() {
     rotateSlide(image_element, id, 1, RENTALS[id].image);
   }, false);
+
+  // image_element.addEventListener("click", function() {
+  //   rotateSlide(image_element, id, 1, RENTALS[id].image);
+  // }, false);
+
 }
 
 /* When the user clicks on the button, 
