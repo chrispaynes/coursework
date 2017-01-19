@@ -24,26 +24,27 @@ function setPropertyContent(id) {
 }
 
 function appendPropertyPageToDOM(property) {
-  var left_nav = document.createElement("a");
-  left_nav.className = "w3-btn-floating w3-display-left";
-  // left_nav.textContent = &#10094;
-  left_nav.textContent = ">";
+  var slideshow_parent_container = document.createElement("div");
+  var slideshow_btn_container = document.createElement("div");
+  var prev_slide = document.createElement("a");
+  var next_slide = document.createElement("a");
 
-  var right_nav = document.createElement("a");
-  right_nav.className = "w3-btn-floating w3-display-right";
-  // right_nav.textContent = &#10095;
-  right_nav.textContent = "<";
+  slideshow_parent_container.className = "slideshow_parent_container";
+  slideshow_btn_container.className = "w3-clear nextprev";
 
-  // var right_nav = "<a class='w3-btn-floating w3-display-right' onclick='plusDivs(+1)'>&#10095;</a>";
+  prev_slide.className = "w3-left w3-btn";
+  prev_slide.textContent = "❮ Previous";
 
-  property.div.appendChild(left_nav);
-  property.div.appendChild(property.thumbnail);
-  property.div.appendChild(right_nav);
+  next_slide.className = "w3-right w3-btn";
+  next_slide.textContent = "Next ❯";
 
-  // property.div.appendChild.right_nav = "<a class='w3-btn-floating w3-display-right' onclick='plusDivs(+1)'>&#10095;</a>";
+  slideshow_btn_container.appendChild(prev_slide);
+  slideshow_btn_container.appendChild(next_slide);
 
+  slideshow_parent_container.appendChild(property.thumbnail);
+  slideshow_parent_container.appendChild(slideshow_btn_container);
 
-
+  property.div.appendChild(slideshow_parent_container);
   property.div.appendChild(property.description);
   property.section.appendChild(property.floorplan);
   property.section.appendChild(property.map);
@@ -51,7 +52,6 @@ function appendPropertyPageToDOM(property) {
 
 function rotateSlide(image_element, id, mutation, collection) {
   var current_image = collection.indexOf(image_element.src.replace(/^[^*]*\//, ""));
-  // console.log((mutation + current_image) + " / " + current_image + " / " + (collection.length - 1) + " " + collection[current_image + mutation]);
 
   // TODO: CLEAN UP REGEX AND IMPROVE READABILITY
   // If mutating results in out of bounds, then the mutation is the array length * -1. else mutation
