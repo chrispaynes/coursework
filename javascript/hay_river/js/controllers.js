@@ -24,31 +24,68 @@ function setPropertyContent(id) {
 }
 
 function appendPropertyPageToDOM(property) {
+  // RENTAL PICS SLIDESHOW
   var slideshow_parent_container = document.createElement("div");
   var slideshow_btn_container = document.createElement("div");
   var prev_slide = document.createElement("a");
   prev_slide.id = "prev_slide";
   var next_slide = document.createElement("a");
   next_slide.id = "next_slide";
-
   slideshow_parent_container.className = "slideshow_parent_container";
   slideshow_btn_container.className = "w3-clear nextprev";
 
+  // FLOORPLAN SLIDESHOW
+  var floorplan_parent_container = document.createElement("div");
+  var floorplan_btn_container = document.createElement("div");
+  floorplan_parent_container.className = "floorplan_parent_container";
+  floorplan_btn_container.className = "w3-clear nextprev";
+
+  var prev_fp_slide = document.createElement("a");
+  prev_fp_slide.id = "prev_fp_slide";
+  var next_fp_slide = document.createElement("a");
+  next_fp_slide.id = "next_fp_slide";
+
+  // DEFINE FLOORPLAN SLIDER BUTTONS
+  prev_fp_slide.className = "w3-left w3-btn";
+  prev_fp_slide.textContent = "❮ Previous";
+  next_fp_slide.className = "w3-right w3-btn";
+  next_fp_slide.textContent = "Next ❯";
+
+  // ADD FLOORPLAN SLIDER BUTTONS TO BTN CONTAINER
+  floorplan_btn_container.appendChild(prev_fp_slide);
+  floorplan_btn_container.appendChild(next_fp_slide);
+
+  // ADD FLOORPLAN AND SLIDER BTNS TO THUMBNAIL SLIDESHOW
+  floorplan_parent_container.appendChild(property.floorplan);
+  floorplan_parent_container.appendChild(floorplan_btn_container);
+
+  // DEFINE SLIDER BUTTONS
   prev_slide.className = "w3-left w3-btn";
   prev_slide.textContent = "❮ Previous";
-
   next_slide.className = "w3-right w3-btn";
   next_slide.textContent = "Next ❯";
 
+  // ADD SLIDER BUTTONS TO BTN CONTAINER
   slideshow_btn_container.appendChild(prev_slide);
   slideshow_btn_container.appendChild(next_slide);
 
+  // ADD PROPERTY THUMBNAIL AND SLIDER BTNS TO THUMBNAIL SLIDESHOW
   slideshow_parent_container.appendChild(property.thumbnail);
   slideshow_parent_container.appendChild(slideshow_btn_container);
 
   property.div.appendChild(slideshow_parent_container);
   property.div.appendChild(property.description);
-  property.section.appendChild(property.floorplan);
+  //
+  //
+  //
+  //
+  property.section.appendChild(floorplan_parent_container);
+
+  // property.section.appendChild(property.floorplan);
+  //
+  //
+  //
+  //
   property.section.appendChild(property.map);
 }
 
@@ -63,9 +100,6 @@ function rotateSlide(image_element, id, mutation, collection) {
     current_image === 0 ? (mutation += collection.length) : mutation = mutation;
   }
 
-
-  console.log(mutation, "mutation")
-  console.log(current_image, "current_image")
   image_element.src = "img/" + collection[current_image + mutation];
 }
 
@@ -88,12 +122,21 @@ function showDetailedPropertyListing(id) {
   image_element = document.getElementById(id);
   next_slide_btn = document.getElementById("next_slide");
   prev_slide_btn = document.getElementById("prev_slide");
-  floorplan_element = document.getElementById("floorplan_" + id);
 
-  floorplan_element.addEventListener("click", function() {
+  next_fp_slide_btn = document.getElementById("next_fp_slide");
+  prev_fp_slide_btn = document.getElementById("prev_fp_slide");
+
+  floorplan_element = document.getElementById("floorplan_" + id);
+  prev_fp_slide_btn.addEventListener("click", function() {
+    rotateSlide(floorplan_element, id, -1, RENTALS[id].floorplan);
+  }, false);
+
+  next_fp_slide_btn.addEventListener("click", function() {
     rotateSlide(floorplan_element, id, 1, RENTALS[id].floorplan);
   }, false);
 
+
+  // ADD NAVIGATIONAL CLICK EVENT LISTENER FOR SLIDESHOW
   prev_slide_btn.addEventListener("click", function() {
     rotateSlide(image_element, id, -1, RENTALS[id].image);
   }, false);
@@ -102,16 +145,6 @@ function showDetailedPropertyListing(id) {
     rotateSlide(image_element, id, 1, RENTALS[id].image);
   }, false);
 
-  // image_element.addEventListener("click", function() {
-  //   rotateSlide(image_element, id, 1, RENTALS[id].image);
-  // }, false);
-
-}
-
-/* When the user clicks on the button, 
-toggle between hiding and showing the dropdown content */
-function myFunction() {
-  document.getElementById("myDropdown").classList.toggle("show");
 }
 
 // Close the dropdown menu if the user clicks outside of it
