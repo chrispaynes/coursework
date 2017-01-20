@@ -736,12 +736,6 @@ figure img:hover {
   border-radius: 5px;
 }
 
-.w3-btn:hover,
-.w3-btn-floating:hover,
-.w3-btn-floating-large:hover {
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
 a:active,
 a:hover {
   outline-width: 0;
@@ -788,15 +782,27 @@ a:hover {
   flex: 1 0 25%;
 }
 
-.nextprev {
+.nextprev_floorplan {
   width: 100%;
   position: relative;
   height: 2em;
   z-index: 200;
+  background: rgba(40, 90, 10, .85);
+}
+
+.nextprev {
+  width: 100%;
+  position: relative;
+  bottom: 3.125em;
+  height: 3em;
+  z-index: 200;
+  background: rgba(255, 255, 255, .25);
 }
 
 .nextprev a.w3-right,
-.nextprev a.w3-left {
+.nextprev a.w3-left,
+.nextprev_floorplan a.w3-right,
+.nextprev_floorplan a.w3-left {
   color: #ffffff;
 }
 
@@ -805,10 +811,23 @@ a:hover {
   letter-spacing: 1px;
   width: 115px;
   cursor: pointer;
+  position: relative;
+  top: 6px;
+}
+
+.nextprev_floorplan a {
+  font-size: 1em;
+  letter-spacing: 1px;
+  width: 115px;
+  cursor: pointer;
+  position: relative;
+  top: 0;
 }
 
 .nextprev a:link,
-.nextprev a:visited {
+.nextprev a:visited,
+.nextprev_floorplan a:link,
+.nextprev_floorplan a:visited {
   background-color: #ffffff;
   color: ffffff;
 }
@@ -821,6 +840,10 @@ a:hover {
   float: right!important;
 }
 
+.nextprev a:hover {
+  color: yellow;
+}
+
 .w3-btn,
 .w3-btn-block {
   border: none;
@@ -830,25 +853,16 @@ a:hover {
   vertical-align: middle;
   overflow: hidden;
   text-decoration: none!important;
-  /*color: #fff;*/
-  /*background-color: #000;*/
   text-align: center;
   cursor: pointer;
   white-space: nowrap;
-}
-
-.w3-btn:hover {
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 
 /* Container for Rental floorplans and Google Map */
 
 #image_cont {
-  display: flex;
-  flex-wrap: wrap;
-  -webkit-justify-content: space-between;
-  justify-content: space-between;
+  display: block;
 }
 
 .map {
@@ -866,7 +880,7 @@ a:hover {
   }
   .slideshow_description-container {
     padding-right: 0;
-    padding: 0.5rem;
+    padding: .5rem 0;
   }
   .slideshow_description-container h3 {
     font-size: 1.25rem;
@@ -875,6 +889,13 @@ a:hover {
     text-align: center;
     letter-spacing: 0.75px;
     line-height: 105%;
+  }
+  .nextprev_floorplan {
+    bottom: 6.125em;
+  }
+  .nextprev {
+    bottom: 4.125em;
+    height: 3em;
   }
   .property-category {
     text-align: center;
@@ -904,7 +925,7 @@ a:hover {
   }
   .floorplan {
     width: 100%;
-    height: 100%;
+    height: auto;
     margin-right: 0;
     margin-bottom: 4rem;
   }
@@ -945,10 +966,12 @@ a:hover {
     letter-spacing: 0.75px;
     line-height: 105%;
   }
+  .nextprev_floorplan {
+    bottom: 6.125em;
+  }
   .nextprev {
     width: 100%;
     position: relative;
-    bottom: 3em;
   }
   .property-category {
     text-align: center;
@@ -988,16 +1011,6 @@ a:hover {
     width: 100%;
     margin-bottom: 4rem;
   }
-  /*    .floorplan,
-    .map {
-      width: 45%;
-      margin-bottom: 3rem;
-    }
-*/
-  /*    #image_cont {
-      height: 500px;
-    }
-*/
 }
 
 @media (min-width: 769px) {
@@ -1059,6 +1072,9 @@ a:hover {
   .property-features li span {
     margin: 0 0 0 -1rem;
   }
+  .nextprev_floorplan {
+    bottom: 5.125em;
+  }
   .floorplan,
   .map {
     max-height: 500px;
@@ -1067,6 +1083,12 @@ a:hover {
   }
   .floorplan {
     width: auto;
+  }
+  #image_cont {
+    display: flex;
+    flex-wrap: wrap;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
   }
 }
 
