@@ -57,7 +57,6 @@ p {
 
 a {
   font-weight: normal;
-  /*font-size: 125%;*/
   color: black;
   text-decoration: none;
 }
@@ -85,13 +84,6 @@ h3 {
   text-align: left;
   margin: 0;
 }
-
-
-/*figcaption {
-  margin: 15px 0;
-  padding: 1%;
-}
-*/
 
 
 /* HEADER */
@@ -165,7 +157,6 @@ header {
 .phone {
   position: relative;
   top: 2px;
-  /*right: -10px;*/
   right: 2px;
   height: 15px;
   float: left;
@@ -198,16 +189,6 @@ header {
   border: none;
   outline: none;
 }
-
-
-/* Dropdown button on hover & focus */
-
-
-/*.dropbtn:hover,
-.dropbtn:focus {
-  background-color: #3e8e41;
-}
-*/
 
 
 /* The container <div> - needed to position the dropdown content */
@@ -253,6 +234,12 @@ header {
   display: block;
 }
 
+.form-link {
+  color: rgb(91, 149, 66);
+  font-weight: 800;
+  text-decoration: underline;
+}
+
 @media (max-width: 425px) {
   header {
     padding: 1rem;
@@ -269,14 +256,21 @@ header {
     margin: 0 auto 1.5rem auto;
     text-align: center;
     width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
   }
-  .header-addr-cntr p,
-  .header-addr-cntr a,
   .header-addr-cntr div {
-    margin-bottom: 0.5rem;
+    line-height: 24px;
+    max-height: 24px;
+    display: inline-flex;
+    margin: 0 auto 0.5em auto;
   }
   .header-addr-cntr img {
     float: left;
+    margin: 0 4px 0 0;
+    position: relative;
+    top: 4px;
   }
   .header-nav-list {
     display: block;
@@ -339,7 +333,6 @@ header {
   .header-logo {
     margin: 0 auto;
     padding: 2rem 0 1rem 0;
-    /*padding-bottom: 2rem;*/
   }
   .header-addr-cntr {
     margin: 0 auto 1.5rem auto;
@@ -349,17 +342,20 @@ header {
     flex-wrap: wrap;
     flex-direction: column;
   }
-  .header-addr-cntr p,
   .header-addr-cntr div {
-    flex: 0 1 43%;
-    margin-bottom: 0;
-    height: 16px;
+    line-height: 24px;
+    max-height: 24px;
+    display: inline-flex;
+    margin: 0 auto 0.5em auto;
   }
   .header-addr-cntr a {
     margin-bottom: 0.5rem;
   }
   .header-addr-cntr img {
     float: left;
+    margin: 0 4px 0 0;
+    position: relative;
+    top: 4px;
   }
   .header-nav-list {
     display: flex;
@@ -759,20 +755,24 @@ a:hover {
   font-size: 0.875rem;
   line-height: 150%;
   letter-spacing: 1px;
+  position: relative;
+  color: rgba(255, 255, 255, 0.85);
 }
-
-.property-features-header {}
 
 .property-features li {
   list-style-type: square;
   list-style-position: inside;
 }
 
+.property-features li span {
+  position: absolute;
+  left: 1em;
+}
+
 
 /* Expanded Slideshow Floorplan Image */
 
 .floorplan {
-  /*flex: 1 0 25%;*/
   margin: 0 2rem 0 0;
 }
 
@@ -910,13 +910,10 @@ a:hover {
     letter-spacing: 0.5px;
   }
   .property-features {
-    font-size: 0.875rem;
-    line-height: 150%;
-    color: rgba(255, 255, 255, 0.85);
-    letter-spacing: 1px;
+    font-size: 1em;
   }
   .property-features li span {
-    margin: 0 0 0 -1rem;
+    left: 1.5em;
   }
   .slideshow-slide_image {
     width: 100%;
@@ -992,13 +989,7 @@ a:hover {
     font-size: 1.15rem;
   }
   .property-features {
-    font-size: 1.15rem;
-    line-height: 150%;
-    color: rgba(255, 255, 255, 0.85);
-    letter-spacing: 1px;
-  }
-  .property-features li span {
-    margin: 0 0 0 -1rem;
+    font-size: 1em;
   }
   .floorplan {
     width: 100%;
@@ -1065,12 +1056,6 @@ a:hover {
   }
   .property-features {
     font-size: 1rem;
-    line-height: 150%;
-    color: rgba(255, 255, 255, 0.85);
-    letter-spacing: 1px;
-  }
-  .property-features li span {
-    margin: 0 0 0 -1rem;
   }
   .nextprev_floorplan {
     bottom: 5.125em;
@@ -1385,4 +1370,12 @@ hr.green-divider {
 
 .center {
   text-align: center;
+}
+
+.clearfix:after {
+  content: ".";
+  /*display: block;*/
+  height: 0;
+  clear: both;
+  visibility: hidden;
 }

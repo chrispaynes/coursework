@@ -12,7 +12,7 @@ function renderPropertyCollection() {
 
 function setPropertyContent(id) {
   var features = RENTALS[id].features.map(function(feature) {
-    return "<li><span>" + feature + "</span></li>";
+    return "<tr><td>&bull; <span>" + feature + "</span></td><tr>";
   });
 
   return "<h3>" + RENTALS[id].addr + "</h3>" +
@@ -20,7 +20,7 @@ function setPropertyContent(id) {
     "<p class='property-description-header'>DESCRIPTION</p>" +
     "<p class='property-description'>" + RENTALS[id].description + "<br>" +
     "<p class='property-features-header'>AMENITIES</p>" +
-    "<ul class='property-features' id='property-features-container'>" + features.join("") + "</ul>";
+    "<table class='property-features' id='property-features-container'><tbody>" + features.join("") + "<tbody></table>";
 }
 
 function appendPropertyPageToDOM(property) {
@@ -38,7 +38,7 @@ function appendPropertyPageToDOM(property) {
   var floorplan_parent_container = document.createElement("div");
   var floorplan_btn_container = document.createElement("div");
   floorplan_parent_container.className = "floorplan_parent_container";
-  floorplan_btn_container.className = "w3-clear nextprev";
+  floorplan_btn_container.className = "w3-clear nextprev_floorplan";
 
   var prev_fp_slide = document.createElement("a");
   prev_fp_slide.id = "prev_fp_slide";
