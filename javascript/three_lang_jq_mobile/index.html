@@ -1,3 +1,13 @@
+<!-- Based on the mockup you created in Module 1, you should now begin creating the first simple home page of your application. Your web application should contain at least 1 page (HTML document), containing only the main or home page of the application. Your first simple page should contain the following: -->
+
+<!-- A header, logo, content, and footer sections. -->
+
+<!-- At least 6 buttons or sections. -->
+
+<!-- Jstudent_exampleproblem_101504 -->
+
+<!-- http://punchcut.com/perspectives/best-practices-mobile-design/ -->
+
 <!DOCTYPE html>
 <html>
 
@@ -6,68 +16,181 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Top Three Languages - Home</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto:500,700" type="text/css" rel="stylesheet prefetch">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700" type="text/css" rel="stylesheet prefetch">
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700" type="text/css" rel="stylesheet prefetch">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
-    <link rel="icon" type="image/png" href="img/favicon.png">
+    <!-- <link rel="icon" type="image/png" href="img/favicon.png"> -->
+
+    <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/mobileservices/MobileServices.Web-1.2.5.min.js"></script>
 
   </head>
 
   <body>
-    <div class="body-container">
-      <header class="main-header">
-        <div class="site-title">Site Title</div>
-        <nav class="nav-container">Navigation</nav>
-      </header>
 
-      <div class="hero-container">
-        <div class="site-logo-container">Site Logo</div>
-        <div class="site-tagline-container">
-          <h1 class="site-tagline">Site Tagline</h1>
-          <h2 class="page-title">Page Title</h2>
+    <div data-role="page" data-add-back-btn="true" id="home">
+
+      <div data-role="header">
+        <h1>TopThreeLanguages</h1>
+
+        <div data-role="navbar">
+          <ul>
+            <li><a href="#home" class="ui-btn ui-icon-home ui-btn-icon-left">Home</a></li>
+            <li><a href="#elixir-page">Elixir</a></li>
+            <li><a href="#ruby-page">Ruby</a></li>
+            <li><a href="#golang-page">Golang</a></li>
+          </ul>
         </div>
       </div>
 
-      <main class="language-block-container">
-        <section class="language-block">
-          <div class="lang-logo">Programming Language Logo<img src="" alt=""></div>
-          <h3 class="lang-descriptor">Descriptive Word</h3>
-          <ul class="lang-description-container">
-            <li class="lang-description">Descriptive Word #1</li>
-            <li class="lang-description">Descriptive Word #2</li>
-            <li class="lang-description">Descriptive Word #3</li>
-          </ul>
-        </section>
+      <div data-role="main" class="body-container ui-content">
+        <div class="hero-container">
+          <div class="site-logo-container">
+            <object type="image/svg+xml" data="img/three_lang_logo.svg"></object>
+          </div>
+          <div class="site-tagline-container">
+            <h1 class="site-tagline">3 Languages Worth&nbsp;Learning</h1>
+            <h2 class="page-title">Home</h2>
+          </div>
+        </div>
 
-        <section class="language-block">
-          <div class="lang-logo">Programming Language Logo<img src="" alt=""></div>
-          <h3 class="lang-descriptor">Descriptive Word</h3>
-          <ul class="lang-description-container">
-            <li class="lang-description">Descriptive Word #1</li>
-            <li class="lang-description">Descriptive Word #2</li>
-            <li class="lang-description">Descriptive Word #3</li>
-          </ul>
-        </section>
+        <main class="language-block-container">
 
-        <section class="language-block">
-          <div class="lang-logo">Programming Language Logo<img src="" alt=""></div>
-          <h3 class="lang-descriptor">Descriptive Word</h3>
-          <ul class="lang-description-container">
-            <li class="lang-description">Descriptive Word #1</li>
-            <li class="lang-description">Descriptive Word #2</li>
-            <li class="lang-description">Descriptive Word #3</li>
-          </ul>
-        </section>
-      </main>
+          <hr class="language-divider">
+
+          <!-- ELIXIR SECTION -->
+          <section class="language-block">
+            <h1 class="language-title">Elixir</h1>
+            <div class="lang-logo">
+              <a href="#elixir-page">
+                <img src="img/elixir_logo.png" alt="elixir language logo">
+              </a>
+            </div>
+            <h3 class="lang-descriptor">Functional</h3>
+            <ul class="lang-description-container">
+              <li class="lang-description">Functional</li>
+              <li class="lang-description">Concurrent</li>
+              <li class="lang-description">Distributed</li>
+            </ul>
+          </section>
+
+          <hr class="language-divider">
+
+          <!-- RUBY SECTION -->
+          <section class="language-block">
+            <h1 class="language-title">Ruby</h1>
+            <div class="lang-logo">
+              <a href="#ruby-page">
+                <object type="image/svg+xml" data="img/ruby_logo.svg"></object>
+              </a>
+            </div>
+            <h3 class="lang-descriptor">Object Oriented</h3>
+            <ul class="lang-description-container">
+              <li class="lang-description">Dynamic</li>
+              <li class="lang-description">Reflective</li>
+              <li class="lang-description">Developer Happiness</li>
+            </ul>
+          </section>
+
+          <hr class="language-divider">
+
+          <!-- GOLANG SECTION -->
+          <section class="language-block">
+            <h1 class="language-title">Golang</h1>
+            <div class="lang-logo">
+              <a href="#golang-page">
+                <object type="image/svg+xml" data="img/golang_logo.svg"></object>
+              </a>
+            </div>
+            <h3 class="lang-descriptor">Imperative</h3>
+            <ul class="lang-description-container">
+              <li class="lang-description">Compiled</li>
+              <li class="lang-description">Statically Type</li>
+              <li class="lang-description">Concurrency</li>
+              <li class="lang-description">Memory Safety</li>
+            </ul>
+          </section>
+          <hr class="language-divider">
+        </main>
+      </div>
+
+      <section class="homepage-about">
+        <h4 class="homepage-about-description">About TopThreeLanguages</h4>
+        <p>TopThreeLanguages is a collection of unique programming languages that I enjoy learning in my free time. After exploring numerous programming languages, I've decided to focus most (not all) of my energy learning these radically different languages.</p>
+      </section>
+
+      <!-- At least 6 buttons or sections. -->
+      <!-- A copyright in the footer. -->
+      <footer data-role="footer">
+        <p>Copyright &copy; 2017 TopThreeLanguages</p>
+      </footer>
+
     </div>
 
-    <section class="homepage-about">
-      <h4 class="homepage-about-description">Brief Content Description</h4>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloremque excepturi, odio accusamus in et quia consequatur nihil sint! A autem, ullam aperiam repudiandae qui nemo cum quis quam officiis dolore. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloremque excepturi, odio accusamus in et quia consequatur nihil sint! A autem, ullam aperiam repudiandae qui nemo cum quis quam officiis dolore. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloremque excepturi, odio accusamus in et quia consequatur nihil sint! A autem, ullam aperiam repudiandae qui nemo cum quis quam officiis dolore. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloremque excepturi, odio accusamus in et quia consequatur nihil sint! A autem, ullam aperiam repudiandae qui nemo cum quis quam officiis dolore.</p>
-    </section>
+    <!-- ELIXIR PAGE -->
+    <div data-role="page" id="elixir-page" data-add-back-btn="true">
+      <div data-role="header">
+        <h1>Elixir HEADER</h1>
+        <div data-role="navbar">
+          <ul>
+            <li><a href="#home" class="ui-btn ui-icon-home ui-btn-icon-left">Home</a></li>
+            <li><a href="#elixir-page">Elixir</a></li>
+            <li><a href="#ruby-page">Ruby</a></li>
+            <li><a href="#golang-page">Golang</a></li>
+          </ul>
+        </div>
+      </div>
+      <div data-role="main" class="ui-content center">
+        <p>content</p>
+        <a href="#home">Go Home</a>
+      </div>
 
-    <footer>Footer</footer>
+      <footer data-role="footer">FOOTER</footer>
+    </div>
 
+    <!-- RUBY PAGE -->
+    <div data-role="page" id="ruby-page" data-add-back-btn="true">
+      <div data-role="header">
+        <h1>Ruby HEADER</h1>
+        <div data-role="navbar">
+          <ul>
+            <li><a href="#home" class="ui-btn ui-icon-home ui-btn-icon-left">Home</a></li>
+            <li><a href="#elixir-page">Elixir</a></li>
+            <li><a href="#ruby-page">Ruby</a></li>
+            <li><a href="#golang-page">Golang</a></li>
+          </ul>
+        </div>
+      </div>
+      <div data-role="main" class="ui-content center">
+        <p>content</p>
+        <a href="#home">Go Home</a>
+      </div>
+
+      <footer data-role="footer">FOOTER</footer>
+    </div>
+
+    <!-- GOLANG PAGE -->
+    <div data-role="page" id="golang-page" data-add-back-btn="true">
+      <div data-role="header">
+        <h1>Golang HEADER</h1>
+        <div data-role="navbar">
+          <ul>
+            <li><a href="#home" class="ui-btn ui-icon-home ui-btn-icon-left">Home</a></li>
+            <li><a href="#elixir-page">Elixir</a></li>
+            <li><a href="#ruby-page">Ruby</a></li>
+            <li><a href="#golang-page">Golang</a></li>
+          </ul>
+        </div>
+      </div>
+      <div data-role="main" class="ui-content center">
+        <p>content</p>
+        <a href="#home">Go Home</a>
+      </div>
+
+      <footer data-role="footer">FOOTER</footer>
+    </div>
   </body>
 
 </html>
