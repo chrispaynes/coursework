@@ -1,136 +1,171 @@
-/*font-family: 'Roboto', sans-serif;
+  /*font-family: 'Roboto', sans-serif;
 font-family: 'Playfair Display', serif;*/
-
-* {
-  box-sizing: border-box;
-  border: 1px solid;
-}
-
-body,
-html {
-  margin: 0;
-  padding: 0;
-  font-size: 16px;
-  font-family: 'Playfair Display', serif;
-}
-
-body {}
-
-.body-container {
-  padding: 1.75em;
-}
-
-
-/*PAGE HEADER*/
-
-.main-header {
-  display: block;
-  border: 1px solid red;
-  height: 2em;
-  margin: 0 0 4em 0;
-}
-
-.site-title {
-  width: 7.5em;
-  float: left;
-  height: 100%;
-}
-
-.nav-container {
-  width: 22em;
-  float: right;
-  height: 100%;
-  font-family: 'Roboto', sans-serif;
-}
-
-
-/*HERO SECTION*/
-
-.hero-container {
-  min-height: 10rem;
-  padding: 0 0 0 10em;
-  width: 100%;
-  border: 3px solid orange;
-  display: flex;
-  margin: 0 0 5em 0;
-}
-
-.site-logo-container {
-  height: 10em;
-  width: 10em;
-  border: 2px solid green;
-  margin: 0 2em 0 0;
-}
-
-.site-tagline-container {
-  border: 2px solid purple;
-  width: 24em;
-  height: 7.75em
-}
-
-.site-tagline {
-  font-family: 'Roboto', sans-serif;
-}
-
-.page-title {
-  font-family: 'Playfair Display', serif;
-}
-
-
-/*MAIN LANGUAGE BLOCK SECTION */
-
-.language-block-container {
-  display: flex;
-  flex-wrap: wrap;
-  border: 2px solid yellow;
-  -webkit-justify-content: space-between;
-  justify-content: space-between;
-  padding: 0 10%;
-  margin: 0 auto 5em auto;
-  text-align: center;
-}
-
-.language-block {
-  flex: 0 0 30%;
-}
-
-.lang-logo {
-  height: 7.5em;
-}
-
-.lang-descriptor {
-  height: 3.75em;
-}
-
-.lang-description-container {
-  min-height: 3.75em;
-  list-style-type: none;
-  padding: 0;
-}
-
-.lang-description {
-  font-family: 'Roboto', sans-serif;
-}
-
-
-/*HOMEPAGE ABOUT SECTION*/
-
-.homepage-about {
-  min-height: 15em;
-  background-color: #f0f0f0;
-  padding: 2em 8em;
-}
-
-.homepage-about-description {}
-
-
-/*FOOTER SECTION*/
-
-footer {
-  height: 8em;
-  text-align: center;
-  color: white;
-  background-color: #646f70;
-  font-family: 'Roboto', sans-serif;
-  padding: 2em;
-}
+  
+  * {
+    box-sizing: border-box;
+    /*border: 1px solid;*/
+  }
+  
+  body,
+  html {
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    font-family: 'Playfair Display', serif;
+    cursor: pointer;
+  }
+  
+  body {}
+  
+  .body-container {
+    padding: 24px;
+  }
+  /*PAGE HEADER*/
+  
+  .main-header {
+    display: block;
+    /*border: 1px solid red;*/
+    height: 2em;
+    margin: 0 0 4em 0;
+  }
+  
+  .site-title {
+    min-width: 7.5em;
+    float: left;
+    height: auto;
+    width: 100%;
+    text-align: center;
+    font-size: 2.5em;
+  }
+  
+  .nav-container {
+    width: 22em;
+    float: right;
+    height: 100%;
+    font-family: 'Roboto', sans-serif;
+  }
+  /*HERO SECTION*/
+  
+  .hero-container {
+    min-height: 10rem;
+    width: 100%;
+    /*border: 3px solid orange;*/
+    /*display: flex;*/
+    margin: 0 0 5em 0;
+    text-align: center;
+    padding: 4em 0 0 0;
+  }
+  
+  .site-logo-container {
+    /*height: 100%;*/
+    width: 100%;
+    /*border: 2px solid green;*/
+    margin: 0 2em 0 0;
+  }
+  
+  .site-logo-container object {
+    height: 13em;
+    width: 100%;
+  }
+  
+  .site-tagline-container {
+    /*border: 2px solid purple;
+*/
+    width: 100%;
+    height: 7.75em
+  }
+  
+  .site-tagline {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+  }
+  
+  .page-title {
+    font-family: 'Playfair Display', serif;
+  }
+  /*MAIN LANGUAGE BLOCK SECTION */
+  
+  .language-block-container {
+    /*display: flex;*/
+    flex-wrap: wrap;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    /*padding: 0 10%;*/
+    margin: 0 auto 5em auto;
+    text-align: center;
+  }
+  
+  .language-block {
+    /*flex: 1 0 30%;*/
+    /*flex: 1 0 30%;*/
+    margin: 0 0 1em 0;
+    /*margin: 0 1em 1em 0;*/
+  }
+  
+  .language-title {
+    margin: 0 0 2em 0;
+    font-size: 2.5em;
+  }
+  
+  .language-divider {
+    width: 75%;
+    height: 1px;
+    margin: 4em auto;
+    color: #646f70;
+    background-color: #646f70;
+    border: none;
+  }
+  
+  .lang-logo {}
+  
+  .lang-logo img,
+  .lang-logo object {
+    max-height: 200px;
+    margin: 0 0 1.5em 0;
+  }
+  
+  .lang-descriptor {
+    height: 1.75em;
+    letter-spacing: 1px;
+    width: 100%;
+  }
+  
+  .lang-description-container {
+    min-height: 3.75em;
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .lang-description {
+    font-family: 'Roboto', sans-serif;
+    color: #7f8c8d;
+    letter-spacing: 1px;
+  }
+  /*HOMEPAGE ABOUT SECTION*/
+  
+  .homepage-about {
+    min-height: 15em;
+    /*background-color: #f0f0f0;*/
+    background-color: #646f70;
+    padding: 4em 1.5em;
+    color: #FFF;
+    text-shadow: none;
+    letter-spacing: 0.75px;
+  }
+  
+  .homepage-about-description {
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  .homepage-about p {
+    line-height: 200%;
+  }
+  /*FOOTER SECTION*/
+  
+  footer {
+    text-align: center;
+    color: white;
+    background-color: #646f70;
+    font-family: 'Roboto', sans-serif;
+    font-size: .875em;
+  }
