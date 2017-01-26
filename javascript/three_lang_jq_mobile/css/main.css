@@ -17,6 +17,12 @@ font-family: 'Playfair Display', serif;*/
   
   body {}
   
+  .hDivider {
+    border: none;
+    height: 2px;
+    background-color: lightgray;
+  }
+  
   .body-container {
     padding: 24px;
   }
@@ -159,6 +165,30 @@ font-family: 'Playfair Display', serif;*/
   
   .homepage-about p {
     line-height: 200%;
+  }
+  /* STORAGE SECTION */
+  
+  #storageStatus {
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: .875em;
+    color: red;
+    margin: 2em 0 1em 0;
+  }
+  
+  #storageOutput p {
+    font-weight: bold;
+  }
+  
+  #storageOutput h3 {
+    margin: 3em 0 0 0;
+  }
+  
+  #storageOutput span {
+    color: gray;
+    left: 1em;
+    position: relative;
+    font-weight: normal;
   }
   /*FOOTER SECTION*/
   
