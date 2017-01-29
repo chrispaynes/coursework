@@ -1,3 +1,10 @@
+<!-- Now you must create a new grid and panel for your course project -->
+<!-- DONE! and use Web Storage to capture and/or display data on a page. Your revisions must include the following: -->
+
+<!-- Your new grid must have 3 to 5 columns. -->
+<!-- DONE! Your new panel can be used for navigation, forms, additional information, or whatever you choose. -->
+<!-- DONE! You must use Web Storage to display a list of favorites on one of the pages of your app. -->
+<!-- DONE! You must use Web Storage to allow the user to enter a favorite item. -->
 <!DOCTYPE html>
 <html>
 
@@ -19,18 +26,28 @@
 
   <body>
 
+    <div data-role="panel" id="navPanel" data-display="push" data-rel="main-menu-panel">
+      <ul data-role="listview" data-theme="a" data-ajax="false" data-inset="true">
+        <li><a href="#home" class="ui-btn ui-icon-home ui-btn-icon-left">Home</a></li>
+        <li><a href="#elixir-page" class="ui-btn">Elixir</a></li>
+        <li><a href="#ruby-page" class="ui-btn">Ruby</a></li>
+        <li><a href="#golang-page" class="ui-btn">Golang</a></li>
+      </ul>
+    </div>
+
     <div data-role="page" data-add-back-btn="true" id="home">
 
-      <div data-role="header">
+      <div data-role="header" data-position="fixed">
         <h1>TopThreeLanguages</h1>
+        <a href="#navPanel" class="ui-btn ui-shadow ui-corner-all ui-icon-bars ui-btn-icon-notext"></a>
+        <a href="#home" class="ui-btn ui-shadow ui-corner-all ui-icon-home ui-btn-icon-notext"></a>
 
         <div data-role="navbar">
           <ul>
-            <li><a href="#home" class="ui-btn ui-icon-home ui-btn-icon-left">Home</a></li>
-            <li><a href="#elixir-page">Elixir</a></li>
-            <li><a href="#ruby-page">Ruby</a></li>
-            <li><a href="#golang-page">Golang</a></li>
-            <li><a href="#mailing-list">Join Our Mailing List!</a></li>
+            <li><a href="#elixir-page" data-icon="arrow-r">Elixir</a></li>
+            <li><a href="#ruby-page" data-icon="arrow-r">Ruby</a></li>
+            <li><a href="#golang-page" data-icon="arrow-r">Golang</a></li>
+            <li><a href="#mailing-list" data-icon="action">Join Our Mailing List!</a></li>
           </ul>
         </div>
       </div>
@@ -127,22 +144,30 @@
 
     <!-- ELIXIR PAGE -->
     <div data-role="page" id="elixir-page" data-add-back-btn="true">
-      <div data-role="header" data-add-back-btn="true">
-        <h1>Elixir HEADER</h1>
+      <div data-role="header" data-add-back-btn="true" data-position="fixed">
+        <h1>Elixir</h1>
+        <a href="#navPanel" class="ui-btn ui-shadow ui-corner-all ui-icon-bars ui-btn-icon-notext"></a>
+        <a href="#home" class="ui-btn ui-shadow ui-corner-all ui-icon-home ui-btn-icon-notext"></a>
+
         <div data-role="navbar">
           <ul>
-            <li><a href="#home" class="ui-btn ui-icon-home ui-btn-icon-left">Home</a></li>
-            <li><a href="#elixir-page">Elixir</a></li>
-            <li><a href="#ruby-page">Ruby</a></li>
-            <li><a href="#golang-page">Golang</a></li>
+            <li><a href="#elixir-page" data-icon="arrow-r">Elixir</a></li>
+            <li><a href="#ruby-page" data-icon="arrow-r">Ruby</a></li>
+            <li><a href="#golang-page" data-icon="arrow-r">Golang</a></li>
+            <li><a href="#mailing-list" data-icon="action">Join Our Mailing List!</a></li>
           </ul>
         </div>
       </div>
+
       <div data-role="main" class="ui-content center">
         <p>content</p>
-      </div>
 
-      <a href="#ruby-page" class="ui-btn ui-icon-arrow-r ui-btn-icon-right" data-inline="true">Next: Ruby</a>
+        <div data-role="controlgroup" data-type="horizontal" style="text-align: center;">
+          <a href="#golang-page" class="ui-btn ui-icon-arrow-l ui-btn-icon-left" data-inline="true">Golang</a>
+          <a href="#ruby-page" class="ui-btn ui-icon-arrow-r ui-btn-icon-right" data-inline="true">Ruby</a>
+        </div>
+
+      </div>
 
       <footer data-role="footer">
         <p>Copyright &copy; 2017 TopThreeLanguages</p>
@@ -152,23 +177,30 @@
 
     <!-- RUBY PAGE -->
     <div data-role="page" id="ruby-page" data-add-back-btn="true">
-      <div data-role="header" data-add-back-btn="true">
-        <h1>Ruby HEADER</h1>
+      <div data-role="header" data-add-back-btn="true" data-position="fixed">
+        <h1>Ruby</h1>
+        <a href="#navPanel" class="ui-btn ui-shadow ui-corner-all ui-icon-bars ui-btn-icon-notext"></a>
+        <a href="#home" class="ui-btn ui-shadow ui-corner-all ui-icon-home ui-btn-icon-notext"></a>
+
         <div data-role="navbar">
           <ul>
-            <li><a href="#home" class="ui-btn ui-icon-home ui-btn-icon-left">Home</a></li>
-            <li><a href="#elixir-page">Elixir</a></li>
-            <li><a href="#ruby-page">Ruby</a></li>
-            <li><a href="#golang-page">Golang</a></li>
+            <li><a href="#elixir-page" data-icon="arrow-r">Elixir</a></li>
+            <li><a href="#ruby-page" data-icon="arrow-r">Ruby</a></li>
+            <li><a href="#golang-page" data-icon="arrow-r">Golang</a></li>
+            <li><a href="#mailing-list" data-icon="action">Join Our Mailing List!</a></li>
           </ul>
         </div>
       </div>
+
       <div data-role="main" class="ui-content center">
         <p>content</p>
-        <a href="#home">Go Home</a>
-      </div>
 
-      <a href="#golang-page" class="ui-btn ui-icon-arrow-r ui-btn-icon-right" data-inline="true">Next: Golang</a>
+        <div data-role="controlgroup" data-type="horizontal" style="text-align: center;">
+          <a href="#elixir-page" class="ui-btn ui-icon-arrow-l ui-btn-icon-left" data-inline="true">Elixir</a>
+          <a href="#golang-page" class="ui-btn ui-icon-arrow-r ui-btn-icon-right" data-inline="true">Golang</a>
+        </div>
+
+      </div>
 
       <footer data-role="footer">
         <p>Copyright &copy; 2017 TopThreeLanguages</p>
@@ -178,23 +210,30 @@
 
     <!-- GOLANG PAGE -->
     <div data-role="page" id="golang-page" data-add-back-btn="true">
-      <div data-role="header" data-add-back-btn="true">
-        <h1>Golang HEADER</h1>
+      <div data-role="header" data-add-back-btn="true" data-position="fixed">
+        <h1>Golang</h1>
+        <a href="#navPanel" class="ui-btn ui-shadow ui-corner-all ui-icon-bars ui-btn-icon-notext"></a>
+        <a href="#home" class="ui-btn ui-shadow ui-corner-all ui-icon-home ui-btn-icon-notext"></a>
+
         <div data-role="navbar">
           <ul>
-            <li><a href="#home" class="ui-btn ui-icon-home ui-btn-icon-left">Home</a></li>
-            <li><a href="#elixir-page">Elixir</a></li>
-            <li><a href="#ruby-page">Ruby</a></li>
-            <li><a href="#golang-page">Golang</a></li>
+            <li><a href="#elixir-page" data-icon="arrow-r">Elixir</a></li>
+            <li><a href="#ruby-page" data-icon="arrow-r">Ruby</a></li>
+            <li><a href="#golang-page" data-icon="arrow-r">Golang</a></li>
+            <li><a href="#mailing-list" data-icon="action">Join Our Mailing List!</a></li>
           </ul>
         </div>
       </div>
+
       <div data-role="main" class="ui-content center">
         <p>content</p>
-        <a href="#home">Go Home</a>
-      </div>
 
-      <a href="#golang-page" class="ui-btn ui-icon-arrow-r ui-btn-icon-right" data-inline="true">Home</a>
+        <div data-role="controlgroup" data-type="horizontal" style="text-align: center;">
+          <a href="#ruby-page" class="ui-btn ui-icon-arrow-l ui-btn-icon-left" data-inline="true">Ruby</a>
+          <a href="#elixir-page" class="ui-btn ui-icon-arrow-r ui-btn-icon-right" data-inline="true">Elixir</a>
+        </div>
+
+      </div>
 
       <footer data-role="footer">
         <p>Copyright &copy; 2017 TopThreeLanguages</p>
@@ -206,7 +245,19 @@
     <div data-role="page" id="mailing-list" data-theme="a" data-add-back-btn="true">
       <div data-role="header" data-theme="a" data-add-back-btn="true">
         <h1>User Form</h1>
+        <a href="#navPanel" class="ui-btn ui-shadow ui-corner-all ui-icon-bars ui-btn-icon-notext"></a>
+        <a href="#home" class="ui-btn ui-shadow ui-corner-all ui-icon-home ui-btn-icon-notext"></a>
+
+        <div data-role="navbar">
+          <ul>
+            <li><a href="#elixir-page" data-icon="arrow-r">Elixir</a></li>
+            <li><a href="#ruby-page" data-icon="arrow-r">Ruby</a></li>
+            <li><a href="#golang-page" data-icon="arrow-r">Golang</a></li>
+            <li><a href="#mailing-list" data-icon="action">Join Our Mailing List!</a></li>
+          </ul>
+        </div>
       </div>
+
       <div data-role="content">
 
         <form id="autosave">
@@ -217,8 +268,8 @@
           <label for="lastName">Email:</label>
           <input type="email" name="lastName" id="email" data-clear-btn="true">
 
-          <label for="select">Which Language Interests You The Most?</label>
-          <select name="select" id="languageInterest">
+          <label for="select">What's Your Favorite Language?</label>
+          <select name="select" id="favoriteLanguage">
             <option></option>
             <option value="Elixir">Elixir</option>
             <option value="Ruby">Ruby</option>
@@ -317,7 +368,7 @@
         this.firstName = $("#firstName").val();
         this.lastName = $("#lastName").val();
         this.email = $("#email").val();
-        this.languageInterest = $("#languageInterest").val();
+        this.favoriteLanguage = $("#favoriteLanguage").val();
         this.languagesUsed = $('input[name="language"]:checked').map(function() {
           return this.value;
         }).get().join(", ");
@@ -343,7 +394,7 @@
         sessionStorage.firstName = userStorageData.firstName;
         sessionStorage.lastName = userStorageData.lastName;
         sessionStorage.email = userStorageData.email;
-        sessionStorage.languageInterest = userStorageData.languageInterest;
+        sessionStorage.favoriteLanguage = userStorageData.favoriteLanguage;
         sessionStorage.languagesUsed = userStorageData.languagesUsed;
         sessionStorage.yearsExperience = userStorageData.yearsExperience;
       }
@@ -352,7 +403,7 @@
         localStorage.setItem("firstName", userStorageData.firstName);
         localStorage.setItem("lastName", userStorageData.lastName);
         localStorage.setItem("email", userStorageData.email);
-        localStorage.setItem("languageInterest", userStorageData.languageInterest);
+        localStorage.setItem("favoriteLanguage", userStorageData.favoriteLanguage);
         localStorage.setItem("languagesUsed", userStorageData.languagesUsed);
         localStorage.setItem("yearsExperience", userStorageData.yearsExperience);
       }
@@ -388,15 +439,21 @@
           var firstName = "<p>firstName: <span>" + localStorage.getItem("firstName") + "</span></p>";
           var lastName = "<p>lastName: <span>" + localStorage.getItem("lastName") + "</span></p>";
           var email = "<p>email: <span>" + localStorage.getItem("email") + "</span></p>";
-          var languageInterest = "<p>languageInterest: <span>" + localStorage.getItem("languageInterest") + "</span></p>";
+          var favoriteLanguage = "<p>favoriteLanguage: <span>" + localStorage.getItem("favoriteLanguage") + "</span></p>";
           var languagesUsed = "<p>languagesUsed: <span>" + localStorage.getItem("languagesUsed") + "</span></p>";
           var yearsExperience = "<p>yearsExperience: <span>" + localStorage.getItem("yearsExperience") + "</span></p>";
-          var storageData = firstName + lastName + email + languageInterest + languagesUsed + yearsExperience;
+          var storageData = firstName + lastName + email + favoriteLanguage + languagesUsed + yearsExperience;
           $("#storageOutput").append("<h3>LOCAL STORAGE</h3><hr class='hDivider'>" + storageData);
         } else if (localStorage.length < 2 && $("#storageOutput")[0].textContent === "Session Storage Is Currently Empty") {
           $("#storageOutput").append("<p>Local Storage Is Currently Empty</p>");
         }
       }
+      </script>
+
+      <script>
+      $(function() {
+        $("div[data-role='panel']").panel().enhanceWithin();
+      });
       </script>
     </div>
     <!-- END USER FORM SECTION -->
