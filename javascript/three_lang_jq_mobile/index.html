@@ -27,15 +27,18 @@
   <body>
 
     <div data-role="panel" id="navPanel" data-display="push" data-rel="main-menu-panel">
-      <ul data-role="listview" data-theme="a" data-ajax="false" data-inset="true">
-        <li><a href="#home" class="ui-btn ui-icon-home ui-btn-icon-left">Home</a></li>
-        <li><a href="#elixir-page" class="ui-btn">Elixir</a></li>
-        <li><a href="#ruby-page" class="ui-btn">Ruby</a></li>
-        <li><a href="#golang-page" class="ui-btn">Golang</a></li>
+      <ul data-theme="a" data-ajax="false" data-inset="true">
+        <li>
+          <a href="#home" class="ui-btn ui-icon-home ui-btn-icon-notext center-btn">&nbsp;</a>
+        </li>
+        <li><a href="#elixir-page" class="ui-btn nav-panel-link">Elixir</a></li>
+        <li><a href="#ruby-page" class="ui-btn nav-panel-link">Ruby</a></li>
+        <li><a href="#golang-page" class="ui-btn nav-panel-link">Golang</a></li>
       </ul>
     </div>
 
     <div data-role="page" data-add-back-btn="true" id="home">
+      <div data-role="header" data-id="main-hea der"></div>
 
       <div data-role="header" data-position="fixed">
         <h1>TopThreeLanguages</h1>
@@ -47,9 +50,10 @@
             <li><a href="#elixir-page" data-icon="arrow-r">Elixir</a></li>
             <li><a href="#ruby-page" data-icon="arrow-r">Ruby</a></li>
             <li><a href="#golang-page" data-icon="arrow-r">Golang</a></li>
-            <li><a href="#mailing-list" data-icon="action">Join Our Mailing List!</a></li>
+            <li><a href="#feeback" data-icon="action">Leave Feedback</a></li>
           </ul>
         </div>
+
       </div>
 
       <div data-role="main" class="body-container ui-content">
@@ -154,13 +158,16 @@
             <li><a href="#elixir-page" data-icon="arrow-r">Elixir</a></li>
             <li><a href="#ruby-page" data-icon="arrow-r">Ruby</a></li>
             <li><a href="#golang-page" data-icon="arrow-r">Golang</a></li>
-            <li><a href="#mailing-list" data-icon="action">Join Our Mailing List!</a></li>
+            <li><a href="#feeback" data-icon="action">Join Our Mailing List!</a></li>
           </ul>
         </div>
       </div>
 
-      <div data-role="main" class="ui-content center">
-        <p>content</p>
+      <div data-role="main" class="ui-content">
+        <h2 class="lang-main-header">Main Header</h2>
+        <h3 class="lang-main-subheading">Subheading</h3>
+        <hr class="lang-main-hr">
+        <p class="lang-main-body">Body</p>
 
         <div data-role="controlgroup" data-type="horizontal" style="text-align: center;">
           <a href="#golang-page" class="ui-btn ui-icon-arrow-l ui-btn-icon-left" data-inline="true">Golang</a>
@@ -187,13 +194,16 @@
             <li><a href="#elixir-page" data-icon="arrow-r">Elixir</a></li>
             <li><a href="#ruby-page" data-icon="arrow-r">Ruby</a></li>
             <li><a href="#golang-page" data-icon="arrow-r">Golang</a></li>
-            <li><a href="#mailing-list" data-icon="action">Join Our Mailing List!</a></li>
+            <li><a href="#feeback" data-icon="action">Join Our Mailing List!</a></li>
           </ul>
         </div>
       </div>
 
       <div data-role="main" class="ui-content center">
-        <p>content</p>
+        <h2 class="lang-main-header">Main Header</h2>
+        <h3 class="lang-main-subheading">Subheading</h3>
+        <hr class="lang-main-hr">
+        <p class="lang-main-body">Body</p>
 
         <div data-role="controlgroup" data-type="horizontal" style="text-align: center;">
           <a href="#elixir-page" class="ui-btn ui-icon-arrow-l ui-btn-icon-left" data-inline="true">Elixir</a>
@@ -220,13 +230,16 @@
             <li><a href="#elixir-page" data-icon="arrow-r">Elixir</a></li>
             <li><a href="#ruby-page" data-icon="arrow-r">Ruby</a></li>
             <li><a href="#golang-page" data-icon="arrow-r">Golang</a></li>
-            <li><a href="#mailing-list" data-icon="action">Join Our Mailing List!</a></li>
+            <li><a href="#feeback" data-icon="action">Join Our Mailing List!</a></li>
           </ul>
         </div>
       </div>
 
       <div data-role="main" class="ui-content center">
-        <p>content</p>
+        <h2 class="lang-main-header">Main Header</h2>
+        <h3 class="lang-main-subheading">Subheading</h3>
+        <hr class="lang-main-hr">
+        <p class="lang-main-body">Body</p>
 
         <div data-role="controlgroup" data-type="horizontal" style="text-align: center;">
           <a href="#ruby-page" class="ui-btn ui-icon-arrow-l ui-btn-icon-left" data-inline="true">Ruby</a>
@@ -253,7 +266,7 @@
             <li><a href="#elixir-page" data-icon="arrow-r">Elixir</a></li>
             <li><a href="#ruby-page" data-icon="arrow-r">Ruby</a></li>
             <li><a href="#golang-page" data-icon="arrow-r">Golang</a></li>
-            <li><a href="#mailing-list" data-icon="action">Join Our Mailing List!</a></li>
+            <li><a href="#feeback" data-icon="action">Join Our Mailing List!</a></li>
           </ul>
         </div>
       </div>
@@ -455,6 +468,7 @@
         $("div[data-role='panel']").panel().enhanceWithin();
       });
       </script>
+
     </div>
     <!-- END USER FORM SECTION -->
 
