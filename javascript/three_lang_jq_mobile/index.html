@@ -1,10 +1,3 @@
-<!-- Now you must create a new grid and panel for your course project -->
-<!-- DONE! and use Web Storage to capture and/or display data on a page. Your revisions must include the following: -->
-
-<!-- Your new grid must have 3 to 5 columns. -->
-<!-- DONE! Your new panel can be used for navigation, forms, additional information, or whatever you choose. -->
-<!-- DONE! You must use Web Storage to display a list of favorites on one of the pages of your app. -->
-<!-- DONE! You must use Web Storage to allow the user to enter a favorite item. -->
 <!DOCTYPE html>
 <html>
 
@@ -26,6 +19,7 @@
 
   <body>
 
+    <!-- External Navigation Panel -->
     <div data-role="panel" id="navPanel" data-display="push" data-rel="main-menu-panel">
       <ul data-theme="a" data-ajax="false" data-inset="true">
         <li>
@@ -38,7 +32,7 @@
     </div>
 
     <div data-role="page" data-add-back-btn="true" id="home">
-      <div data-role="header" data-id="main-hea der"></div>
+      <div data-role="header" data-id="main-header"></div>
 
       <div data-role="header" data-position="fixed">
         <h1>TopThreeLanguages</h1>
@@ -50,7 +44,7 @@
             <li><a href="#elixir-page" data-icon="arrow-r">Elixir</a></li>
             <li><a href="#ruby-page" data-icon="arrow-r">Ruby</a></li>
             <li><a href="#golang-page" data-icon="arrow-r">Golang</a></li>
-            <li><a href="#feeback" data-icon="action">Leave Feedback</a></li>
+            <li><a href="#feedback" data-icon="action">Leave Feedback</a></li>
           </ul>
         </div>
 
@@ -80,12 +74,20 @@
                   <img src="img/elixir_logo.png" alt="elixir language logo">
                 </a>
               </div>
+
               <h3 class="lang-descriptor">Functional</h3>
-              <ul class="lang-description-container">
-                <li class="lang-description">Functional</li>
-                <li class="lang-description">Concurrent</li>
-                <li class="lang-description">Distributed</li>
-              </ul>
+              <div class="ui-grid-b lang-main-body">
+                <div class="ui-block-a">
+                  <div class="ui-bar lang-description">Concurrent</div>
+                </div>
+                <div class="ui-block-b">
+                  <div class="ui-bar lang-description">Distributed</div>
+                </div>
+                <div class="ui-block-c">
+                  <div class="ui-bar lang-description">Metaprogramming</div>
+                </div>
+              </div>
+
             </section>
             <!-- END ELIXIR SECTION -->
 
@@ -100,11 +102,17 @@
                 </a>
               </div>
               <h3 class="lang-descriptor">Object Oriented</h3>
-              <ul class="lang-description-container">
-                <li class="lang-description">Dynamic</li>
-                <li class="lang-description">Reflective</li>
-                <li class="lang-description">Developer Happiness</li>
-              </ul>
+              <div class="ui-grid-b lang-main-body">
+                <div class="ui-block-a">
+                  <div class="ui-bar lang-description">Dynamic</div>
+                </div>
+                <div class="ui-block-b">
+                  <div class="ui-bar lang-description">Developer Happiness</div>
+                </div>
+                <div class="ui-block-c">
+                  <div class="ui-bar lang-description">Reflective</div>
+                </div>
+              </div>
             </section>
             <!-- END RUBY SECTION -->
 
@@ -118,13 +126,20 @@
                   <object type="image/svg+xml" data="img/golang_logo.svg"></object>
                 </a>
               </div>
+
               <h3 class="lang-descriptor">Imperative</h3>
-              <ul class="lang-description-container">
-                <li class="lang-description">Compiled</li>
-                <li class="lang-description">Statically Type</li>
-                <li class="lang-description">Concurrency</li>
-                <li class="lang-description">Memory Safety</li>
-              </ul>
+              <div class="ui-grid-b lang-main-body">
+                <div class="ui-block-a">
+                  <div class="ui-bar lang-description">Compiled</div>
+                </div>
+                <div class="ui-block-b">
+                  <div class="ui-bar lang-description">Statically-Typed</div>
+                </div>
+                <div class="ui-block-c">
+                  <div class="ui-bar lang-description">Concurrent</div>
+                </div>
+              </div>
+
             </section>
             <!-- END GOLANG SECTION -->
           </ul>
@@ -138,8 +153,6 @@
         <p>TopThreeLanguages is a collection of unique programming languages that I enjoy learning in my free time. After exploring numerous programming languages, I've decided to focus most (not all) of my energy learning these radically different languages.</p>
       </section>
 
-      <!-- At least 6 buttons or sections. -->
-      <!-- A copyright in the footer. -->
       <footer data-role="footer">
         <p>Copyright &copy; 2017 TopThreeLanguages</p>
       </footer>
@@ -158,12 +171,16 @@
             <li><a href="#elixir-page" data-icon="arrow-r">Elixir</a></li>
             <li><a href="#ruby-page" data-icon="arrow-r">Ruby</a></li>
             <li><a href="#golang-page" data-icon="arrow-r">Golang</a></li>
-            <li><a href="#feeback" data-icon="action">Join Our Mailing List!</a></li>
+            <li><a href="#feedback" data-icon="action">Leave Feedback</a></li>
           </ul>
         </div>
       </div>
 
       <div data-role="main" class="ui-content">
+
+        <div class="lang-logo center">
+          <img src="img/elixir_logo.png" alt="Elixir language logo">
+        </div>
         <h2 class="lang-main-header">Main Header</h2>
         <h3 class="lang-main-subheading">Subheading</h3>
         <hr class="lang-main-hr">
@@ -173,7 +190,6 @@
           <a href="#golang-page" class="ui-btn ui-icon-arrow-l ui-btn-icon-left" data-inline="true">Golang</a>
           <a href="#ruby-page" class="ui-btn ui-icon-arrow-r ui-btn-icon-right" data-inline="true">Ruby</a>
         </div>
-
       </div>
 
       <footer data-role="footer">
@@ -194,12 +210,15 @@
             <li><a href="#elixir-page" data-icon="arrow-r">Elixir</a></li>
             <li><a href="#ruby-page" data-icon="arrow-r">Ruby</a></li>
             <li><a href="#golang-page" data-icon="arrow-r">Golang</a></li>
-            <li><a href="#feeback" data-icon="action">Join Our Mailing List!</a></li>
+            <li><a href="#feedback" data-icon="action">Leave Feedback</a></li>
           </ul>
         </div>
       </div>
 
-      <div data-role="main" class="ui-content center">
+      <div data-role="main" class="ui-content">
+        <div class="lang-logo center">
+          <img src="img/ruby_logo.svg" alt="Ruby language logo">
+        </div>
         <h2 class="lang-main-header">Main Header</h2>
         <h3 class="lang-main-subheading">Subheading</h3>
         <hr class="lang-main-hr">
@@ -230,12 +249,15 @@
             <li><a href="#elixir-page" data-icon="arrow-r">Elixir</a></li>
             <li><a href="#ruby-page" data-icon="arrow-r">Ruby</a></li>
             <li><a href="#golang-page" data-icon="arrow-r">Golang</a></li>
-            <li><a href="#feeback" data-icon="action">Join Our Mailing List!</a></li>
+            <li><a href="#feedback" data-icon="action">Leave Feedback</a></li>
           </ul>
         </div>
       </div>
 
-      <div data-role="main" class="ui-content center">
+      <div data-role="main" class="ui-content">
+        <div class="lang-logo center">
+          <img src="img/golang_logo.png" alt="Golang language logo">
+        </div>
         <h2 class="lang-main-header">Main Header</h2>
         <h3 class="lang-main-subheading">Subheading</h3>
         <hr class="lang-main-hr">
@@ -254,10 +276,10 @@
     </div>
     <!-- END GOLANG PAGE -->
 
-    <!-- USER FORM SECTION -->
-    <div data-role="page" id="mailing-list" data-theme="a" data-add-back-btn="true">
+    <!-- FEEDBACK SECTION -->
+    <div data-role="page" id="feedback" data-theme="a" data-add-back-btn="true">
       <div data-role="header" data-theme="a" data-add-back-btn="true">
-        <h1>User Form</h1>
+        <h1>Leave Us Feedback</h1>
         <a href="#navPanel" class="ui-btn ui-shadow ui-corner-all ui-icon-bars ui-btn-icon-notext"></a>
         <a href="#home" class="ui-btn ui-shadow ui-corner-all ui-icon-home ui-btn-icon-notext"></a>
 
@@ -266,7 +288,7 @@
             <li><a href="#elixir-page" data-icon="arrow-r">Elixir</a></li>
             <li><a href="#ruby-page" data-icon="arrow-r">Ruby</a></li>
             <li><a href="#golang-page" data-icon="arrow-r">Golang</a></li>
-            <li><a href="#feeback" data-icon="action">Join Our Mailing List!</a></li>
+            <li><a href="#feedback" data-icon="action">Leave Feedback</a></li>
           </ul>
         </div>
       </div>
