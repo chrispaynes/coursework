@@ -1,0 +1,297 @@
+@import url('https://fonts.googleapis.com/css?family=Oxygen:300');
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  text-align: center;
+  list-style: none;
+  font-family: 'Oxygen', sans-serif;
+  font-size: 16px;
+  color: #777;
+  line-height: 150%;
+  letter-spacing: 3px;
+  text-decoration: none;
+  position: relative;
+  clear:
+}
+
+*/body,
+html {
+  background-color: #f0f0f0
+}
+
+#header-frame {
+  top: 0;
+  position: fixed;
+  background-color: rgba(245, 245, 245, .7);
+  z-index: 4;
+  box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.7)
+}
+
+.nav-frame {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 1% -1%
+}
+
+slider-frame {
+  height: 500px;
+  overflow: hidden
+}
+
+slider-frame li {
+  position: absolute
+}
+
+slider-frame previous {
+  z-index: 1
+}
+
+slider-frame current {
+  z-index: 2
+}
+
+print,
+website,
+brand {
+  margin-bottom: 100px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between
+}
+
+website,
+brand {
+  margin-top: 75px
+}
+
+.cube-list {
+  display: flex;
+  flex-flow: wrap;
+  padding: 50px;
+  justify-content: space-between
+}
+
+.cube-list-full {
+  width: 85%;
+  margin: auto;
+  display: flex;
+  flex-flow: wrap;
+  padding: 50px;
+  justify-content: space-between
+}
+
+@media screen and (min-width:0) and (max-width:735px) {
+  .art-cube-style {
+    flex: 0 0 calc(100% - 30px);
+    margin: 25px 15px;
+    clear: both
+  }
+}
+
+@media screen and (min-width:736px) and (max-width:969px) {
+  .art-cube-style {
+    flex: 0 0 calc(50% - 30px);
+    margin: 25px 15px
+  }
+}
+
+@media screen and (min-width:970px) and (max-width:1199px) {
+  .art-cube-style {
+    flex: 0 0 calc(50% - 30px);
+    margin: 0 0 100px 0
+  }
+}
+
+@media screen and (min-width:1200px) and (max-width:7000px) {
+  .art-cube-style {
+    flex: 0 0 calc(33% - 30px);
+    margin: 0 0 100px 0
+  }
+}
+
+.footer-list {
+  display: flex;
+  flex-flow: wrap;
+  padding: 25px 50px;
+  border-top: 15px solid #bbb;
+  justify-content: space-between
+}
+
+@media screen and (min-width:1200px) and (max-width:7000px) {
+  .footer-item {
+    flex: 0 0 calc(33% - 50px);
+    margin-bottom: 15px
+  }
+}
+
+@media screen and (min-width:0) and (max-width:600px) {
+  .footer-item {
+    flex: 0 0 calc(100% - 50px)
+  }
+}
+
+@media screen and (min-width:800px) and (max-width:1199px) {
+  .footer-item {
+    flex: 0 0 calc(50% - 50px)
+  }
+}
+
+.art-cube-image {
+  opacity: .5;
+  background-size: cover
+}
+
+.art-cube-image:hover {
+  opacity: 1;
+  box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.5);
+  z-index: 3;
+  transition: .3s ease-out
+}
+
+@media screen and (min-width:0) and (max-width:735px) {
+  .art-cube-image {
+    height: 100%
+  }
+}
+
+@media screen and (min-width:736px) and (max-width:969px) {
+  .art-cube-image {
+    height: 425px
+  }
+}
+
+@media screen and (min-width:970px) and (max-width:1199px) {
+  .art-cube-image {
+    height: 500px
+  }
+}
+
+@media screen and (min-width:1200px) and (max-width:1600px) {
+  .art-cube-image {
+    height: 450px
+  }
+}
+
+@media screen and (min-width:1601px) and (max-width:7000px) {
+  .art-cube-image {
+    height: 575px
+  }
+}
+
+.art-cube-image-full {
+  background-size: cover;
+  width: 10%
+}
+
+.slider-image {
+  width: 100%;
+  background-size: cover;
+  background-position: center center
+}
+
+button {
+  border: 0;
+  background-color: #fff;
+  width: auto;
+  border-radius: 0;
+  padding: 4px;
+  border-bottom: 4px solid rgba(255, 255, 255, 0);
+  transition: .3s ease-in;
+  cursor: pointer;
+  outline: 0
+}
+
+button-hide {
+  border: 0;
+  background-color: rgba(0, 0, 0, 0);
+  width: auto;
+  margin: 5px 3px;
+  border-radius: 0;
+  padding: 4px;
+  border-bottom: 4px solid rgba(255, 255, 255, 0);
+  transition: .3s ease-in
+}
+
+button:active,
+button:hover {
+  border-bottom: 4px solid #9b111e;
+  color: #9b111e
+}
+
+.button-text {
+  font-size: 14px;
+  color: #bbb
+}
+
+.nav-link {
+  width: auto;
+  height: auto;
+  padding: 20px 25px;
+  border-bottom: 5px solid rgba(0, 0, 0, 0)
+}
+
+.nav-link-left {
+  width: auto;
+  margin: 0 auto 0 30px;
+  flex: 0 0 auto
+}
+
+@media screen and (max-width:1050px) {
+  .nav-link-left {
+    flex: 0 0 100%
+  }
+}
+
+.nav-link:hover,
+.nav-link:active {
+  border-bottom: 5px solid #9b111e;
+  color: #9b111e
+}
+
+h1 {
+  font: 40px "Oxygen", sans-serif;
+  font-weight: 400;
+  color: #444;
+  margin: 0
+}
+
+h2 {
+  border-top: 2px solid #ddd;
+  border-bottom: 2px solid #ddd;
+  padding: 25px;
+  margin: 10px 0 10px 0;
+  line-height: 175%;
+  font-weight: 300
+}
+
+h3 {
+  color: #fff;
+  text-align: left;
+  font-size: 18px;
+  margin-top: 15px
+}
+
+.footer-item {
+  color: #fff;
+  font-size: 14px;
+  text-align: left
+}
+
+.cube-title {
+  margin: 5% 0 5% 0;
+  clear: both
+}
+
+.grayBG {
+  background-color: #777
+}
+
+.show-hide {
+  -webkit-transition: all linear .5s;
+  -moz-transition: all linear .5s;
+  -o-transition: all linear .5s;
+  transition: all linear .5s
+}

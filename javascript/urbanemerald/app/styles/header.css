@@ -1,0 +1,36 @@
+/*************************************
+HEADER, HEADER NAVIGATION, HEADER LOGO
+**************************************/
+
+.menu {
+  position: absolute;
+  margin-left: 384px;
+  top: 0;
+}
+
+.menu_right {
+  position: absolute;
+  margin-left: 584px;
+  top: 0;
+}
+
+.menu li,
+.menu_right li {
+  font-size-adjust: 0.6;
+  font-weight: 400;
+}
+
+.menu a:hover,
+.menu_right a:hover {
+  color: #009900;
+  font-weight: bold;
+}
+
+.header_text-logo {
+  font-size: 40px;
+  font-family: 'Playfair Display', serif;
+  color: #009900;
+  font-weight: 700;
+  height: 160px;
+  padding: 15px;
+}

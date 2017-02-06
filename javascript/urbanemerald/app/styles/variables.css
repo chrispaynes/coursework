@@ -1,0 +1,39 @@
+/*************************************
+STYLE / VISUAL OVERRIDES
+**************************************/
+
+.emerald-txt {
+  color: #009900;
+}
+
+.emerald-bg {
+  background-color: #009900;
+}
+
+.white-txt {
+  color: #fff;
+}
+
+.dkgray-bg {
+  background-color: #444;
+}
+
+.dkgray-txt {
+  color: #444;
+}
+
+.ltgray-txt {
+  color: #666;
+}
+
+.ltgray-bg {
+  background-color: #666;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.border {
+  border: 1px solid #666;
+}

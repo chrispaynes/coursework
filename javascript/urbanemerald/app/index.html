@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <link rel="stylesheet" async href="styles/app.css">
+    <link href='https://fonts.googleapis.com/css?family=Oxygen:300' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Playfair+Display:400' rel='stylesheet' type='text/css'>
+    <title>Urban Emerald</title>
+  </head>
+
+  <body>
+    <!-- HEADER -->
+    <div class="frame">
+      <a class="header_text-logo" href="index.html">urban emerald</a>
+      <div class="menu bit-2">
+        <ul>
+          <li class=""><a href="">Read Articles</a></li>
+          <li class=""><a href="">Subscribe Now</a></li>
+          <li class=""><a href="">Search</a></li>
+        </ul>
+      </div>
+      <div class="menu_right bit-2">
+        <ul>
+          <li class=""><a href="">Add Your City</a></li>
+          <li class=""><a href="">Contact Us</a></li>
+          <li class=""><a href="">Visit Our Affiliates</a></li>
+        </ul>
+      </div>
+    </div>
+    <p id="copy"></p>
+
+    <!-- COPY -->
+    <div class="">
+      <ul class="articlerow_container">
+        <li class="article bit-5">
+          <div class="article_head">
+            <p class="article_head-text article_about right">About UE</p>
+          </div>
+          <p class="article_about-story right">Urban Emerald is a dedicated to showcasing the unique architectural gems found throughout major metropolitan areas. The purpose is to highlight the architecture and share some of the fascinating history that led to the creation of the piece.</p>
+          <p class="article_about-story right">Subscribers can expect to learn about current architectural rarities that pop up each day as well as historic architectural successes.</p>
+        </li>
+        <li class="article bit-5">
+          <div class="article_head">
+            <p class="article_head-text emerald-txt right">minneapolis</p>
+          </div>
+          <span id="allMinneapolis"></span>
+          <p>The buildings and structures that form Minnesota's varied built environment have played a powerful role in shaping the life of the state, serving as places of shelter, work, education, government, ritual, and entertainment. The story of architecture in Minnesota is inseparable from the story of its people—a narrative of growth and achievement interspersed with episodes of destruction and loss.</p>
+          <p class="right"><a class="article_link" href="http://www.rubypupil.com/urban">view more</a></p>
+        </li>
+        <li class="article bit-5">
+          <div class="article_head">
+            <p class="article_head-text emerald-txt right">portland</p>
+          </div>
+          <span id="allPortland"></span>
+          <p class="">We were delighted to be asked to create the identity for such a momentous festival. The challenge was to create a truly bilingual concept that embraced the unification of the two nations – to achieve this we placed a bespoke typeface at the heart of the identity that celebrates both nations speaking as one by uniting a British inspired san serif with a custom Mexican design based on traditional Mayan patterns. This gives the festival a distinctive and flexible tool that can be used globally on any collateral.</p>
+          <p class="right"><a class="article_link" href="http://www.rubypupil.com/urban">view more</a></p>
+        </li>
+        <li class="article bit-5">
+          <div class="article_head">
+            <p class="article_head-text emerald-txt right">chicago</p>
+          </div>
+          <span id="allChicago"></span>
+          <p class="">We were delighted to be asked to create the identity for such a momentous festival. The challenge was to create a truly bilingual concept that embraced the unification of the two nations – to achieve this we placed a bespoke typeface at the heart of the identity that celebrates both nations speaking as one by uniting a British inspired san serif with a custom Mexican design based on traditional Mayan patterns. This gives the festival a distinctive and flexible tool that can be used globally on any collateral.</p>
+          <p class="right"><a class="article_link" href="http://www.rubypupil.com/urban">view more</a></p>
+        </li>
+        <li class="article bit-5">
+          <div class="article_head">
+            <p class="article_head-text emerald-txt right">denver</p>
+          </div>
+          <span id="allDenver"></span>
+          <p>We were delighted to be asked to create the identity for such a momentous festival. The challenge was to create a truly bilingual concept that embraced the unification of the two nations – to achieve this we placed a bespoke typeface at the heart of the identity that celebrates both nations speaking as one by uniting a British inspired san serif with a custom Mexican design based on traditional Mayan patterns. This gives the festival a distinctive and flexible tool that can be used globally on any collateral.</p>
+          <p class="right"><a class="article_link" href="http://www.rubypupil.com/urban">view more</a></p>
+        </li>
+      </ul>
+    </div>
+
+    <script id="cityElement" type="text/template">
+      <a href="#<%= link %>">
+        <img src="img/<%= img %>" alt="<%= name %>" />
+        <span class="bold img_overlay-title"> <%= name %></span>
+      </a>
+
+      <h6 class="article-block-heading img_overlay-category"><%= style %></h6>
+
+      <ul class="article_entry-head">
+        <li><strong>Area:</strong>
+          <%= neighborhood %>
+        </li>
+        <li><strong>Built:</strong>
+          <%= built %>
+        </li>
+        <li><strong>Style:</strong>
+          <%= style %>
+        </li>
+
+      </ul>
+    </script>
+
+    <script src="vendor/jquery-2.1.4.min.js"></script>
+    <!-- JQUERY NEEDS TO BE FIRST -->
+    <script src="vendor/underscore-min.js"></script>
+    <!-- UNDERSCORE NEEDS TO BE SECORD -->
+    <script src="vendor/backbone-min.js"></script>
+    <!-- <script src="all.js"></script> -->
+    <script src="emeraldApp.js"></script>
+  </body>
+
+</html>

@@ -1,0 +1,94 @@
+/*************************************
+ARTICLE ROW of COLUMNS
+**************************************/
+
+.articlerow_container {
+  padding: 15px;
+}
+
+.article {
+  font-size: 15px;
+  line-height: 1.5;
+  border-bottom: 10px solid black;
+  margin: 0.5%;
+}
+
+.article_head {
+  border-bottom: 10px solid #009900;
+  padding-top: 175px;
+  width: 100%;
+}
+
+@media (min-width: 0px) and (max-width: 900px) {
+  .article_head {
+    padding-top: 50px;
+  }
+}
+
+.article_head-text {
+  font-size: 25px;
+}
+
+.article_about-story {
+  padding: 16px 0;
+}
+
+.article_link {
+  font-weight: bold;
+  color: #009900;
+  font-family: "Playfair Display", serif;
+  text-align: right;
+  font-size: 20px;
+}
+
+img {
+  padding-top: 16px;
+  width: 100%;
+}
+
+.article_photo-abbr {
+  font-size: 70px;
+}
+
+.img_overlay-category {
+  color: #FFF;
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, .5) 0, rgba(0, 0, 0, .35) 5%, rgba(0, 0, 0, 0) 100%);
+  font-size: 12px;
+  letter-spacing: 1px;
+  padding: 4px 8px;
+  text-align: right;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 1);
+  text-transform: uppercase;
+  left: 0;
+  right: 0;
+  width: 100%;
+  position: absolute;
+  top: 0;
+}
+
+.img_overlay-title {
+  color: #fff;
+  background-image: linear-gradient(to bottom, rgba(0, 180, 0, .5) 100%, rgba(0, 180, 0, 0) 100%);
+  padding: .5em 0;
+  bottom: 4px;
+  height: auto;
+  text-align: center;
+  width: 100%;
+  position: absolute;
+}
+
+.bit-1,
+img {
+  width: 101%;
+}
+
+.article_entry-head {
+  border-bottom: 1px solid #e8e8e8;
+  padding: 10px 0;
+  font-size: 1.125rem;
+  margin-bottom: 10px;
+}
+
+.cityEntryItem {
+  margin: 0 0 3em 0;
+}
