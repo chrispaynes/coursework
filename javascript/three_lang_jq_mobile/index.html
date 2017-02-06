@@ -8,6 +8,9 @@
     <title>Top Three Languages</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700" type="text/css" rel="stylesheet prefetch">
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700" type="text/css" rel="stylesheet prefetch">
+
+    <link rel="stylesheet" href="themes/three-themes.min.css" />
+    <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
 
@@ -21,7 +24,7 @@
 
     <!-- External Navigation Panel -->
     <div data-role="panel" id="navPanel" data-display="push" data-rel="main-menu-panel">
-      <ul data-theme="a" data-ajax="false" data-inset="true">
+      <ul data-ajax="false" data-inset="true">
         <li>
           <a href="#home" class="ui-btn ui-icon-home ui-btn-icon-notext center-btn">&nbsp;</a>
         </li>
@@ -31,7 +34,7 @@
       </ul>
     </div>
 
-    <div data-role="page" data-add-back-btn="true" id="home">
+    <div data-role="page" data-theme="c" data-add-back-btn="true" id="home">
       <div data-role="header" data-id="main-header"></div>
 
       <div data-role="header" data-position="fixed">
@@ -160,7 +163,7 @@
     </div>
 
     <!-- ELIXIR PAGE -->
-    <div data-role="page" id="elixir-page" data-add-back-btn="true">
+    <div data-role="page" id="elixir-page" data-theme="a" data-add-back-btn="true">
       <div data-role="header" data-add-back-btn="true" data-position="fixed">
         <h1>Elixir</h1>
         <a href="#navPanel" class="ui-btn ui-shadow ui-corner-all ui-icon-bars ui-btn-icon-notext"></a>
@@ -199,7 +202,7 @@
     <!-- END ELIXIR PAGE -->
 
     <!-- RUBY PAGE -->
-    <div data-role="page" id="ruby-page" data-add-back-btn="true">
+    <div data-role="page" id="ruby-page" data-theme="a" data-add-back-btn="true">
       <div data-role="header" data-add-back-btn="true" data-position="fixed">
         <h1>Ruby</h1>
         <a href="#navPanel" class="ui-btn ui-shadow ui-corner-all ui-icon-bars ui-btn-icon-notext"></a>
@@ -238,7 +241,7 @@
     <!-- END RUBY PAGE -->
 
     <!-- GOLANG PAGE -->
-    <div data-role="page" id="golang-page" data-add-back-btn="true">
+    <div data-role="page" data-theme="a" id="golang-page" data-add-back-btn="true">
       <div data-role="header" data-add-back-btn="true" data-position="fixed">
         <h1>Golang</h1>
         <a href="#navPanel" class="ui-btn ui-shadow ui-corner-all ui-icon-bars ui-btn-icon-notext"></a>
@@ -277,8 +280,8 @@
     <!-- END GOLANG PAGE -->
 
     <!-- FEEDBACK SECTION -->
-    <div data-role="page" id="feedback" data-theme="a" data-add-back-btn="true">
-      <div data-role="header" data-theme="a" data-add-back-btn="true">
+    <div data-role="page" id="feedback" data-theme="b" data-add-back-btn="true">
+      <div data-role="header" data-add-back-btn="true">
         <h1>Leave Us Feedback</h1>
         <a href="#navPanel" class="ui-btn ui-shadow ui-corner-all ui-icon-bars ui-btn-icon-notext"></a>
         <a href="#home" class="ui-btn ui-shadow ui-corner-all ui-icon-home ui-btn-icon-notext"></a>
@@ -391,7 +394,7 @@
         <div id="storageStatus"></div>
         <div id="storageOutput"></div>
       </div>
-      <div data-role="footer" data-theme="a">
+      <div data-role="footer">
         <h4>Copyright &copy; 2017 Practice Exercises, Inc. All rights reserved.</h4>
       </div>
 
