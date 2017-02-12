@@ -48,7 +48,7 @@
   <input type="text" name="movieAward" required /></br>
 
   <!-- Submit -->
-  <input type="submit" name="submit_button" required /><br>
+  <input type="submit" name="submit_button" /><br>
 
 </form>
 
@@ -59,9 +59,10 @@ class Movie {
   private $genre;
   private $leadActor;
   private $award;
+  private $fileName = "movieSubmission.txt";
 
   // Movie constructs a Movie object
-  function Movie() {
+  public function Movie() {
     $this->title;
     $this->year;
     $this->genre;
@@ -70,7 +71,7 @@ class Movie {
   }
 
   // setMovieSubmission stores and escapes the user's movie submission;
-  function setMovieSubmission() {
+  public function setMovieSubmission() {
     $this->title = addslashes($_POST["movieTitle"]);
     $this->year = $_POST["movieYear"];
     $this->genre = addslashes($_POST["movieGenre"]);
@@ -79,10 +80,15 @@ class Movie {
   }
 
   // archiveToFile writes a movie to a file.
-  function writeToFile($movieData) {
-    $file = "movieSubmission.txt";
+  public function writeToFile($movieData) {
+    $file = $this->getFileName();
+    // $file = "movieSubmission.txt";
     // file_put_contents appends the movie data to the files.
     file_put_contents($file, (string) $movieData, FILE_APPEND | LOCK_EX) or die("Unable to write to {$file}");
+  }
+
+  public function getFileName() {
+    return $this->fileName;
   }
 
   // __toString is a Magic Method that returns the movie object as a human-readable text block.
@@ -143,11 +149,24 @@ function main() {
     $movie->setMovieSubmission();
     $movie->echoMovie();
     $movie->writeToFile((string) $movie);
+
+    // sleep for 1 seconds before reading file
+    sleep(1);
+
+    echoFileContents($movie);
+
+    // destroy the specified movie object so it can't be resubmitted
     unset($movie);
   }
-  // destroy the specified movie object so it can't be resubmitted
-  unset($movie);
+}
 
+// echoFileContents echos the file contents back to HTML.
+function echoFileContents($movie) {
+  $file = $movie->getFileName();
+  if (file_exists($file) && is_readable($file)) {
+    // nl2br inserts HTML line breaks before all newlines in a string
+    echo nl2br(file_get_contents($file));
+  }
 }
 
 main();
