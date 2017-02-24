@@ -1,0 +1,44 @@
+<!-- 2. (JS/HTML/CSS)
+Using HTML and CSS make a plain white web page that has a 100x100 pixel blue square on it. Position the square along the left side of the page, 50 pixels from the top. Using javascript, but without a javascript library, animate this square so that it moves 10 pixels right and 10 pixels down per second. When the box hits or goes over an edge of the window, change the direction for the related axis. -->
+
+<!-- Using HTML and CSS make a plain white web page that has a 100x100 pixel blue square on it. -->
+
+<!-- Position the square along the left side of the page, 50 pixels from the top. -->
+
+<!-- Using javascript, but without a javascript library, animate this square so that it moves 10 pixels right and 10 pixels down per second. -->
+
+<!-- When the box hits or goes over an edge of the window, change the direction for the related axis. -->
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Blue Square</title>
+  </head>
+
+  <style>
+  #blue_square {
+    background-color: blue;
+    width: 100px;
+    height: 100px;
+    position: relative;
+    left: 50px;
+  }
+  </style>
+
+  <body>
+    <div id="blue_square"></div>
+
+    <script>
+    const blue_square = document.getElementById("blue_square");
+    function animate() {
+      setTimeout(function() {
+        blue_square.style.transition = "all 1s";
+        console.log("We're moving");
+        blue_square.style.left += 50 + "px";
+      }, 600);
+    }();
+    </script>
+  </body>
+
+</html>
