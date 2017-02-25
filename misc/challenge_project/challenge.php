@@ -1,3 +1,22 @@
+<!--
+PROCESS:
+  01. Create ArrayTable class to inherit ArrayObject class.
+  02. Add class constructor function.
+  03. Add displayAsTable function.
+  04. Create private decorator function to create table rows.
+  05. Add CSS styling for better visibility.
+  06. Refactor, refactor, refactor.
+
+THOUGHTS:
+
+  01. I initially created the table records using a forEach loop but refactored it to use the
+      ArrayObject's functionality.
+
+  02. When concentating HTML while using echo, I wanted to find a balance between few concatenation
+      operations yet maintain a HTML-like indentation structure.
+ -->
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
@@ -21,8 +40,7 @@
 <?php
 class ArrayTable extends ArrayObject {
 
-  // private $arrayKeys;
-
+  // displayAsTable outputs all the set keys and values as an HTML table.
   public function displayAsTable() {
 
     echo "<table>";
@@ -41,21 +59,8 @@ class ArrayTable extends ArrayObject {
     echo "</table>";
   }
 
-  // NOTE: Initial implementation. Had to alter because it did not use ArrayObject inheritance.
-  // public function displayAsTable() {
-  //   echo "<table>";
-  //   echo $this->decorateRow("Keys", "Values", "th");
-  //   foreach ($this->arrayKeys as $key => $index):
-  //     $this->decorateRow($index, $key);
-  //   endforeach;
-  //   echo "</table>";
-  // }
-
   // decorateRow decorates table rows and cells with HTML and key/value pairs.
   private function decorateRow($key, $value, $elem) {
-    // NOTE: Initial, overly concatenated implementation.
-    // echo "<tr><td>" "<{$elem.}>" . $key . "</td>" . "<td>" . $value . "</td></tr>";
-
     echo "<tr>"
       . "<{$elem}>$key</{$elem}>"
       . "<{$elem}>$value</{$elem}>"
@@ -64,13 +69,12 @@ class ArrayTable extends ArrayObject {
 
   // __construct calls the parent constructor to create an ArrayObject instance.
   function __construct(array $values) {
-    // NOTE: original implementation with private key object and and no ArrayObject inheritance.
-    // $this->arrayKeys = $keys;
     parent::__construct($values);
   }
 }
 
-// Create new ArrayTable with a list of values.
+// Instantiate an instance of this class, set some keys for the object,
+// and call the object's displayAsTable() function to display your data as an HTML table.
 $arrayTable = new ArrayTable(array("Alpha", "Bravo", "Charlie"));
 $arrayTable->displayAsTable();
 
