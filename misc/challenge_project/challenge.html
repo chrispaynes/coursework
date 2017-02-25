@@ -1,13 +1,29 @@
-<!-- 2. (JS/HTML/CSS)
-Using HTML and CSS make a plain white web page that has a 100x100 pixel blue square on it. Position the square along the left side of the page, 50 pixels from the top. Using javascript, but without a javascript library, animate this square so that it moves 10 pixels right and 10 pixels down per second. When the box hits or goes over an edge of the window, change the direction for the related axis. -->
+<!-- 
+PROCESS:
+  01. Create and position blue square using HTML and CSS.
+  02. Animate blue square, one direction at a time.
+  03. Determine window/document boundaries.
+  04. Add logic to reverse direction when boundaries are hit.
+  05. Refactor, refactor, refactor.
+  06. Add comments
+  07. Refactor, refactor, refactor.
+  08. Test in Chrome, Firefox, Opera, Safari.
+  09. Refactor, refactor, refactor.
 
-<!-- Using HTML and CSS make a plain white web page that has a 100x100 pixel blue square on it. -->
+THOUGHTS:
 
-<!-- Position the square along the left side of the page, 50 pixels from the top. -->
+  01. I initially used ES6 arrow functions and default parameters with the Object Prototype Functions,
+      but had to remove them after testing the code in Safari.
 
-<!-- Using javascript, but without a javascript library, animate this square so that it moves 10 pixels right and 10 pixels down per second. -->
+  02. I initially wrote the challenge using functional programming constructs,
+      but had to revert to an OOP design for improved readability.
 
-<!-- When the box hits or goes over an edge of the window, change the direction for the related axis. -->
+  03. I initially attempted to move the blue_square using conditional statements like
+      `if (location > window.innerWidth) {reverse direction...}` but soon found this wouldn't work.
+      I say this because once a location was reverse by 10px, a different/opposing conditional
+      statement was called, which resulted in an infinite loop.
+
+ -->
 <!DOCTYPE html>
 <html>
 
@@ -17,12 +33,16 @@ Using HTML and CSS make a plain white web page that has a 100x100 pixel blue squ
   </head>
 
   <style>
+  /*Position the square along the left side of the page, 50 pixels from the top.*/
+  /*Using HTML and CSS make a plain white web page that has a 100x100 pixel blue square on it.*/
+  
   #blue_square {
     background-color: blue;
     width: 100px;
     height: 100px;
-    position: relative;
-    left: 50px;
+    position: absolute;
+    left: 0;
+    top: 50px;
   }
   </style>
 
@@ -30,14 +50,62 @@ Using HTML and CSS make a plain white web page that has a 100x100 pixel blue squ
     <div id="blue_square"></div>
 
     <script>
-    const blue_square = document.getElementById("blue_square");
-    function animate() {
-      setTimeout(function() {
-        blue_square.style.transition = "all 1s";
-        console.log("We're moving");
-        blue_square.style.left += 50 + "px";
-      }, 600);
-    }();
+    // A Transformation represents a reversible coordinate change.
+    // invert inverts a positive number to a negative and a negative to a positive.
+    // Transformation.reverse reverses the transformation direction.
+    function Transformation(x_axis, y_axis) {
+      const invert = function(shift) {
+        return shift >= 1 ? (shift * -1) : Math.abs(shift);
+      }
+      this.x_axis = x_axis;
+      this.y_axis = y_axis;
+      this.reverse = function() {
+        this.x_axis = invert(this.x_axis);
+      }
+    }
+    // A Coordinate represents a transformable two dimensional position.
+    // Coordinate.transform transforms a coordinate's X and Y axes.
+    function Coordinate(x_axis, y_axis) {
+      this.x_axis = x_axis;
+      this.y_axis = y_axis;
+      this.transform = function(transformation) {
+        this.x_axis += transformation.x_axis;
+        this.y_axis += transformation.y_axis;
+      }
+    }
+    // An Element represents a movable HTML element.
+    // Element.move moves an element to a coordinate's current location.
+    function Element(id, x, y) {
+      this.props = document.getElementById(id);
+      this.coord = new Coordinate(x, y);
+      this.move = function(coordinate) {
+        this.props.style.left = coordinate.x_axis + "px";
+        this.props.style.top = coordinate.y_axis + "px";
+      }
+    }
+    // animate is an Immediately Invoked Function Expression that moves the blue square.
+    (function animate() {
+      const X_AXIS_START = 0;
+      const Y_AXIS_START = 15;
+      var blue_square = new Element("blue_square", X_AXIS_START, Y_AXIS_START);
+      var transformation = new Transformation(10, 10);
+      var coordinate = new Coordinate(X_AXIS_START, Y_AXIS_START);
+      // window_edge represents the document body minus the scroll bar and the blue square's width.
+      const window_edge = document.body.scrollWidth - blue_square.props.offsetWidth;
+
+      // Animate the square 10 pixels right and 10 pixels down per second.
+      // Reverse the movement direction when the square touches the left or right window boundary.
+      setInterval(function() {
+          coordinate.transform(transformation);
+          blue_square.move(coordinate);
+
+        if (transformation.x_axis < 0) {
+          coordinate.x_axis <= 0 || coordinate.x_axis >= window_edge ? transformation.reverse() : false;
+        } else {
+          coordinate.x_axis >= window_edge ? transformation.reverse() : false;
+        }
+      }, 1000)
+    }());
     </script>
   </body>
 
