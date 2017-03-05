@@ -17,9 +17,8 @@
 <hr />
 
 <!-- A document to select and retrieve movie records. -->
-<!-- A document that you can use to add new entries. -->
 <!-- A document that you can use to edit entries. -->
-<h2>select and retrieve movie records</h2>
+<h2>Add A New Movie</h2>
 <form action="" method="post">
 
   <!-- Movie Title -->
@@ -97,6 +96,21 @@ class Movie {
     file_put_contents($file, (string) $movieData, LOCK_EX) or die("Unable to write to {$file}");
   }
 
+  public function viewMovieFile($movieTitle) {
+    $moviePath = "./MovieDatabase/" . $movieTitle;
+
+    if ((file_exists($moviePath)) && (filesize($moviePath) != 0)) {
+      $Movies = file($moviePath);
+      echo "<br>";
+      foreach ($Movies as $key => $value):
+        echo "$value<br>";
+      endforeach;
+      echo "<br>";
+    } else {
+      echo "There was an error viewing the movie file.\n";
+    }
+  }
+
   public function getFileName() {
     // recursively creates directory and file with widest possible permissions
     if (!file_exists(dirname("./MovieDatabase/"))) {
@@ -158,10 +172,9 @@ function main() {
 
     if ((file_exists($movie->getFileName())) && (filesize($movie->getFileName()) != 0)) {
       echo "<p>The movie you entered already exists!<br />\n";
-      echo "Please submit a new movie.</p>";
+      echo "Please submit a new movie or edit the existing movie.</p>";
       return;
     } else {
-      // $movie->writeToFile($movie->getSonglist(), $movie->getSongFileName());
       $movie->writeToFile($movie, $movie->getFileName());
       $movie->echoMovie();
 
@@ -172,18 +185,8 @@ function main() {
 
   // viewMovies
   if (isset($_POST['viewMovies_submit'])) {
-    $moviePath = "MovieStore/Movies/" . substr($_POST['movieTitle'], 0, strpos($_POST['movieTitle'], '_'));
-
-    if ((file_exists($moviePath)) && (filesize($moviePath) != 0)) {
-      $Movies = file($moviePath);
-      echo "<br>";
-      foreach ($Movies as $key => $value):
-        echo "$value<br>";
-      endforeach;
-      echo "<br>";
-    } else {
-      echo "There was an error viewing the movie file.\n";
-    }
+    $movie = new Movie();
+    $movie->viewMovieFile($_POST['movieTitle']);
   }
 
 }
@@ -207,8 +210,10 @@ function createOptionsDropdown($dirname) {
   // Reset the indexes without the original first two slots.
   $files = array_values($files);
 
+  print_r($files);
+
   foreach ($files as $key => $value):
-    echo "<option value='{$value}'>" . substr($value, 0, strpos($value, '_')) . "</option>";
+    echo "<option value='{$value}'>" . substr($value, 0, strpos($value, '.txt')) . "</option>";
   endforeach;
 }
 
@@ -216,10 +221,9 @@ echo '<h2>Learn More About A Movie</h2>';
 echo '<form action="" method="POST" name="movieSongViewer">';
 echo '<label for="movieSong">Choose A Movie</label><br>';
 echo '<select name="movieTitle" id="">';
-createOptionsDropdown("./MovieDatabase/Movies");
+echo createOptionsDropdown("./MovieDatabase/");
 echo '</select>';
 echo '<input type="submit" value="View Movie" name="viewMovies_submit" />';
-echo '<input type="submit" value="View Song List" name="viewSongList_submit" />';
 echo '<input type="submit" value="Sort Movie By Title" name="sortMoviesByTitle_submit" />';
 echo '</form>';
 echo '<hr />';
