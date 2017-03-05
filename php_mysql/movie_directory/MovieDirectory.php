@@ -9,10 +9,6 @@
 
   <body>
 
-  <style>
-
-  </style>
-
 <h1>Movie Directory</h1>
 <hr />
 
@@ -51,10 +47,6 @@
   <label for="movieAward">Movie Award</label>
   <input type="text" name="movieAward" required /></br>
 
-  <!-- Movie Song -->
-  <label for="movieSong">Movie Song</label>
-  <input type="text" name="movieSong" /></br><br>
-
   <!-- Submit -->
   <input type="submit" name="submit_button" /><br>
 
@@ -78,6 +70,11 @@ class Movie {
     $this->award;
   }
 
+  // Movie constructs a Movie object
+  public function addEditTitle($title) {
+    $this->title = $title;
+  }
+
   // setMovieSubmission stores and escapes the user's movie submission;
   public function setMovieSubmission() {
     $this->title = addslashes($_POST["movieTitle"]);
@@ -94,6 +91,7 @@ class Movie {
       mkdir(dirname($file), 0777, true);
     }
     file_put_contents($file, (string) $movieData, LOCK_EX) or die("Unable to write to {$file}");
+    chmod($file, 0777);
   }
 
   public function viewMovieFile($movieTitle) {
@@ -128,6 +126,29 @@ class Movie {
     $movieData .= "Award:       $this->award\n";
 
     return $movieData;
+  }
+
+  public function editMovieFile($movieTitle) {
+    $this->title = $movieTitle;
+    $moviePath = "./MovieDatabase/" . $movieTitle;
+
+    if ((file_exists($moviePath)) && (filesize($moviePath) != 0)) {
+      $Movies = file($moviePath);
+      echo '<form action="" method="POST" name="movieEditor">';
+      echo "<textarea name='movieEdit' rows='10' cols='30'>";
+
+      foreach ($Movies as $key => $value):
+        echo "$value";
+      endforeach;
+      echo "</textarea>";
+      echo "<br>";
+      echo '<input type="submit" value="Submit Movie Edit" name="editMovieSubmission_submit" />';
+      echo '</form>';
+
+    } else {
+      echo "There was an error viewing the movie file.\n";
+    }
+
   }
 
   // echoMovie echos the movie object as a human-readable HTML output.
@@ -189,15 +210,44 @@ function main() {
     $movie->viewMovieFile($_POST['movieTitle']);
   }
 
+  // editMovies
+  if (isset($_POST['editMovie_submit'])) {
+    $movie = new Movie();
+    $movie->editMovieFile($_POST['movieTitle']);
+  }
+
+  if (isset($_POST['editMovieSubmission_submit'])) {
+    $movie = new Movie();
+    $movie->addEditTitle(extractTitle($_POST['movieEdit']));
+    $file = $movie->getFileName();
+
+    $movie->writeToFile($_POST['movieEdit'], $file);
+
+    if (file_exists($file) && is_readable($file)) {
+      echo "Successfully updated the movie file";
+    } else {
+      echo "Could not update the file";
+    }
+  }
+
 }
 
 // echoFileContents echos the file contents back to HTML.
 function echoFileContents($movie) {
+
   $file = $movie->getFileName();
   if (file_exists($file) && is_readable($file)) {
     // nl2br inserts HTML line breaks before all newlines in a string
     echo nl2br(file_get_contents($file));
   }
+}
+
+// extractTitles trims text around a movie title
+function extractTitle($string) {
+  $str1 = substr_replace($string, "", stripos($string, 'Year'));
+  $str2 = substr_replace($str1, "", 0, 7);
+
+  return trim(strip_tags($str2), " \t\n\r\0\x0B");
 }
 
 // create options dropdown
@@ -224,7 +274,7 @@ echo '<select name="movieTitle" id="">';
 echo createOptionsDropdown("./MovieDatabase/");
 echo '</select>';
 echo '<input type="submit" value="View Movie" name="viewMovies_submit" />';
-echo '<input type="submit" value="Sort Movie By Title" name="sortMoviesByTitle_submit" />';
+echo '<input type="submit" value="Edit A Movie" name="editMovie_submit" />';
 echo '</form>';
 echo '<hr />';
 
