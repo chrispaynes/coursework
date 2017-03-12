@@ -1,7 +1,9 @@
 <?php
 session_start();
+?>
 
-// verify correct session info is sent to the page.
+<?php
+// Verify correct session info is sent to the page.
 $Body = "";
 $errors = 0;
 if (!isset($_SESSION['internID'])) {
@@ -21,20 +23,74 @@ if ($errors == 0) {
   }
 }
 
-// connect to the internship database
+// Connect to the internship database.
 if ($errors == 0) {
+
   $DBConnect = @mysql_connect("127.0.0.1", "INSERT_USER", "INSERT_PASSWORD");
+
   if ($DBConnect === FALSE) {
     $Body .= "<p>Unable to connect to the database server. "
-    . "error code " . mysql_errno() . ": " .
-    mysql_errno() . "</p>\n";
+    . "error code "
+    . mysql_errno() . ": "
+    . mysql_error() . "</p>\n";
     ++$errors;
+  } else {
+    $DBName = "internships";
+    $result = @mysql_select_db($DBName, $DBConnect);
+
+    if ($result === FALSE) {
+      $Body .= "<p>Unable to select the database. "
+      . "Error code "
+      . mysql_errno($DBConnect) . ": "
+      . mysql_error($DBConnect) . "</p>\n";
+      ++$errors;
+    }
+
   }
-} else {
-  $DBName = "internships";
-  $result = @mysql_select_db($DBName, $DBConnect);
 }
+
+// Delete the appropriate row from the assigned_opportunities table if an internship is cancelled.
+if ($errors == 0) {
+  $DBConnect = @mysql_connect("127.0.0.1", "root", "!@#123QWEqweASDasdZXCzxc");
+
+  $TableName = "assigned_opportunities";
+  $SQLstring = "DELETE FROM $TableName"
+    . " WHERE opportunityID=$OpportunityID "
+    . " AND internID=" . $_SESSION['internID']
+    . " AND date_approved IS NULL";
+  $QueryResult = @mysql_query($SQLstring, $DBConnect);
+
+  if ($QueryResult === FALSE) {
+    $Body .= "<p>Unable to execute the query. "
+    . " Error code "
+    . mysql_errno($DBConnect) . ": "
+    . mysql_error($DBConnect) . "</p>\n";
+    ++$errors;
+  } else {
+    $AffectedRows = mysql_affected_rows($DBConnect);
+    if ($AffectedRows == 0) {
+      $Body .= "<p>You had not previously selected opportunity # "
+        . $OpportunityID . ".</p>\n";
+    } else {
+      $Body .= "<p>Your request for opportunity # "
+        . " $OpportunityID has been " . " removed.</p>\n";
+    }
+  }
+  mysql_close($DBConnect);
+}
+
+// Adds navigational links.
+if ($_SESSION['internID'] > 0) {
+  $Body .= "<p>Return to the <a href='"
+    . "AvailableOpportunities.php?internID=" . $_SESSION['internID'] . "'>"
+    . "AvailableOpportunities</a> page.</p>\n";
+} else {
+  $Body .= "<p>Please <a href='InternLogin.php'>Register "
+    . " or Log In</a> to use this page.</p>\n";
+}
+
 ?>
+
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
