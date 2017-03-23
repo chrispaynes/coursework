@@ -1,0 +1,21 @@
+{
+  "name": "TDD_Node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "co-fs": "^1.2.0",
+    "co-mocha": "^1.2.0",
+    "eslint": "^3.18.0",
+    "eslint-config-google": "^0.7.1",
+    "mocha": "^3.2.0",
+    "should": "^11.2.1"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
