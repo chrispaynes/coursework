@@ -3,14 +3,20 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "co-fs": "^1.2.0",
+    "koa": "^2.2.0",
+    "koa-router": "^5.4.0"
+  },
   "devDependencies": {
     "co-fs": "^1.2.0",
     "co-mocha": "^1.2.0",
+    "co-supertest": "0.0.10",
     "eslint": "^3.18.0",
     "eslint-config-google": "^0.7.1",
     "mocha": "^3.2.0",
-    "should": "^11.2.1"
+    "should": "^11.2.1",
+    "supertest": "^3.0.0"
   },
   "scripts": {
     "test": "mocha"
