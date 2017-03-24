@@ -5,9 +5,10 @@ const service = require("../server/service");
 const http = require("http");
 const server = http.createServer(service);
 const botToken = process.env.SLACK_BOT_TOKEN || '';
-const logLevel = "debug";
-
+const logLevel = "verbose";
 const rtm = slackClient.init(botToken, logLevel);
+
+// Starts the Real-Time Messaging (RTM) service
 rtm.start();
 
 server.listen(3000);
