@@ -14,19 +14,48 @@ function handleOnAuthenticated(rtmStartData) {
 
 // handleOnMessage handles incoming messages.
 function handleOnMessage(message) {
-  nlp.ask(message.text, (err, res) => {
-    if(err) {
-      console.log(err);
-      return;
-    }
-    if(!res.intent) {
-      rtm.sendMessage("Sorry I don't understand", message.channel)
-    } else if(res.intent[0] == "time" && res.location) {
-      rtm.sendMessage(`I don\'t know the time in ${res.location[0].value}`, message.channel)
-    } else {
-      rtm.sendMessage("Sorry I don't understand", message.channel)
-    }
-  });
+  if(message.text.toLowerCase().includes("iris")){
+    nlp.ask(message.text, (err, res) => {
+      if(err) {
+        console.log(err);
+        return;
+      }
+
+      try {
+        if(!res.intent || !res.intent[0] || !res.intent[0].value) {
+          throw new Error("Could not extract intent");
+          
+          // pair the response intent with it's corresponding codebase
+          const intent = require("../intents/" + res.intent[0].value + "Intent");
+          
+          intent.process(res, (error, response) => {
+            if(error) {
+              console.log(error.message);
+              return;
+            }
+
+            rtm.sendMessage(response, message.channel);
+          });
+        }
+      } catch(err) {
+          console.log(err);
+          console.log(res);
+          rtm.sendMessage("Sorry, I don't understand what you're asking", message.channel);
+      }
+
+      if(!res.intent) {
+        console.log(res);
+        rtm.sendMessage("Sorry I don't understand", message.channel)
+      } else if(res.intent[0].value == "time" && res.location) {
+        console.log(res);
+        rtm.sendMessage(`I don\'t know the time in ${res.location[0].value}`, message.channel)
+      } else {
+        console.log(res);
+        rtm.sendMessage("Sorry I don't understand", message.channel)
+      }
+    });
+  }
+
 }
 
 // addAuthenticatedHandler adds an event handler function
