@@ -4,9 +4,13 @@ const slackClient = require("../server/slackClient");
 const service = require("../server/service");
 const http = require("http");
 const server = http.createServer(service);
+
+const witToken = process.env.WIT_TOKEN || '';
+const witClient = require("../server/witClient.js")(witToken);
+
 const botToken = process.env.SLACK_BOT_TOKEN || '';
 const logLevel = "verbose";
-const rtm = slackClient.init(botToken, logLevel);
+const rtm = slackClient.init(botToken, logLevel, witClient);
 
 // Starts the Real-Time Messaging (RTM) service.
 rtm.start();
