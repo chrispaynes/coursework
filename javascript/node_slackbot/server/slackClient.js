@@ -2,6 +2,7 @@ const env = require('../env');
 const RtmClient = require('@slack/client').RtmClient;
 const CLIENT_EVENTS = require('@slack/client').CLIENT_EVENTS;
 const RTM_EVENTS = require('@slack/client').RTM_EVENTS;
+
 let rtm = null;
 let nlp = null;
 
