@@ -1,0 +1,13 @@
+ul,li {
+  text-decoration: none;
+  list-style-type: none;
+}
+
+.bdr {
+  border: solid;
+}
+
+/*SUBFORUMS COMPONENT*/
+.sf_header {
+  font-weight: bold;
+}

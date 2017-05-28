@@ -1,0 +1,6 @@
+subforum_id_PK
+subforumName
+subforumDescription
+subforumThreads
+subforumPosts
+subforumLastUpdated

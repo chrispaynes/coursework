@@ -1,0 +1,7 @@
+thread_id_PK
+forum_id_FK
+thread_title
+thread_author
+thread_creation_date
+thread_last_reply_timestamp
+thread_total_replies

@@ -1,0 +1,6 @@
+user_id_PK,user_username,user_password,user_firstname,user_lastname,user_email,user_is_admin
+0,GWash,123,George,Washington,gw@pres.com,true
+1,JAdam,456,John,Adams,ja@pres.com,false
+2,TJeff,789,Thomas,Jefferson,tj@pres.com,false
+3,JMad,101112,James,Madison,jm@pres.com,false
+4,JMun,131415,James,Munroe,jmun@pres.com,false

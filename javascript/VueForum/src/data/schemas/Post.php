@@ -1,0 +1,5 @@
+post_id_PK
+thread_id_FK
+post_author
+post_body
+post_timestamp
