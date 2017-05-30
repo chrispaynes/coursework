@@ -5,8 +5,8 @@ require_once 'AbstractQuery.php';
 
 // Most_Recent_Post queries the DB for the most recently published post
 class Most_Recent_Post extends AbstractQuery {
-    protected function filter($params) {
-        return $params["post_timestamp"] == rawurldecode($_GET['date']);
+    protected function filter($params = []) {
+        return $params["post_timestamp"] == $_GET['date'];
     }
 }
 

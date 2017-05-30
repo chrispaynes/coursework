@@ -1,7 +1,0 @@
-thread_id_PK,forum_id_FK,thread_title,thread_author,thread_creation_date,thread_last_reply_timestamp,thread_total_replies
-header, header, Title, Author, Creation Date, Last Reply, Replies
-0,0,ThreadTitle1,John Doe,Sun May 21 2017 14:41:42 GMT-0500 (CDT),Sun May 21 2017 14:41:42 GMT-0500 (CDT),50
-1,1,ThreadTitle2,Jill Doe,Sun May 14 2017 14:41:42 GMT-0500 (CDT),Sun May 14 2017 14:41:42 GMT-0500 (CDT),100
-2,0,ThreadTitle3,William Doe,Sun May 21 2017 14:41:42 GMT-0500 (CDT),Sun May 21 2017 14:41:42 GMT-0500 (CDT),1087
-3,1,ThreadTitle4,Kelly Doe,Sun May 14 2017 14:41:42 GMT-0500 (CDT),Sun May 7 2017 14:41:42 GMT-0500 (CDT),808
-4,3,ThreadTitle5,Doug Doe,Sun May 14 2017 14:41:42 GMT-0500 (CDT),Sun May 14 2017 14:41:42 GMT-0500 (CDT),4066

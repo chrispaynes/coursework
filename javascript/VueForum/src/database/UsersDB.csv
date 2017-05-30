@@ -1,0 +1,12 @@
+user_id_PK,user_username,user_password,user_firstname,user_lastname,user_email,user_is_admin
+0,GWash,123,George,Washington,gw@pres.com,true
+1,JAdam,456,John,Adams,ja@pres.com,false
+2,TJeff,789,Thomas,Jefferson,tj@pres.com,false
+3,JMad,101112,James,Madison,jm@pres.com,false
+4,JMunkey,131415,James,Munroe,jmun@pres.com,false
+5,Marg,7458,Marge,Washington,mw@gmail.com,false
+6,DAdam,4545446,Devin,Adams,da@gmail.com,false
+7,EJeffer,78889,Elizabeth,Jefferson,ej@gmail.com,false
+8,MikeMad,101141912,Mike,Madison,jm@gmail.com,false
+9,KMunroe,136851,Kelly,Munroe,km@gmail.com,false
+10,Nance,1716935,Nancy,Munroe,nm@gmail.com,false

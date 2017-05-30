@@ -18,38 +18,19 @@ var Post = Vue.component('post', {
       </div>
     `,
   props: ['item', 'header', 'index', 'href'],
-  data() {
-    return {items: [], headers: []}
+  data: function() {
+    return {items: [], headers: []};
   },
-  beforeCreate() {
+  beforeCreate: function() {
     var self = this;
     axios.get('data/queries/forum_index.php', {
         })
         .then(function (response) {
-          self.headers = Object.keys(response.data[0])
-          self.items = response.data
+          self.headers = Object.keys(response.data[0]);
+          self.items = response.data;
         })
         .catch(function (error) {
           console.log(error);
         });
   },
 });
-
-// var Post = new Vue({
-//   el: '#post',
-//   data() {
-//     return {items: [], headers: []}
-//   },
-//   beforeCreate() {
-//     var self = this;
-//     axios.get('data/queries/forum_index.php', {
-//         })
-//         .then(function (response) {
-//           self.headers = Object.keys(response.data[0])
-//           self.items = response.data
-//         })
-//         .catch(function (error) {
-//           console.log(error);
-//         });
-//   },
-// });

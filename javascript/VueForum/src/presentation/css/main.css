@@ -1,6 +1,10 @@
-ul,li {
-  text-decoration: none;
+* {
+  text-decoration: none !important;
   list-style-type: none;
+}
+
+body {
+  line-height: 150%;
 }
 
 .bdr {
@@ -10,4 +14,163 @@ ul,li {
 /*SUBFORUMS COMPONENT*/
 .sf_header {
   font-weight: bold;
+}
+
+.pad-sm {
+  padding: 16px;
+}
+
+.pad-md {
+  padding: 32px;
+}
+
+.pad-lg {
+  padding: 48px;
+}
+
+.pad-top-sm {
+  padding-top: 16px;
+}
+
+.pad-top-md {
+  padding-top: 32px;
+}
+
+.pad-top-lg {
+  padding-top: 48px;
+}
+
+.pad-bottom-sm {
+  padding-bottom: 16px;
+}
+
+.pad-bottom-md {
+  padding-bottom: 32px;
+}
+
+.pad-bottom-lg {
+  padding-bottom: 48px;
+}
+
+.pad-left-sm {
+  padding-left: 16px;
+}
+
+.pad-left-md {
+  padding-left: 32px;
+}
+
+.pad-left-lg {
+  padding-left: 48px;
+}
+
+.pad-right-sm {
+  padding-right: 16px;
+}
+
+.pad-right-md {
+  padding-right: 32px;
+}
+
+.pad-right-lg {
+  padding-right: 48px;
+}
+
+.margin-sm {
+  margin: 16px;
+}
+
+.margin-md {
+  margin: 32px;
+}
+
+.margin-lg {
+  margin: 48px;
+}
+
+.margin-bottom-sm {
+  margin-bottom: 16px;
+}
+
+.margin-bottom-md {
+  margin-bottom: 32px;
+}
+
+.margin-bottom-lg {
+  margin-bottom: 48px;
+}
+
+a.postlink {
+    font-size: 16px;
+    text-decoration: none;
+}
+
+.txt-green, a:hover {
+  color: #42b983;
+}
+
+.txt-blue {
+  color: #34495e;
+}
+
+.txt-gray {
+  color: #7f8c8d;
+}
+
+.text-size-xs {
+  font-size: 14px;
+}
+
+.text-size-sm {
+  font-size: 16px;
+}
+
+.text-size-md {
+  font-size: 32px;
+}
+
+.text-size-lg {
+  font-size: 48px;
+}
+
+.bg-green {
+  background-color: #42b983;
+}
+
+.bg-blue {
+  background-color: #34495e;
+}
+
+.bg-gray {
+  background-color: #f8f8f8;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.inline {
+  display: inline;
+}
+
+.thread_headline {
+    padding: 0 200px;
+    line-height: 125%;
+    font-size: 48px;
+}
+
+.thread_byline {
+    line-height: 125%;
+    font-size: 40px;
+    font-family: serif;
+}
+
+.reply_label{
+    font-family: serif;
+    font-size: 24px;
+}
+
+.first_post {
+    border-bottom: 3px solid #34495e;
+    border-top: 3px solid #34495e;
 }

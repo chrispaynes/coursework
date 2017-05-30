@@ -1,19 +1,19 @@
-var gulp = require('gulp');
-var eslint = require('gulp-eslint');
-var concat = require('gulp-concat');
-var minifyHTML = require('gulp-minify-html');
-var csslint = require('gulp-csslint');
-var minifyCss = require('gulp-minify-css');
-var concatCss = require('gulp-concat-css');
-var jsonminify = require('gulp-jsonminify');
-var jsonlint = require('gulp-jsonlint');
-var watch = require('gulp-watch');
+const gulp = require('gulp');
+const eslint = require('gulp-eslint');
+const concat = require('gulp-concat');
+const minifyHTML = require('gulp-minify-html');
+const csslint = require('gulp-csslint');
+const minifyCss = require('gulp-minify-css');
+const concatCss = require('gulp-concat-css');
+const jsonminify = require('gulp-jsonminify');
+const jsonlint = require('gulp-jsonlint');
+const watch = require('gulp-watch');
 
-var CSS_source = ['./src/presentation/css/main.css'];
-var HTML_source = './index.html';
-var JS_source = ['./src/presentation/vendor/vue.min.js', './src/presentation/vendor/vue-router.min.js', './src/business/vendor/*.js', './src/presentation/**/*.js', './src/business/**/*.js', './src/business/router.js', './app.js'];
-var PHP_source = ['./src/data/**/*'];
-var DB_source = ['./src/database/*.csv'];
+const CSS_source = ['./src/presentation/css/main.css'];
+const HTML_source = './index.html';
+const JS_source = ['./src/presentation/vendor/vue.min.js', './src/presentation/vendor/vue-router.min.js', './src/business/vendor/*.js', './src/presentation/**/*.js', './src/business/**/*.js', './src/business/router.js', './app.js'];
+const PHP_source = ['./src/data/**/*'];
+const DB_source = ['./src/database/**/*.csv'];
 
 // lint all JavaScript files, excluding node_modules
 gulp.task('lint', () => gulp.src(['**/*.js', '!node_modules/**', '!app.js'])
@@ -64,4 +64,5 @@ gulp.task('Watch', () => {
 });
 
 // Will only run if the lint task is successful...
-gulp.task('default', ['lint', 'HTMLmin', 'CSSmin', 'JSmin', 'PHPcopy', 'Datacopy', 'Watch'], () => {});
+gulp.task('default', ['HTMLmin', 'CSSmin', 'JSmin', 'PHPcopy', 'Datacopy', 'Watch'], () => {});
+gulp.task('lint', ['lint'], () => {});

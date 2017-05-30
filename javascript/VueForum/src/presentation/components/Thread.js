@@ -1,41 +1,62 @@
-Vue.component('post', {
+var Thread = Vue.component('thread', {
   template: `
-      <div class="row sf_header" v-if="index == 0">
-        <div class='col-xs-12 col-md-2'>{{ item.subforumName }}</div>
-        <div class='col-xs-12 col-md-3'>{{ item.subforumDescription }}</div>
-        <div class='col-xs-12 col-md-2'>{{ item.subforumThreads }}</div>
-        <div class='col-xs-12 col-md-2'>{{ item.subforumPosts }}</div>
-        <div class='col-xs-12 col-md-3'>{{ item.subforumLastUpdated }}</div>
-        <hr />
-      </div>
-      <div class="row" v-else>
-        <div class='col-xs-12 col-md-2'><a href={{href}}>{{ item.subforumName }}</a></div>
-        <div class='col-xs-12 col-md-3'>{{ item.subforumDescription }}</div>
-        <div class='col-xs-12 col-md-2'>{{ item.subforumThreads }}</div>
-        <div class='col-xs-12 col-md-2'>{{ item.subforumPosts }}</div>
-        <div class='col-xs-12 col-md-3'><a href="#">{{ item.subforumLastUpdated }}</a></div>
-        <hr />
-      </div>
-    `,
-  props: ['item', 'header', 'index', 'href']
-})
+  <div class="col-xs-12">
+    <div class='pad-sm text-center'>
+      <h1 class="txt-green thread_headline">{{title}} </h1>
+      <h2 class="txt-blue thread_byline"><small>by</small> {{author}}</h2>
+    </div>
+    <hr />
+    <ul class='pad-md'>
+      <li v-for="(p, index) in posts"
+          v-bind:p="p"
+          v-bind:index="index"
+          v-bind:key="p.id"
+          v-bind:class="[p.post_is_reply == 'false' ? 'bg-gray first_post' : 'col-xs-12', 'col-xs-12 margin-bottom-md']"
+          >
+            <div class="row" v-if="p.post_is_reply == 'false'">
+              <div class='col-xs-12 col-md-4'>
+                <div><h3 class='txt-green'>{{ p.author_username }}</h3></div>
+                <div class='txt-gray'>{{ p.post_last_updated}}</div>
+              </div>
+              <div class='col-xs-12 col-md-8 pad-md'>{{ p.post_body }}</div>
+            </div>
 
-var Thread = new Vue({
-  router,
-  el: '#post',
-  data() {
-    return {items: [], headers: []}
+            <div class="row" v-else>
+              <div class='col-xs-12 col-md-4 txt-blue'>
+                <div><h3>{{ p.author_username }}</h3></div>
+                <div class='txt-gray'>{{ p.post_last_updated}}</div>
+              </div>
+              <div class='col-xs-12 col-md-8 pad-md'>{{ p.post_body }}</div>
+              <hr class='col-xs-12' />
+            </div>
+        </li>
+        <reply-form></reply-form>
+    </ul>
+  </div>
+    `,
+  data: function() {
+    return { posts: [], title: '', author: '',
+      styleObject: {
+        authorBG: 'red',
+        fontSize: '13px',
+      } };
   },
-  beforeCreate() {
+  beforeCreate: function() {
     var self = this;
-    axios.get('data/queries/forum_index.php', {
-        })
-        .then(function (response) {
-          self.headers = Object.keys(response.data[0])
-          self.items = response.data
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+    axios.get('./data/queries/Thread.php', {
+      params: {
+        thread: this.$route.query.thread,
+      },
+    })
+    .then(function(response) {
+      self.posts = response.data;
+      self.title = response.data[0].thread_name;
+      self.author = response.data.find(function(p) {
+        return p.post_is_reply == "false";
+      }).author_username;
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
   },
 });
