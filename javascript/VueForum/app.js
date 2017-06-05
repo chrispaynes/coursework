@@ -12,3 +12,7 @@ var app = new Vue({
   router: router,
   el: '#app',
 });
+
+window.addEventListener('resize', function(event){
+  console.log(window.innerWidth);
+});

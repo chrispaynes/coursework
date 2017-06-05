@@ -1,6 +1,6 @@
 var Post = Vue.component('post', {
   template: `
-      <div class="row sf_header" v-if="index == 0">
+      <div id='post_component' class="row sf_header" v-if="index == 0">
         <div class='col-xs-12 col-md-2'>{{ item.subforumName }}</div>
         <div class='col-xs-12 col-md-3'>{{ item.subforumDescription }}</div>
         <div class='col-xs-12 col-md-2'>{{ item.subforumThreads }}</div>

@@ -1,19 +1,19 @@
 var Thread = Vue.component('thread', {
   template: `
-  <div class="col-xs-12">
+  <div id='thread_component' class='col-xs-12'>
     <div class='pad-sm text-center'>
-      <h1 class="txt-green thread_headline">{{title}} </h1>
-      <h2 class="txt-blue thread_byline"><small>by</small> {{author}}</h2>
+      <h1 id='thread_headline' class='txt-green thread_headline'>{{title}} </h1>
+      <h2 class='txt-blue thread_byline'><small>by</small> {{author}}</h2>
     </div>
     <hr />
-    <ul class='pad-md'>
-      <li v-for="(p, index) in posts"
-          v-bind:p="p"
-          v-bind:index="index"
-          v-bind:key="p.id"
-          v-bind:class="[p.post_is_reply == 'false' ? 'bg-gray first_post' : 'col-xs-12', 'col-xs-12 margin-bottom-md']"
+    <ul id="post_listing" class='pad-md'>
+      <li v-for='(p, index) in posts'
+          v-bind:p='p'
+          v-bind:index='index'
+          v-bind:key='p.id'
+          class='[p.post_is_reply == "false" ? "bg-gray" : "col-xs-12", "col-xs-12 margin-bottom-md"]'
           >
-            <div class="row" v-if="p.post_is_reply == 'false'">
+            <div class='row' v-if='p.post_is_reply == "false"'>
               <div class='col-xs-12 col-md-4'>
                 <div><h3 class='txt-green'>{{ p.author_username }}</h3></div>
                 <div class='txt-gray'>{{ p.post_last_updated}}</div>
@@ -21,7 +21,7 @@ var Thread = Vue.component('thread', {
               <div class='col-xs-12 col-md-8 pad-md'>{{ p.post_body }}</div>
             </div>
 
-            <div class="row" v-else>
+            <div class='row' v-else>
               <div class='col-xs-12 col-md-4 txt-blue'>
                 <div><h3>{{ p.author_username }}</h3></div>
                 <div class='txt-gray'>{{ p.post_last_updated}}</div>
@@ -52,7 +52,7 @@ var Thread = Vue.component('thread', {
       self.posts = response.data;
       self.title = response.data[0].thread_name;
       self.author = response.data.find(function(p) {
-        return p.post_is_reply == "false";
+        return p.post_is_reply == 'false';
       }).author_username;
     })
     .catch(function(error) {
