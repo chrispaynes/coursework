@@ -1,6 +1,6 @@
 Vue.component('app', {
   template: `
-    <div>
+    <div class='pad-bottom-md'>
       <app-header></app-header>
       <router-view></router-view>
       <app-footer></app-footer>
@@ -11,8 +11,4 @@ Vue.component('app', {
 var app = new Vue({
   router: router,
   el: '#app',
-});
-
-window.addEventListener('resize', function(event){
-  console.log(window.innerWidth);
 });

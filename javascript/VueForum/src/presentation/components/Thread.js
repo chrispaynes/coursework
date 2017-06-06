@@ -11,24 +11,28 @@ var Thread = Vue.component('thread', {
           v-bind:p='p'
           v-bind:index='index'
           v-bind:key='p.id'
-          class='[p.post_is_reply == "false" ? "bg-gray" : "col-xs-12", "col-xs-12 margin-bottom-md"]'
+          class='[p.post_is_reply == "false" ? "bg-gray" : "col-xs-12", "col-xs-12 margin-bottom-md post"]'
           >
+          <div class='fluid-container'>
             <div class='row' v-if='p.post_is_reply == "false"'>
               <div class='col-xs-12 col-md-4'>
-                <div><h3 class='txt-green'>{{ p.author_username }}</h3></div>
-                <div class='txt-gray'>{{ p.post_last_updated}}</div>
+                <div class='post_author'><h3 class='txt-green'>{{ p.author_username }}</h3></div>
+                <div class='txt-gray post_date'>{{ p.post_last_updated}}</div>
               </div>
-              <div class='col-xs-12 col-md-8 pad-md'>{{ p.post_body }}</div>
+              <div class='col-xs-12 col-md-8 pad-horiz-md pad-bottom-sm'>{{ p.post_body }}</div>
             </div>
 
-            <div class='row' v-else>
+            <div class='row col-xs-12' v-else>
               <div class='col-xs-12 col-md-4 txt-blue'>
-                <div><h3>{{ p.author_username }}</h3></div>
-                <div class='txt-gray'>{{ p.post_last_updated}}</div>
+                <div class='post_author'><h3>{{ p.author_username }}</h3></div>
+                <div class='txt-gray post_date'>{{ p.post_last_updated}}</div>
               </div>
-              <div class='col-xs-12 col-md-8 pad-md'>{{ p.post_body }}</div>
-              <hr class='col-xs-12' />
+              <div class='col-xs-12 col-md-8 pad-horiz-md'>{{ p.post_body }}
+              </div>
+                              <hr class='col-xs-12'/>
+
             </div>
+          </div>
         </li>
         <reply-form></reply-form>
     </ul>
