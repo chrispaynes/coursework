@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $DBquery = new Thread_Posts('Posts');
 
     if (count($_GET) > 0) {
-        $DBquery->setFilter();
+        $DBquery->enableFilter();
     }
 
     $DBquery->execute();

@@ -6,8 +6,7 @@ define('__ROOT__', dirname(dirname(dirname(__FILE__))));
 abstract class AbstractQuery {
     private $db = '';
     private $is_filtered = false;
-    private $user_FK = 0;
-    private $thread_FK = 0;
+    private $query_params = [];
 
     // filters query data
     abstract protected function filter($params);
@@ -15,10 +14,21 @@ abstract class AbstractQuery {
     // __construct the query with a defined database
     public function __construct($db = '') {
         $this->db = $db;
+        $this->setQueryParams();
     }
 
-    // setFilter engages a filter on the query
-    public function setFilter() {
+    // setQueryParams stores URL's query parameters
+    private function setQueryParams() {
+        parse_str($_SERVER['QUERY_STRING'], $this->query_params);
+    }
+
+    // getQueryParams returns an associative array of query params
+    public function getQueryParams() {
+        return $this->query_params;
+    }
+
+    // enableFilter engages a filter on the query
+    public function enableFilter() {
         $this->is_filtered = true;
     }
 
@@ -30,29 +40,35 @@ abstract class AbstractQuery {
         return $csvData;
     }
 
+    // relateUser matches a user based on a Primary Key
     private function relateUser($record = []) {
-        return $record['user_id_PK'] == $this->user_FK;
+        return $this->mapQueryParamToDBColumn('id', 'user_id_PK', $record);
     }
 
+    // relateThread matches a thread based on a Primary Key
     private function relateThread($record = []) {
-        return $record['thread_id_PK'] == $this->thread_FK;
+        return $this->mapQueryParamToDBColumn('thread', 'thread_id_PK', $record);
     }
 
+    // mapQueryParamToDBColumn matches a query param to a DB column if a the query param is present
+    private function mapQueryParamToDBColumn($param, $db_column, $record) {
+        return isset($this->getQueryParams()[$param]) ? $record[$db_column] == $this->getQueryParams()[$param] : true;
+    }
+
+// getRelation('Threads', 'relateThread', 'thread_name')
     private function getRelation($db, $filter, $property) {
-        $users = file_get_contents(__ROOT__ . "/database/" . $db . "DB.csv");
-        $user_rows = explode(PHP_EOL, trim($users));
-        $user_data = array_slice($user_rows, 1);
-        $user_keys = array_fill(0, count($user_data), $user_rows[0]);
+        $raw_db_table_data = file_get_contents(__ROOT__ . "/database/" . $db . "DB.csv");
+        $raw_records = explode(PHP_EOL, trim($raw_db_table_data));
+        $records = array_slice($raw_records, 1);
+        $columns = array_fill(0, count($records), $raw_records[0]);
 
-        $user_json = array_map(function ($user_row, $user_key) {
+        $json = array_map(function ($user_row, $user_key) {
             return array_combine(str_getcsv($user_key), str_getcsv($user_row));
-        }, $user_data, $user_keys);
+        }, $records, $columns);
 
-        $user = array_filter($user_json, [$this, $filter]);
-        return reset($user)[$property];
+        $filtered_json = array_filter($json, [$this, $filter]);
+        return reset($filtered_json)[$property];
     }
-
-    private function getTotalReplies() {}
 
     // marshallCSVtoJSON marshalls CSV data into JSON format
     private function marshallCSVtoJSON($csv) {
@@ -64,31 +80,39 @@ abstract class AbstractQuery {
             return array_combine(str_getcsv($key), str_getcsv($row));
         }, $data, $keys);
 
+        $computed_json = $this->computeRelationalValue($json);
+
+        // return unfiltered data
+        if (!$this->is_filtered) {
+            return json_encode($computed_json);
+        }
+
+        // return filter data
+        if ($this->is_filtered) {
+            // re-index filtered arrays to maintain an array data type
+            return json_encode(array_values(array_filter($computed_json, [$this, 'filter'])));
+        }
+    }
+
+    // computeRelationalValue computes and adds relational query values to an JSON object
+    private function computeRelationalValue($json) {
         // query DB to set author using id
         if (isset($json[0]['post_thread_id'])) {
             foreach ($json as $record_key => $record_value) {
                 $acc = 0;
+                // set computed values in return data
                 foreach ($record_value as $key => $value) {
                     if ($key == 'post_thread_id' && is_numeric($value)) {
-                        $this->thread_FK = $value;
                         $json[$record_key]['thread_name'] = $this->getRelation('Threads', 'relateThread', 'thread_name');
                     }
                     if ($key == 'post_author_id' && is_numeric($value)) {
-                        $this->user_FK = $value;
                         $json[$record_key]['author_username'] = $this->getRelation('Users', 'relateUser', 'user_username');
                     }
                     $json[$record_key]['replies'] = $acc++;
                 }
             }
         }
-
-        if (!$this->is_filtered) {
-            return json_encode($json);
-        }
-        if ($this->is_filtered) {
-            // re-index filtered arrays to maintain an array data type
-            return json_encode(array_values(array_filter($json, [$this, 'filter'])));
-        }
+        return $json;
     }
 
     // execute executes the database query and returns JSON data

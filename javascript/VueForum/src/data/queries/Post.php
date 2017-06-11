@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $DBquery = new Most_Recent_Post('Posts');
 
     if (count($_GET) > 0) {
-        $DBquery->setFilter();
+        $DBquery->enableFilter();
     }
 
     $DBquery->execute();

@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
     // filter if there are url filter params
     if (count($_GET) > 0) {
-        $query->setFilter();
+        $query->enableFilter();
     }
 
     $query->execute();

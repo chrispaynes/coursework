@@ -12,7 +12,7 @@ class Most_Recent_Post extends AbstractQuery {
 
 if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['date'])) {
     $query = new Most_Recent_Post("Posts");
-    $query->setFilter();
+    $query->enableFilter();
     $query->execute();
 }
 
