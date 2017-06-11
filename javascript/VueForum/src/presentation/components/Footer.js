@@ -1,4 +1,4 @@
-Vue.component('app-footer', {
+var appFooter = Vue.component('app-footer', {
     template: `
         <div id='footer_component' class='col-xs-12 margin-top-xl'>
             <hr class='hr-bdr-4 margin-bottom-0' />

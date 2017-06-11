@@ -57,7 +57,7 @@ var Thread = Vue.component('thread', {
         self.posts = response.data;
         self.title = response.data[0].thread_name;
         self.author = response.data.find(function(p) {
-            return p.post_is_reply == 'false';
+            return p.post_is_reply === 'false';
         }).author_username;
     })
     .catch(function(error) {

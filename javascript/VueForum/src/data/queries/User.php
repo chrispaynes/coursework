@@ -19,7 +19,7 @@ class User extends AbstractQuery {
 }
 
 if ($_SERVER["REQUEST_METHOD"] === "GET") {
-    $query = new User("UserDB");
+    $query = new User("Users");
 
     // filter if there are url filter params
     if (count($_GET) > 0) {
