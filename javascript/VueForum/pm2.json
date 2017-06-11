@@ -1,0 +1,20 @@
+{
+  "apps" : [{
+    "name"        : "VueForum",
+    "script"      : "./node_modules/.bin/gulp",
+    "watch"       : false,
+    "env": {
+      "NODE_ENV": "development"
+    },
+    "env_production" : {
+        "NODE_ENV": "production"
+    },
+    "instances"  : 1,
+  },
+    {
+    "name"        : "MochaTests",
+    "script"      : "./node_modules/.bin/mocha",
+    "watch"       : false,
+    "instances"  : 1,
+  }]
+}
