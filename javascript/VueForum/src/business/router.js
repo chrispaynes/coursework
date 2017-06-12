@@ -1,17 +1,18 @@
 var routes = [
-  { path: '/', component: ForumIndex },
-  { path: '/thread/new', component: NewThread },
-  { path: '/thread/', component: Thread },
-  { path: '/thread/:thread', component: Thread },
-  { path: '/register', component: Registration },
-  { path: '*', component: { template: '<div>Not Found</div>' } },
+    { path: '/', component: ForumIndex },
+    { path: '/thread/new', component: NewThread },
+    { path: '/thread/', component: Thread },
+    { path: '/thread/:thread', component: Thread },
+    { path: '/register', component: Registration },
+    { path: '/profile', component: Profile },
+    { path: '*', component: { template: '<div>Not Found</div>' } },
 ];
 
 var router = new VueRouter({
-  routes: routes,
+    routes: routes,
 });
 
 new Vue({
-  routes: router,
-  el: '#app',
+    routes: router,
+    el: '#app',
 });
