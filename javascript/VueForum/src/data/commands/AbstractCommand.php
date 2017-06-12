@@ -26,9 +26,9 @@ abstract class AbstractCommand {
     }
 
     private function writeToCSV($CSVinput) {
-        print_r($CSVinput);
+        // print_r($CSVinput);
         if (!empty($CSVinput)) {
-            $filepath = __ROOT__ . "/database/" . $this->db . ".csv";
+            $filepath = __ROOT__ . "/database/" . $this->db . "DB.csv";
             $file = fopen($filepath, "ab");
 
             // add column headers if the file is new
@@ -36,6 +36,13 @@ abstract class AbstractCommand {
                 $columns = ['user_id_PK', 'user_username', 'user_password', 'user_firstname', 'user_lastname', 'user_email', 'user_is_admin'];
                 fputcsv($file, $columns);
             }
+
+// $file = fopen("contacts.csv","w");
+
+// foreach ($list as $line)
+            //   {
+            //   fputcsv($file,explode(',',$line));
+            //   }
 
             // write the array to the csv
             fputcsv($file, $CSVinput);

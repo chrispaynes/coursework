@@ -1,7 +1,7 @@
 <?php
 use App\AbstractCommand;
 
-require_once 'AbstractCommand.php';
+require_once __DIR__ . '/AbstractCommand.php';
 
 // Registration commands the DB to store a post
 class Post extends AbstractCommand {
