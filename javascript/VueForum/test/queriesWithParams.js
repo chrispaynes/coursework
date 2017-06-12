@@ -2,19 +2,28 @@ const request = require('supertest');
 const math = require('mathjs');
 const db = 'http://localhost/dev/VueForum/dist/data/queries';
 const queriesWithParams = {
-    posts: {
+    posts_ids: {
         path: "/Post.php?post=",
-        success_params: math.range(1, 10),
-        fail_params: math.range(11, 20)
+        success_params: math.range(1, 8),
+        fail_params: math.range(11, 15)
     },
-    threads: {
+    posts_thread_ids: {
+        path: "/Post.php?thread=",
+        success_params: math.range(1, 4),
+        fail_params: math.range(11, 15)
+    },
+    posts_author_ids: {
+        path: "/Post.php?author=",
+        success_params: math.range(0, 8),
+        fail_params: math.range(11, 15)
+    },
+    threads_ids: {
         path: "/Thread.php?thread=",
         success_params: math.range(1, 4),
         fail_params: math.range(10, 40, 10)
     }
 };
 
-console.log(math.range(1, 4)._data)
 // ._data.concat('Placid and passive? Extra safe? Readers describe Seattle’s driving culture'.replace(/ /g, "%20")
 const schemas = {
     POST: {
@@ -66,18 +75,42 @@ const schemas = {
     },
 };
 
-// test all PHP API query endpoints
-// loop through each query object
-Object.keys(queriesWithParams).map(q => queriesWithParams[q]).map(result => {
-    result.success_params.map((sp, index, arr) => describe('GET ' + db + result.path + ' with query param "'+ sp + '"', function() {
-        var path = result.path + sp;
-        it('should respond with json content', function(done) {
-            request(db)
-                .get(path)
-                .set('Accept', 'application/json')
-                .expect('Content-Type', /json/)
-                .expect(200, done);
-        });
+function queryParamList(list, path, expected_response) {
+    list.map((sp, index, arr) => describe('GET ' + db + path + ' with query param "' + sp + '"', function() {
+        let url = path + sp;
+        if (expected_response === 'SUCCESS') {
+            it('should respond with json content', function(done) {
+                request(db)
+                    .get(url)
+                    .set('Accept', 'application/json')
+                    .expect('Content-Type', /json/)
+                    .expect(res => {
+                        if(!res.body.length > 0 ) {
+                            throw new Error("Expect Response body was empty array")
+                        }
+                        console.log(res.body)
+                        res.body.length = 1;
+                    })
+                    .expect(200, done);
+            });
+        }
+        if (expected_response === 'EMPTY') {
+            // console.log('URL', url)
+            it('should respond with an empty array', function(done) {
+                request(db)
+                    .get(url)
+                    .set('Accept', 'application/json')
+                    .expect([])
+                    .expect('Content-Type', /json/)
+                    .expect(200, done);
+            });
+        }
     }));
+}
 
+// test all PHP API query endpoints
+// loop through each query object and get each success or fail query param
+Object.keys(queriesWithParams).map(q => queriesWithParams[q]).map(result => {
+    queryParamList(result.success_params, result.path, 'SUCCESS');
+    queryParamList(result.fail_params, result.path, 'EMPTY');
 });

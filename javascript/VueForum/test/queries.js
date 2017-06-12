@@ -88,7 +88,7 @@ queries.map(q => {
                         .forEach((k, i) => {
                             // throw error is DB values don't match type
                             if (!verifyType(res.body[i][k], model.schema[k])) {
-                                throw new Error('verifyType Failed: expected value "' + res.body[i][k] + '" to be a "' + USER.schema[k] + '"');
+                                throw new Error('verifyType Failed: expected value "' + res.body[i][k] + '" to be a "' + model.schema[k] + '"');
                             }
                         });
                     done();
@@ -96,7 +96,6 @@ queries.map(q => {
         });
     });
 });
-
 
 // verifyType verifies a value matches its expected data type
 function verifyType(value, type) {
