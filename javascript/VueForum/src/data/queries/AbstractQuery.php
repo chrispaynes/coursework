@@ -7,6 +7,7 @@ abstract class AbstractQuery {
     private $db = '';
     private $is_filtered = false;
     private $query_params = [];
+    private $record_key = 0;
 
     // filters query data
     abstract protected function filter($params);
@@ -50,12 +51,11 @@ abstract class AbstractQuery {
         return $this->mapQueryParamToDBColumn('thread', 'thread_id_PK', $record);
     }
 
-    // mapQueryParamToDBColumn matches a query param to a DB column if a the query param is present
+    // mapQueryParamToDBColumn matches a query param or record_key to a DB column
     private function mapQueryParamToDBColumn($param, $db_column, $record) {
-        return isset($this->getQueryParams()[$param]) ? $record[$db_column] == $this->getQueryParams()[$param] : true;
+        return isset($this->getQueryParams()[$param]) ? $record[$db_column] == $this->getQueryParams()[$param] : $record[$db_column] == $this->record_key;
     }
 
-// getRelation('Threads', 'relateThread', 'thread_name')
     private function getRelation($db, $filter, $property) {
         $raw_db_table_data = file_get_contents(__ROOT__ . "/database/" . $db . "DB.csv");
         $raw_records = explode(PHP_EOL, trim($raw_db_table_data));
@@ -99,9 +99,11 @@ abstract class AbstractQuery {
         // query DB to set author using id
         if (isset($json[0]['post_thread_id'])) {
             foreach ($json as $record_key => $record_value) {
+                // $this->record_key = $record_key;
                 $acc = 0;
                 // set computed values in return data
                 foreach ($record_value as $key => $value) {
+                    $this->record_key = $value;
                     if ($key == 'post_thread_id' && is_numeric($value)) {
                         $json[$record_key]['thread_name'] = $this->getRelation('Threads', 'relateThread', 'thread_name');
                     }

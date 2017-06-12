@@ -1,26 +1,23 @@
 <?php
 use App\AbstractQuery;
+use App\QueryFilter;
 
-require_once 'AbstractQuery.php';
+require_once __DIR__ . '/AbstractQuery.php';
+require_once __DIR__ . '/QueryFilter.php';
 
-// Most_Recent_Post queries the DB for the most recently published post
-class Most_Recent_Post extends AbstractQuery {
+// Post queries the DB for the most recently published post
+class Post extends AbstractQuery {
     protected function filter($params = []) {
-        if (isset($_GET["author"])) {
-            if (is_numeric($_GET["author"])) {
-                return $params['post_author_id'] == $_GET['author'];
-            }
-            if (!is_numeric($_GET["author"])) {
-                return strtolower($params['author_username']) == strtolower($_GET['author']);
-            }
-        }
-        return true;
+        $qf = new QueryFilter($params);
+
+        return $qf->execute();
     }
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    $DBquery = new Most_Recent_Post('Posts');
+    $DBquery = new Post('Posts');
 
+    // filter the data if there are url params are present
     if (count($_GET) > 0) {
         $DBquery->enableFilter();
     }

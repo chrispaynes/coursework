@@ -1,7 +1,7 @@
 <?php
 use App\AbstractQuery;
 
-require_once 'AbstractQuery.php';
+require_once __DIR__ . '/AbstractQuery.php';
 
 // Subforum_Index queries the DB for all threads within a subforum
 class Subforum_Index extends AbstractQuery {

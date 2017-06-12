@@ -1,30 +1,27 @@
 <?php
 use App\AbstractQuery;
+use App\QueryFilter;
 
-require_once 'AbstractQuery.php';
+require_once __DIR__ . '/AbstractQuery.php';
+require_once __DIR__ . '/QueryFilter.php';
 
 // User queries the DB for all registered forum users
 class User extends AbstractQuery {
-
     protected function filter($params) {
-        $_GET = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);
-        if (isset($_GET['id'])) {
-            return $params["user_id_PK"] === $_GET['id'];
-        }
-        if (isset($_GET['username'])) {
-            return strtolower($params["user_username"]) == strtolower($_GET['username']);
-        }
-        return true;
+        $qf = new QueryFilter($params);
+
+        return $qf->execute();
     }
 }
 
 if ($_SERVER["REQUEST_METHOD"] === "GET") {
     $query = new User("Users");
 
-    // filter if there are url filter params
+    // filter the data if there are url params are present
     if (count($_GET) > 0) {
         $query->enableFilter();
     }
+
     $query->execute();
 }
 
