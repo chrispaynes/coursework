@@ -11,10 +11,10 @@ abstract class AbstractCommand {
     private $inputErrors = [];
 
     // setInputs
-    abstract protected function setInputs();
+    abstract protected function setInputs($destination = '');
 
     // __construct the command with a defined database
-    public function __construct($db) {
+    public function __construct($db = '') {
         $this->db = $db;
     }
 
@@ -26,10 +26,9 @@ abstract class AbstractCommand {
     }
 
     private function writeToCSV($CSVinput) {
-        // print_r($CSVinput);
         if (!empty($CSVinput)) {
-            $filepath = __ROOT__ . "/database/" . $this->db . "DB.csv";
-            $file = fopen($filepath, "ab");
+            $filepath = __ROOT__ . '/database/' . $this->db . 'DB.csv';
+            $file = fopen($filepath, 'ab');
 
             // add column headers if the file is new
             if (filesize($filepath) == 0) {
@@ -37,42 +36,33 @@ abstract class AbstractCommand {
                 fputcsv($file, $columns);
             }
 
-// $file = fopen("contacts.csv","w");
-
-// foreach ($list as $line)
-            //   {
-            //   fputcsv($file,explode(',',$line));
-            //   }
-
             // write the array to the csv
             fputcsv($file, $CSVinput);
             fclose($file);
         }
     }
 
-    private function displayInputErrors($errors) {
-        $body = "";
+    private function displayInputErrors($errors = []) {
+        $body = '';
         foreach ($errors as $e) {
-            $body .= "Error: " . $e . "<br>";
+            $body .= 'Error: ' . $e . '<br>';
         }
-        echo $body;
     }
 
     // displayInput displays the input back
-    private function displayInput($inputs) {
-        $body = "";
+    private function displayInput($inputs = []) {
+        $body = '';
         foreach ($inputs as $key => $value) {
-            $body .= "$key : $value <br>";
+            $body .= '$key : $value <br>';
         }
-        echo $body;
     }
 
     // inputIsComplete validates that all inputs are filled out
-    private function inputIsComplete($inputs) {
+    private function inputIsComplete($inputs = []) {
         $errors = [];
         foreach ($inputs as $key => $value) {
             if (empty($value) || !isset($value)) {
-                $errors[] = "Missing " . $key;
+                $errors[] = 'Missing ' . $key;
             }
         }
 

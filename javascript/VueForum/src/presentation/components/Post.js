@@ -24,7 +24,7 @@ var Post = Vue.component('post', {
     beforeCreate: function() {
         var self = this;
 
-        axios.get('data/queries/forum_index.php', {})
+        axios.get('data/queries/Forum_Index.php', {})
         .then(function (response) {
             self.headers = Object.keys(response.data[0]);
             self.items = response.data;

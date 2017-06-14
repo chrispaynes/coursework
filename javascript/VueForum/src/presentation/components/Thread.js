@@ -34,34 +34,49 @@ var Thread = Vue.component('thread', {
                     <hr class='col-xs-12'/>
                 </div>
             </li>
-            <reply-form></reply-form>
+            <div v-if="isLoggedIn">
+                <reply-form></reply-form>
+            </div>
+            <div v-if="!isLoggedIn">
+                <router-link to='/register'>Login</router-link> or
+                <router-link to='/register'>Register</router-link> to reply
+            </div>
         </ul>
     </div>
     `,
     data: function() {
-    return { posts: [], title: '', author: '',
-        styleObject: {
-            authorBG: 'red',
-            fontSize: '13px',
-        }};
+        return { posts: [],
+            title: '',
+            author: '',
+            username: this.username,
+            user_id: this.user_id,
+            isLoggedIn: this.isLoggedIn || false,
+        };
     },
     beforeCreate: function() {
-    var self = this;
+        var self = this;
 
-    axios.get('./data/queries/Thread.php', {
-        params: {
-            thread: this.$route.query.thread,
-        },
-    })
-    .then(function(response) {
-        self.posts = response.data;
-        self.title = response.data[0].thread_name;
-        self.author = response.data.find(function(p) {
-            return p.post_is_reply === 'false';
-        }).author_username;
-    })
-    .catch(function(error) {
-        console.log(error);
-    });
+        axios.get('./data/queries/Thread.php', {
+            params: {
+                thread: this.$route.query.thread,
+            },
+        })
+        .then(function(response) {
+            self.posts = response.data;
+            self.title = response.data[0].thread_name;
+            self.author = response.data.find(function(p) {
+                return p.post_is_reply === 'false';
+            }).author_username;
+        })
+        .catch(function(error) {
+            console.log(error);
+        });
+
+        if(Cookies.length >= 2 && Cookies.get('user_id') && Cookies.get('username')) {
+            this.username = Cookies.get('username').length > 0  ? Cookies.get('username') : false;
+            this.user_id = Cookies.get('user_id').length > 0 ? Cookies.get('user_id') : false;
+            this.isLoggedIn = true;
+        }
     },
 });
+

@@ -15,38 +15,38 @@ class Registration extends AbstractCommand {
     protected $inputs = [];
 
     // setInputs defines all necessary user inputs
-    protected function setInputs() {
+    protected function setInputs($destination = '') {
         $this->inputs = [
-            "user_id_PK" => $this->nextPK,
-            "user_username" => $this->username,
-            "user_password" => $this->password,
-            "user_firstname" => $this->firstname,
-            "user_lastname" => $this->lastname,
-            "user_email" => $this->email,
-            "user_is_admin" => $this->is_admin,
+            'user_id_PK' => $this->nextPK,
+            'user_username' => $this->username,
+            'user_password' => $this->password,
+            'user_firstname' => $this->firstname,
+            'user_lastname' => $this->lastname,
+            'user_email' => $this->email,
+            'user_is_admin' => $this->is_admin,
         ];
     }
 
-    public function setUsername($arg) {
+    public function setUsername($arg = '') {
         $this->username = $arg;
     }
-    public function setPassword($arg) {
+    public function setPassword($arg = '') {
         $this->password = $arg;
     }
-    public function setFirstname($arg) {
+    public function setFirstname($arg = '') {
         $this->firstname = $arg;
     }
-    public function setLastname($arg) {
+    public function setLastname($arg = '') {
         $this->lastname = $arg;
     }
-    public function setEmail($arg) {
+    public function setEmail($arg = '') {
         $this->email = $arg;
     }
 
     // setNextPrimaryKey counts the rows in a table and uses the count to determine the next PK
     public function setNextPrimaryKey() {
         $c = 0;
-        $db_table = fopen(__ROOT__ . "/database/UsersDB.csv", "r");
+        $db_table = fopen(__ROOT__ . '/database/UsersDB.csv', 'r');
         if ($db_table) {
             while (!feof($db_table)) {
                 $content = fgets($db_table);
@@ -60,29 +60,35 @@ class Registration extends AbstractCommand {
     }
 
     public function sanitize() {
-        $this->setUsername(AbstractCommand::sanitizeInput($_POST["uname"]));
+        $this->setUsername(AbstractCommand::sanitizeInput($_POST['uname']));
         // @todo: Hash password for security
-        $this->setPassword(AbstractCommand::sanitizeInput($_POST["pwd"]));
-        $this->setFirstname(AbstractCommand::sanitizeInput($_POST["fname"]));
-        $this->setLastname(AbstractCommand::sanitizeInput($_POST["lname"]));
-        $this->setEmail(AbstractCommand::sanitizeInput($_POST["email"]));
-        $this->setInputs();
+        $this->setPassword(AbstractCommand::sanitizeInput($_POST['pwd']));
+        $this->setFirstname(AbstractCommand::sanitizeInput($_POST['fname']));
+        $this->setLastname(AbstractCommand::sanitizeInput($_POST['lname']));
+        $this->setEmail(AbstractCommand::sanitizeInput($_POST['email']));
+        $this->setInputs('Users');
+    }
+
+    public function clearUsername() {
+        setcookie('user_id', '', time() - 3600, '/');
+        setcookie('username', '', time() - 3600, '/');
     }
 
     public function storeUsername() {
-        setcookie("user_id", $this->nextPK, time() + 31536000, "/");
-        setcookie("username", $this->username, time() + 31536000, "/");
+        setcookie('user_id', $this->nextPK, time() + 31536000, '/');
+        setcookie('username', $this->username, time() + 31536000, '/');
     }
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["register"])) {
-    $command = new Registration("Users");
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
+    $command = new Registration('Users');
+    $command->clearUsername();
     $command->setNextPrimaryKey();
-    $command->sanitize();
-    $command->execute();
+    $command->sanitize('Users');
     $command->storeUsername();
+    $command->execute();
 
-    header("Location: http://localhost/dev/VueForum/dist/");
+    header('Location: http://sotd.us/dwightpaynes/forum/');
     die();
 }
 

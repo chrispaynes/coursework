@@ -26,7 +26,7 @@ var NewThread = Vue.component('new-thread-form', {
     beforeCreate: function() {
         var self = this;
 
-        if(Cookies.length > 0 && Cookies.get('username') && Cookies.get('user_id')) {
+        if(Cookies.length > 0 && Cookies.get('username').length > 0 && Cookies.get('user_id').length > 0) {
             self.username = Cookies.get('username');
             self.user_id = Cookies.get('user_id');
         }

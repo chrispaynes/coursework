@@ -11,7 +11,7 @@ const watch = require('gulp-watch');
 
 const CSS_source = ['./src/presentation/css/main.css'];
 const HTML_source = './index.html';
-const JS_source = ['./src/vendor/vue.min.js', './src/vendor/vue-router.min.js', './src/vendor/axios.min.js', './src/vendor/check-types.min.js', './src/presentation/**/*.js', './src/business/**/*.js', './src/business/router.js', './app.js'];
+const JS_source = ['./src/vendor/vue.min.js', './src/vendor/vue-router.min.js', './src/vendor/axios.min.js', './src/vendor/check-types.min.js', './src/vendor/js.cookie.js', './src/vendor/sha1.js', './src/presentation/**/*.js', './src/business/**/*.js', './src/business/router.js', './app.js'];
 const PHP_source = ['./src/data/**/*'];
 const DB_source = ['./src/database/**/*.csv'];
 

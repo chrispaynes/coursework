@@ -4,7 +4,9 @@ var routes = [
     { path: '/thread/', component: Thread },
     { path: '/thread/:thread', component: Thread },
     { path: '/register', component: Registration },
+    { path: '/login', component: Login },
     { path: '/profile', component: Profile },
+    { path: '/users', component: UserIndex },
     { path: '*', component: { template: '<div>Not Found</div>' } },
 ];
 

@@ -88,7 +88,6 @@ function queryParamList(list, path, expected_response) {
                         if(!res.body.length > 0 ) {
                             throw new Error("Expect Response body was empty array")
                         }
-                        console.log(res.body)
                         res.body.length = 1;
                     })
                     .expect(200, done);

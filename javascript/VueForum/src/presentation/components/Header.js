@@ -1,6 +1,7 @@
 Vue.component('app-header', {
     template: `
     <div id='header_component' class='container-fluid col-xs-12 margin-bottom-xl text-center'>
+        <h1 class='text-center margin-lg'>User Index</h1>
         <div class='row'>
             <div id='logo' class='col-xs-12 col-md-4'>
                 <h1 class='text-size-lg'><span class='txt-blue'>Vue</span><span class='txt-green'>Forums</span></h1>
@@ -9,14 +10,14 @@ Vue.component('app-header', {
                 <div class='container-fluid'>
                     <div class='row' v-if="isLoggedOut">
                         <router-link class='col-xs-12 col-sm-3' to='/'>Home</router-link>
-                        <router-link class='col-xs-12 col-sm-3' to='/profile'>View Users</router-link>
+                        <router-link class='col-xs-12 col-sm-3' to='/users'>View Users</router-link>
                         <router-link class='col-xs-12 col-sm-3' to='/register'>Register</router-link>
-                        <router-link class='col-xs-12 col-sm-3' to='/register'>Login</router-link>
+                        <router-link class='col-xs-12 col-sm-3' to='/login'>Login</router-link>
                     </div>
                     <div class='row' v-else>
                         <router-link class='col-xs-12 col-sm-2' to='/'>Home</router-link>
                         <router-link class='col-xs-12 col-sm-2' to='/profile'>User Profile</router-link>
-                        <router-link class='col-xs-12 col-sm-2' to='/profile'>View Users</router-link>
+                        <router-link class='col-xs-12 col-sm-2' to='/users'>View Users</router-link>
                         <router-link class='col-xs-12 col-sm-2' to='/thread/new'>New Thread</router-link>
                         <a href='#' class='col-xs-12 col-sm-4' v-on:click="logout()">{{this.username}} (Logout)</a>
                     </div>
@@ -33,9 +34,9 @@ Vue.component('app-header', {
     beforeCreate: function() {
         this.isLoggedOut = true;
 
-        if(Cookies.length > 0 && Cookies.get('username') && Cookies.get('user_id')) {
-            this.username = Cookies.get('username');
-            this.user_id = Cookies.get('user_id');
+        if(Cookies.length >= 2 && Cookies.get('user_id') && Cookies.get('username')) {
+            this.username = Cookies.get('username').length > 0  ? Cookies.get('username') : false;
+            this.user_id = Cookies.get('user_id').length > 0 ? Cookies.get('user_id') : false;
             this.isLoggedOut = false;
         }
     },

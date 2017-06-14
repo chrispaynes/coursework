@@ -1,7 +1,7 @@
 var Registration = Vue.component('registration', {
     template: `
         <div id='registration_component' class='col-xs-12'>
-            <form id='registration_form' action='data/commands/registration.php' method='POST'>
+            <form id='registration_form' action='data/commands/Registration.php' method='POST'>
                 <h1 class='text-center margin-lg'>Forum Registration</h1>
                 <div class='form-group col-xs-12 col-sm-6'>
                     <label class='col-xs-12 col-sm-3 txt-green text-size-sm'>Username</label>
