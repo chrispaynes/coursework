@@ -22,18 +22,19 @@ function handleOnMessage(message) {
       try {
         if (!res.intent || !res.intent[0] || !res.intent[0].value) {
           throw new Error('Could not extract intent');
-
-          // pair the response intent with it's corresponding codebase
-          const intent = require('../intents/' + res.intent[0].value + 'Intent');
-
-          intent.process(res, (error, response) => {
-            if (error) {
-              return;
-            }
-
-            rtm.sendMessage(response, message.channel);
-          });
         }
+
+        // pair the response intent with it's corresponding codebase
+        const intent = require('../intents/' + res.intent[0].value + 'Intent');
+
+        intent.process(res, (error, response) => {
+          if (error) {
+            return;
+          }
+
+          rtm.sendMessage(response, message.channel);
+        });
+
       } catch (err) {
         rtm.sendMessage("Sorry, I don't understand what you're asking", message.channel);
       }
@@ -58,9 +59,7 @@ function addAuthenticatedHandler(rtm, handler) {
 // init initializes and returns a new slack client with
 // authentication event handling and message handling.
 module.exports.init = (botToken, logLevel, nlpClient) => {
-  rtm = new RtmClient(botToken, {
-    logLevel: logLevel,
-  });
+  rtm = new RtmClient(botToken, { logLevel });
   nlp = nlpClient;
   addAuthenticatedHandler(rtm, handleOnAuthenticated);
   rtm.on(RTM_EVENTS.MESSAGE, handleOnMessage);
