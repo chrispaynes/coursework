@@ -1,5 +1,6 @@
 module.exports.process = function process(intentData, cb) {
   if (intentData.intent[0].value !== 'time') {
+    console.log(intentData.intent)
     return cb(new Error(`Expected a time intent but received ${intentData.intent[0].value}`));
   }
 

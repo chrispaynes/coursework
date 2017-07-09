@@ -7,9 +7,9 @@ function handleWitResponse(res) {
 module.exports = function witClient(token) {
   const ask = function ask(message, cb) {
     request.get('https://api.wit.ai/message')
-      .set('Authorization', `Bearer  ${token}`)
+      .set('Authorization', `Bearer ${token}`)
       .query({
-        v: '20160919',
+        v: '20170709&q',
       })
       .query({
         q: message,
@@ -27,7 +27,5 @@ module.exports = function witClient(token) {
       });
   };
 
-  return {
-    ask: ask,
-  };
+  return { ask };
 };
